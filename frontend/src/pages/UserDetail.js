@@ -28,7 +28,7 @@ export default function UserDetail() {
       setLoading(true);
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/admin/users/${userId}`,
+        `${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/admin/users/${userId}`,
         { headers: { 'Authorization': `Bearer ${token}` } }
       );
       
@@ -91,7 +91,7 @@ export default function UserDetail() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/admin/users/${userId}`,
+        `${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/admin/users/${userId}`,
         {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }

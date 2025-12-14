@@ -15,7 +15,7 @@ export default function BootcampBanner() {
 
   const fetchBootcamp = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/bootcamps/upcoming');
+      const response = await fetch('https://ifitness.onrender.com/api/bootcamps/upcoming');
       const data = await response.json();
       if (data && data._id) {
         setBootcamp(data);
