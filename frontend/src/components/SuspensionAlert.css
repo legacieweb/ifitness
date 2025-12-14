@@ -1,0 +1,103 @@
+.suspension-alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.suspension-alert-container {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.suspension-alert-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.suspension-alert-container h2 {
+  color: #dc3545;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 15px 0;
+}
+
+.suspension-reason {
+  color: #666;
+  font-size: 16px;
+  margin: 0 0 30px 0;
+  line-height: 1.5;
+}
+
+.suspension-countdown {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 30px 20px;
+  margin: 30px 0;
+  border: 2px solid #dc3545;
+}
+
+.suspension-countdown p {
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+}
+
+.countdown-timer {
+  font-size: 48px;
+  font-weight: 700;
+  color: #dc3545;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+}
+
+.suspension-message {
+  color: #888;
+  font-size: 14px;
+  margin: 0;
+  font-style: italic;
+}
