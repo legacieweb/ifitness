@@ -74,11 +74,13 @@ router.get('/stats/:id', protect, async (req, res) => {
     const totalCalories = workouts.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0);
     const totalDuration = workouts.reduce((sum, w) => sum + (w.duration || 0), 0);
 
+    const avgCalories = totalWorkouts > 0 ? totalCalories / totalWorkouts : 0;
+    
     res.json({
       totalWorkouts,
-      totalCalories,
+      totalCalories: Math.round(totalCalories),
       totalDuration,
-      averageCaloriesPerWorkout: totalWorkouts > 0 ? (totalCalories / totalWorkouts).toFixed(2) : 0,
+      averageCaloriesPerWorkout: Math.round(avgCalories),
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

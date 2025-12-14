@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getUserStats } from '../services/api';
 import BootcampAlert from '../components/BootcampAlert';
+import CustomWorkoutModal from '../components/CustomWorkoutModal';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -17,6 +18,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [activeWorkout, setActiveWorkout] = useState(null);
+  const [showCustomWorkout, setShowCustomWorkout] = useState(false);
 
   const fetchStats = async () => {
     try {
@@ -57,6 +59,10 @@ export default function Dashboard() {
   const handleDismissWorkout = () => {
     localStorage.removeItem('activeWorkout');
     setActiveWorkout(null);
+  };
+
+  const handleWorkoutCreated = () => {
+    setRefreshTrigger(prev => prev + 1);
   };
 
   const getWeekday = () => {
@@ -122,7 +128,7 @@ export default function Dashboard() {
         <div className="stat-card stat-card-2">
           <div className="stat-icon"><i className="bi bi-fire"></i></div>
           <div className="stat-content">
-            <div className="stat-number">{stats.totalCalories.toFixed(0)}</div>
+            <div className="stat-number">{stats.totalCalories || 0}</div>
             <div className="stat-label">Calories Burned</div>
           </div>
         </div>
@@ -136,7 +142,7 @@ export default function Dashboard() {
         <div className="stat-card stat-card-4">
           <div className="stat-icon"><i className="bi bi-graph-up"></i></div>
           <div className="stat-content">
-            <div className="stat-number">{Math.round(stats.averageCaloriesPerWorkout)}</div>
+            <div className="stat-number">{stats.averageCaloriesPerWorkout || 0}</div>
             <div className="stat-label">Avg Cal/Workout</div>
           </div>
         </div>
@@ -145,11 +151,15 @@ export default function Dashboard() {
       <div className="quick-actions">
         <h3>Quick Actions</h3>
         <div className="actions-grid">
-          <Link to="/workouts/new" className="action-card action-card-1">
+          <button 
+            onClick={() => setShowCustomWorkout(true)}
+            className="action-card action-card-1"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
+          >
             <div className="action-icon"><i className="bi bi-plus-circle-fill"></i></div>
-            <h6>Start Workout</h6>
-            <p>Log a new session</p>
-          </Link>
+            <h6>Create Workout</h6>
+            <p>Build custom routine</p>
+          </button>
           <Link to="/workouts" className="action-card action-card-2">
             <div className="action-icon"><i className="bi bi-book-fill"></i></div>
             <h6>View History</h6>
@@ -204,6 +214,13 @@ export default function Dashboard() {
           <Link to="/nutrition" className="btn btn-light-primary">Open Nutrition Tracker</Link>
         </div>
       </div>
+
+      {showCustomWorkout && (
+        <CustomWorkoutModal 
+          onClose={() => setShowCustomWorkout(false)}
+          onWorkoutCreated={handleWorkoutCreated}
+        />
+      )}
     </div>
   );
 }

@@ -171,7 +171,7 @@ function App() {
           <div className="container">
             <div className="row mb-5">
               <div className="col-md-3 mb-4 mb-md-0">
-                <h5><i className="bi bi-activity"></i> FitTracker</h5>
+                <h5><i className="bi bi-activity"></i> ifitness</h5>
                 <p style={{ color: '#d1d5db', fontSize: '14px' }}>Your personal fitness companion for tracking workouts, monitoring progress, and achieving your fitness goals.</p>
               </div>
               <div className="col-md-3 mb-4 mb-md-0">
@@ -203,7 +203,7 @@ function App() {
               </div>
             </div>
             <div className="footer-divider">
-              <p>&copy; 2024 FitTracker. All rights reserved. | <a href="#" style={{ color: '#d1d5db' }}>Privacy Policy</a> | <a href="#" style={{ color: '#d1d5db' }}>Terms of Service</a></p>
+              <p>&copy; 2026 ifitness. All rights reserved. | <a href="#" style={{ color: '#d1d5db' }}>Privacy Policy</a> | <a href="#" style={{ color: '#d1d5db' }}>Terms of Service</a></p>
             </div>
           </div>
         </footer>

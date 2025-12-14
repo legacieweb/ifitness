@@ -23,7 +23,7 @@ export default function AdminBootcamp() {
 
   const fetchBootcamps = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/bootcamps');
+      const response = await fetch('https://ifitness.onrender.com/api/bootcamps');
       const data = await response.json();
       setBootcamps(data);
       setLoading(false);
@@ -44,8 +44,8 @@ export default function AdminBootcamp() {
       const token = localStorage.getItem('token');
       const method = editingId ? 'PUT' : 'POST';
       const url = editingId
-        ? `http://localhost:5000/api/bootcamps/${editingId}`
-        : 'http://localhost:5000/api/bootcamps';
+        ? `https://ifitness.onrender.com/api/bootcamps/${editingId}`
+        : 'https://ifitness.onrender.com/api/bootcamps';
 
       const response = await fetch(url, {
         method,
@@ -93,7 +93,7 @@ export default function AdminBootcamp() {
     if (window.confirm('Delete this bootcamp?')) {
       try {
         const token = localStorage.getItem('token');
-        await fetch(`http://localhost:5000/api/bootcamps/${id}`, {
+        await fetch(`https://ifitness.onrender.com/api/bootcamps/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });

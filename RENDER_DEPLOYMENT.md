@@ -29,11 +29,12 @@ cd backend && npm start
 - **Type**: Static Site
 - **Build Command:**
 ```bash
-cd frontend && rm -rf node_modules package-lock.json && npm ci && npm run build
+cd frontend && npm ci && npm run build
 ```
 
 **Environment Variables:**
-- `REACT_APP_API_URL`: https://fitness-api.onrender.com
+- `REACT_APP_API_URL`https://ifitness.onrender.com
+
 
 ### Database
 - **Name**: fitnessdb
@@ -63,7 +64,7 @@ If you prefer to set up services manually:
 ### Frontend Setup  
 1. Create a new Static Site on Render
 2. Connect the same repository
-3. Set build command: `cd frontend && rm -rf node_modules package-lock.json && npm ci && npm run build`
+3. Set build command: `cd frontend && npm ci && npm run build`
 4. Set publish directory: `frontend/build`
 5. Add environment variable: `REACT_APP_API_URL` = your backend URL
 

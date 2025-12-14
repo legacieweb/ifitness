@@ -27,7 +27,7 @@ services:
   # Frontend Web Service
   - type: static
     name: fitness-frontend
-    buildCommand: cd frontend && rm -rf node_modules package-lock.json && npm ci && npm run build
+    buildCommand: cd frontend && npm ci && npm run build
     staticPublishPath: ./frontend/build
     envVars:
       - key: REACT_APP_API_URL
