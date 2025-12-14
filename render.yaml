@@ -1,0 +1,34 @@
+services:
+  # Backend API Service
+  - type: web
+    name: fitness-api
+    env: node
+    plan: free
+    buildCommand: cd backend && npm ci
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        fromDatabase:
+          name: fitnessdb
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: REACT_APP_API_URL
+        value: https://fitness-api.onrender.com
+    database:
+      name: fitnessdb
+      databaseName: fitnessdb
+      user: fitness_user
+
+  # Frontend Web Service
+  - type: static
+    name: fitness-frontend
+    buildCommand: cd frontend && rm -rf node_modules package-lock.json && npm ci && npm run build
+    staticPublishPath: ./frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://fitness-api.onrender.com
