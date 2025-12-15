@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const connectDB = require('./config/db');
 
 const app = express();
@@ -17,8 +18,14 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/bootcamps', require('./routes/bootcamps'));
 
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to Fitness API' });
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
