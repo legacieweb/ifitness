@@ -8,6 +8,8 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [focusedField, setFocusedField] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -103,7 +105,11 @@ export default function Login() {
 
                   <div className="form-options">
                     <label className="checkbox-modern">
-                      <input type="checkbox" />
+                      <input 
+                        type="checkbox" 
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                      />
                       <span className="checkmark"></span>
                       Remember me
                     </label>

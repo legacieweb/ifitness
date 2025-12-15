@@ -16,8 +16,19 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [step, setStep] = useState(1);
+  const [focusedField, setFocusedField] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState(0);
   const navigate = useNavigate();
   const { register } = useAuth();
+
+  const calculatePasswordStrength = (pass) => {
+    let strength = 0;
+    if (pass.length >= 8) strength++;
+    if (/[A-Z]/.test(pass)) strength++;
+    if (/[0-9]/.test(pass)) strength++;
+    if (/[^A-Za-z0-9]/.test(pass)) strength++;
+    return strength;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +36,9 @@ export default function Register() {
       ...prev,
       [name]: value,
     }));
+    if (name === 'password') {
+      setPasswordStrength(calculatePasswordStrength(value));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -167,9 +181,18 @@ export default function Register() {
                         </div>
                         <div className="password-strength">
                           <div className="strength-bar">
-                            <div className="strength-fill"></div>
+                            <div className="strength-fill" style={{ 
+                              width: `${(passwordStrength / 4) * 100}%`,
+                              backgroundColor: passwordStrength === 0 ? '#ddd' : passwordStrength === 1 ? '#ff6b6b' : passwordStrength === 2 ? '#ffa500' : passwordStrength === 3 ? '#4CAF50' : '#00BCD4'
+                            }}></div>
                           </div>
-                          <span className="strength-text">Use 8+ characters with letters and numbers</span>
+                          <span className="strength-text">
+                            {passwordStrength === 0 && 'Enter a password'}
+                            {passwordStrength === 1 && 'Weak password'}
+                            {passwordStrength === 2 && 'Fair password'}
+                            {passwordStrength === 3 && 'Good password'}
+                            {passwordStrength === 4 && 'Strong password'}
+                          </span>
                         </div>
                       </div>
 

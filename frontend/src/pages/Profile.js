@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getUserProfile, updateUserProfile } from '../services/api';
+import Preloader from '../components/Preloader';
 
 export default function Profile() {
   const { user } = useAuth();
@@ -66,7 +67,7 @@ export default function Profile() {
   };
 
   if (loading) {
-    return <div className="container mt-5"><p>Loading profile...</p></div>;
+    return <Preloader text="Loading profile..." />;
   }
 
   return (

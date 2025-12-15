@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getUserStats } from '../services/api';
 import BootcampAlert from '../components/BootcampAlert';
-import CustomWorkoutModal from '../components/CustomWorkoutModal';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -18,7 +17,6 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [activeWorkout, setActiveWorkout] = useState(null);
-  const [showCustomWorkout, setShowCustomWorkout] = useState(false);
 
   const fetchStats = async () => {
     try {
