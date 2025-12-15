@@ -68,6 +68,8 @@ If you prefer to set up services manually:
 4. Set publish directory: `frontend/build`
 5. Add environment variable: `REACT_APP_API_URL` = your backend URL
 
+**Important for SPA Routing**: Add a `render.yaml` file in the `frontend` directory to configure routes or use a static server that handles SPA fallback. See "SPA Routing Configuration" section below.
+
 ### Database Setup
 1. Create a new PostgreSQL database on Render
 2. Copy the connection string
@@ -92,6 +94,50 @@ If you prefer to set up services manually:
 - Added cleanup commands to ensure fresh dependency installation
 - Added `build:production` script for explicit production builds
 - Frontend now builds to `build/` folder served by backend as SPA fallback
+
+## SPA Routing Configuration
+
+### ✅ RECOMMENDED: Unified Service (Backend serves Frontend)
+
+Deploy frontend and backend as a single service:
+
+1. **Backend**: Serves both API routes and frontend
+2. **Build**: Frontend builds to `build/` → Backend serves it with SPA fallback
+3. **Single Deploy**: One service on Render
+
+**Render Configuration:**
+- **Service Type**: Web Service
+- **Build Command**: 
+  ```bash
+  cd frontend && npm ci && npm run build && cd ../backend && npm ci
+  ```
+- **Start Command**: 
+  ```bash
+  cd backend && npm start
+  ```
+- Backend (`server.js`) automatically serves `frontend/build` with SPA fallback
+
+### Alternative: Separated Services (Current setup)
+
+If deploying frontend and backend as separate Render services:
+
+**Frontend Static Site:**
+- **Build Command**: `cd frontend && npm ci && npm run build`
+- **Publish Directory**: `frontend/build`
+- **Problem**: Static Sites don't handle SPA routing by default
+- **Solution**: Use a `server.js` with Node Web Service instead (see `frontend/server.js`)
+
+**Better Alternative for Separated Services:**
+1. Create a **Web Service** (not Static Site) for frontend
+2. **Build Command**: `cd frontend && npm ci && npm run build`
+3. **Start Command**: `cd frontend && node server.js`
+4. This uses the included `server.js` which handles SPA routing properly
+
+**Backend Web Service:**
+- **Build Command**: `cd backend && npm ci`
+- **Start Command**: `cd backend && npm start`
+- Serves only `/api/*` routes
+- Has CORS enabled for frontend requests
 
 ## Local Development
 
