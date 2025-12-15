@@ -23,6 +23,7 @@ export default function Workouts() {
   const [timeLeft, setTimeLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [totalSeconds, setTotalSeconds] = useState(0);
+  const [sortBy, setSortBy] = useState('recent');
 
   useEffect(() => {
     fetchWorkouts();
@@ -105,14 +106,35 @@ export default function Workouts() {
     }
   };
 
+  const sortedWorkouts = () => {
+    const sorted = [...workouts];
+    if (sortBy === 'recent') {
+      return sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortBy === 'calories') {
+      return sorted.sort((a, b) => b.caloriesBurned - a.caloriesBurned);
+    } else if (sortBy === 'duration') {
+      return sorted.sort((a, b) => b.duration - a.duration);
+    }
+    return sorted;
+  };
+
   const progressPercentage = totalSeconds > 0 ? ((totalSeconds - timeLeft) / totalSeconds) * 100 : 0;
+  const totalCalories = workouts.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0);
+  const totalDuration = workouts.reduce((sum, w) => sum + (w.duration || 0), 0);
 
   if (loading) {
-    return <div className="workouts-container"><p>Loading workouts...</p></div>;
+    return (
+      <div className="workouts-container">
+        <div className="loading-skeleton">
+          <div className="skeleton-header"></div>
+          <div className="skeleton-cards"></div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="workouts-container">
+    <div className="workouts-page">
       {activeWorkout && (
         <div className="active-workout-card">
           <div className="active-workout-bg"></div>
@@ -156,62 +178,136 @@ export default function Workouts() {
         </div>
       )}
 
-      <div className="workouts-header">
-        <div>
-          <h1>My Workouts</h1>
-          <p className="header-subtitle">{workouts.length} workouts recorded</p>
-        </div>
-        <Link to="/workouts/new" className="btn-add-workout">
-          <i className="bi bi-plus-circle-fill"></i> Add New Workout
-        </Link>
-      </div>
+      <div className="workouts-container">
+        <div className="page-header">
+          <div className="header-top">
+            <div className="header-content">
+              <h1 className="page-title">My Workouts</h1>
+              <p className="page-subtitle">Track and manage your fitness journey</p>
+            </div>
+            <Link to="/workouts/new" className="btn-create-workout">
+              <i className="bi bi-plus-lg"></i> New Workout
+            </Link>
+          </div>
 
-      {error && <div className="alert-error">{error}</div>}
-
-      {workouts.length === 0 ? (
-        <div className="empty-state">
-          <div className="empty-icon">📋</div>
-          <h3>No workouts yet</h3>
-          <p>Start tracking your fitness journey!</p>
-          <Link to="/workouts/new" className="btn-start-first">Create Your First Workout</Link>
-        </div>
-      ) : (
-        <div className="workouts-grid">
-          {workouts.map((workout) => (
-            <div key={workout._id} className="workout-card">
-              <div className="workout-card-header">
-                <h5 className="workout-name">{workout.name}</h5>
-                <div className="workout-actions">
-                  <Link to={`/workouts/${workout._id}`} className="action-btn view-btn" title="View">
-                    <i className="bi bi-eye"></i>
-                  </Link>
-                  <Link to={`/workouts/${workout._id}/edit`} className="action-btn edit-btn" title="Edit">
-                    <i className="bi bi-pencil"></i>
-                  </Link>
-                  <button onClick={() => handleDelete(workout._id)} className="action-btn delete-btn" title="Delete">
-                    <i className="bi bi-trash"></i>
-                  </button>
+          {workouts.length > 0 && (
+            <div className="stats-bar">
+              <div className="stat-item-bar">
+                <div className="stat-icon">
+                  <i className="bi bi-activity"></i>
+                </div>
+                <div className="stat-details">
+                  <span className="stat-label">Total Workouts</span>
+                  <span className="stat-value">{workouts.length}</span>
                 </div>
               </div>
-
-              <div className="workout-stats">
-                <div className="stat">
-                  <i className="bi bi-calendar-event"></i>
-                  <span>{new Date(workout.date).toLocaleDateString()}</span>
-                </div>
-                <div className="stat">
-                  <i className="bi bi-hourglass-split"></i>
-                  <span>{workout.duration} min</span>
-                </div>
-                <div className="stat">
+              <div className="stat-item-bar">
+                <div className="stat-icon">
                   <i className="bi bi-fire"></i>
-                  <span>{workout.caloriesBurned} kcal</span>
+                </div>
+                <div className="stat-details">
+                  <span className="stat-label">Total Calories</span>
+                  <span className="stat-value">{totalCalories.toLocaleString()}</span>
+                </div>
+              </div>
+              <div className="stat-item-bar">
+                <div className="stat-icon">
+                  <i className="bi bi-hourglass-split"></i>
+                </div>
+                <div className="stat-details">
+                  <span className="stat-label">Total Time</span>
+                  <span className="stat-value">{totalDuration} min</span>
                 </div>
               </div>
             </div>
-          ))}
+          )}
         </div>
-      )}
+
+        {error && <div className="alert-error"><i className="bi bi-exclamation-circle"></i> {error}</div>}
+
+        {workouts.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-illustration">
+              <i className="bi bi-calendar-check"></i>
+            </div>
+            <h3>No workouts yet</h3>
+            <p>Start your fitness journey by logging your first workout</p>
+            <Link to="/workouts/new" className="btn-start-first">
+              <i className="bi bi-plus-circle"></i> Create Your First Workout
+            </Link>
+          </div>
+        ) : (
+          <div className="workouts-content">
+            <div className="sort-controls">
+              <label htmlFor="sort">Sort by:</label>
+              <select id="sort" value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
+                <option value="recent">Most Recent</option>
+                <option value="calories">Most Calories</option>
+                <option value="duration">Longest Duration</option>
+              </select>
+            </div>
+
+            <div className="workouts-grid">
+              {sortedWorkouts().map((workout) => (
+                <div key={workout._id} className="workout-card">
+                  <div className="workout-card-inner">
+                    <div className="card-header">
+                      <h5 className="workout-name">{workout.name}</h5>
+                      <div className="card-badge">
+                        <i className="bi bi-check-circle-fill"></i>
+                      </div>
+                    </div>
+
+                    <div className="card-divider"></div>
+
+                    <div className="workout-stats">
+                      <div className="stat-item-card">
+                        <div className="stat-icon-card">
+                          <i className="bi bi-calendar-event"></i>
+                        </div>
+                        <div className="stat-text">
+                          <span className="stat-label-card">Date</span>
+                          <span className="stat-value-card">{new Date(workout.date).toLocaleDateString()}</span>
+                        </div>
+                      </div>
+                      <div className="stat-item-card">
+                        <div className="stat-icon-card">
+                          <i className="bi bi-hourglass-split"></i>
+                        </div>
+                        <div className="stat-text">
+                          <span className="stat-label-card">Duration</span>
+                          <span className="stat-value-card">{workout.duration} min</span>
+                        </div>
+                      </div>
+                      <div className="stat-item-card">
+                        <div className="stat-icon-card">
+                          <i className="bi bi-fire"></i>
+                        </div>
+                        <div className="stat-text">
+                          <span className="stat-label-card">Calories</span>
+                          <span className="stat-value-card">{workout.caloriesBurned}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="card-actions">
+                      <Link to={`/workouts/${workout._id}`} className="action-btn view-btn" title="View Details">
+                        <i className="bi bi-eye"></i>
+                      </Link>
+                      <Link to={`/workouts/${workout._id}/edit`} className="action-btn edit-btn" title="Edit">
+                        <i className="bi bi-pencil"></i>
+                      </Link>
+                      <button onClick={() => handleDelete(workout._id)} className="action-btn delete-btn" title="Delete">
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
