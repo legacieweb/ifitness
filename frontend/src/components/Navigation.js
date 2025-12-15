@@ -15,7 +15,7 @@ export default function Navigation() {
     <nav className="navbar navbar-expand-lg">
       <div className="container-fluid">
         <Link className="navbar-brand fw-bold" to="/">
-          <i className="bi bi-activity"></i> FitTracker
+          <i className="bi bi-activity"></i> ifitness
         </Link>
         <button
           className="navbar-toggler"
