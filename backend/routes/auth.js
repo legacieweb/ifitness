@@ -36,9 +36,12 @@ router.post('/register', async (req, res) => {
 
     await user.save();
 
-    const token = generateToken(user._id);
+const token = generateToken(user._id);
 
-    sendSignUpEmail(user.email, user.name);
+    // Send welcome email (non-blocking)
+    sendSignUpEmail(user.email, user.name).catch(error => {
+      console.error('Failed to send welcome email:', error);
+    });
 
     res.status(201).json({
       token,
@@ -48,6 +51,7 @@ router.post('/register', async (req, res) => {
         email: user.email,
       },
     });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

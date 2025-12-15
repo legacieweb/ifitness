@@ -52,7 +52,7 @@ export default function CustomWorkoutModal({ onClose, onWorkoutCreated }) {
     return { duration, caloriesBurned };
   };
 
-  const handleCreateWorkout = async () => {
+const handleCreateWorkout = async () => {
     if (!workoutName.trim()) {
       setError('Please enter a workout name');
       return;
@@ -69,7 +69,7 @@ export default function CustomWorkoutModal({ onClose, onWorkoutCreated }) {
     try {
       const { duration, caloriesBurned } = calculateStats();
       
-      await createWorkout({
+      const workoutData = {
         name: workoutName,
         description: `Custom ${difficulty} workout with ${selectedExercises.length} exercises`,
         exercises: selectedExercises.map((ex) => ({
@@ -82,7 +82,16 @@ export default function CustomWorkoutModal({ onClose, onWorkoutCreated }) {
         duration,
         caloriesBurned,
         notes,
-      });
+      };
+      
+      await createWorkout(workoutData);
+
+      // Reset form state before closing
+      setWorkoutName('');
+      setSelectedExercises([]);
+      setNotes('');
+      setDifficulty('intermediate');
+      setError('');
 
       onWorkoutCreated();
       onClose();
@@ -92,6 +101,19 @@ export default function CustomWorkoutModal({ onClose, onWorkoutCreated }) {
       setSubmitting(false);
     }
   };
+
+  const handleClose = () => {
+    // Reset form state when closing without creating
+    setWorkoutName('');
+    setSelectedExercises([]);
+    setNotes('');
+    setDifficulty('intermediate');
+    setError('');
+    setSearchFilter('');
+    setCategoryFilter('');
+    onClose();
+  };
+
 
   const { duration, caloriesBurned } = calculateStats();
 
@@ -103,12 +125,13 @@ export default function CustomWorkoutModal({ onClose, onWorkoutCreated }) {
             <h5 className="modal-title fw-bold" style={{ color: '#ff6b6b' }}>
               <i className="bi bi-dumbbell"></i> Create Custom Workout
             </h5>
-            <button
+<button
               type="button"
               className="btn-close"
-              onClick={onClose}
+              onClick={handleClose}
               disabled={submitting}
             ></button>
+
           </div>
 
           <div className="modal-body" style={{ padding: '20px 30px' }}>
@@ -307,15 +330,16 @@ export default function CustomWorkoutModal({ onClose, onWorkoutCreated }) {
           </div>
 
           <div className="modal-footer" style={{ borderTop: 'none', padding: '20px 30px 30px' }}>
-            <button
+<button
               type="button"
               className="btn"
-              onClick={onClose}
+              onClick={handleClose}
               disabled={submitting}
               style={{ background: '#f0f0f0', color: '#333', borderRadius: '50px', fontWeight: 600, border: 'none' }}
             >
               Cancel
             </button>
+
             <button
               type="button"
               className="btn"

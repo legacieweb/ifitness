@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { suspendUser, unsuspendUser } from '../services/api';
+import Preloader from '../components/Preloader';
 import './UserDetail.css';
+
 
 export default function UserDetail() {
   const { userId } = useParams();
@@ -110,16 +112,10 @@ export default function UserDetail() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="user-detail-wrapper">
-        <div className="loading-spinner">
-          <div className="spinner"></div>
-          <p>Loading user details...</p>
-        </div>
-      </div>
-    );
+if (loading) {
+    return <Preloader text="Loading user details..." />;
   }
+
 
   if (!user) {
     return (

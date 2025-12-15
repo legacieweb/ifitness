@@ -128,7 +128,7 @@ export default function Home() {
                 <i className="bi bi-people"></i>
               </div>
               <div className="stat-content">
-                <div className="stat-number counter" data-target="50000">0</div>
+                <div className="stat-number counter" data-target="50000">50000</div>
                 <div className="stat-label">Active Users</div>
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function Home() {
                 <i className="bi bi-activity"></i>
               </div>
               <div className="stat-content">
-                <div className="stat-number counter" data-target="2000000">0</div>
+                <div className="stat-number counter" data-target="2000000">2000000</div>
                 <div className="stat-label">Workouts Logged</div>
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function Home() {
                 <i className="bi bi-target"></i>
               </div>
               <div className="stat-content">
-                <div className="stat-number counter" data-target="500000">0</div>
+                <div className="stat-number counter" data-target="500000">500000</div>
                 <div className="stat-label">Goals Achieved</div>
               </div>
             </div>
