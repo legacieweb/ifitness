@@ -5,7 +5,7 @@ const Bootcamp = require('../models/Bootcamp');
 const User = require('../models/User');
 const Workout = require('../models/Workout');
 const { protect } = require('../controllers/authMiddleware');
-const { sendBootcampInvitationEmail } = require('../services/mailService');
+const { sendBootcampInvitationEmail, sendBootcampAcceptanceEmail } = require('../services/mailService');
 
 const getValidUserId = async (userIdFromToken) => {
   if (mongoose.Types.ObjectId.isValid(userIdFromToken)) {
@@ -207,6 +207,10 @@ router.post('/:id/accept', protect, async (req, res) => {
     });
 
     await achievement.save();
+
+    sendBootcampAcceptanceEmail(user.email, user.name, bootcamp.title).catch(error => {
+      console.error('Failed to send bootcamp acceptance email:', error);
+    });
 
     res.json({ 
       message: 'Bootcamp accepted! Achievement added to your workouts!', 

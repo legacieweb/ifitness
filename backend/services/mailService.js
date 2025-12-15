@@ -8,6 +8,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log('Email service verification failed:', error);
+  } else {
+    console.log('Email service is ready to send emails');
+  }
+});
+
 const sendSignUpEmail = async (userEmail, userName) => {
   const htmlContent = `
     <!DOCTYPE html>
@@ -16,20 +24,20 @@ const sendSignUpEmail = async (userEmail, userName) => {
         <style>
           body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-          .header { background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center; }
+          .header { background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center; }
           .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-          .btn { display: inline-block; background: #007bff; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+          .btn { display: inline-block; background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%); color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
           .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
         </style>
       </head>
       <body>
         <div class="container">
           <div class="header">
-            <h1>Welcome to FitnessPro!</h1>
+            <h1>Welcome to iFitness! 🎉</h1>
           </div>
           <div class="content">
             <h2>Hello ${userName},</h2>
-            <p>Thank you for signing up for FitnessPro! We're excited to have you on board.</p>
+            <p>Thank you for signing up for iFitness! We're excited to have you on board.</p>
             <p>Your account has been created and you can now start tracking your fitness journey with us.</p>
             <p>Here's what you can do:</p>
             <ul>
@@ -39,11 +47,11 @@ const sendSignUpEmail = async (userEmail, userName) => {
               <li>View detailed analytics of your fitness activities</li>
             </ul>
             <p>Get started by logging in to your account and creating your first workout!</p>
-            <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard" class="btn">Go to Dashboard</a>
+            <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/login" class="btn">Go to Dashboard</a>
             <p style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">If you didn't create this account, please ignore this email.</p>
           </div>
           <div class="footer">
-            <p>&copy; 2025 FitnessPro. All rights reserved.</p>
+            <p>&copy; 2025 iFitness. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -53,15 +61,17 @@ const sendSignUpEmail = async (userEmail, userName) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: userEmail,
-    subject: 'Welcome to FitnessPro!',
+    subject: 'Welcome to iFitness!',
     html: htmlContent,
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Sign-up email sent to ${userEmail}`);
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`✅ Sign-up email sent to ${userEmail}. Message ID: ${info.messageId}`);
+    return info;
   } catch (error) {
-    console.error('Failed to send sign-up email:', error);
+    console.error('❌ Failed to send sign-up email to', userEmail, ':', error.message);
+    throw error;
   }
 };
 
@@ -101,7 +111,7 @@ const sendBootcampInvitationEmail = async (userEmail, userName, bootcampName, bo
             <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard" class="btn">View Bootcamp</a>
           </div>
           <div class="footer">
-            <p>&copy; 2025 FitnessPro. All rights reserved.</p>
+            <p>&copy; 2025 iFitness. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -111,15 +121,79 @@ const sendBootcampInvitationEmail = async (userEmail, userName, bootcampName, bo
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: userEmail,
-    subject: `You're Invited to ${bootcampName}!`,
+    subject: `🔥 You're Invited to ${bootcampName}!`,
     html: htmlContent,
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Bootcamp invitation email sent to ${userEmail}`);
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`✅ Bootcamp invitation email sent to ${userEmail}. Message ID: ${info.messageId}`);
+    return info;
   } catch (error) {
-    console.error('Failed to send bootcamp invitation email:', error);
+    console.error('❌ Failed to send bootcamp invitation email to', userEmail, ':', error.message);
+    throw error;
+  }
+};
+
+const sendBootcampAcceptanceEmail = async (userEmail, userName, bootcampName) => {
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center; }
+          .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+          .btn { display: inline-block; background: #10b981; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+          .success-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 20px; margin: 20px 0; }
+          .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>✅ Bootcamp Accepted!</h1>
+          </div>
+          <div class="content">
+            <h2>Hello ${userName},</h2>
+            <p>Congratulations! You have successfully accepted the <strong>${bootcampName}</strong> bootcamp.</p>
+            <div class="success-box">
+              <h3>🎉 You're All Set!</h3>
+              <p>You're now registered for this exciting bootcamp. This is a great opportunity to:</p>
+              <ul>
+                <li>Push your fitness limits</li>
+                <li>Connect with other fitness enthusiasts</li>
+                <li>Achieve your fitness goals</li>
+                <li>Earn amazing achievements</li>
+              </ul>
+            </div>
+            <p>Get ready for an incredible experience! Check your dashboard for more details about the bootcamp.</p>
+            <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard" class="btn">View Your Dashboard</a>
+            <p style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">If you have any questions about the bootcamp, please contact our support team.</p>
+          </div>
+          <div class="footer">
+            <p>&copy; 2025 iFitness. All rights reserved.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: userEmail,
+    subject: `✅ Bootcamp Accepted: ${bootcampName}`,
+    html: htmlContent,
+  };
+
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`✅ Bootcamp acceptance email sent to ${userEmail}. Message ID: ${info.messageId}`);
+    return info;
+  } catch (error) {
+    console.error('❌ Failed to send bootcamp acceptance email to', userEmail, ':', error.message);
+    throw error;
   }
 };
 
@@ -144,17 +218,16 @@ const sendSuspensionEmail = async (userEmail, userName, reason) => {
           </div>
           <div class="content">
             <h2>Hello ${userName},</h2>
-            <p>We regret to inform you that your FitnessPro account has been suspended.</p>
+            <p>We regret to inform you that your iFitness account has been suspended.</p>
             <div class="warning-box">
               <h3>Suspension Reason:</h3>
               <p>${reason}</p>
             </div>
-            <p>If you believe this suspension is a mistake, please contact our support team immediately.</p>
+            <p>If you believe this suspension is a mistake, please contact our support team immediately at support@ifitness.com</p>
             <p>Your account will remain locked until further notice from our administrators.</p>
-            <p>If you have any questions or concerns, please reach out to our support team at support@fitnessPro.com</p>
           </div>
           <div class="footer">
-            <p>&copy; 2025 FitnessPro. All rights reserved.</p>
+            <p>&copy; 2025 iFitness. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -164,15 +237,17 @@ const sendSuspensionEmail = async (userEmail, userName, reason) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: userEmail,
-    subject: 'Your FitnessPro Account Has Been Suspended',
+    subject: 'Your iFitness Account Has Been Suspended',
     html: htmlContent,
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Suspension email sent to ${userEmail}`);
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`✅ Suspension email sent to ${userEmail}. Message ID: ${info.messageId}`);
+    return info;
   } catch (error) {
-    console.error('Failed to send suspension email:', error);
+    console.error('❌ Failed to send suspension email to', userEmail, ':', error.message);
+    throw error;
   }
 };
 
@@ -197,14 +272,14 @@ const sendUnsuspensionEmail = async (userEmail, userName) => {
           </div>
           <div class="content">
             <h2>Hello ${userName},</h2>
-            <p>Great news! Your FitnessPro account has been unsuspended and is now active again.</p>
+            <p>Great news! Your iFitness account has been unsuspended and is now active again.</p>
             <p>You can now log in and continue your fitness journey with us.</p>
             <p>We look forward to seeing you back on the platform!</p>
             <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/login" class="btn">Log In to Your Account</a>
-            <p style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">If you have any questions, please don't hesitate to contact our support team.</p>
+            <p style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">If you have any questions, please don't hesitate to contact our support team at support@ifitness.com</p>
           </div>
           <div class="footer">
-            <p>&copy; 2025 FitnessPro. All rights reserved.</p>
+            <p>&copy; 2025 iFitness. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -214,21 +289,24 @@ const sendUnsuspensionEmail = async (userEmail, userName) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: userEmail,
-    subject: 'Your FitnessPro Account Has Been Restored',
+    subject: 'Your iFitness Account Has Been Restored',
     html: htmlContent,
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log(`Unsuspension email sent to ${userEmail}`);
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`✅ Unsuspension email sent to ${userEmail}. Message ID: ${info.messageId}`);
+    return info;
   } catch (error) {
-    console.error('Failed to send unsuspension email:', error);
+    console.error('❌ Failed to send unsuspension email to', userEmail, ':', error.message);
+    throw error;
   }
 };
 
 module.exports = {
   sendSignUpEmail,
   sendBootcampInvitationEmail,
+  sendBootcampAcceptanceEmail,
   sendSuspensionEmail,
   sendUnsuspensionEmail,
 };
