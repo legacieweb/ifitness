@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Navigation from './components/Navigation';
 import ProtectedRoute from './components/ProtectedRoute';
 import SuspensionAlert from './components/SuspensionAlert';
+import Preloader from './components/Preloader';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -26,14 +27,19 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminBootcamp from './pages/AdminBootcamp';
 import UserDetail from './pages/UserDetail';
 
-function App() {
+function AppContent() {
+  const { loading } = useAuth();
+
+  if (loading) {
+    return <Preloader text="Loading..." />;
+  }
+
   return (
-    <Router>
-      <AuthProvider>
-        <SuspensionAlert />
-        <Navigation />
-        <main style={{ flex: 1 }}>
-        <Routes>
+    <>
+      <SuspensionAlert />
+      <Navigation />
+      <main style={{ flex: 1 }}>
+      <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -175,47 +181,56 @@ function App() {
           />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-        </main>
-        <footer>
-          <div className="container">
-            <div className="row mb-5">
-              <div className="col-md-3 mb-4 mb-md-0">
-                <h5><i className="bi bi-activity"></i> ifitness</h5>
-                <p style={{ color: '#d1d5db', fontSize: '14px' }}>Your personal fitness companion for tracking workouts, monitoring progress, and achieving your fitness goals.</p>
-              </div>
-              <div className="col-md-3 mb-4 mb-md-0">
-                <h5>Product</h5>
-                <ul>
-                  <li><a href="/">Home</a></li>
-                  <li><a href="/#features">Features</a></li>
-                  <li><a href="/#how-it-works">How It Works</a></li>
-                  <li><a href="/#pricing">Pricing</a></li>
-                </ul>
-              </div>
-              <div className="col-md-3 mb-4 mb-md-0">
-                <h5>Company</h5>
-                <ul>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Blog</a></li>
-                  <li><a href="#">Careers</a></li>
-                  <li><a href="#">Contact</a></li>
-                </ul>
-              </div>
-              <div className="col-md-3">
-                <h5>Support</h5>
-                <ul>
-                  <li><a href="#">Documentation</a></li>
-                  <li><a href="#">Community</a></li>
-                  <li><a href="#">Status</a></li>
-                  <li><a href="#">Help Center</a></li>
-                </ul>
-              </div>
+      </main>
+      <footer>
+        <div className="container">
+          <div className="row mb-5">
+            <div className="col-md-3 mb-4 mb-md-0">
+              <h5><i className="bi bi-activity"></i> ifitness</h5>
+              <p style={{ color: '#d1d5db', fontSize: '14px' }}>Your personal fitness companion for tracking workouts, monitoring progress, and achieving your fitness goals.</p>
             </div>
-            <div className="footer-divider">
-              <p>&copy; 2026 ifitness. All rights reserved. | <a href="#" style={{ color: '#d1d5db' }}>Privacy Policy</a> | <a href="#" style={{ color: '#d1d5db' }}>Terms of Service</a></p>
+            <div className="col-md-3 mb-4 mb-md-0">
+              <h5>Product</h5>
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/#features">Features</a></li>
+                <li><a href="/#how-it-works">How It Works</a></li>
+                <li><a href="/#pricing">Pricing</a></li>
+              </ul>
+            </div>
+            <div className="col-md-3 mb-4 mb-md-0">
+              <h5>Company</h5>
+              <ul>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+            <div className="col-md-3">
+              <h5>Support</h5>
+              <ul>
+                <li><a href="#">Documentation</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">Status</a></li>
+                <li><a href="#">Help Center</a></li>
+              </ul>
             </div>
           </div>
-        </footer>
+          <div className="footer-divider">
+            <p>&copy; 2026 ifitness. All rights reserved. | <a href="#" style={{ color: '#d1d5db' }}>Privacy Policy</a> | <a href="#" style={{ color: '#d1d5db' }}>Terms of Service</a></p>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AuthProvider>
+        <AppContent />
       </AuthProvider>
     </Router>
   );

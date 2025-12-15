@@ -75,6 +75,12 @@ If you prefer to set up services manually:
 
 ## Recent Fixes Applied
 
+### SPA Refresh Error Fix
+- **Issue**: Users refreshing on protected routes (e.g., `/dashboard`, `/admin`) saw "404 Not Found" errors
+- **Fix**: Updated frontend to show preloader during initial auth check while server fallback serves `index.html` for all routes
+- **Backend**: Changed invalid `app.get('*', ...)` to `app.use(...)` middleware for proper SPA routing fallback
+- **Frontend**: Created `AppContent` component that displays `Preloader` during auth loading phase
+
 ### Dependency Version Fixes
 - **React**: Downgraded to 18.2.0 for stability
 - **React Router**: Using 6.8.1 (stable version)
@@ -85,6 +91,7 @@ If you prefer to set up services manually:
 - Using `npm ci` instead of `npm install` for more reliable builds
 - Added cleanup commands to ensure fresh dependency installation
 - Added `build:production` script for explicit production builds
+- Frontend now builds to `build/` folder served by backend as SPA fallback
 
 ## Local Development
 
@@ -110,6 +117,13 @@ npm start
 1. **Missing build script**: Ensure frontend package.json has the build script
 2. **Dependency conflicts**: Run `npm ci` to install exact versions
 3. **React version mismatches**: Use React 18.2.0 for compatibility
+
+### SPA Routing Issues
+**Problem**: Users get "404 Not Found" when refreshing on protected routes
+- **Solution**: Ensure backend serves `index.html` as fallback for all non-API routes
+- **Backend**: Uses middleware `app.use()` to catch unmatched routes (NOT `app.get('*', ...)` which is invalid Express syntax)
+- **Frontend**: Shows `Preloader` while checking authentication before rendering routes
+- **Key**: Static files are served first, then `/api/*` routes are matched, then SPA fallback serves `index.html`
 
 ### Environment Variables
 - Make sure `REACT_APP_API_URL` points to your backend URL
