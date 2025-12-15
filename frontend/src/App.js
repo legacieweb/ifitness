@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Workouts from './pages/Workouts';
 import NewWorkout from './pages/NewWorkout';
+import CreateWorkout from './pages/CreateWorkout';
 import WorkoutDetail from './pages/WorkoutDetail';
 import EditWorkout from './pages/EditWorkout';
 import Profile from './pages/Profile';
@@ -57,6 +58,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <NewWorkout />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/workouts/create"
+            element={
+              <ProtectedRoute>
+                <CreateWorkout />
               </ProtectedRoute>
             }
           />
