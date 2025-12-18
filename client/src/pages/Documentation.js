@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PageTransition from '../components/PageTransition';
 
 export default function Documentation() {
   const [activeSection, setActiveSection] = useState('getting-started');
@@ -135,8 +136,9 @@ export default function Documentation() {
   };
 
   return (
-    <div className="container py-5">
-      <div className="row">
+    <PageTransition>
+      <div className="container py-5">
+        <div className="row">
         <div className="col-lg-2 mb-4 mb-lg-0">
           <div className="list-group sticky-top" style={{ top: '20px' }}>
             {Object.entries(sections).map(([key, section]) => (
@@ -167,6 +169,7 @@ export default function Documentation() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

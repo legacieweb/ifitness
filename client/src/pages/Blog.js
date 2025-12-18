@@ -1,4 +1,5 @@
 import React from 'react';
+import PageTransition from '../components/PageTransition';
 
 export default function Blog() {
   const posts = [
@@ -53,7 +54,8 @@ export default function Blog() {
   ];
 
   return (
-    <div className="container py-5">
+    <PageTransition>
+      <div className="container py-5">
       <div className="row mb-5">
         <div className="col-lg-8 mx-auto">
           <h1 className="mb-2">ifitness Blog</h1>
@@ -86,6 +88,7 @@ export default function Blog() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

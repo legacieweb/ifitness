@@ -1,8 +1,10 @@
 import React from 'react';
+import PageTransition from '../components/PageTransition';
 
 export default function TermsOfService() {
   return (
-    <div className="container py-5">
+    <PageTransition>
+      <div className="container py-5">
       <div className="row">
         <div className="col-lg-8 mx-auto">
           <h1 className="mb-4">Terms of Service</h1>
@@ -98,6 +100,7 @@ export default function TermsOfService() {
           </section>
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

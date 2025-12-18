@@ -32,7 +32,7 @@ if (fs.existsSync(buildPath)) {
   });
 } else {
   app.get('*', (req, res) => {
-    res.status(404).json({ message: 'Frontend not built. Run: cd backend && npm run build-and-start' });
+    res.status(404).json({ message: 'Frontend not built. Run: cd server && npm run build-and-start' });
   });
 }
 

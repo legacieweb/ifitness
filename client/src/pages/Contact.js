@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PageTransition from '../components/PageTransition';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -25,8 +26,9 @@ export default function Contact() {
   };
 
   return (
-    <div className="container py-5">
-      <div className="row mb-5">
+    <PageTransition>
+      <div className="container py-5">
+        <div className="row mb-5">
         <div className="col-lg-8 mx-auto text-center">
           <h1 className="mb-3">Get in Touch</h1>
           <p className="lead text-muted">
@@ -135,6 +137,7 @@ export default function Contact() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

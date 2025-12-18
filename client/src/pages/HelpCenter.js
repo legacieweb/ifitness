@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PageTransition from '../components/PageTransition';
 
 export default function HelpCenter() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -74,8 +75,9 @@ export default function HelpCenter() {
   );
 
   return (
-    <div className="container py-5">
-      <div className="row mb-5">
+    <PageTransition>
+      <div className="container py-5">
+        <div className="row mb-5">
         <div className="col-lg-8 mx-auto text-center">
           <h1 className="mb-3">Help Center</h1>
           <p className="lead text-muted mb-4">Find answers to your questions</p>
@@ -167,6 +169,7 @@ export default function HelpCenter() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

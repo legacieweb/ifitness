@@ -1,4 +1,5 @@
 import React from 'react';
+import PageTransition from '../components/PageTransition';
 
 export default function Community() {
   const resources = [
@@ -62,8 +63,9 @@ export default function Community() {
   ];
 
   return (
-    <div className="container py-5">
-      <div className="row mb-5">
+    <PageTransition>
+      <div className="container py-5">
+        <div className="row mb-5">
         <div className="col-lg-8 mx-auto text-center">
           <h1 className="mb-3">Our Community</h1>
           <p className="lead text-muted">
@@ -138,6 +140,7 @@ export default function Community() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

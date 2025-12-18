@@ -1,4 +1,5 @@
 import React from 'react';
+import PageTransition from '../components/PageTransition';
 
 export default function Careers() {
   const positions = [
@@ -47,8 +48,9 @@ export default function Careers() {
   ];
 
   return (
-    <div className="container py-5">
-      <div className="row mb-5">
+    <PageTransition>
+      <div className="container py-5">
+        <div className="row mb-5">
         <div className="col-lg-8 mx-auto text-center">
           <h1 className="mb-3">We're Hiring!</h1>
           <p className="lead text-muted">
@@ -104,6 +106,7 @@ export default function Careers() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

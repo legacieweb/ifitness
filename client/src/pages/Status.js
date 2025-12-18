@@ -1,4 +1,5 @@
 import React from 'react';
+import PageTransition from '../components/PageTransition';
 
 export default function Status() {
   const systemStatus = [
@@ -51,8 +52,9 @@ export default function Status() {
   };
 
   return (
-    <div className="container py-5">
-      <div className="row mb-5">
+    <PageTransition>
+      <div className="container py-5">
+        <div className="row mb-5">
         <div className="col-lg-8 mx-auto">
           <h1 className="mb-2">System Status</h1>
           <p className="text-muted mb-4">Real-time status of ifitness services</p>
@@ -133,6 +135,7 @@ export default function Status() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }
