@@ -26,6 +26,16 @@ import Templates from './pages/Templates';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminBootcamp from './pages/AdminBootcamp';
 import UserDetail from './pages/UserDetail';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import AboutUs from './pages/AboutUs';
+import Blog from './pages/Blog';
+import Careers from './pages/Careers';
+import Contact from './pages/Contact';
+import Documentation from './pages/Documentation';
+import Community from './pages/Community';
+import Status from './pages/Status';
+import HelpCenter from './pages/HelpCenter';
 
 function AppContent() {
   const { loading } = useAuth();
@@ -179,6 +189,16 @@ function AppContent() {
               </ProtectedRoute>
             }
           />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/documentation" element={<Documentation />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/status" element={<Status />} />
+          <Route path="/help-center" element={<HelpCenter />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
@@ -192,7 +212,7 @@ function AppContent() {
             <div className="col-md-3 mb-4 mb-md-0">
               <h5>Product</h5>
               <ul>
-                <li><a href="/">Home</a></li>
+                <li><Link to="/">Home</Link></li>
                 <li><a href="/#features">Features</a></li>
                 <li><a href="/#how-it-works">How It Works</a></li>
                 <li><a href="/#pricing">Pricing</a></li>
@@ -201,24 +221,24 @@ function AppContent() {
             <div className="col-md-3 mb-4 mb-md-0">
               <h5>Company</h5>
               <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><Link to="/about-us">About Us</Link></li>
+                <li><Link to="/blog">Blog</Link></li>
+                <li><Link to="/careers">Careers</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
               </ul>
             </div>
             <div className="col-md-3">
               <h5>Support</h5>
               <ul>
-                <li><a href="#">Documentation</a></li>
-                <li><a href="#">Community</a></li>
-                <li><a href="#">Status</a></li>
-                <li><a href="#">Help Center</a></li>
+                <li><Link to="/documentation">Documentation</Link></li>
+                <li><Link to="/community">Community</Link></li>
+                <li><Link to="/status">Status</Link></li>
+                <li><Link to="/help-center">Help Center</Link></li>
               </ul>
             </div>
           </div>
           <div className="footer-divider">
-            <p>&copy; 2026 ifitness. All rights reserved. | <a href="#" style={{ color: '#d1d5db' }}>Privacy Policy</a> | <a href="#" style={{ color: '#d1d5db' }}>Terms of Service</a></p>
+            <p>&copy; 2026 ifitness. All rights reserved. | <Link to="/privacy-policy" style={{ color: '#d1d5db' }}>Privacy Policy</Link> | <Link to="/terms-of-service" style={{ color: '#d1d5db' }}>Terms of Service</Link></p>
           </div>
         </div>
       </footer>
