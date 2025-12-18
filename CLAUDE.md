@@ -165,11 +165,20 @@ This will:
 Create `.env` in server directory:
 ```
 PORT=5000
-MONGODB_URI=your_mongodb_connection_string
+MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_app_password
+ADMIN_EMAIL=admin@trainerhub.com
+ADMIN_PASSWORD=admin123
+RESEND_API_KEY=your_resend_api_key_here
+FRONTEND_URL=https://your-frontend-url.com
 ```
+
+**Email Setup (Resend)**:
+1. Go to [resend.com](https://resend.com)
+2. Sign up for a free account
+3. Get API key from the dashboard
+4. Add to `.env` as `RESEND_API_KEY=your_key`
+5. Email functions will work automatically (signup, suspension, bootcamp invites)
 
 ## Important Configuration Changes
 

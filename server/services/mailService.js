@@ -1,20 +1,14 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log('Email service verification failed:', error);
-  } else {
-    console.log('Email service is ready to send emails');
-  }
-});
+const FROM_EMAIL = 'onboarding@resend.dev';
+
+if (!process.env.RESEND_API_KEY) {
+  console.warn('⚠️  RESEND_API_KEY is missing. Email notifications will not be sent.');
+} else {
+  console.log('✅ Email service (Resend) is ready to send emails');
+}
 
 const sendSignUpEmail = async (userEmail, userName) => {
   const htmlContent = `
@@ -58,17 +52,15 @@ const sendSignUpEmail = async (userEmail, userName) => {
     </html>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: userEmail,
-    subject: 'Welcome to iFitness!',
-    html: htmlContent,
-  };
-
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ Sign-up email sent to ${userEmail}. Message ID: ${info.messageId}`);
-    return info;
+    const data = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: 'Welcome to iFitness!',
+      html: htmlContent,
+    });
+    console.log(`✅ Sign-up email sent to ${userEmail}. Message ID: ${data.id}`);
+    return data;
   } catch (error) {
     console.error('❌ Failed to send sign-up email to', userEmail, ':', error.message);
     throw error;
@@ -118,17 +110,15 @@ const sendBootcampInvitationEmail = async (userEmail, userName, bootcampName, bo
     </html>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: userEmail,
-    subject: `🔥 You're Invited to ${bootcampName}!`,
-    html: htmlContent,
-  };
-
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ Bootcamp invitation email sent to ${userEmail}. Message ID: ${info.messageId}`);
-    return info;
+    const data = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: `🔥 You're Invited to ${bootcampName}!`,
+      html: htmlContent,
+    });
+    console.log(`✅ Bootcamp invitation email sent to ${userEmail}. Message ID: ${data.id}`);
+    return data;
   } catch (error) {
     console.error('❌ Failed to send bootcamp invitation email to', userEmail, ':', error.message);
     throw error;
@@ -180,17 +170,15 @@ const sendBootcampAcceptanceEmail = async (userEmail, userName, bootcampName) =>
     </html>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: userEmail,
-    subject: `✅ Bootcamp Accepted: ${bootcampName}`,
-    html: htmlContent,
-  };
-
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ Bootcamp acceptance email sent to ${userEmail}. Message ID: ${info.messageId}`);
-    return info;
+    const data = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: `✅ Bootcamp Accepted: ${bootcampName}`,
+      html: htmlContent,
+    });
+    console.log(`✅ Bootcamp acceptance email sent to ${userEmail}. Message ID: ${data.id}`);
+    return data;
   } catch (error) {
     console.error('❌ Failed to send bootcamp acceptance email to', userEmail, ':', error.message);
     throw error;
@@ -234,17 +222,15 @@ const sendSuspensionEmail = async (userEmail, userName, reason) => {
     </html>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: userEmail,
-    subject: 'Your iFitness Account Has Been Suspended',
-    html: htmlContent,
-  };
-
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ Suspension email sent to ${userEmail}. Message ID: ${info.messageId}`);
-    return info;
+    const data = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: 'Your iFitness Account Has Been Suspended',
+      html: htmlContent,
+    });
+    console.log(`✅ Suspension email sent to ${userEmail}. Message ID: ${data.id}`);
+    return data;
   } catch (error) {
     console.error('❌ Failed to send suspension email to', userEmail, ':', error.message);
     throw error;
@@ -286,17 +272,15 @@ const sendUnsuspensionEmail = async (userEmail, userName) => {
     </html>
   `;
 
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: userEmail,
-    subject: 'Your iFitness Account Has Been Restored',
-    html: htmlContent,
-  };
-
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ Unsuspension email sent to ${userEmail}. Message ID: ${info.messageId}`);
-    return info;
+    const data = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: 'Your iFitness Account Has Been Restored',
+      html: htmlContent,
+    });
+    console.log(`✅ Unsuspension email sent to ${userEmail}. Message ID: ${data.id}`);
+    return data;
   } catch (error) {
     console.error('❌ Failed to send unsuspension email to', userEmail, ':', error.message);
     throw error;
