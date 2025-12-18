@@ -17,8 +17,8 @@ export default function BootcampAlert() {
   const fetchBootcampInfo = async () => {
     try {
       const token = localStorage.getItem('token');
-      const upcomingRes = await fetch('https://ifitness.onrender.com/api/bootcamps/upcoming');
-      const activeRes = await fetch('https://ifitness.onrender.com/api/bootcamps/active');
+      const upcomingRes = await fetch('/api/bootcamps/upcoming');
+      const activeRes = await fetch('/api/bootcamps/active');
 
       const upcoming = await upcomingRes.json();
       const active = await activeRes.json();
@@ -48,7 +48,7 @@ export default function BootcampAlert() {
   const handleAcceptBootcamp = async (bootcampId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://ifitness.onrender.com/api/bootcamps/${bootcampId}/accept`, {
+      const response = await fetch(`/api/bootcamps/${bootcampId}/accept`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });

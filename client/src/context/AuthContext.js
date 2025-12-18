@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     const checkSuspensionStatus = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/auth/user/status`, {
+        const response = await fetch('/api/auth/user/status', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         

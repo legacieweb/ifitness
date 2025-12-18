@@ -50,9 +50,9 @@ export default function AdminDashboard() {
       const headers = { 'Authorization': `Bearer ${token}` };
 
       const [statsRes, usersRes, bootcampsRes] = await Promise.all([
-        fetch(`${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/admin/stats`, { headers }),
-        fetch(`${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/admin/users`, { headers }),
-        fetch(`${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/bootcamps`, { headers }),
+        fetch('/api/admin/stats', { headers }),
+        fetch('/api/admin/users', { headers }),
+        fetch('/api/bootcamps', { headers }),
       ]);
 
       const statsData = await statsRes.json();
@@ -87,8 +87,8 @@ export default function AdminDashboard() {
       const token = localStorage.getItem('token');
       const method = bootcampEditingId ? 'PUT' : 'POST';
       const url = bootcampEditingId
-        ? `${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/bootcamps/${bootcampEditingId}`
-        : `${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/bootcamps`;
+        ? `/api/bootcamps/${bootcampEditingId}`
+        : '/api/bootcamps';
 
       const response = await fetch(url, {
         method,
@@ -138,7 +138,7 @@ export default function AdminDashboard() {
     if (window.confirm('Are you sure you want to delete this bootcamp?')) {
       try {
         const token = localStorage.getItem('token');
-        await fetch(`${process.env.REACT_APP_API_URL || 'https://ifitness.onrender.com'}/api/bootcamps/${id}`, {
+        await fetch(`/api/bootcamps/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });
