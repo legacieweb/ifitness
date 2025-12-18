@@ -1,0 +1,36 @@
+.navbar-collapse .dropdown-menu {
+  position: static;
+  float: none;
+  width: 100%;
+  margin-top: 0;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.navbar-collapse .dropdown-item {
+  padding-left: 2rem;
+  color: inherit;
+}
+
+.navbar-collapse .dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.navbar-collapse .dropdown-divider {
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 991px) {
+  .navbar-collapse .dropdown-menu {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+
+  .navbar-collapse .dropdown-menu.show {
+    max-height: 1000px;
+  }
+}

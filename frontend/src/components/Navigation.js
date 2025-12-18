@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Collapse } from 'bootstrap';
+import './Navigation.css';
 
 export default function Navigation() {
   const { user, isAuthenticated, logout } = useAuth();
