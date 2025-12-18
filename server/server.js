@@ -27,11 +27,11 @@ const fs = require('fs');
 
 if (fs.existsSync(buildPath)) {
   app.use(express.static(buildPath));
-  app.get('*', (req, res) => {
+  app.use((req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
   });
 } else {
-  app.get('*', (req, res) => {
+  app.use((req, res) => {
     res.status(404).json({ message: 'Frontend not built. Run: cd server && npm run build-and-start' });
   });
 }
