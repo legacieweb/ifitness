@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Navigation from './components/Navigation';
+import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import SuspensionAlert from './components/SuspensionAlert';
 import Preloader from './components/Preloader';
@@ -48,6 +49,7 @@ function AppContent() {
     <>
       <SuspensionAlert />
       <Navigation />
+      <ScrollToTop />
       <main style={{ flex: 1 }}>
       <Routes>
           <Route path="/" element={<Home />} />
