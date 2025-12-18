@@ -6,19 +6,34 @@
 - Node.js installed
 - MongoDB running locally or connection string ready
 
-### Backend Setup
+### Integrated Setup (Recommended - Server + Client as One)
 ```bash
-cd backend
+cd server
 npm install
-# Update .env with your MongoDB URI if not using localhost
-node seed.js  # (Optional) Populate exercise database
+npm run build-and-start
+```
+- Runs on http://localhost:5000
+- Client and server served from same port
+- Page refresh will work correctly (no 404 errors)
+
+### From Root Directory (All-in-One)
+```bash
+npm install
+npm run build-and-start
+```
+
+### Separate Development Setup (Server & Client Development)
+**Terminal 1 - Server:**
+```bash
+cd server
+npm install
 npm start
 ```
 - Runs on http://localhost:5000
 
-### Frontend Setup
+**Terminal 2 - Client:**
 ```bash
-cd frontend
+cd client
 npm install
 npm start
 ```
@@ -26,19 +41,29 @@ npm start
 
 ## Architecture
 
-### Backend (Node.js + Express)
+### Server (Node.js + Express)
 - REST API with JWT authentication
 - MongoDB database with Mongoose ODM
-- Routes: auth, workouts, exercises, users
+- Routes: auth, workouts, exercises, users, admin, bootcamps
 - Protected endpoints with middleware
 - Password hashing with bcryptjs
+- Serves static client files from `/client/build`
+- Handles client-side routing fallback for SPA
 
-### Frontend (React + Bootstrap)
+### Client (React + Bootstrap)
 - Single Page Application (SPA)
 - React Router for navigation
 - Context API for authentication state
-- Axios for API calls with JWT tokens
+- Axios for API calls with JWT tokens (baseURL: `/api`)
 - Bootstrap 5 for responsive UI
+- Built to `/client/build` directory for server to serve
+
+### Integrated Deployment
+- Client builds to `/client/build`
+- Server serves static files from build directory
+- All requests to non-API routes redirected to `index.html`
+- React Router handles client-side routing
+- Page refreshes work correctly (no 404 errors)
 
 ## Features Implemented
 
@@ -98,27 +123,100 @@ Run `node seed.js` in backend to populate exercises:
 
 ## Key Files
 
-### Backend
-- `server.js` - Main server entry
-- `routes/auth.js` - Authentication endpoints
-- `routes/workouts.js` - Workout CRUD
-- `routes/exercises.js` - Exercise library
-- `routes/users.js` - User management
-- `models/` - MongoDB schemas
-- `config/db.js` - Database connection
+### Server (Backend)
+- `server/server.js` - Main server entry
+- `server/routes/auth.js` - Authentication endpoints
+- `server/routes/workouts.js` - Workout CRUD
+- `server/routes/exercises.js` - Exercise library
+- `server/routes/users.js` - User management
+- `server/models/` - MongoDB schemas
+- `server/config/db.js` - Database connection
 
-### Frontend
-- `App.js` - Main app with routing
-- `context/AuthContext.js` - Auth state management
-- `pages/` - Page components
-- `components/` - Reusable components
-- `services/api.js` - API calls
+### Client (Frontend)
+- `client/src/App.js` - Main app with routing
+- `client/src/context/AuthContext.js` - Auth state management
+- `client/src/pages/` - Page components
+- `client/src/components/` - Reusable components
+- `client/src/services/api.js` - API calls
+
+## Deployment Steps
+
+### Build for Production
+**Option 1: From root directory**
+```bash
+npm install
+npm run build-and-start
+```
+
+**Option 2: From server directory**
+```bash
+cd server
+npm install
+npm run build-and-start
+```
+
+This will:
+1. Install client dependencies
+2. Build React app to `/client/build`
+3. Start server on port 5000
+4. Server serves client + API from same port
+
+### Environment Variables
+Create `.env` in server directory:
+```
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password
+```
+
+## Important Configuration Changes
+
+### API Base URL
+- **Development (separate)**: `http://localhost:3000` calls `http://localhost:5000/api`
+- **Production (integrated)**: `/api` (relative path - same domain/port)
+- Located in: `client/src/services/api.js`
+
+### Server Configuration
+- **File**: `server/server.js`
+- Serves static files from `/client/build`
+- Redirects all non-API routes to `index.html` for React Router
+- Properly handles SPA routing on page refresh
+
+## Project Structure
+
+```
+fitness2.0/
+├── server/                    # Node.js + Express backend
+│   ├── server.js             # Main entry point
+│   ├── package.json
+│   ├── config/               # Database config
+│   ├── routes/               # API routes
+│   ├── models/               # MongoDB schemas
+│   ├── controllers/          # Middleware
+│   └── services/             # External services
+│
+├── client/                    # React frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── App.js            # Main app
+│   │   ├── index.js
+│   │   ├── pages/            # Page components
+│   │   ├── components/       # Reusable components
+│   │   ├── context/          # Auth context
+│   │   └── services/         # API client
+│   └── package.json
+│
+├── package.json              # Root package.json with scripts
+└── CLAUDE.md                 # This file
+```
 
 ## Notes
 
 - Passwords hashed with bcryptjs
 - JWT tokens valid for 30 days
 - All API calls include Authorization header
-- Frontend CORS enabled on backend
 - Bootstrap Icons for UI
 - Environment variables in .env files
+- Server and client now serve from same port (5000)

@@ -22,13 +22,17 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to Fitness API' });
 });
 
-const buildPath = path.join(__dirname, '../frontend/build');
+const buildPath = path.join(__dirname, '../client/build');
 const fs = require('fs');
 
 if (fs.existsSync(buildPath)) {
   app.use(express.static(buildPath));
-  app.use((req, res) => {
+  app.get('*', (req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
+  });
+} else {
+  app.get('*', (req, res) => {
+    res.status(404).json({ message: 'Frontend not built. Run: cd backend && npm run build-and-start' });
   });
 }
 
