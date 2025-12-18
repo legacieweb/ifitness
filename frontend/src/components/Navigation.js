@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Collapse } from 'bootstrap';
 
 export default function Navigation() {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const navbarCollapseRef = useRef(null);
+
+  const closeMenu = () => {
+    if (navbarCollapseRef.current) {
+      const collapse = new Collapse(navbarCollapseRef.current, { toggle: false });
+      collapse.hide();
+    }
+  };
+
+  const handleLogoutAndClose = () => {
+    closeMenu();
+    logout();
+    navigate('/');
+  };
 
   const handleLogout = () => {
     logout();
@@ -25,11 +40,11 @@ export default function Navigation() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse" id="navbarNav" ref={navbarCollapseRef}>
           <ul className="navbar-nav ms-auto">
             {isAuthenticated && (
               <li className="nav-item">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/" onClick={closeMenu}>
                   <i className="bi bi-house"></i> Home
                 </Link>
               </li>
@@ -39,7 +54,7 @@ export default function Navigation() {
                 {!user?.isAdmin && (
                   <>
                     <li className="nav-item">
-                      <Link className="nav-link" to="/dashboard">
+                      <Link className="nav-link" to="/dashboard" onClick={closeMenu}>
                         Dashboard
                       </Link>
                     </li>
@@ -54,17 +69,17 @@ export default function Navigation() {
                       </span>
                       <ul className="dropdown-menu">
                         <li>
-                          <Link className="dropdown-item" to="/workouts">
+                          <Link className="dropdown-item" to="/workouts" onClick={closeMenu}>
                             <i className="bi bi-list-check"></i> My Workouts
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/workouts/new">
+                          <Link className="dropdown-item" to="/workouts/new" onClick={closeMenu}>
                             <i className="bi bi-plus-circle"></i> New Workout
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/templates">
+                          <Link className="dropdown-item" to="/templates" onClick={closeMenu}>
                             <i className="bi bi-file-earmark"></i> Workout Templates
                           </Link>
                         </li>
@@ -81,22 +96,22 @@ export default function Navigation() {
                       </span>
                       <ul className="dropdown-menu">
                         <li>
-                          <Link className="dropdown-item" to="/analytics">
+                          <Link className="dropdown-item" to="/analytics" onClick={closeMenu}>
                             <i className="bi bi-bar-chart"></i> Analytics
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/journey">
+                          <Link className="dropdown-item" to="/journey" onClick={closeMenu}>
                             <i className="bi bi-rocket"></i> My Journey
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/achievements">
+                          <Link className="dropdown-item" to="/achievements" onClick={closeMenu}>
                             <i className="bi bi-trophy"></i> Achievements
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/calendar">
+                          <Link className="dropdown-item" to="/calendar" onClick={closeMenu}>
                             <i className="bi bi-calendar3"></i> Calendar
                           </Link>
                         </li>
@@ -113,17 +128,17 @@ export default function Navigation() {
                       </span>
                       <ul className="dropdown-menu">
                         <li>
-                          <Link className="dropdown-item" to="/goals">
+                          <Link className="dropdown-item" to="/goals" onClick={closeMenu}>
                             <i className="bi bi-target"></i> Goals
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/nutrition">
+                          <Link className="dropdown-item" to="/nutrition" onClick={closeMenu}>
                             <i className="bi bi-egg"></i> Nutrition
                           </Link>
                         </li>
                         <li>
-                          <Link className="dropdown-item" to="/profile">
+                          <Link className="dropdown-item" to="/profile" onClick={closeMenu}>
                             <i className="bi bi-person"></i> Profile
                           </Link>
                         </li>
@@ -134,7 +149,7 @@ export default function Navigation() {
 
                 {user?.isAdmin && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/admin">
+                    <Link className="nav-link" to="/admin" onClick={closeMenu}>
                       <i className="bi bi-shield-check"></i> Admin Dashboard
                     </Link>
                   </li>
@@ -150,7 +165,7 @@ export default function Navigation() {
                   </span>
                   <ul className="dropdown-menu dropdown-menu-end">
                     <li>
-                      <Link className="dropdown-item" to="/profile">
+                      <Link className="dropdown-item" to="/profile" onClick={closeMenu}>
                         <i className="bi bi-person"></i> My Profile
                       </Link>
                     </li>
@@ -158,7 +173,7 @@ export default function Navigation() {
                     <li>
                       <button
                         className="dropdown-item"
-                        onClick={handleLogout}
+                        onClick={handleLogoutAndClose}
                         style={{ background: 'none', border: 'none', cursor: 'pointer' }}
                       >
                         <i className="bi bi-box-arrow-right"></i> Logout
@@ -170,12 +185,12 @@ export default function Navigation() {
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">
+                  <Link className="nav-link" to="/login" onClick={closeMenu}>
                     Login
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/register">
+                  <Link className="nav-link" to="/register" onClick={closeMenu}>
                     Register
                   </Link>
                 </li>
