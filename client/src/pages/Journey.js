@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getUserStats } from '../services/api';
+import Footer from '../components/Footer';
 
 export default function Journey() {
   const { user } = useAuth();
@@ -119,7 +120,7 @@ export default function Journey() {
 
                 <div className="text-center">
                   <span className="text-muted">
-                    {Math.round(milestone.current)} / {milestone.target} 
+                    {Math.round(milestone.current)} / {milestone.target}
                     {milestone.type === 'calories' && ' 🔥 cal'}
                     {milestone.type === 'duration' && ' ⏱️ min'}
                     {!milestone.type && ' 💪 workouts'}
@@ -179,6 +180,7 @@ export default function Journey() {
           <p>You are a fitness champion! Keep pushing your limits and inspiring others!</p>
         </div>
       )}
+      <Footer />
     </div>
   );
 }

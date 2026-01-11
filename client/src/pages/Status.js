@@ -1,13 +1,19 @@
 import React from 'react';
 import PageTransition from '../components/PageTransition';
+import DashboardHeader from '../components/DashboardHeader';
+import Footer from '../components/Footer';
+import './Status.css';
 
 export default function Status() {
   const systemStatus = [
-    { service: "Web Application", status: "operational", uptime: "99.98%" },
-    { service: "Mobile App", status: "operational", uptime: "99.95%" },
-    { service: "API Servers", status: "operational", uptime: "99.99%" },
-    { service: "Database", status: "operational", uptime: "99.99%" },
-    { service: "Analytics", status: "operational", uptime: "99.90%" },
+    { service: "Web Application", status: "operational", uptime: "99.98%", icon: "bi-globe" },
+    { service: "Mobile App (iOS)", status: "operational", uptime: "99.95%", icon: "bi-phone" },
+    { service: "Mobile App (Android)", status: "operational", uptime: "99.96%", icon: "bi-android2" },
+    { service: "API Servers", status: "operational", uptime: "99.99%", icon: "bi-server" },
+    { service: "Database", status: "operational", uptime: "99.99%", icon: "bi-database" },
+    { service: "Analytics", status: "operational", uptime: "99.90%", icon: "bi-graph-up" },
+    { service: "Authentication", status: "operational", uptime: "99.98%", icon: "bi-shield-check" },
+    { service: "Notifications", status: "operational", uptime: "99.85%", icon: "bi-bell" }
   ];
 
   const incidents = [
@@ -15,127 +21,319 @@ export default function Status() {
       date: "December 12, 2024",
       title: "Scheduled Maintenance",
       description: "Performed routine database optimization. Service was temporarily unavailable for 15 minutes.",
-      status: "resolved"
+      status: "resolved",
+      duration: "15 minutes",
+      affected: "Database, API Servers"
     },
     {
       date: "December 5, 2024",
       title: "API Response Time Optimization",
-      description: "Implemented caching improvements resulting in faster load times.",
-      status: "resolved"
+      description: "Implemented caching improvements resulting in faster load times and better performance.",
+      status: "resolved",
+      duration: "30 minutes",
+      affected: "API Servers"
+    },
+    {
+      date: "November 28, 2024",
+      title: "Mobile App Update",
+      description: "Released version 2.1.0 with new features and bug fixes for both iOS and Android platforms.",
+      status: "completed",
+      duration: "N/A",
+      affected: "Mobile Apps"
     }
   ];
 
   const getStatusBadge = (status) => {
     switch(status) {
       case 'operational':
-        return 'bg-success';
+        return { class: 'operational', text: 'Operational', icon: 'bi-check-circle' };
       case 'degraded':
-        return 'bg-warning';
+        return { class: 'degraded', text: 'Degraded Performance', icon: 'bi-exclamation-triangle' };
       case 'outage':
-        return 'bg-danger';
+        return { class: 'outage', text: 'Service Outage', icon: 'bi-exclamation-octagon' };
+      case 'resolved':
+        return { class: 'resolved', text: 'Resolved', icon: 'bi-check-circle' };
+      case 'completed':
+        return { class: 'completed', text: 'Completed', icon: 'bi-check-circle' };
       default:
-        return 'bg-secondary';
-    }
-  };
-
-  const getStatusText = (status) => {
-    switch(status) {
-      case 'operational':
-        return 'Operational';
-      case 'degraded':
-        return 'Degraded';
-      case 'outage':
-        return 'Outage';
-      default:
-        return 'Unknown';
+        return { class: 'unknown', text: 'Unknown', icon: 'bi-question-circle' };
     }
   };
 
   return (
-    <PageTransition>
-      <div className="container py-5">
-        <div className="row mb-5">
-        <div className="col-lg-8 mx-auto">
-          <h1 className="mb-2">System Status</h1>
-          <p className="text-muted mb-4">Real-time status of ifitness services</p>
-        </div>
-      </div>
-
-      <div className="row mb-5">
-        <div className="col-lg-8 mx-auto">
-          <div className="card border-0 shadow-sm mb-4">
-            <div className="card-body text-center">
-              <h5 className="card-title mb-2">Overall Status</h5>
-              <div className="d-flex align-items-center justify-content-center">
-                <div 
-                  className="rounded-circle bg-success"
-                  style={{ width: '20px', height: '20px' }}
-                ></div>
-                <p className="ms-2 mb-0 fs-5 fw-bold text-success">All Systems Operational</p>
-              </div>
-            </div>
-          </div>
-
-          <h3 className="h5 mb-3">Service Status</h3>
-          {systemStatus.map((service, index) => (
-            <div key={index} className="card border-0 shadow-sm mb-3">
-              <div className="card-body">
-                <div className="d-flex justify-content-between align-items-center">
-                  <div>
-                    <h6 className="mb-1">{service.service}</h6>
-                    <small className="text-muted">Uptime: {service.uptime}</small>
+    <>
+      <DashboardHeader />
+      <PageTransition>
+        <div className="modern-status-page">
+          <section className="hero-section">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-8 mx-auto text-center">
+                  <div className="section-badge">
+                    <span>System Status</span>
                   </div>
-                  <span className={`badge ${getStatusBadge(service.status)}`}>
-                    {getStatusText(service.status)}
-                  </span>
+                  <h1 className="hero-title">
+                    Real-time ifitness
+                    <span className="gradient-text">Status</span>
+                  </h1>
+                  <p className="hero-description">
+                    Monitor the current status and performance of all ifitness services and systems.
+                  </p>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </section>
 
-      <div className="row mb-5">
-        <div className="col-lg-8 mx-auto">
-          <h3 className="h5 mb-3">Recent Incidents</h3>
-          {incidents.map((incident, index) => (
-            <div key={index} className="card border-0 shadow-sm mb-3">
-              <div className="card-body">
-                <div className="d-flex justify-content-between align-items-start mb-2">
-                  <div>
-                    <h6 className="mb-1">{incident.title}</h6>
-                    <small className="text-muted">{incident.date}</small>
+          <section className="overview-section">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-8 mx-auto">
+                  <div className="overview-card">
+                    <div className="overview-header">
+                      <h2 className="overview-title">Overall System Status</h2>
+                      <div className="status-indicator operational">
+                        <i className="bi bi-check-circle"></i>
+                        <span>All Systems Operational</span>
+                      </div>
+                    </div>
+                    <div className="overview-stats">
+                      <div className="stat-item">
+                        <div className="stat-number">8</div>
+                        <div className="stat-label">Services Monitored</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-number">99.97%</div>
+                        <div className="stat-label">Average Uptime</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-number">0</div>
+                        <div className="stat-label">Current Issues</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-number">3</div>
+                        <div className="stat-label">Recent Updates</div>
+                      </div>
+                    </div>
+                    <div className="overview-updated">
+                      <span>Last updated: </span>
+                      <span>{new Date().toLocaleString()}</span>
+                    </div>
                   </div>
-                  <span className="badge bg-success">Resolved</span>
                 </div>
-                <p className="text-muted small mb-0">{incident.description}</p>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </section>
 
-      <div className="row">
-        <div className="col-lg-8 mx-auto">
-          <div className="card border-0 bg-light">
-            <div className="card-body text-center">
-              <h5 className="card-title mb-3">Get Status Updates</h5>
-              <p className="card-text text-muted mb-4">
-                Subscribe to get notified of any service interruptions or maintenance.
-              </p>
-              <div className="input-group">
-                <input 
-                  type="email" 
-                  className="form-control" 
-                  placeholder="Enter your email"
-                />
-                <button className="btn btn-primary" type="button">Subscribe</button>
+          <section className="services-section">
+            <div className="container">
+              <div className="row mb-5">
+                <div className="col-lg-8 mx-auto text-center">
+                  <div className="section-badge">
+                    <span>Service Status</span>
+                  </div>
+                  <h2 className="section-title">Current Service Status</h2>
+                  <p className="section-description">
+                    Real-time monitoring of all ifitness services and their performance metrics.
+                  </p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-8 mx-auto">
+                  <div className="services-list">
+                    {systemStatus.map((service, index) => (
+                      <div key={index} className="service-card">
+                        <div className="service-icon">
+                          <i className={`bi ${service.icon}`}></i>
+                        </div>
+                        <div className="service-info">
+                          <h3 className="service-title">{service.service}</h3>
+                          <div className="service-meta">
+                            <span className="service-status operational">
+                              <i className="bi bi-check-circle"></i>
+                              {getStatusBadge(service.status).text}
+                            </span>
+                            <span className="service-uptime">
+                              <i className="bi bi-clock"></i>
+                              {service.uptime} Uptime
+                            </span>
+                          </div>
+                        </div>
+                        <div className="service-status-indicator operational">
+                          <i className="bi bi-check-circle"></i>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
+
+          <section className="incidents-section">
+            <div className="container">
+              <div className="row mb-5">
+                <div className="col-lg-8 mx-auto text-center">
+                  <div className="section-badge">
+                    <span>Recent Activity</span>
+                  </div>
+                  <h2 className="section-title">Recent Incidents & Updates</h2>
+                  <p className="section-description">
+                    Stay informed about recent service incidents, maintenance, and improvements.
+                  </p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-8 mx-auto">
+                  <div className="incidents-list">
+                    {incidents.map((incident, index) => (
+                      <div key={index} className="incident-card">
+                        <div className="incident-header">
+                          <div className="incident-date">
+                            <span className="incident-day">{new Date(incident.date).toLocaleDateString('en-US', { day: 'numeric' })}</span>
+                            <span className="incident-month">{new Date(incident.date).toLocaleDateString('en-US', { month: 'short' })}</span>
+                          </div>
+                          <div className="incident-status">
+                            <span className={`status-badge ${getStatusBadge(incident.status).class}`}>
+                              <i className={`bi ${getStatusBadge(incident.status).icon}`}></i>
+                              {getStatusBadge(incident.status).text}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="incident-content">
+                          <h3 className="incident-title">{incident.title}</h3>
+                          <p className="incident-description">{incident.description}</p>
+                          <div className="incident-meta">
+                            <span className="incident-duration">
+                              <i className="bi bi-clock"></i>
+                              Duration: {incident.duration}
+                            </span>
+                            <span className="incident-affected">
+                              <i className="bi bi-server"></i>
+                              Affected: {incident.affected}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="metrics-section">
+            <div className="container">
+              <div className="row mb-5">
+                <div className="col-lg-8 mx-auto text-center">
+                  <div className="section-badge">
+                    <span>Performance</span>
+                  </div>
+                  <h2 className="section-title">System Performance Metrics</h2>
+                  <p className="section-description">
+                    Detailed performance metrics and historical data for our services.
+                  </p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-8 mx-auto">
+                  <div className="metrics-grid">
+                    <div className="metric-card">
+                      <div className="metric-icon">
+                        <i className="bi bi-speedometer"></i>
+                      </div>
+                      <h3>Response Time</h3>
+                      <p>Average API response time across all services.</p>
+                      <div className="metric-value">
+                        <span>120ms</span>
+                        <span className="metric-change success">
+                          <i className="bi bi-arrow-down"></i>
+                          15% faster
+                        </span>
+                      </div>
+                    </div>
+                    <div className="metric-card">
+                      <div className="metric-icon">
+                        <i className="bi bi-people"></i>
+                      </div>
+                      <h3>Active Users</h3>
+                      <p>Number of concurrent users currently using our services.</p>
+                      <div className="metric-value">
+                        <span>12,487</span>
+                        <span className="metric-change success">
+                          <i className="bi bi-arrow-up"></i>
+                          8% increase
+                        </span>
+                      </div>
+                    </div>
+                    <div className="metric-card">
+                      <div className="metric-icon">
+                        <i className="bi bi-cpu"></i>
+                      </div>
+                      <h3>Server Load</h3>
+                      <p>Current load across all our server infrastructure.</p>
+                      <div className="metric-value">
+                        <span>42%</span>
+                        <span className="metric-change normal">
+                          <i className="bi bi-dash"></i>
+                          Normal
+                        </span>
+                      </div>
+                    </div>
+                    <div className="metric-card">
+                      <div className="metric-icon">
+                        <i className="bi bi-shield-check"></i>
+                      </div>
+                      <h3>Security Score</h3>
+                      <p>Overall security rating of our systems and infrastructure.</p>
+                      <div className="metric-value">
+                        <span>98/100</span>
+                        <span className="metric-change success">
+                          <i className="bi bi-arrow-up"></i>
+                          Excellent
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="cta-section">
+            <div className="container">
+              <div className="cta-content">
+                <div className="cta-bg-pattern"></div>
+                <div className="row">
+                  <div className="col-lg-8 mx-auto text-center">
+                    <h2 className="cta-title">Stay Informed</h2>
+                    <p className="cta-description">
+                      Subscribe to receive real-time updates about service status, maintenance, and improvements.
+                    </p>
+                    <div className="cta-form">
+                      <input type="email" placeholder="Enter your email address" />
+                      <button type="submit" className="btn-subscribe">
+                        <span>Subscribe to Updates</span>
+                        <i className="bi bi-bell"></i>
+                      </button>
+                    </div>
+                    <div className="cta-links">
+                      <a href="/help-center" className="cta-link">
+                        <i className="bi bi-question-circle"></i>
+                        <span>Visit Help Center</span>
+                      </a>
+                      <a href="/contact" className="cta-link">
+                        <i className="bi bi-envelope"></i>
+                        <span>Contact Support</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-      </div>
-      </div>
-    </PageTransition>
+      </PageTransition>
+      <Footer />
+    </>
   );
 }

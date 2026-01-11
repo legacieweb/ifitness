@@ -1,0 +1,110 @@
+/* =====================================================
+   TOP NOTIFICATION BANNER - MODERN REFINEMENT
+   ===================================================== */
+
+.top-notification-banner {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition-normal);
+  animation: slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+.top-notification-banner.bootcamp {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+.top-notification-banner.activity {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color: white;
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 1280px;
+  width: 100%;
+}
+
+.banner-badge {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.banner-text {
+  font-size: 0.9rem;
+  flex-grow: 1;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.banner-text strong {
+  font-weight: 700;
+}
+
+.banner-action {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--dark);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  transition: var(--transition-normal);
+  white-space: nowrap;
+}
+
+.top-notification-banner:hover .banner-action {
+  transform: translateY(-1px);
+  background: white;
+  box-shadow: var(--shadow-md);
+}
+
+.banner-close {
+  margin-left: 1.5rem;
+  font-size: 1.25rem;
+  opacity: 0.6;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+@media (max-width: 992px) {
+  .banner-action { display: none; }
+}
+
+@media (max-width: 768px) {
+  .banner-badge { display: none; }
+  .banner-text { font-size: 0.8rem; line-height: 1.3; }
+}

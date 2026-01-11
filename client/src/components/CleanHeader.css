@@ -1,0 +1,325 @@
+/* =====================================================
+   REUSABLE CLEAN HEADER - FOR ALL AUTHENTICATED PAGES
+   ===================================================== */
+
+:root {
+  /* Fonts */
+  --font-main: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Primary Colors */
+  --primary: #4361ee;
+  --primary-light: #4895ef;
+  --primary-dark: #3a56d4;
+  --primary-gradient: linear-gradient(135deg, #4361ee 0%, #7c3aed 100%);
+  
+  /* Neutrals */
+  --clean-header-bg: rgba(255, 255, 255, 0.95);
+  --clean-header-bg-scrolled: rgba(255, 255, 255, 0.98);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border-color: rgba(226, 232, 240, 0.6);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 20px rgba(67, 97, 238, 0.2);
+  
+  /* Spacing */
+  --clean-header-height: 80px;
+  --clean-header-height-scrolled: 70px;
+}
+
+/* =====================================================
+   REUSABLE CLEAN HEADER STYLES
+   ===================================================== */
+
+/* Clean Header Container */
+.clean-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 20px 0;
+  background: var(--clean-header-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.clean-header.scrolled {
+  padding: 15px 0;
+  background: var(--clean-header-bg-scrolled);
+  box-shadow: var(--shadow-md);
+}
+
+/* Container */
+.clean-header .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+/* Header Content */
+.clean-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Logo Section */
+.clean-logo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.clean-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-family: var(--font-main);
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.clean-logo-link:hover {
+  transform: translateY(-1px);
+}
+
+.clean-logo-link i {
+  font-size: 1.8rem;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.clean-logo-link span {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -1px;
+}
+
+/* User Section */
+.clean-user-section {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.clean-user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.clean-user-greeting {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.clean-user-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.clean-user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  box-shadow: var(--shadow-glow);
+  transition: all 0.3s ease;
+}
+
+.clean-user-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.clean-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Quick Actions */
+.clean-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.clean-quick-action {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.clean-quick-action:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.clean-quick-action i {
+  transition: all 0.3s ease;
+}
+
+.clean-quick-action:hover i {
+  transform: scale(1.1);
+}
+
+/* Decorative Elements */
+.clean-header-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.clean-header-decor::before,
+.clean-header-decor::after {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(67, 97, 238, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  transition: all 0.5s ease;
+}
+
+.clean-header-decor::before {
+  top: -100px;
+  left: -100px;
+}
+
+.clean-header-decor::after {
+  bottom: -100px;
+  right: -100px;
+}
+
+.clean-header.scrolled .clean-header-decor::before,
+.clean-header.scrolled .clean-header-decor::after {
+  transform: scale(0.8);
+  opacity: 0.6;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .clean-header .container {
+    padding: 0 20px;
+  }
+  
+  .clean-user-greeting {
+    font-size: 0.85rem;
+  }
+  
+  .clean-user-name {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .clean-header {
+    padding: 15px 0;
+  }
+  
+  .clean-header-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .clean-user-section {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .clean-user-info {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .clean-quick-actions {
+    order: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .clean-logo-link span {
+    font-size: 1.4rem;
+  }
+  
+  .clean-user-name {
+    font-size: 0.95rem;
+  }
+  
+  .clean-quick-action {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .clean-logo-link span {
+    display: none;
+  }
+  
+  .clean-logo-link i {
+    font-size: 1.6rem;
+  }
+  
+  .clean-header .container {
+    padding: 0 15px;
+  }
+  
+  .clean-user-greeting {
+    font-size: 0.8rem;
+  }
+  
+  .clean-user-name {
+    font-size: 0.9rem;
+  }
+}

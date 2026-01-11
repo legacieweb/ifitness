@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import TopNewsletterFooter from '../components/TopNewsletterFooter';
+import './Auth.css';
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -181,7 +183,7 @@ export default function Register() {
                         </div>
                         <div className="password-strength">
                           <div className="strength-bar">
-                            <div className="strength-fill" style={{ 
+                            <div className="strength-fill" style={{
                               width: `${(passwordStrength / 4) * 100}%`,
                               backgroundColor: passwordStrength === 0 ? '#ddd' : passwordStrength === 1 ? '#ff6b6b' : passwordStrength === 2 ? '#ffa500' : passwordStrength === 3 ? '#4CAF50' : '#00BCD4'
                             }}></div>
@@ -408,6 +410,7 @@ export default function Register() {
           </div>
         </div>
       </div>
+      <TopNewsletterFooter />
     </div>
   );
 }

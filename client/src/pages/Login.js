@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import TopNewsletterFooter from '../components/TopNewsletterFooter';
+import './Auth.css';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -105,8 +107,8 @@ export default function Login() {
 
                   <div className="form-options">
                     <label className="checkbox-modern">
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
                       />
@@ -208,6 +210,7 @@ export default function Login() {
           </div>
         </div>
       </div>
+      <TopNewsletterFooter />
     </div>
   );
 }

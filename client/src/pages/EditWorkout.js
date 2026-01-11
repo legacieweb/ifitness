@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getWorkout, updateWorkout, getExercises } from '../services/api';
+import './WorkoutForm.css';
 
 export default function EditWorkout() {
   const { id } = useParams();
@@ -105,25 +106,37 @@ export default function EditWorkout() {
   };
 
   if (loading) {
-    return <div className="container mt-5"><p>Loading...</p></div>;
+    return (
+      <div className="workout-form-page d-flex align-items-center justify-content-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-8">
-          <div className="card">
-            <div className="card-body">
-              <h2 className="card-title mb-4">Edit Workout</h2>
-              {error && <div className="alert alert-danger">{error}</div>}
+    <div className="workout-form-page">
+      <div className="container">
+        <div className="form-header-modern">
+          <button className="btn btn-link text-decoration-none p-0 mb-3 text-muted" onClick={() => navigate(-1)}>
+            <i className="bi bi-arrow-left me-2"></i> Back to Workout
+          </button>
+          <h1>Edit Workout Details</h1>
+          <p>Update your session statistics and exercise progress</p>
+        </div>
 
+        {error && <div className="alert alert-danger rounded-4 py-3 mb-4">{error}</div>}
+
+        <div className="row g-4">
+          <div className="col-lg-8">
+            <div className="workout-card-edit fade-in">
               <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="name" className="form-label">Workout Name</label>
+                <div className="mb-4">
+                  <label className="form-label-modern">Workout Name</label>
                   <input
                     type="text"
-                    className="form-control"
-                    id="name"
+                    className="form-control-modern"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
@@ -131,11 +144,10 @@ export default function EditWorkout() {
                   />
                 </div>
 
-                <div className="mb-3">
-                  <label htmlFor="description" className="form-label">Description</label>
+                <div className="mb-4">
+                  <label className="form-label-modern">Description</label>
                   <textarea
-                    className="form-control"
-                    id="description"
+                    className="form-control-modern"
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
@@ -145,12 +157,11 @@ export default function EditWorkout() {
 
                 <div className="row">
                   <div className="col-md-6">
-                    <div className="mb-3">
-                      <label htmlFor="duration" className="form-label">Duration (minutes)</label>
+                    <div className="mb-4">
+                      <label className="form-label-modern">Duration (min)</label>
                       <input
                         type="number"
-                        className="form-control"
-                        id="duration"
+                        className="form-control-modern"
                         name="duration"
                         value={formData.duration}
                         onChange={handleChange}
@@ -159,12 +170,11 @@ export default function EditWorkout() {
                     </div>
                   </div>
                   <div className="col-md-6">
-                    <div className="mb-3">
-                      <label htmlFor="caloriesBurned" className="form-label">Calories Burned (optional)</label>
+                    <div className="mb-4">
+                      <label className="form-label-modern">Calories Burned</label>
                       <input
                         type="number"
-                        className="form-control"
-                        id="caloriesBurned"
+                        className="form-control-modern"
                         name="caloriesBurned"
                         value={formData.caloriesBurned}
                         onChange={handleChange}
@@ -173,11 +183,10 @@ export default function EditWorkout() {
                   </div>
                 </div>
 
-                <div className="mb-3">
-                  <label htmlFor="notes" className="form-label">Notes</label>
+                <div className="mb-4">
+                  <label className="form-label-modern">Notes</label>
                   <textarea
-                    className="form-control"
-                    id="notes"
+                    className="form-control-modern"
                     name="notes"
                     value={formData.notes}
                     onChange={handleChange}
@@ -185,29 +194,38 @@ export default function EditWorkout() {
                   ></textarea>
                 </div>
 
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={saving}
-                >
-                  {saving ? 'Saving...' : 'Save Changes'}
-                </button>
+                <div className="d-flex gap-3 pt-3">
+                  <button
+                    type="submit"
+                    className="btn-custom-main btn-custom-primary flex-grow-1"
+                    disabled={saving}
+                  >
+                    {saving ? <><span className="spinner-border spinner-border-sm me-2"></span>Saving...</> : <><i className="bi bi-cloud-check-fill me-2"></i>Save Changes</>}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-custom-main btn-custom-outline px-4"
+                    onClick={() => navigate(-1)}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </form>
             </div>
           </div>
-        </div>
 
-        <div className="col-md-4">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title mb-3">Exercises</h5>
-              <div className="mb-3">
+          <div className="col-lg-4">
+            <div className="exercise-manager-card fade-in">
+              <h5 className="fw-bold mb-4">Exercises</h5>
+              
+              <div className="mb-4">
+                <label className="form-label-modern">Add Exercise</label>
                 <select
-                  className="form-select"
+                  className="form-control-modern"
                   onChange={(e) => handleAddExercise(e.target.value)}
                   value=""
                 >
-                  <option value="">Add exercise</option>
+                  <option value="">Select from library...</option>
                   {exercises.map((ex) => (
                     <option key={ex._id} value={ex._id}>
                       {ex.name}
@@ -216,47 +234,58 @@ export default function EditWorkout() {
                 </select>
               </div>
 
-              {selectedExercises.map((ex) => (
-                <div key={ex.exerciseId?._id} className="mb-3 p-2 border rounded">
-                  <div className="d-flex justify-content-between mb-2">
-                    <span className="fw-bold">{ex.exerciseId?.name}</span>
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-danger"
-                      onClick={() => handleRemoveExercise(ex.exerciseId?._id)}
-                    >
-                      Remove
-                    </button>
+              <div style={{ maxHeight: '500px', overflowY: 'auto' }}>
+                {selectedExercises.length === 0 ? (
+                  <div className="text-center py-5 text-muted">
+                    <i className="bi bi-list-task fs-1 d-block mb-2"></i>
+                    <p className="small">No exercises added yet</p>
                   </div>
-                  <div className="row">
-                    <div className="col-6">
-                      <input
-                        type="number"
-                        className="form-control form-control-sm"
-                        placeholder="Sets"
-                        value={ex.sets}
-                        onChange={(e) => handleExerciseChange(ex.exerciseId?._id, 'sets', e.target.value)}
-                      />
+                ) : (
+                  selectedExercises.map((ex) => (
+                    <div key={ex.exerciseId?._id} className="exercise-item-edit">
+                      <div className="exercise-header-edit">
+                        <span className="exercise-title-edit">{ex.exerciseId?.name}</span>
+                        <button
+                          type="button"
+                          className="btn-remove-ex"
+                          onClick={() => handleRemoveExercise(ex.exerciseId?._id)}
+                        >
+                          <i className="bi bi-x-lg"></i>
+                        </button>
+                      </div>
+                      <div className="exercise-stats-edit">
+                        <div className="ex-input-group">
+                          <label>Sets</label>
+                          <input
+                            type="number"
+                            className="ex-control-sm"
+                            value={ex.sets}
+                            onChange={(e) => handleExerciseChange(ex.exerciseId?._id, 'sets', e.target.value)}
+                          />
+                        </div>
+                        <div className="ex-input-group">
+                          <label>Reps</label>
+                          <input
+                            type="number"
+                            className="ex-control-sm"
+                            value={ex.reps}
+                            onChange={(e) => handleExerciseChange(ex.exerciseId?._id, 'reps', e.target.value)}
+                          />
+                        </div>
+                        <div className="ex-input-group">
+                          <label>Weight</label>
+                          <input
+                            type="number"
+                            className="ex-control-sm"
+                            value={ex.weight}
+                            onChange={(e) => handleExerciseChange(ex.exerciseId?._id, 'weight', e.target.value)}
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div className="col-6">
-                      <input
-                        type="number"
-                        className="form-control form-control-sm"
-                        placeholder="Reps"
-                        value={ex.reps}
-                        onChange={(e) => handleExerciseChange(ex.exerciseId?._id, 'reps', e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <input
-                    type="number"
-                    className="form-control form-control-sm mt-2"
-                    placeholder="Weight (kg)"
-                    value={ex.weight}
-                    onChange={(e) => handleExerciseChange(ex.exerciseId?._id, 'weight', e.target.value)}
-                  />
-                </div>
-              ))}
+                  ))
+                )}
+              </div>
             </div>
           </div>
         </div>

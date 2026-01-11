@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createWorkout } from '../services/api';
+import './Modals.css';
 
 export default function WorkoutSuggestionModal({ suggestions, onClose, userId }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,214 +58,141 @@ export default function WorkoutSuggestionModal({ suggestions, onClose, userId })
   };
 
   return (
-    <div className="modal d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-      <div className="modal-dialog modal-lg modal-dialog-centered">
-        <div className="modal-content" style={{ borderRadius: '20px', border: 'none' }}>
-          <div className="modal-header" style={{ borderBottom: 'none', padding: '30px 30px 20px' }}>
-            <h5 className="modal-title fw-bold" style={{ color: '#ff6b6b' }}>
-              <i className="bi bi-lightning-charge"></i> Workout Suggestions
-            </h5>
-            <button
-              type="button"
-              className="btn-close"
-              onClick={onClose}
-              disabled={loading}
-            ></button>
-          </div>
+    <div className="modal-backdrop-custom" onClick={onClose}>
+      <div className="modal-dialog-custom" onClick={e => e.stopPropagation()}>
+        <div className="modal-header-custom">
+          <h5><i className="bi bi-lightning-charge-fill text-warning"></i> Workout Suggestions</h5>
+          <button
+            type="button"
+            className="btn-close"
+            onClick={onClose}
+            disabled={loading}
+          ></button>
+        </div>
 
-          <div className="modal-body" style={{ padding: '20px 30px' }}>
-            {error && <div className="alert alert-danger">{error}</div>}
+        <div className="modal-body-custom">
+          {error && <div className="alert alert-danger rounded-4 mb-4">{error}</div>}
 
-            {suggestions.length > 0 && (
-              <div>
-                <div
-                  style={{
-                    background: 'linear-gradient(135deg, #ff6b6b, #ff4757)',
-                    borderRadius: '15px',
-                    padding: '30px',
-                    color: 'white',
-                    marginBottom: '25px',
-                  }}
+          {suggestions.length > 0 && (
+            <div className="fade-in">
+              <div className="suggestion-hero">
+                <div className="suggestion-hero-decoration"></div>
+                <div className="suggestion-index">
+                  Recommendation {currentIndex + 1} of {suggestions.length}
+                </div>
+                <h3 className="suggestion-name">{currentSuggestion.name}</h3>
+                <p className="suggestion-desc">{currentSuggestion.description}</p>
+                
+                <div className="suggestion-meta-row">
+                  <div className="suggestion-meta-item">
+                    <i className="bi bi-bullseye"></i>
+                    <span>{currentSuggestion.muscleGroup}</span>
+                  </div>
+                  <div className="suggestion-meta-item">
+                    <i className="bi bi-speedometer2"></i>
+                    <span>{currentSuggestion.difficulty}</span>
+                  </div>
+                  <div className="suggestion-meta-item">
+                    <i className="bi bi-tag"></i>
+                    <span>{currentSuggestion.category}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h6 className="fw-bold mb-3 text-uppercase small tracking-wider text-muted">Instructions</h6>
+                <p className="instruction-text">{currentSuggestion.instructions}</p>
+              </div>
+
+              <div className="pagination-controls">
+                <button
+                  className="page-btn"
+                  onClick={handlePrevious}
+                  disabled={loading}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-                    <span style={{ fontSize: '14px', opacity: 0.9 }}>
-                      {currentIndex + 1} of {suggestions.length}
-                    </span>
-                    <span style={{ fontSize: '12px', background: 'rgba(255,255,255,0.2)', padding: '5px 12px', borderRadius: '20px' }}>
-                      {currentSuggestion.category}
-                    </span>
-                  </div>
-                  <h3 style={{ marginBottom: '10px', fontSize: '28px', fontWeight: 800 }}>
-                    {currentSuggestion.name}
-                  </h3>
-                  <p style={{ marginBottom: '15px', opacity: 0.95, lineHeight: 1.5 }}>
-                    {currentSuggestion.description}
-                  </p>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', fontSize: '14px' }}>
-                    <div>
-                      <strong>Muscle Group:</strong> {currentSuggestion.muscleGroup}
-                    </div>
-                    <div>
-                      <strong>Difficulty:</strong> {currentSuggestion.difficulty}
-                    </div>
-                  </div>
+                  <i className="bi bi-chevron-left"></i>
+                </button>
+
+                <div className="d-flex gap-2 mx-3">
+                  {suggestions.map((_, idx) => (
+                    <div
+                      key={idx}
+                      className={`page-dot ${idx === currentIndex ? 'active' : ''}`}
+                    ></div>
+                  ))}
                 </div>
 
-                <div style={{ marginBottom: '20px' }}>
-                  <p style={{ color: '#666', fontSize: '14px', marginBottom: '10px' }}>
-                    <strong>Instructions:</strong>
-                  </p>
-                  <p style={{ color: '#666', lineHeight: 1.6, fontSize: '15px' }}>
-                    {currentSuggestion.instructions}
-                  </p>
+                <button
+                  className="page-btn"
+                  onClick={handleNext}
+                  disabled={loading}
+                >
+                  <i className="bi bi-chevron-right"></i>
+                </button>
+              </div>
+
+              <div className="exercise-selection-item rounded-4 mb-4" onClick={() => !loading && toggleWorkoutSelection(currentSuggestion)}>
+                <div className="exercise-checkbox">
+                  <i className="bi bi-check-lg"></i>
                 </div>
-
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '25px' }}>
-                  <button
-                    className="btn"
-                    onClick={handlePrevious}
-                    disabled={loading}
-                    style={{
-                      background: '#f0f0f0',
-                      border: 'none',
-                      borderRadius: '50px',
-                      width: '45px',
-                      height: '45px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <i className="bi bi-chevron-left" style={{ fontSize: '20px', color: '#ff6b6b' }}></i>
-                  </button>
-
-                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                    {suggestions.map((_, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          width: '8px',
-                          height: '8px',
-                          borderRadius: '50%',
-                          background: idx === currentIndex ? '#ff6b6b' : '#ddd',
-                          transition: 'all 0.3s ease',
-                        }}
-                      ></div>
-                    ))}
-                  </div>
-
-                  <button
-                    className="btn"
-                    onClick={handleNext}
-                    disabled={loading}
-                    style={{
-                      background: '#f0f0f0',
-                      border: 'none',
-                      borderRadius: '50px',
-                      width: '45px',
-                      height: '45px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <i className="bi bi-chevron-right" style={{ fontSize: '20px', color: '#ff6b6b' }}></i>
-                  </button>
-                </div>
-
-                <div style={{ marginBottom: '20px' }}>
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', marginBottom: '10px' }}>
-                    <input
-                      type="checkbox"
-                      checked={selectedWorkouts.some((w) => w._id === currentSuggestion._id)}
-                      onChange={() => toggleWorkoutSelection(currentSuggestion)}
-                      disabled={loading}
-                      style={{ width: '20px', height: '20px', cursor: 'pointer' }}
-                    />
-                    <span style={{ fontWeight: 600, color: '#333' }}>Add this workout to my routine</span>
-                  </label>
-                </div>
-
-                {selectedWorkouts.length > 0 && (
-                  <div style={{ background: '#f8f9fa', borderRadius: '10px', padding: '15px', marginBottom: '20px' }}>
-                    <p style={{ fontSize: '14px', color: '#666', marginBottom: '10px' }}>
-                      <strong>{selectedWorkouts.length} workout(s) selected:</strong>
-                    </p>
-                    <div>
-                      {selectedWorkouts.map((w) => (
-                        <div
-                          key={w._id}
-                          style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            padding: '8px 0',
-                            borderBottom: '1px solid #ddd',
-                          }}
-                        >
-                          <span style={{ color: '#333', fontSize: '14px' }}>{w.name}</span>
-                          <button
-                            onClick={() => toggleWorkoutSelection(w)}
-                            disabled={loading}
-                            style={{
-                              background: 'none',
-                              border: 'none',
-                              color: '#ff6b6b',
-                              cursor: 'pointer',
-                              fontSize: '18px',
-                            }}
-                          >
-                            ×
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                <span className="fw-bold text-dark">Add this workout to my routine</span>
+                {selectedWorkouts.some((w) => w._id === currentSuggestion._id) && (
+                  <span className="badge bg-success-soft text-success ms-auto">Selected</span>
                 )}
               </div>
-            )}
-          </div>
 
-          <div className="modal-footer" style={{ borderTop: 'none', padding: '20px 30px 30px' }}>
-            <button
-              type="button"
-              className="btn"
-              onClick={onClose}
-              disabled={loading}
-              style={{ background: '#f0f0f0', color: '#333', borderRadius: '50px', fontWeight: 600, border: 'none' }}
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              className="btn"
-              onClick={handleStartWorkouts}
-              disabled={loading || selectedWorkouts.length === 0}
-              style={{
-                background: 'linear-gradient(135deg, #ff6b6b, #ff4757)',
-                color: 'white',
-                borderRadius: '50px',
-                fontWeight: 600,
-                border: 'none',
-              }}
-            >
-              {loading ? (
-                <>
-                  <span className="spinner-border spinner-border-sm me-2"></span>
-                  Starting...
-                </>
-              ) : (
-                <>
-                  <i className="bi bi-play-fill me-2"></i>
-                  Start Workouts
-                </>
+              {selectedWorkouts.length > 0 && (
+                <div className="bg-light rounded-4 p-4 mt-4">
+                  <h6 className="fw-bold mb-3 small text-uppercase text-muted">Selected for Routine ({selectedWorkouts.length})</h6>
+                  <div className="d-flex flex-wrap gap-2">
+                    {selectedWorkouts.map((w) => (
+                      <span key={w._id} className="badge bg-white text-primary border px-3 py-2 rounded-pill d-flex align-items-center gap-2">
+                        {w.name}
+                        <i 
+                          className="bi bi-x-circle-fill text-danger cursor-pointer" 
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleWorkoutSelection(w);
+                          }}
+                        ></i>
+                      </span>
+                    ))}
+                  </div>
+                </div>
               )}
-            </button>
-          </div>
+            </div>
+          )}
+        </div>
+
+        <div className="modal-footer-custom">
+          <button
+            type="button"
+            className="btn-modern-cancel"
+            onClick={onClose}
+            disabled={loading}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="btn-modern-primary"
+            onClick={handleStartWorkouts}
+            disabled={loading || selectedWorkouts.length === 0}
+          >
+            {loading ? (
+              <><span className="spinner-border spinner-border-sm me-2"></span>Starting...</>
+            ) : (
+              <><i className="bi bi-play-fill me-2"></i>Add to Routine</>
+            )}
+          </button>
         </div>
       </div>
+      
+      <style>{`
+        .bg-success-soft { background-color: rgba(16, 185, 129, 0.1); }
+        .cursor-pointer { cursor: pointer; }
+        .tracking-wider { letter-spacing: 0.1em; }
+      `}</style>
     </div>
   );
 }

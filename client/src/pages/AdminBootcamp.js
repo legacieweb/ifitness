@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import './AdminDashboard.css';
+import './AdminBootcamp.css';
 
 export default function AdminBootcamp() {
   const { user } = useAuth();
@@ -87,6 +89,7 @@ export default function AdminBootcamp() {
     });
     setEditingId(bootcamp._id);
     setShowForm(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (id) => {
@@ -104,155 +107,222 @@ export default function AdminBootcamp() {
     }
   };
 
-  if (loading) return <div className="container mt-5"><p>Loading...</p></div>;
+  if (loading) return (
+    <div className="admin-wrapper d-flex align-items-center justify-content-center">
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="container mt-5 mb-5">
-      <h1 className="mb-4">Bootcamp Management</h1>
-
-      <button
-        className="btn btn-primary mb-4"
-        onClick={() => {
-          setShowForm(!showForm);
-          setEditingId(null);
-          setFormData({
-            title: '',
-            description: '',
-            expectations: '',
-            startTime: '',
-            endTime: '',
-            difficulty: 'Intermediate',
-            exercises: [],
-          });
-        }}
-      >
-        {showForm ? '✕ Cancel' : '+ New Bootcamp'}
-      </button>
-
-      {showForm && (
-        <div className="card mb-4 p-4" style={{ backgroundColor: '#f8f9fa' }}>
-          <h3>{editingId ? 'Edit Bootcamp' : 'Create New Bootcamp'}</h3>
-          <form onSubmit={handleSubmit}>
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <label className="form-label">Title</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  name="title"
-                  value={formData.title}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="col-md-6 mb-3">
-                <label className="form-label">Difficulty</label>
-                <select
-                  className="form-control"
-                  name="difficulty"
-                  value={formData.difficulty}
-                  onChange={handleInputChange}
-                >
-                  <option>Beginner</option>
-                  <option>Intermediate</option>
-                  <option>Advanced</option>
-                </select>
-              </div>
+    <div className="admin-wrapper">
+      <div className="admin-header-section mb-4">
+        <div className="header-content">
+          <div className="d-flex align-items-center gap-3">
+            <div className="admin-avatar-placeholder">
+              <i className="bi bi-rocket-takeoff"></i>
             </div>
-
-            <div className="mb-3">
-              <label className="form-label">Description</label>
-              <textarea
-                className="form-control"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                rows="3"
-                required
-              ></textarea>
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label">What to Expect</label>
-              <textarea
-                className="form-control"
-                name="expectations"
-                value={formData.expectations}
-                onChange={handleInputChange}
-                rows="2"
-                required
-              ></textarea>
-            </div>
-
-            <div className="row">
-              <div className="col-md-6 mb-3">
-                <label className="form-label">Start Time</label>
-                <input
-                  type="datetime-local"
-                  className="form-control"
-                  name="startTime"
-                  value={formData.startTime}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="col-md-6 mb-3">
-                <label className="form-label">End Time</label>
-                <input
-                  type="datetime-local"
-                  className="form-control"
-                  name="endTime"
-                  value={formData.endTime}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-            </div>
-
-            <button type="submit" className="btn btn-success">
-              {editingId ? 'Update Bootcamp' : 'Create Bootcamp'}
-            </button>
-          </form>
-        </div>
-      )}
-
-      <div className="row">
-        {bootcamps.map((bootcamp) => (
-          <div key={bootcamp._id} className="col-md-6 mb-4">
-            <div className="card h-100">
-              <div className="card-body">
-                <h5 className="card-title">{bootcamp.title}</h5>
-                <p className="card-text text-muted mb-2">{bootcamp.description}</p>
-                <p className="card-text small">
-                  <i className="bi bi-calendar"></i> {new Date(bootcamp.startTime).toLocaleString()}
-                </p>
-                <p className="card-text small">
-                  <i className="bi bi-hourglass-end"></i> {new Date(bootcamp.endTime).toLocaleString()}
-                </p>
-                <p className="card-text small">
-                  <span className="badge bg-info">{bootcamp.difficulty}</span>
-                </p>
-                <p className="card-text small">
-                  <strong>Participants:</strong> {bootcamp.participants.length}
-                </p>
-              </div>
-              <div className="card-footer bg-white">
-                <button
-                  className="btn btn-sm btn-warning me-2"
-                  onClick={() => handleEdit(bootcamp)}
-                >
-                  <i className="bi bi-pencil"></i>
-                </button>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => handleDelete(bootcamp._id)}
-                >
-                  <i className="bi bi-trash"></i>
-                </button>
-              </div>
+            <div>
+              <h1>Bootcamp Programs</h1>
+              <p className="header-subtitle">Create and manage intensive fitness challenges</p>
             </div>
           </div>
-        ))}
+          <button
+            className={`btn ${showForm ? 'btn-outline-danger' : 'btn-modern-primary'}`}
+            onClick={() => {
+              setShowForm(!showForm);
+              setEditingId(null);
+              setFormData({
+                title: '',
+                description: '',
+                expectations: '',
+                startTime: '',
+                endTime: '',
+                difficulty: 'Intermediate',
+                exercises: [],
+              });
+            }}
+          >
+            {showForm ? <><i className="bi bi-x-lg me-2"></i>Close Form</> : <><i className="bi bi-plus-lg me-2"></i>New Program</>}
+          </button>
+        </div>
+      </div>
+
+      <div className="admin-container">
+        {showForm && (
+          <div className="bootcamp-form-card fade-in">
+            <h3 className="fw-bold mb-4">{editingId ? 'Edit Program' : 'Design New Program'}</h3>
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="bootcamp-input-group">
+                    <label>Program Title</label>
+                    <input
+                      type="text"
+                      className="bootcamp-control"
+                      name="title"
+                      placeholder="e.g., 30-Day Summer Shred"
+                      value={formData.title}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="bootcamp-input-group">
+                    <label>Difficulty Level</label>
+                    <select
+                      className="bootcamp-control"
+                      name="difficulty"
+                      value={formData.difficulty}
+                      onChange={handleInputChange}
+                    >
+                      <option>Beginner</option>
+                      <option>Intermediate</option>
+                      <option>Advanced</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bootcamp-input-group">
+                <label>Detailed Description</label>
+                <textarea
+                  className="bootcamp-control"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  rows="3"
+                  placeholder="Describe the goals and target audience..."
+                  required
+                ></textarea>
+              </div>
+
+              <div className="bootcamp-input-group">
+                <label>What Participants Should Expect</label>
+                <textarea
+                  className="bootcamp-control"
+                  name="expectations"
+                  value={formData.expectations}
+                  onChange={handleInputChange}
+                  rows="2"
+                  placeholder="Key takeaways, equipment needed, intensity..."
+                  required
+                ></textarea>
+              </div>
+
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="bootcamp-input-group">
+                    <label>Launch Date & Time</label>
+                    <input
+                      type="datetime-local"
+                      className="bootcamp-control"
+                      name="startTime"
+                      value={formData.startTime}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="bootcamp-input-group">
+                    <label>Conclusion Date & Time</label>
+                    <input
+                      type="datetime-local"
+                      className="bootcamp-control"
+                      name="endTime"
+                      value={formData.endTime}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-end mt-2">
+                <button type="submit" className="btn btn-modern-primary px-5">
+                  {editingId ? <><i className="bi bi-cloud-check me-2"></i>Update Program</> : <><i className="bi bi-rocket-takeoff me-2"></i>Launch Bootcamp</>}
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        <div className="bootcamp-grid">
+          {bootcamps.length === 0 ? (
+            <div className="col-12 text-center py-5">
+              <i className="bi bi-inboxes text-muted fs-1 d-block mb-3"></i>
+              <p className="text-muted">No programs created yet.</p>
+            </div>
+          ) : (
+            bootcamps.map((bootcamp) => (
+              <div key={bootcamp._id} className="bootcamp-card-modern">
+                <div className="bootcamp-card-header">
+                  <span className={`difficulty-pill ${bootcamp.difficulty.toLowerCase()}`}>
+                    {bootcamp.difficulty}
+                  </span>
+                  <div className="bootcamp-actions">
+                    <button
+                      className="action-btn-circle invite"
+                      onClick={async () => {
+                        if (window.confirm('Invite all users to this bootcamp?')) {
+                          try {
+                            const token = localStorage.getItem('token');
+                            const response = await fetch(`/api/bootcamps/${bootcamp._id}/invite-all`, {
+                              method: 'POST',
+                              headers: { Authorization: `Bearer ${token}` }
+                            });
+                            if (response.ok) alert('Invitations sent to all users!');
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        }
+                      }}
+                      title="Invite All"
+                    >
+                      <i className="bi bi-send-fill"></i>
+                    </button>
+                    <button
+                      className="action-btn-circle edit"
+                      onClick={() => handleEdit(bootcamp)}
+                      title="Edit"
+                    >
+                      <i className="bi bi-pencil-fill"></i>
+                    </button>
+                    <button
+                      className="action-btn-circle delete"
+                      onClick={() => handleDelete(bootcamp._id)}
+                      title="Delete"
+                    >
+                      <i className="bi bi-trash-fill"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <h4 className="bootcamp-title-modern">{bootcamp.title}</h4>
+                <p className="bootcamp-desc-modern">{bootcamp.description}</p>
+                
+                <div className="bootcamp-stats-strip">
+                  <div className="stat-item-row">
+                    <i className="bi bi-calendar2-event"></i>
+                    <span>Start: <span className="value">{new Date(bootcamp.startTime).toLocaleDateString()}</span></span>
+                    <span className="ms-auto text-muted small">{new Date(bootcamp.startTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                  </div>
+                  <div className="stat-item-row">
+                    <i className="bi bi-people"></i>
+                    <span>Enrolled: <span className="value">{bootcamp.participants.length} Participants</span></span>
+                  </div>
+                </div>
+                
+                <button className="view-engagement-btn">
+                  View Engagement <i className="bi bi-arrow-right"></i>
+                </button>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

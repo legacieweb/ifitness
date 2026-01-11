@@ -1,22 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import Preloader from '../components/Preloader';
+import { getAdminStats, getAllUsers, getSystemHealth } from '../services/api';
 import './AdminDashboard.css';
+import './AdminBootcamp.css';
 
 export default function AdminDashboard() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [stats, setStats] = useState(null);
-  const [users, setUsers] = useState([]);
-  const [bootcamps, setBootcamps] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState('');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    activeUsers: 0,
+    totalWorkouts: 0,
+    caloriesBurned: 0
+  });
+  const [allUsers, setAllUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [recentActivity, setRecentActivity] = useState([]);
+  const [systemHealth, setSystemHealth] = useState({
+    cpu: 0,
+    memory: 0,
+    storage: 0,
+    apiLatency: 0,
+    uptime: 99.9
+  });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+
+  // Bootcamp management state
+  const [bootcamps, setBootcamps] = useState([]);
   const [showBootcampForm, setShowBootcampForm] = useState(false);
-  const [bootcampEditingId, setBootcampEditingId] = useState(null);
   const [bootcampFormData, setBootcampFormData] = useState({
     title: '',
     description: '',
@@ -26,54 +42,134 @@ export default function AdminDashboard() {
     difficulty: 'Intermediate',
     exercises: [],
   });
+  const [editingBootcampId, setEditingBootcampId] = useState(null);
 
-  const [settings, setSettings] = useState({
-    emailNotifications: true,
-    achievementAlerts: true,
-    maintenanceMode: false,
-    publicRegistrations: true,
-    sessionTimeout: 30,
-    passwordResetRequired: true,
+  // Outdoor activities state
+  const [outdoorActivities, setOutdoorActivities] = useState([]);
+  const [showOutdoorForm, setShowOutdoorForm] = useState(false);
+  const [outdoorFormData, setOutdoorFormData] = useState({
+    title: '',
+    description: '',
+    location: '',
+    activityType: '',
+    expectations: '',
+    startTime: '',
+    endTime: '',
+    difficulty: 'Intermediate',
   });
+  const [editingOutdoorId, setEditingOutdoorId] = useState(null);
+
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => setToast({ show: false, message: '', type: 'success' }), 3000);
+  };
+
+  const fetchBootcamps = useCallback(async () => {
+    try {
+      const response = await fetch('/api/bootcamps');
+      if (response.ok) {
+        const data = await response.json();
+        setBootcamps(Array.isArray(data) ? data : []);
+      }
+    } catch (err) {
+      console.error('Error fetching bootcamps:', err);
+    }
+  }, []);
+
+  const fetchOutdoorActivities = useCallback(async () => {
+    try {
+      const response = await fetch('/api/outdoor-activities');
+      if (response.ok) {
+        const data = await response.json();
+        setOutdoorActivities(Array.isArray(data) ? data : []);
+      }
+    } catch (err) {
+      console.error('Error fetching outdoor activities:', err);
+    }
+  }, []);
+
+  const fetchDashboardData = useCallback(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) return;
+
+      // Fetch admin stats
+      try {
+        const statsResponse = await getAdminStats(token);
+        const statsData = statsResponse.data;
+        setStats({
+          totalUsers: statsData.totalUsers || 0,
+          activeUsers: (statsData.totalUsers || 0) - (statsData.suspendedUsers || 0),
+          totalWorkouts: statsData.totalWorkouts || 0,
+          caloriesBurned: statsData.totalCalories || 0
+        });
+      } catch (err) {
+        console.error('Error fetching stats:', err);
+      }
+
+      // Fetch all users
+      try {
+        const usersResponse = await getAllUsers(token);
+        const usersData = usersResponse.data || [];
+        setAllUsers(usersData);
+        setFilteredUsers(usersData);
+
+        // Generate recent activity
+        if (Array.isArray(usersData)) {
+          const activity = usersData.slice(0, 5).map((u, index) => ({
+            type: index === 0 ? 'user' : index === 1 ? 'workout' : 'activity',
+            text: `<strong>${u.name || 'A new user'}</strong> ${index === 0 ? 'joined the platform' : 'updated their profile'}`,
+            time: `${index + 1}h ago`,
+            icon: index === 0 ? 'person-plus' : 'person-check'
+          }));
+          setRecentActivity(activity);
+        }
+      } catch (err) {
+        console.error('Error fetching users:', err);
+      }
+
+      // Fetch system health
+      try {
+        const healthResponse = await getSystemHealth(token);
+        setSystemHealth(healthResponse.data);
+      } catch (err) {
+        console.error('Error fetching system health:', err);
+      }
+
+      // Fetch bootcamps and outdoor activities
+      fetchBootcamps();
+      fetchOutdoorActivities();
+
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error);
+    }
+  }, [fetchBootcamps, fetchOutdoorActivities]);
 
   useEffect(() => {
     if (user && !user.isAdmin) {
       navigate('/dashboard');
+      return;
     }
-    fetchAllData();
-  }, [user]);
 
-  const fetchAllData = async () => {
-    try {
-      setLoading(true);
-      const token = localStorage.getItem('token');
-      const headers = { 'Authorization': `Bearer ${token}` };
+    fetchDashboardData();
+    setLoading(false);
+  }, [user, navigate, fetchDashboardData]);
 
-      const [statsRes, usersRes, bootcampsRes] = await Promise.all([
-        fetch('/api/admin/stats', { headers }),
-        fetch('/api/admin/users', { headers }),
-        fetch('/api/bootcamps', { headers }),
-      ]);
-
-      const statsData = await statsRes.json();
-      const usersData = await usersRes.json();
-      const bootcampsData = await bootcampsRes.json();
-      
-      setStats(statsData);
-      setUsers(usersData);
-      setBootcamps(bootcampsData);
-    } catch (error) {
-      console.error('Failed to fetch data:', error);
-      showAlert('Failed to load data', 'error');
-    } finally {
-      setLoading(false);
+  // Search filter
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+      setFilteredUsers(allUsers);
+    } else {
+      const query = searchQuery.toLowerCase();
+      setFilteredUsers(allUsers.filter(u => 
+        u.name?.toLowerCase().includes(query) || 
+        u.email?.toLowerCase().includes(query)
+      ));
     }
-  };
+  }, [searchQuery, allUsers]);
 
-  const showAlert = (msg, type = 'success') => {
-    setMessage(msg);
-    setMessageType(type);
-    setTimeout(() => setMessage(''), 4000);
+  const navigateToUserProfile = (userId) => {
+    navigate(`/admin/users/${userId}`);
   };
 
   const handleBootcampInputChange = (e) => {
@@ -85,9 +181,9 @@ export default function AdminDashboard() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const method = bootcampEditingId ? 'PUT' : 'POST';
-      const url = bootcampEditingId
-        ? `/api/bootcamps/${bootcampEditingId}`
+      const method = editingBootcampId ? 'PUT' : 'POST';
+      const url = editingBootcampId
+        ? `/api/bootcamps/${editingBootcampId}`
         : '/api/bootcamps';
 
       const response = await fetch(url, {
@@ -100,6 +196,7 @@ export default function AdminDashboard() {
       });
 
       if (response.ok) {
+        showToast(editingBootcampId ? 'Bootcamp updated successfully' : 'Bootcamp launched successfully');
         setBootcampFormData({
           title: '',
           description: '',
@@ -110,650 +207,764 @@ export default function AdminDashboard() {
           exercises: [],
         });
         setShowBootcampForm(false);
-        setBootcampEditingId(null);
-        fetchAllData();
-        showAlert(`Bootcamp ${bootcampEditingId ? 'updated' : 'created'} successfully`, 'success');
+        setEditingBootcampId(null);
+        fetchBootcamps();
+      } else {
+        showToast('Error saving bootcamp', 'danger');
       }
     } catch (err) {
       console.error('Error saving bootcamp:', err);
-      showAlert('Failed to save bootcamp', 'error');
+      showToast('Connection error', 'danger');
     }
   };
 
-  const handleBootcampEdit = (bootcamp) => {
+  const handleEditBootcamp = (bootcamp) => {
     setBootcampFormData({
       title: bootcamp.title,
       description: bootcamp.description,
       expectations: bootcamp.expectations,
-      startTime: bootcamp.startTime.slice(0, 16),
-      endTime: bootcamp.endTime.slice(0, 16),
+      startTime: bootcamp.startTime?.slice(0, 16) || '',
+      endTime: bootcamp.endTime?.slice(0, 16) || '',
       difficulty: bootcamp.difficulty,
       exercises: bootcamp.exercises,
     });
-    setBootcampEditingId(bootcamp._id);
+    setEditingBootcampId(bootcamp._id);
     setShowBootcampForm(true);
+    setActiveTab('bootcamps');
   };
 
-  const handleBootcampDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this bootcamp?')) {
+  const handleDeleteBootcamp = async (id) => {
+    if (window.confirm('Delete this bootcamp?')) {
       try {
         const token = localStorage.getItem('token');
-        await fetch(`/api/bootcamps/${id}`, {
+        const response = await fetch(`/api/bootcamps/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });
-        fetchAllData();
-        showAlert('Bootcamp deleted successfully', 'success');
+        if (response.ok) {
+          showToast('Bootcamp deleted');
+          fetchBootcamps();
+        }
       } catch (err) {
         console.error('Error deleting bootcamp:', err);
-        showAlert('Failed to delete bootcamp', 'error');
       }
     }
   };
 
-  const handleSaveSettings = () => {
-    localStorage.setItem('adminSettings', JSON.stringify(settings));
-    showAlert('Settings saved successfully', 'success');
+  const handleOutdoorInputChange = (e) => {
+    const { name, value } = e.target;
+    setOutdoorFormData({ ...outdoorFormData, [name]: value });
   };
 
-  const handleSettingChange = (key, value) => {
-    setSettings(prev => ({
-      ...prev,
-      [key]: value
-    }));
+  const handleOutdoorSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem('token');
+      const method = editingOutdoorId ? 'PUT' : 'POST';
+      const url = editingOutdoorId
+        ? `/api/outdoor-activities/${editingOutdoorId}`
+        : '/api/outdoor-activities';
+
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(outdoorFormData),
+      });
+
+      if (response.ok) {
+        showToast(editingOutdoorId ? 'Activity updated' : 'Activity planned');
+        setOutdoorFormData({
+          title: '',
+          description: '',
+          location: '',
+          activityType: '',
+          expectations: '',
+          startTime: '',
+          endTime: '',
+          difficulty: 'Intermediate',
+        });
+        setShowOutdoorForm(false);
+        setEditingOutdoorId(null);
+        fetchOutdoorActivities();
+      } else {
+        showToast('Error saving activity', 'danger');
+      }
+    } catch (err) {
+      console.error('Error saving activity:', err);
+    }
   };
 
-  const filteredUsers = users.filter(u =>
-    u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    u.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleEditOutdoor = (activity) => {
+    setOutdoorFormData({
+      title: activity.title,
+      description: activity.description,
+      location: activity.location,
+      activityType: activity.activityType,
+      expectations: activity.expectations,
+      startTime: activity.startTime?.slice(0, 16) || '',
+      endTime: activity.endTime?.slice(0, 16) || '',
+      difficulty: activity.difficulty,
+    });
+    setEditingOutdoorId(activity._id);
+    setShowOutdoorForm(true);
+    setActiveTab('outdoor');
+  };
+
+  const handleDeleteOutdoor = async (id) => {
+    if (window.confirm('Delete this activity?')) {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/outdoor-activities/${id}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.ok) {
+          showToast('Activity deleted');
+          fetchOutdoorActivities();
+        }
+      } catch (err) {
+        console.error('Error deleting activity:', err);
+      }
+    }
+  };
 
   if (loading) {
-    return <Preloader text="Loading admin dashboard..." />;
+    return (
+      <div className="admin-loading">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="admin-wrapper">
-      <div className="admin-header-section">
-        <div className="header-content">
-          <div>
-            <h1><i className="bi bi-shield-check"></i> Admin Dashboard</h1>
-            <p className="header-subtitle">Welcome back, {user?.name}</p>
-          </div>
-          <div className="header-meta">
-            <span className="admin-badge">Administrator</span>
-          </div>
+      {/* Toast Notification */}
+      {toast.show && (
+        <div className={`toast-notification ${toast.type}`}>
+          <i className={`bi bi-${toast.type === 'success' ? 'check-circle' : 'exclamation-circle'}`}></i>
+          {toast.message}
         </div>
-      </div>
+      )}
 
-      <div className="admin-container">
-        <div className="tabs-section">
-          <div className="tab-buttons">
-            <button
-              className={`tab-btn ${activeTab === 'overview' ? 'active' : ''}`}
-              onClick={() => setActiveTab('overview')}
-              title="Overview"
-            >
-              <i className="bi bi-graph-up"></i> <span className="tab-label">Overview</span>
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'users' ? 'active' : ''}`}
-              onClick={() => setActiveTab('users')}
-              title="Users"
-            >
-              <i className="bi bi-people-fill"></i> <span className="tab-label">Users</span>
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'bootcamp' ? 'active' : ''}`}
-              onClick={() => setActiveTab('bootcamp')}
-              title="Bootcamps"
-            >
-              <i className="bi bi-fire"></i> <span className="tab-label">Bootcamps</span>
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'analytics' ? 'active' : ''}`}
-              onClick={() => setActiveTab('analytics')}
-              title="Analytics"
-            >
-              <i className="bi bi-bar-chart-fill"></i> <span className="tab-label">Analytics</span>
-            </button>
-            <button
-              className={`tab-btn ${activeTab === 'settings' ? 'active' : ''}`}
-              onClick={() => setActiveTab('settings')}
-              title="Settings"
-            >
-              <i className="bi bi-gear"></i> <span className="tab-label">Settings</span>
-            </button>
-          </div>
+      <div className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`} onClick={() => setSidebarOpen(false)} />
+
+      <aside className={`admin-sidebar ${sidebarOpen ? 'open' : ''}`}>
+        <div className="sidebar-header">
+          <a href="/" className="sidebar-logo">
+            <div className="sidebar-logo-icon">
+              <i className="bi bi-activity"></i>
+            </div>
+            <span className="sidebar-logo-text">iFitness</span>
+          </a>
         </div>
 
-        {activeTab === 'overview' && (
-          <div className="tab-content">
-            <div className="stats-section">
-              <h2 className="section-title">Platform Statistics</h2>
+        <nav className="sidebar-nav">
+          <div className="nav-section">
+            <div className="nav-section-title">Main</div>
+            <div className={`nav-item ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => { setActiveTab('overview'); setSidebarOpen(false); }}>
+              <i className="bi bi-grid-1x2"></i>
+              <span>Dashboard</span>
+            </div>
+          </div>
+
+          <div className="nav-section">
+            <div className="nav-section-title">Management</div>
+            <div className={`nav-item ${activeTab === 'users' ? 'active' : ''}`} onClick={() => { setActiveTab('users'); setSidebarOpen(false); }}>
+              <i className="bi bi-people"></i>
+              <span>User Management</span>
+              <span className="nav-badge">{stats.totalUsers}</span>
+            </div>
+            <div className={`nav-item ${activeTab === 'bootcamps' ? 'active' : ''}`} onClick={() => { setActiveTab('bootcamps'); setSidebarOpen(false); }}>
+              <i className="bi bi-lightning-charge"></i>
+              <span>Bootcamps Management</span>
+            </div>
+            <div className={`nav-item ${activeTab === 'outdoor' ? 'active' : ''}`} onClick={() => { setActiveTab('outdoor'); setSidebarOpen(false); }}>
+              <i className="bi bi-tree"></i>
+              <span>Outdoor Activities</span>
+            </div>
+          </div>
+
+          <div className="nav-section">
+            <div className="nav-section-title">System</div>
+            <div className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => { setActiveTab('settings'); setSidebarOpen(false); }}>
+              <i className="bi bi-gear"></i>
+              <span>Settings</span>
+            </div>
+          </div>
+        </nav>
+
+        <div className="sidebar-footer">
+          <div className="admin-profile">
+            <div className="admin-profile-avatar">
+              <i className="bi bi-person-fill"></i>
+            </div>
+            <div className="admin-profile-info">
+              <div className="admin-profile-name">{user?.name || 'Admin'}</div>
+              <div className="admin-profile-role">System Administrator</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main className="admin-main">
+        <header className="admin-header">
+          <div className="header-left">
+            <button className="sidebar-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
+              <i className="bi bi-list"></i>
+            </button>
+            <div>
+              <h1 className="page-title">
+                {activeTab === 'overview' && 'Dashboard Overview'}
+                {activeTab === 'users' && 'User Management'}
+                {activeTab === 'bootcamps' && 'Bootcamp Management'}
+                {activeTab === 'outdoor' && 'Outdoor Activities'}
+                {activeTab === 'settings' && 'Settings'}
+              </h1>
+              <div className="breadcrumb">
+                <a href="/">Home</a> / <span>Admin</span> / <span>{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="header-right">
+            <div className="header-search">
+              <i className="bi bi-search"></i>
+              <input 
+                type="text" 
+                placeholder="Search..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            <div className="admin-dropdown">
+              <button className="admin-dropdown-btn">
+                <div className="admin-dropdown-avatar">
+                  <i className="bi bi-person-fill"></i>
+                </div>
+                <span className="admin-dropdown-name">{user?.name || 'Admin'}</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div className="admin-content">
+          {activeTab === 'overview' && (
+            <div className="animate-fade-in">
+              <div className="quick-actions">
+                <div className="quick-action" onClick={() => setActiveTab('users')}>
+                  <div className="quick-action-icon blue">
+                    <i className="bi bi-person-plus"></i>
+                  </div>
+                  <div className="quick-action-text">
+                    <h4>Users</h4>
+                    <p>Manage member accounts</p>
+                  </div>
+                </div>
+                <div className="quick-action" onClick={() => setActiveTab('bootcamps')}>
+                  <div className="quick-action-icon green">
+                    <i className="bi bi-lightning-charge"></i>
+                  </div>
+                  <div className="quick-action-text">
+                    <h4>Bootcamps</h4>
+                    <p>Track training programs</p>
+                  </div>
+                </div>
+                <div className="quick-action" onClick={() => setActiveTab('outdoor')}>
+                  <div className="quick-action-icon orange">
+                    <i className="bi bi-tree"></i>
+                  </div>
+                  <div className="quick-action-text">
+                    <h4>Outdoor</h4>
+                    <p>Manage field activities</p>
+                  </div>
+                </div>
+              </div>
+
               <div className="stats-grid">
-                <div className="stat-card">
-                  <div className="stat-icon primary">
-                    <i className="bi bi-people-fill"></i>
+                <div className="stat-card primary">
+                  <div className="stat-header">
+                    <div className="stat-icon"><i className="bi bi-people"></i></div>
                   </div>
-                  <div className="stat-info">
-                    <h3>{stats?.totalUsers || 0}</h3>
-                    <p>Total Users</p>
-                  </div>
+                  <div className="stat-value">{stats.totalUsers.toLocaleString()}</div>
+                  <div className="stat-label">Total Users</div>
                 </div>
-                <div className="stat-card">
-                  <div className="stat-icon success">
-                    <i className="bi bi-dumbbell"></i>
+
+                <div className="stat-card success">
+                  <div className="stat-header">
+                    <div className="stat-icon"><i className="bi bi-person-check"></i></div>
                   </div>
-                  <div className="stat-info">
-                    <h3>{stats?.totalWorkouts || 0}</h3>
-                    <p>Total Workouts</p>
-                  </div>
+                  <div className="stat-value">{stats.activeUsers.toLocaleString()}</div>
+                  <div className="stat-label">Active Users</div>
                 </div>
-                <div className="stat-card">
-                  <div className="stat-icon warning">
-                    <i className="bi bi-fire"></i>
+
+                <div className="stat-card warning">
+                  <div className="stat-header">
+                    <div className="stat-icon"><i className="bi bi-lightning-charge"></i></div>
                   </div>
-                  <div className="stat-info">
-                    <h3>{stats?.totalCalories ? (stats.totalCalories / 1000).toFixed(1) : 0}K</h3>
-                    <p>Calories Burned</p>
-                  </div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-icon info">
-                    <i className="bi bi-clock-history"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>{stats?.totalDuration ? (stats.totalDuration / 60).toFixed(0) : 0}h</h3>
-                    <p>Total Duration</p>
-                  </div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-icon danger">
-                    <i className="bi bi-lock"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>{stats?.suspendedUsers || 0}</h3>
-                    <p>Suspended Users</p>
-                  </div>
+                  <div className="stat-value">{outdoorActivities.length}</div>
+                  <div className="stat-label">Outdoor Activities</div>
                 </div>
               </div>
-            </div>
 
-            <div className="quick-actions">
-              <h2 className="section-title">Quick Actions</h2>
-              <div className="action-cards">
-                <div className="action-card">
-                  <div className="action-icon">
-                    <i className="bi bi-people"></i>
-                  </div>
-                  <h4>User Management</h4>
-                  <p>View and manage user accounts</p>
-                  <button className="action-btn" onClick={() => setActiveTab('users')}>
-                    View Users
-                  </button>
+              <div className="data-section mt-4">
+                <div className="data-header">
+                  <h3 className="data-title">Recent Activity</h3>
                 </div>
-
-                <div className="action-card">
-                  <div className="action-icon">
-                    <i className="bi bi-graph-up"></i>
-                  </div>
-                  <h4>Analytics</h4>
-                  <p>Detailed platform analytics and insights</p>
-                  <button className="action-btn" onClick={() => setActiveTab('analytics')}>
-                    View Analytics
-                  </button>
-                </div>
-
-                <div className="action-card">
-                  <div className="action-icon">
-                    <i className="bi bi-gear"></i>
-                  </div>
-                  <h4>System Settings</h4>
-                  <p>Configure platform settings</p>
-                  <button className="action-btn" onClick={() => setActiveTab('settings')}>
-                    Go to Settings
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'users' && (
-          <div className="tab-content">
-            <div className="users-management">
-              <div className="section-header">
-                <h2>User Management</h2>
-                <input
-                  type="text"
-                  className="search-input"
-                  placeholder="Search users by name or email..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-
-              {filteredUsers.length === 0 ? (
-                <div className="empty-state">
-                  <i className="bi bi-people"></i>
-                  <h3>No Users Found</h3>
-                  <p>No users match your search criteria</p>
-                </div>
-              ) : (
-                <div className="users-grid">
-                  {filteredUsers.map(u => (
-                    <div key={u.id} className={`user-card ${u.suspended ? 'suspended' : ''}`}>
-                      <div className="user-card-header">
-                        <div className="user-avatar-small">
-                          <i className="bi bi-person-circle"></i>
-                        </div>
-                        <div className="user-card-title">
-                          <h3>{u.name}</h3>
-                          <p>{u.email}</p>
-                        </div>
-                        {u.suspended && (
-                          <span className="status-badge suspended">
-                            <i className="bi bi-lock-fill"></i>
-                          </span>
-                        )}
+                <ul className="activity-list">
+                  {recentActivity.map((activity, index) => (
+                    <li key={index} className="activity-item">
+                      <div className={`activity-icon ${activity.type}`}>
+                        <i className={`bi bi-${activity.icon}`}></i>
                       </div>
-
-                      <div className="user-card-body">
-                        <div className="info-row">
-                          <span className="label">Goal:</span>
-                          <span className="value goal-badge">{u.goal || 'N/A'}</span>
-                        </div>
-                        <div className="info-row">
-                          <span className="label">Workouts:</span>
-                          <span className="value workout-badge">{u.workoutCount}</span>
-                        </div>
-                        <div className="info-row">
-                          <span className="label">Joined:</span>
-                          <span className="value">{new Date(u.createdAt).toLocaleDateString()}</span>
-                        </div>
+                      <div className="activity-content">
+                        <div className="activity-text" dangerouslySetInnerHTML={{ __html: activity.text }}></div>
+                        <div className="activity-time">{activity.time}</div>
                       </div>
-
-                      <div className="user-card-footer">
-                        <button
-                          className="card-btn view"
-                          onClick={() => navigate(`/admin/users/${u.id}`)}
-                          title="View full details"
-                        >
-                          <i className="bi bi-arrow-right"></i> View
-                        </button>
-                      </div>
-                    </div>
+                    </li>
                   ))}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'analytics' && (
-          <div className="tab-content">
-            <div className="analytics-section">
-              <h2 className="section-title">Website Analytics</h2>
-              
-              <div className="analytics-grid">
-                <div className="analytics-card">
-                  <div className="card-header">
-                    <h3><i className="bi bi-lightning-charge"></i> Performance</h3>
-                  </div>
-                  <div className="card-body">
-                    <div className="metric">
-                      <span>Page Load Time</span>
-                      <strong>1.2s</strong>
-                    </div>
-                    <div className="metric">
-                      <span>API Response</span>
-                      <strong>180ms</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Uptime</span>
-                      <strong>99.9%</strong>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="analytics-card">
-                  <div className="card-header">
-                    <h3><i className="bi bi-speedometer2"></i> Speed Metrics</h3>
-                  </div>
-                  <div className="card-body">
-                    <div className="metric">
-                      <span>First Contentful Paint</span>
-                      <strong>0.8s</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Largest Contentful Paint</span>
-                      <strong>1.5s</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Cumulative Layout Shift</span>
-                      <strong>0.05</strong>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="analytics-card">
-                  <div className="card-header">
-                    <h3><i className="bi bi-globe"></i> Geographic Distribution</h3>
-                  </div>
-                  <div className="card-body">
-                    <div className="metric">
-                      <span>Africa</span>
-                      <strong>45%</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Europe</span>
-                      <strong>30%</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Asia</span>
-                      <strong>20%</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Other</span>
-                      <strong>5%</strong>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="analytics-card">
-                  <div className="card-header">
-                    <h3><i className="bi bi-bar-chart"></i> Website Stats</h3>
-                  </div>
-                  <div className="card-body">
-                    <div className="metric">
-                      <span>Total Visitors</span>
-                      <strong>{stats?.totalUsers || 0}</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Active Sessions</span>
-                      <strong>{Math.floor((stats?.totalUsers || 0) * 0.3)}</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Bounce Rate</span>
-                      <strong>12.5%</strong>
-                    </div>
-                    <div className="metric">
-                      <span>Avg Session Duration</span>
-                      <strong>8m 42s</strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="analytics-chart">
-                <h3>User Activity Trend</h3>
-                <div className="chart-placeholder">
-                  <i className="bi bi-graph-up"></i>
-                  <p>User activity chart (7 days)</p>
-                </div>
+                </ul>
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'bootcamp' && (
-          <div className="tab-content">
-            <div className="bootcamp-section">
-              <div className="section-header">
-                <h2><i className="bi bi-fire"></i> Bootcamp Management</h2>
-                <button
-                  className="btn-add-bootcamp"
-                  onClick={() => {
-                    setShowBootcampForm(!showBootcampForm);
-                    setBootcampEditingId(null);
-                    setBootcampFormData({
-                      title: '',
-                      description: '',
-                      expectations: '',
-                      startTime: '',
-                      endTime: '',
-                      difficulty: 'Intermediate',
-                      exercises: [],
-                    });
-                  }}
+          {activeTab === 'users' && (
+            <div className="data-section animate-fade-in">
+              <div className="data-header">
+                <h3 className="data-title">All Users</h3>
+              </div>
+              <div className="table-responsive">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>User</th>
+                      <th>Email</th>
+                      <th>Joined</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredUsers.map(u => (
+                      <tr key={u.id || u._id}>
+                        <td>
+                          <div className="user-cell">
+                            <div className="user-avatar">
+                              {u.profilePicture ? (
+                                <img src={u.profilePicture} alt={u.name} />
+                              ) : (
+                                u.name?.charAt(0) || 'U'
+                              )}
+                            </div>
+                            <div className="user-name-cell">
+                                <div className="fw-bold">{u.name || 'Unknown User'}</div>
+                                <div className="text-muted small">ID: {(u.id || u._id)?.slice(-6) || '......'}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{u.email}</td>
+                        <td>{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : 'N/A'}</td>
+                        <td>
+                          <span className={`badge ${u.suspended || u.isSuspended ? 'bg-danger' : 'bg-success'}`}>
+                            {u.suspended || u.isSuspended ? 'Suspended' : 'Active'}
+                          </span>
+                        </td>
+                        <td>
+                          <button className="btn btn-sm btn-outline-primary" onClick={() => navigateToUserProfile(u.id || u._id)}>
+                            View Profile
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'outdoor' && (
+            <div className="animate-fade-in">
+              <div className="data-header d-flex justify-content-between align-items-center mb-4">
+                <h3 className="data-title">Outdoor Activities Management</h3>
+                <button 
+                    className={`btn ${showOutdoorForm ? 'btn-outline-danger' : 'btn-primary-gradient'}`}
+                    onClick={() => {
+                        setShowOutdoorForm(!showOutdoorForm);
+                        setEditingOutdoorId(null);
+                        setOutdoorFormData({
+                            title: '',
+                            description: '',
+                            location: '',
+                            activityType: '',
+                            expectations: '',
+                            startTime: '',
+                            endTime: '',
+                            difficulty: 'Intermediate',
+                        });
+                    }}
                 >
-                  <i className="bi bi-plus-circle"></i> {showBootcampForm ? 'Cancel' : 'New Bootcamp'}
+                    {showOutdoorForm ? <><i className="bi bi-x-lg me-2"></i> Close</> : <><i className="bi bi-plus-lg me-2"></i> Plan New Activity</>}
                 </button>
               </div>
 
-              {showBootcampForm && (
-                <div className="bootcamp-form-container">
-                  <form onSubmit={handleBootcampSubmit}>
-                    <div className="form-row">
-                      <div className="form-group">
-                        <label>Title *</label>
-                        <input
-                          type="text"
-                          name="title"
-                          value={bootcampFormData.title}
-                          onChange={handleBootcampInputChange}
-                          required
-                        />
+              {showOutdoorForm && (
+                <div className="bootcamp-form-card fade-in mb-4">
+                  <h4 className="fw-bold mb-4">{editingOutdoorId ? 'Update Activity' : 'Plan New Outdoor Activity'}</h4>
+                  <form onSubmit={handleOutdoorSubmit}>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="bootcamp-input-group">
+                          <label>Activity Title</label>
+                          <input type="text" className="bootcamp-control" name="title" value={outdoorFormData.title} onChange={handleOutdoorInputChange} required />
+                        </div>
                       </div>
-                      <div className="form-group">
-                        <label>Difficulty *</label>
-                        <select
-                          name="difficulty"
-                          value={bootcampFormData.difficulty}
-                          onChange={handleBootcampInputChange}
-                        >
-                          <option>Beginner</option>
-                          <option>Intermediate</option>
-                          <option>Advanced</option>
-                        </select>
+                      <div className="col-md-3">
+                        <div className="bootcamp-input-group">
+                          <label>Type</label>
+                          <input type="text" className="bootcamp-control" name="activityType" placeholder="Hiking, Yoga, etc." value={outdoorFormData.activityType} onChange={handleOutdoorInputChange} required />
+                        </div>
                       </div>
-                    </div>
-
-                    <div className="form-group">
-                      <label>Description *</label>
-                      <textarea
-                        name="description"
-                        value={bootcampFormData.description}
-                        onChange={handleBootcampInputChange}
-                        rows="3"
-                        required
-                      ></textarea>
-                    </div>
-
-                    <div className="form-group">
-                      <label>What to Expect *</label>
-                      <textarea
-                        name="expectations"
-                        value={bootcampFormData.expectations}
-                        onChange={handleBootcampInputChange}
-                        rows="2"
-                        required
-                      ></textarea>
-                    </div>
-
-                    <div className="form-row">
-                      <div className="form-group">
-                        <label>Start Time *</label>
-                        <input
-                          type="datetime-local"
-                          name="startTime"
-                          value={bootcampFormData.startTime}
-                          onChange={handleBootcampInputChange}
-                          required
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label>End Time *</label>
-                        <input
-                          type="datetime-local"
-                          name="endTime"
-                          value={bootcampFormData.endTime}
-                          onChange={handleBootcampInputChange}
-                          required
-                        />
+                      <div className="col-md-3">
+                        <div className="bootcamp-input-group">
+                          <label>Difficulty</label>
+                          <select className="bootcamp-control" name="difficulty" value={outdoorFormData.difficulty} onChange={handleOutdoorInputChange}>
+                            <option>Beginner</option>
+                            <option>Intermediate</option>
+                            <option>Advanced</option>
+                          </select>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="form-actions">
-                      <button type="submit" className="btn-submit">
-                        <i className="bi bi-check-circle"></i> {bootcampEditingId ? 'Update' : 'Create'} Bootcamp
+                    <div className="bootcamp-input-group">
+                      <label>Location</label>
+                      <input type="text" className="bootcamp-control" name="location" placeholder="City Park, Beachfront, etc." value={outdoorFormData.location} onChange={handleOutdoorInputChange} required />
+                    </div>
+
+                    <div className="bootcamp-input-group">
+                      <label>Description</label>
+                      <textarea className="bootcamp-control" name="description" value={outdoorFormData.description} onChange={handleOutdoorInputChange} rows="2" required></textarea>
+                    </div>
+
+                    <div className="bootcamp-input-group">
+                      <label>Expectations</label>
+                      <textarea className="bootcamp-control" name="expectations" value={outdoorFormData.expectations} onChange={handleOutdoorInputChange} rows="2" required></textarea>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-6">
+                        <div className="bootcamp-input-group">
+                          <label>Start Time</label>
+                          <input type="datetime-local" className="bootcamp-control" name="startTime" value={outdoorFormData.startTime} onChange={handleOutdoorInputChange} required />
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="bootcamp-input-group">
+                          <label>End Time</label>
+                          <input type="datetime-local" className="bootcamp-control" name="endTime" value={outdoorFormData.endTime} onChange={handleOutdoorInputChange} required />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="text-end mt-2">
+                      <button type="submit" className="btn btn-primary-gradient px-5">
+                        {editingOutdoorId ? 'Update Activity' : 'Plan Activity'}
                       </button>
                     </div>
                   </form>
                 </div>
               )}
 
-              {bootcamps.length === 0 ? (
-                <div className="empty-state">
-                  <i className="bi bi-fire"></i>
-                  <h3>No Bootcamps Yet</h3>
-                  <p>Create your first bootcamp to get started</p>
-                </div>
-              ) : (
-                <div className="bootcamps-grid">
-                  {bootcamps.map((bootcamp) => (
-                    <div key={bootcamp._id} className="bootcamp-card">
-                      <div className="bootcamp-card-header">
-                        <h3>{bootcamp.title}</h3>
-                        <span className={`difficulty-badge ${bootcamp.difficulty.toLowerCase()}`}>
-                          {bootcamp.difficulty}
-                        </span>
-                      </div>
-                      <p className="bootcamp-description">{bootcamp.description}</p>
-                      <div className="bootcamp-details">
-                        <div className="detail">
-                          <i className="bi bi-calendar-event"></i>
-                          <span>{new Date(bootcamp.startTime).toLocaleString()}</span>
+              <div className="bootcamp-grid">
+                {outdoorActivities.length === 0 ? (
+                  <div className="col-12 text-center py-5 bg-white rounded-4 shadow-sm">
+                    <i className="bi bi-tree text-muted fs-1 d-block mb-3"></i>
+                    <p className="text-muted">No outdoor activities planned yet.</p>
+                  </div>
+                ) : (
+                  outdoorActivities.map(activity => (
+                    <div key={activity._id} className="bootcamp-card-modern">
+                        <div className="bootcamp-card-header">
+                            <span className={`difficulty-pill ${activity.difficulty.toLowerCase()}`}>
+                                {activity.difficulty}
+                            </span>
+                            <div className="bootcamp-actions">
+                                <button
+                                    className="action-btn-circle invite"
+                                    onClick={async () => {
+                                        if (window.confirm('Invite all users to this activity?')) {
+                                            try {
+                                                const token = localStorage.getItem('token');
+                                                const response = await fetch(`/api/outdoor-activities/${activity._id}/invite-all`, {
+                                                    method: 'POST',
+                                                    headers: { Authorization: `Bearer ${token}` }
+                                                });
+                                                if (response.ok) showToast('Invitations sent to all users!');
+                                            } catch (err) {
+                                                console.error(err);
+                                            }
+                                        }
+                                    }}
+                                    title="Invite All"
+                                >
+                                    <i className="bi bi-send-fill"></i>
+                                </button>
+                                <button
+                                    className="action-btn-circle edit"
+                                    onClick={() => handleEditOutdoor(activity)}
+                                    title="Edit"
+                                >
+                                    <i className="bi bi-pencil-fill"></i>
+                                </button>
+                                <button
+                                    className="action-btn-circle delete"
+                                    onClick={() => handleDeleteOutdoor(activity._id)}
+                                    title="Delete"
+                                >
+                                    <i className="bi bi-trash-fill"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div className="detail">
-                          <i className="bi bi-hourglass-end"></i>
-                          <span>{new Date(bootcamp.endTime).toLocaleString()}</span>
+                        
+                        <h4 className="bootcamp-title-modern">{activity.title}</h4>
+                        <div className="mb-2"><span className="badge bg-light text-primary">{activity.activityType}</span></div>
+                        <p className="bootcamp-desc-modern">{activity.description}</p>
+                        
+                        <div className="bootcamp-stats-strip">
+                            <div className="stat-item-row">
+                                <i className="bi bi-geo-alt"></i>
+                                <span>Location: <span className="value">{activity.location}</span></span>
+                            </div>
+                            <div className="stat-item-row">
+                                <i className="bi bi-calendar2-event"></i>
+                                <span>Start: <span className="value">{new Date(activity.startTime).toLocaleDateString()}</span></span>
+                            </div>
+                            <div className="stat-item-row">
+                                <i className="bi bi-people"></i>
+                                <span>Joined: <span className="value">{activity.participants?.length || 0}</span></span>
+                            </div>
                         </div>
-                        <div className="detail">
-                          <i className="bi bi-people-fill"></i>
-                          <span>{bootcamp.participants?.length || 0} Participants</span>
-                        </div>
-                      </div>
-                      <div className="bootcamp-actions">
-                        <button
-                          className="btn-edit"
-                          onClick={() => handleBootcampEdit(bootcamp)}
-                        >
-                          <i className="bi bi-pencil"></i> Edit
-                        </button>
-                        <button
-                          className="btn-delete"
-                          onClick={() => handleBootcampDelete(bootcamp._id)}
-                        >
-                          <i className="bi bi-trash"></i> Delete
-                        </button>
-                      </div>
                     </div>
-                  ))}
-                </div>
-              )}
+                  ))
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === 'settings' && (
-          <div className="tab-content">
-            <div className="settings-section">
-              <h2>System Settings</h2>
+          {activeTab === 'bootcamps' && (
+            <div className="animate-fade-in">
+                <div className="data-header d-flex justify-content-between align-items-center mb-4">
+                    <h3 className="data-title">Bootcamp Management</h3>
+                    <button 
+                        className={`btn ${showBootcampForm ? 'btn-outline-danger' : 'btn-primary-gradient'}`}
+                        onClick={() => {
+                            setShowBootcampForm(!showBootcampForm);
+                            setEditingBootcampId(null);
+                            setBootcampFormData({
+                                title: '',
+                                description: '',
+                                expectations: '',
+                                startTime: '',
+                                endTime: '',
+                                difficulty: 'Intermediate',
+                                exercises: [],
+                            });
+                        }}
+                    >
+                        {showBootcampForm ? <><i className="bi bi-x-lg me-2"></i> Close</> : <><i className="bi bi-plus-lg me-2"></i> Launch New Program</>}
+                    </button>
+                </div>
 
-              <div className="settings-card">
-                <h3><i className="bi bi-bell"></i> Notifications</h3>
-                <div className="setting-item">
-                  <label>Email Notifications</label>
-                  <div className="toggle-switch">
-                    <input 
-                      type="checkbox" 
-                      checked={settings.emailNotifications}
-                      onChange={(e) => handleSettingChange('emailNotifications', e.target.checked)}
-                    />
-                    <span></span>
-                  </div>
-                </div>
-                <div className="setting-item">
-                  <label>User Achievement Alerts</label>
-                  <div className="toggle-switch">
-                    <input 
-                      type="checkbox" 
-                      checked={settings.achievementAlerts}
-                      onChange={(e) => handleSettingChange('achievementAlerts', e.target.checked)}
-                    />
-                    <span></span>
-                  </div>
-                </div>
-              </div>
+                {showBootcampForm && (
+                    <div className="bootcamp-form-card fade-in mb-4">
+                        <h4 className="fw-bold mb-4">{editingBootcampId ? 'Update Program' : 'Design New Program'}</h4>
+                        <form onSubmit={handleBootcampSubmit}>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="bootcamp-input-group">
+                                        <label>Program Title</label>
+                                        <input
+                                            type="text"
+                                            className="bootcamp-control"
+                                            name="title"
+                                            placeholder="e.g., 30-Day Summer Shred"
+                                            value={bootcampFormData.title}
+                                            onChange={handleBootcampInputChange}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="bootcamp-input-group">
+                                        <label>Difficulty Level</label>
+                                        <select
+                                            className="bootcamp-control"
+                                            name="difficulty"
+                                            value={bootcampFormData.difficulty}
+                                            onChange={handleBootcampInputChange}
+                                        >
+                                            <option>Beginner</option>
+                                            <option>Intermediate</option>
+                                            <option>Advanced</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
-              <div className="settings-card">
-                <h3><i className="bi bi-lock"></i> Security</h3>
-                <div className="setting-item">
-                  <label>Admin Session Timeout (minutes)</label>
-                  <input 
-                    type="number" 
-                    value={settings.sessionTimeout}
-                    onChange={(e) => handleSettingChange('sessionTimeout', parseInt(e.target.value))}
-                    min="5" 
-                    max="480" 
-                  />
-                </div>
-                <div className="setting-item">
-                  <label>Password Reset Email Required</label>
-                  <div className="toggle-switch">
-                    <input 
-                      type="checkbox" 
-                      checked={settings.passwordResetRequired}
-                      onChange={(e) => handleSettingChange('passwordResetRequired', e.target.checked)}
-                    />
-                    <span></span>
-                  </div>
-                </div>
-              </div>
+                            <div className="bootcamp-input-group">
+                                <label>Detailed Description</label>
+                                <textarea
+                                    className="bootcamp-control"
+                                    name="description"
+                                    value={bootcampFormData.description}
+                                    onChange={handleBootcampInputChange}
+                                    rows="3"
+                                    placeholder="Describe the goals and target audience..."
+                                    required
+                                ></textarea>
+                            </div>
 
-              <div className="settings-card">
-                <h3><i className="bi bi-palette"></i> Platform</h3>
-                <div className="setting-item">
-                  <label>Maintenance Mode</label>
-                  <div className="toggle-switch">
-                    <input 
-                      type="checkbox" 
-                      checked={settings.maintenanceMode}
-                      onChange={(e) => handleSettingChange('maintenanceMode', e.target.checked)}
-                    />
-                    <span></span>
-                  </div>
-                </div>
-                <div className="setting-item">
-                  <label>Public Registrations</label>
-                  <div className="toggle-switch">
-                    <input 
-                      type="checkbox" 
-                      checked={settings.publicRegistrations}
-                      onChange={(e) => handleSettingChange('publicRegistrations', e.target.checked)}
-                    />
-                    <span></span>
-                  </div>
-                </div>
-              </div>
+                            <div className="bootcamp-input-group">
+                                <label>What Participants Should Expect</label>
+                                <textarea
+                                    className="bootcamp-control"
+                                    name="expectations"
+                                    value={bootcampFormData.expectations}
+                                    onChange={handleBootcampInputChange}
+                                    rows="2"
+                                    placeholder="Key takeaways, equipment needed, intensity..."
+                                    required
+                                ></textarea>
+                            </div>
 
-              <button className="btn-primary save-settings" onClick={handleSaveSettings}>
-                <i className="bi bi-check-circle"></i> Save Settings
-              </button>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="bootcamp-input-group">
+                                        <label>Launch Date & Time</label>
+                                        <input
+                                            type="datetime-local"
+                                            className="bootcamp-control"
+                                            name="startTime"
+                                            value={bootcampFormData.startTime}
+                                            onChange={handleBootcampInputChange}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="bootcamp-input-group">
+                                        <label>Conclusion Date & Time</label>
+                                        <input
+                                            type="datetime-local"
+                                            className="bootcamp-control"
+                                            name="endTime"
+                                            value={bootcampFormData.endTime}
+                                            onChange={handleBootcampInputChange}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="text-end mt-2">
+                                <button type="submit" className="btn btn-primary-gradient px-5">
+                                    {editingBootcampId ? <><i className="bi bi-cloud-check me-2"></i>Update Program</> : <><i className="bi bi-rocket-takeoff me-2"></i>Launch Bootcamp</>}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                )}
+
+                <div className="bootcamp-grid">
+                    {bootcamps.length === 0 ? (
+                        <div className="col-12 text-center py-5 bg-white rounded-4 shadow-sm">
+                            <i className="bi bi-inboxes text-muted fs-1 d-block mb-3"></i>
+                            <p className="text-muted">No programs created yet.</p>
+                        </div>
+                    ) : (
+                        bootcamps.map((bootcamp) => (
+                            <div key={bootcamp._id} className="bootcamp-card-modern">
+                                <div className="bootcamp-card-header">
+                                    <span className={`difficulty-pill ${bootcamp.difficulty.toLowerCase()}`}>
+                                        {bootcamp.difficulty}
+                                    </span>
+                                    <div className="bootcamp-actions">
+                                        <button
+                                            className="action-btn-circle invite"
+                                            onClick={async () => {
+                                                if (window.confirm('Invite all users to this bootcamp?')) {
+                                                    try {
+                                                        const token = localStorage.getItem('token');
+                                                        const response = await fetch(`/api/bootcamps/${bootcamp._id}/invite-all`, {
+                                                            method: 'POST',
+                                                            headers: { Authorization: `Bearer ${token}` }
+                                                        });
+                                                        if (response.ok) showToast('Invitations sent to all users!');
+                                                    } catch (err) {
+                                                        console.error(err);
+                                                    }
+                                                }
+                                            }}
+                                            title="Invite All"
+                                        >
+                                            <i className="bi bi-send-fill"></i>
+                                        </button>
+                                        <button
+                                            className="action-btn-circle edit"
+                                            onClick={() => handleEditBootcamp(bootcamp)}
+                                            title="Edit"
+                                        >
+                                            <i className="bi bi-pencil-fill"></i>
+                                        </button>
+                                        <button
+                                            className="action-btn-circle delete"
+                                            onClick={() => handleDeleteBootcamp(bootcamp._id)}
+                                            title="Delete"
+                                        >
+                                            <i className="bi bi-trash-fill"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <h4 className="bootcamp-title-modern">{bootcamp.title}</h4>
+                                <p className="bootcamp-desc-modern">{bootcamp.description}</p>
+                                
+                                <div className="bootcamp-stats-strip">
+                                    <div className="stat-item-row">
+                                        <i className="bi bi-calendar2-event"></i>
+                                        <span>Start: <span className="value">{new Date(bootcamp.startTime).toLocaleDateString()}</span></span>
+                                        <span className="ms-auto text-muted small">{new Date(bootcamp.startTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                                    </div>
+                                    <div className="stat-item-row">
+                                        <i className="bi bi-people"></i>
+                                        <span>Enrolled: <span className="value">{bootcamp.participants?.length || 0} Participants</span></span>
+                                    </div>
+                                </div>
+                                
+                                <button className="view-engagement-btn">
+                                    View Engagement <i className="bi bi-arrow-right"></i>
+                                </button>
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
 
-
-
-      {message && (
-        <div className={`alert-message ${messageType}`}>
-          <i className={`bi ${messageType === 'success' ? 'bi-check-circle' : 'bi-exclamation-circle'}`}></i> {message}
+          {activeTab === 'settings' && (
+            <div className="placeholder-content">
+              <i className="bi bi-gear"></i>
+              <h3>Settings</h3>
+              <p>System settings coming soon.</p>
+            </div>
+          )}
         </div>
-      )}
+      </main>
     </div>
   );
 }

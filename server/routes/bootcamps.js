@@ -147,11 +147,6 @@ router.delete('/:id', protect, async (req, res) => {
       return res.status(403).json({ message: 'Unauthorized' });
     }
 
-    const now = new Date();
-    if (bootcamp.startTime <= now) {
-      return res.status(400).json({ message: 'Cannot delete bootcamp that has started' });
-    }
-
     await Bootcamp.findByIdAndDelete(req.params.id);
     res.json({ message: 'Bootcamp deleted' });
   } catch (err) {
@@ -289,6 +284,37 @@ router.post('/:id/invite', protect, async (req, res) => {
   } catch (err) {
     console.error('Error sending bootcamp invitations:', err);
     res.status(500).json({ message: 'Error sending bootcamp invitations: ' + err.message });
+  }
+});
+
+router.post('/:id/invite-all', protect, async (req, res) => {
+  try {
+    if (!req.user || !req.user.isAdmin) {
+      return res.status(403).json({ message: 'Admin access required' });
+    }
+
+    const bootcamp = await Bootcamp.findById(req.params.id);
+    if (!bootcamp) {
+      return res.status(404).json({ message: 'Bootcamp not found' });
+    }
+
+    const users = await User.find({ isSuspended: { $ne: true } });
+    
+    const bootcampDetails = {
+      description: bootcamp.description,
+      difficulty: bootcamp.difficulty,
+      startTime: bootcamp.startTime,
+      endTime: bootcamp.endTime,
+      expectations: bootcamp.expectations,
+    };
+
+    for (const user of users) {
+      sendBootcampInvitationEmail(user.email, user.name, bootcamp.title, bootcampDetails).catch(console.error);
+    }
+
+    res.json({ message: `Bootcamp invitations sent to ${users.length} users` });
+  } catch (err) {
+    res.status(500).json({ message: 'Error sending invitations: ' + err.message });
   }
 });
 

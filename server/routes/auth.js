@@ -48,6 +48,7 @@ router.post('/register', async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        profilePicture: user.profilePictureData ? `/api/users/profile/${user._id}/picture` : null,
       },
     });
 
@@ -84,6 +85,7 @@ router.post('/login', async (req, res) => {
           name: adminUser.name,
           email: adminUser.email,
           isAdmin: true,
+          profilePicture: adminUser.profilePictureData ? `/api/users/profile/${adminUser._id}/picture` : null,
         },
       });
     }
@@ -119,6 +121,7 @@ router.post('/login', async (req, res) => {
         name: user.name,
         email: user.email,
         isAdmin: false,
+        profilePicture: user.profilePictureData ? `/api/users/profile/${user._id}/picture` : null,
       },
     });
   } catch (error) {

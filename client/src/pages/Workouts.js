@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getWorkouts, deleteWorkout, createWorkout } from '../services/api';
+import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Workouts.css';
 
 const formatTime = (seconds) => {
@@ -143,8 +144,8 @@ export default function Workouts() {
 
           <div className="timer-display">{formatTime(timeLeft)}</div>
 
-          <div className="progress-bar">
-            <div className="progress-fill" style={{ width: `${progressPercentage}%` }}></div>
+          <div className="progress-bar-custom">
+            <div className="progress-fill-custom" style={{ width: `${progressPercentage}%` }}></div>
           </div>
 
           <div className="status-info">
@@ -232,19 +233,21 @@ export default function Workouts() {
             </div>
             <h3>No workouts yet</h3>
             <p>Start your fitness journey by logging your first workout</p>
-            <Link to="/workouts/new" className="btn-start-first">
+            <Link to="/workouts/new" className="btn-create-workout d-inline-flex mx-auto">
               <i className="bi bi-plus-circle"></i> Create Your First Workout
             </Link>
           </div>
         ) : (
           <div className="workouts-content">
-            <div className="sort-controls">
-              <label htmlFor="sort">Sort by:</label>
-              <select id="sort" value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
-                <option value="recent">Most Recent</option>
-                <option value="calories">Most Calories</option>
-                <option value="duration">Longest Duration</option>
-              </select>
+            <div className="sort-section">
+              <div className="sort-controls">
+                <label htmlFor="sort">Sort by:</label>
+                <select id="sort" value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="sort-select">
+                  <option value="recent">Most Recent</option>
+                  <option value="calories">Most Calories</option>
+                  <option value="duration">Longest Duration</option>
+                </select>
+              </div>
             </div>
 
             <div className="workouts-grid">
@@ -260,7 +263,7 @@ export default function Workouts() {
 
                     <div className="card-divider"></div>
 
-                    <div className="workout-stats">
+                    <div className="workout-stats-grid">
                       <div className="stat-item-card">
                         <div className="stat-icon-card">
                           <i className="bi bi-calendar-event"></i>
@@ -285,7 +288,7 @@ export default function Workouts() {
                         </div>
                         <div className="stat-text">
                           <span className="stat-label-card">Calories</span>
-                          <span className="stat-value-card">{workout.caloriesBurned}</span>
+                          <span className="stat-value-card">{workout.caloriesBurned} kcal</span>
                         </div>
                       </div>
                     </div>
@@ -308,6 +311,7 @@ export default function Workouts() {
           </div>
         )}
       </div>
+      <TopNewsletterFooter />
     </div>
   );
 }

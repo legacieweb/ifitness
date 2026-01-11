@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts } from '../services/api';
+import TopNewsletterFooter from '../components/TopNewsletterFooter';
 
 export default function Calendar() {
   const { user } = useAuth();
@@ -38,7 +39,7 @@ export default function Calendar() {
 
   return (
     <div className="container-fluid container-md mt-4 mt-md-5 mb-5 px-3 px-md-0">
-      <h1 className="mb-4 fs-4 fs-md-1">📅 Workout Calendar</h1>
+      <h1 className="mb-4 fs-4 fs-md-1">Workout Calendar</h1>
 
       <div className="card">
         <div className="card-body p-2 p-md-3">
@@ -93,6 +94,7 @@ export default function Calendar() {
           </div>
         </div>
       </div>
+      <TopNewsletterFooter />
     </div>
   );
 }

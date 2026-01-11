@@ -1,5 +1,6 @@
 import React from 'react';
 import PageTransition from '../components/PageTransition';
+import Footer from '../components/Footer';
 
 export default function PrivacyPolicy() {
   return (
@@ -92,6 +93,7 @@ export default function PrivacyPolicy() {
         </div>
       </div>
       </div>
+      <Footer />
     </PageTransition>
   );
 }

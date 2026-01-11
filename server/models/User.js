@@ -45,11 +45,54 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  profilePictureData: {
+    type: Buffer,
+    default: null,
+  },
+  profilePictureContentType: {
+    type: String,
+    default: null,
+  },
+  weeklyRoutine: [
+    {
+      day: { type: String, required: true },
+      workout: { type: String, default: '' },
+      completed: { type: Boolean, default: false },
+      exercises: [
+        {
+          name: { type: String },
+          sets: { type: Number },
+          reps: { type: Number },
+        }
+      ]
+    }
+  ],
+  goals: [
+    {
+      id: { type: mongoose.Schema.Types.ObjectId, auto: true },
+      title: { type: String, required: true },
+      target: { type: Number, required: true },
+      current: { type: Number, default: 0 },
+      unit: { type: String, default: 'times' },
+      deadline: { type: Date },
+      completed: { type: Boolean, default: false },
+      createdAt: { type: Date, default: Date.now }
+    }
+  ],
+  achievements: [
+    {
+      type: { type: String },
+      name: { type: String },
+      description: { type: String },
+      icon: { type: String },
+      earnedAt: { type: Date, default: Date.now }
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
   },
-});
+}, { timestamps: true });
 
 UserSchema.pre('save', async function () {
   if (!this.isModified('password')) return;

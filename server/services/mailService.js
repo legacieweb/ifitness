@@ -287,10 +287,177 @@ const sendUnsuspensionEmail = async (userEmail, userName) => {
   }
 };
 
+const sendWorkoutReminderEmail = async (userEmail, userName, workoutDetails) => {
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center; }
+          .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+          .btn { display: inline-block; background: #4f46e5; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+          .workout-box { background: white; border-left: 4px solid #4f46e5; padding: 20px; margin: 20px 0; }
+          .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>💪 Time to Crush Your Workout!</h1>
+          </div>
+          <div class="content">
+            <h2>Hello ${userName},</h2>
+            <p>Your daily workout reminder is here. Consistency is key to reaching your fitness goals!</p>
+            <div class="workout-box">
+              <h3>Today's Scheduled Workout:</h3>
+              <p><strong>${workoutDetails.day}:</strong> ${workoutDetails.workout || 'No specific workout scheduled, stay active!'}</p>
+              ${workoutDetails.exercises && workoutDetails.exercises.length > 0 ? `
+                <h4>Exercises:</h4>
+                <ul>
+                  ${workoutDetails.exercises.map(ex => `<li>${ex.name} - ${ex.sets} sets x ${ex.reps} reps</li>`).join('')}
+                </ul>
+              ` : ''}
+            </div>
+            <p>Head over to your dashboard to track your progress and check off today's routine.</p>
+            <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard" class="btn">View My Routine</a>
+          </div>
+          <div class="footer">
+            <p>&copy; 2025 iFitness. All rights reserved.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  try {
+    const data = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: `🏋️ Workout Reminder: ${workoutDetails.day}`,
+      html: htmlContent,
+    });
+    console.log(`✅ Workout reminder email sent to ${userEmail}. Message ID: ${data.id}`);
+    return data;
+  } catch (error) {
+    console.error('❌ Failed to send workout reminder email to', userEmail, ':', error.message);
+    throw error;
+  }
+};
+
+const sendOutdoorActivityInvitationEmail = async (userEmail, userName, activityName, activityDetails) => {
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center; }
+          .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+          .btn { display: inline-block; background: #3b82f6; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+          .details { background: white; padding: 20px; border-left: 4px solid #3b82f6; margin: 20px 0; }
+          .detail-item { margin: 10px 0; }
+          .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>🌲 New Outdoor Activity!</h1>
+          </div>
+          <div class="content">
+            <h2>Hello ${userName},</h2>
+            <p>We're heading outside! You've been invited to: <strong>${activityName}</strong></p>
+            <div class="details">
+              <h3>${activityName}</h3>
+              <div class="detail-item"><strong>Type:</strong> ${activityDetails.activityType}</div>
+              <div class="detail-item"><strong>Location:</strong> ${activityDetails.location}</div>
+              <div class="detail-item"><strong>Difficulty:</strong> ${activityDetails.difficulty}</div>
+              <div class="detail-item"><strong>Starts:</strong> ${new Date(activityDetails.startTime).toLocaleString()}</div>
+              <div class="detail-item"><strong>Ends:</strong> ${new Date(activityDetails.endTime).toLocaleString()}</div>
+            </div>
+            <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard" class="btn">Join Activity</a>
+          </div>
+          <div class="footer">
+            <p>&copy; 2025 iFitness. All rights reserved.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  try {
+    const data = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: `🌲 Outdoor Activity Invitation: ${activityName}`,
+      html: htmlContent,
+    });
+    return data;
+  } catch (error) {
+    console.error('❌ Failed to send outdoor activity email:', error);
+    throw error;
+  }
+};
+
+const sendOutdoorActivityAcceptanceEmail = async (userEmail, userName, activityName) => {
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0; text-align: center; }
+          .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+          .success-box { background: #d1fae5; border-left: 4px solid #10b981; padding: 20px; margin: 20px 0; }
+          .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>✅ Activity Joined!</h1>
+          </div>
+          <div class="content">
+            <h2>Hello ${userName},</h2>
+            <p>You've successfully joined <strong>${activityName}</strong>. See you there!</p>
+            <div class="success-box">
+              <h3>🌟 Get Ready!</h3>
+              <p>Check your dashboard for the exact location and time.</p>
+            </div>
+          </div>
+          <div class="footer">
+            <p>&copy; 2025 iFitness. All rights reserved.</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  try {
+    const data = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: userEmail,
+      subject: `✅ Joined Outdoor Activity: ${activityName}`,
+      html: htmlContent,
+    });
+    return data;
+  } catch (error) {
+    console.error('❌ Failed to send outdoor activity acceptance email:', error);
+    throw error;
+  }
+};
+
 module.exports = {
   sendSignUpEmail,
   sendBootcampInvitationEmail,
   sendBootcampAcceptanceEmail,
   sendSuspensionEmail,
   sendUnsuspensionEmail,
+  sendWorkoutReminderEmail,
+  sendOutdoorActivityInvitationEmail,
+  sendOutdoorActivityAcceptanceEmail,
 };

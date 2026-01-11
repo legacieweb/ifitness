@@ -27,7 +27,9 @@ export default function SuspensionAlert() {
   return (
     <div className="suspension-alert-overlay">
       <div className="suspension-alert-container">
-        <div className="suspension-alert-icon">⛔</div>
+        <div className="suspension-alert-icon">
+          <i className="bi bi-shield-exclamation text-danger"></i>
+        </div>
         <h2>Account Suspended</h2>
         <p className="suspension-reason">{suspensionAlert.reason}</p>
         <div className="suspension-countdown">

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TopNewsletterFooter from '../components/TopNewsletterFooter';
+import './Templates.css';
 
 export default function Templates() {
   const navigate = useNavigate();
@@ -7,56 +9,56 @@ export default function Templates() {
     {
       id: 1,
       name: 'Beginner Full Body',
-      desc: 'Great for starters - Total Body workout',
+      desc: 'Great for starters - Total Body workout targeting all major muscle groups.',
       duration: 45,
       difficulty: 'Beginner',
       exercises: ['Push-ups', 'Squats', 'Plank', 'Running'],
-      icon: '🌱',
+      icon: 'bi-brightness-low',
     },
     {
       id: 2,
       name: 'Upper Body Strength',
-      desc: 'Focus on chest, shoulders, and arms',
+      desc: 'Focus on chest, shoulders, and arms to build definition and power.',
       duration: 60,
       difficulty: 'Intermediate',
       exercises: ['Bench Press', 'Push-ups', 'Barbell Squat'],
-      icon: '💪',
+      icon: 'bi-hammer',
     },
     {
       id: 3,
       name: 'Cardio Blast',
-      desc: 'High intensity cardio for max calorie burn',
+      desc: 'High intensity cardio sessions designed for maximum calorie burn.',
       duration: 30,
       difficulty: 'Intermediate',
       exercises: ['Running', 'Cycling', 'Swimming'],
-      icon: '🔥',
+      icon: 'bi-fire',
     },
     {
       id: 4,
       name: 'Yoga & Flexibility',
-      desc: 'Improve flexibility and reduce stress',
+      desc: 'Improve your range of motion and reduce stress with these flowing moves.',
       duration: 40,
       difficulty: 'Beginner',
       exercises: ['Yoga', 'Stretching'],
-      icon: '🧘',
+      icon: 'bi-flower1',
     },
     {
       id: 5,
       name: 'HIIT Workout',
-      desc: 'High Intensity Interval Training',
+      desc: 'Short bursts of intense exercise followed by quick recovery periods.',
       duration: 30,
       difficulty: 'Advanced',
       exercises: ['Burpees', 'Jump Squats', 'Push-ups'],
-      icon: '⚡',
+      icon: 'bi-lightning-charge',
     },
     {
       id: 6,
       name: 'Lower Body Power',
-      desc: 'Build leg strength and endurance',
+      desc: 'Build explosive leg strength and lower body endurance.',
       duration: 50,
       difficulty: 'Intermediate',
       exercises: ['Squats', 'Deadlift', 'Barbell Squat'],
-      icon: '🦵',
+      icon: 'bi-person-walking',
     },
   ]);
 
@@ -66,54 +68,73 @@ export default function Templates() {
   };
 
   return (
-    <div className="container mt-5 mb-5">
-      <h1 className="mb-4">💪 Workout Templates</h1>
-      <p className="lead text-muted">Choose a pre-built workout plan to get started quickly</p>
+    <div className="templates-page">
+      <div className="container">
+        <div className="template-header">
+          <h1>Workout Templates</h1>
+          <p>Choose a pre-built workout plan to get started on your goals today</p>
+        </div>
 
-      <div className="row">
-        {templates.map((template) => (
-          <div key={template.id} className="col-md-6 col-lg-4 mb-4">
-            <div className="card h-100 shadow-sm">
-              <div className="card-body">
-                <div style={{ fontSize: '40px', marginBottom: '10px' }}>{template.icon}</div>
-                <h5 className="card-title">{template.name}</h5>
-                <p className="card-text text-muted small">{template.desc}</p>
+        <div className="row g-4">
+          {templates.map((template) => (
+            <div key={template.id} className="col-md-6 col-lg-4">
+              <div className="template-card-modern">
+                <div className="template-icon-wrapper">
+                  <i className={`bi ${template.icon}`}></i>
+                </div>
+                <h3 className="template-title">{template.name}</h3>
+                <p className="template-desc">{template.desc}</p>
 
-                <div className="mb-3">
-                  <span className="badge bg-primary me-2">{template.duration} min</span>
-                  <span className={`badge ${
-                    template.difficulty === 'Beginner' ? 'bg-success' :
-                    template.difficulty === 'Intermediate' ? 'bg-warning' :
-                    'bg-danger'
-                  }`}>{template.difficulty}</span>
+                <div className="template-pills">
+                  <span className="template-pill pill-duration">
+                    <i className="bi bi-clock me-2"></i>
+                    {template.duration} min
+                  </span>
+                  <span className={`template-pill pill-${template.difficulty.toLowerCase()}`}>
+                    {template.difficulty}
+                  </span>
                 </div>
 
-                <div className="mb-3">
-                  <h6 className="small text-muted">Exercises:</h6>
-                  {template.exercises.map((ex, idx) => (
-                    <span key={idx} className="badge bg-light text-dark me-1 mb-1">{ex}</span>
-                  ))}
+                <div className="flex-grow-1">
+                  <span className="template-exercises-title">Included Exercises</span>
+                  <div className="template-exercise-tags">
+                    {template.exercises.map((ex, idx) => (
+                      <span key={idx} className="exercise-tag">{ex}</span>
+                    ))}
+                  </div>
                 </div>
 
-                <button className="btn btn-primary w-100" onClick={() => startTemplate(template)}>
-                  Use This Template
+                <button className="btn-use-template" onClick={() => startTemplate(template)}>
+                  Use This Template <i className="bi bi-arrow-right ms-2"></i>
                 </button>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="alert alert-info mt-5">
-        <h5>💡 How to Use Templates</h5>
-        <ol>
-          <li>Choose a template that matches your fitness level</li>
-          <li>Click "Use This Template" to start a workout</li>
-          <li>Exercises are pre-selected for you</li>
-          <li>Adjust sets, reps, and weight as needed</li>
-          <li>Log the workout to track progress</li>
-        </ol>
+        <div className="how-to-card">
+          <h3><i className="bi bi-lightbulb-fill"></i> How to Use Templates</h3>
+          <div className="how-to-list">
+            <div className="how-to-item">
+              <div className="how-to-number">1</div>
+              <div className="how-to-text">Choose a template that matches your current fitness level and goals.</div>
+            </div>
+            <div className="how-to-item">
+              <div className="how-to-number">2</div>
+              <div className="how-to-text">Click "Use This Template" to automatically load the exercises.</div>
+            </div>
+            <div className="how-to-item">
+              <div className="how-to-number">3</div>
+              <div className="how-to-text">Adjust sets, reps, and weights to customize the challenge for yourself.</div>
+            </div>
+            <div className="how-to-item">
+              <div className="how-to-number">4</div>
+              <div className="how-to-text">Complete and log your workout to track your progress over time.</div>
+            </div>
+          </div>
+        </div>
       </div>
+      <TopNewsletterFooter />
     </div>
   );
 }

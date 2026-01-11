@@ -90,6 +90,14 @@ export const AuthProvider = ({ children }) => {
     window.location.href = '/login';
   };
 
+  const updateUserProfilePicture = (profilePictureUrl) => {
+    if (user) {
+      const updatedUser = { ...user, profilePicture: profilePictureUrl };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    }
+  };
+
   const value = {
     user,
     loading,
@@ -100,6 +108,7 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     forceLogout,
+    updateUserProfilePicture,
     isAuthenticated: !!user,
   };
 

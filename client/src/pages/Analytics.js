@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts } from '../services/api';
+import TopNewsletterFooter from '../components/TopNewsletterFooter';
 
 export default function Analytics() {
   const { user } = useAuth();
@@ -40,22 +41,22 @@ export default function Analytics() {
 
   return (
     <div className="container-fluid container-md mt-4 mt-md-5 mb-5 px-3 px-md-0">
-      <h1 className="mb-4 fs-4 fs-md-1">📊 Analytics & Progress</h1>
+      <h1 className="mb-4 fs-4 fs-md-1">Analytics & Progress</h1>
       <div className="d-flex flex-wrap gap-2 mb-4">
-        <button 
-          className={`btn btn-sm ${timeRange === 'week' ? 'btn-primary' : 'btn-outline-primary'}`} 
+        <button
+          className={`btn btn-sm ${timeRange === 'week' ? 'btn-primary' : 'btn-outline-primary'}`}
           onClick={() => setTimeRange('week')}
         >
           Week
         </button>
-        <button 
-          className={`btn btn-sm ${timeRange === 'month' ? 'btn-primary' : 'btn-outline-primary'}`} 
+        <button
+          className={`btn btn-sm ${timeRange === 'month' ? 'btn-primary' : 'btn-outline-primary'}`}
           onClick={() => setTimeRange('month')}
         >
           Month
         </button>
-        <button 
-          className={`btn btn-sm ${timeRange === 'all' ? 'btn-primary' : 'btn-outline-primary'}`} 
+        <button
+          className={`btn btn-sm ${timeRange === 'all' ? 'btn-primary' : 'btn-outline-primary'}`}
           onClick={() => setTimeRange('all')}
         >
           All Time
@@ -95,6 +96,7 @@ export default function Analytics() {
           </div>
         </div>
       </div>
+      <TopNewsletterFooter />
     </div>
   );
 }

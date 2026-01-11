@@ -17,6 +17,7 @@ app.use('/api/exercises', require('./routes/exercises'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/bootcamps', require('./routes/bootcamps'));
+app.use('/api/outdoor-activities', require('./routes/outdoorActivities'));
 
 app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to Fitness API' });
@@ -27,7 +28,22 @@ const fs = require('fs');
 
 if (fs.existsSync(buildPath)) {
   app.use(express.static(buildPath));
-  app.use((req, res) => {
+  // Global error handler for API routes
+  app.use('/api', (err, req, res, next) => {
+    console.error('API Error:', err);
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+  });
+  
+  // Only serve React app for non-API routes
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      // If it's an API route that wasn't matched, return 404 JSON
+      return res.status(404).json({ message: 'API endpoint not found' });
+    }
+    // For non-API routes, serve the React app
     res.sendFile(path.join(buildPath, 'index.html'));
   });
 } else {

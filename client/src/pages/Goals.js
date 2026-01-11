@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts } from '../services/api';
+import TopNewsletterFooter from '../components/TopNewsletterFooter';
+import './Goals.css';
 
 export default function Goals() {
   const { user } = useAuth();
@@ -66,91 +68,121 @@ export default function Goals() {
   };
 
   return (
-    <div className="container-fluid container-md mt-4 mt-md-5 mb-5 px-3 px-md-0">
-      <h1 className="mb-4">🎯 Fitness Goals</h1>
+    <div className="goals-container">
+      <div className="goals-header">
+        <h1>Fitness Goals</h1>
+        <p>Set targets, track progress, and celebrate your achievements</p>
+      </div>
 
-      <div className="row g-3 mb-4">
-        <div className="col-12 col-lg-6">
-          <div className="card">
-            <div className="card-header bg-primary text-white">
-              <h5 className="mb-0">Set New Goal</h5>
+      <div className="goals-grid">
+        <div className="goals-card">
+          <h5><i className="bi bi-plus-circle-fill"></i> Set New Goal</h5>
+          <div className="goal-form">
+            <div className="form-group">
+              <label>Goal Name</label>
+              <input
+                type="text"
+                placeholder="e.g., Complete 30 Workouts"
+                value={newGoal.name}
+                onChange={(e) => setNewGoal({ ...newGoal, name: e.target.value })}
+              />
             </div>
-            <div className="card-body">
-              <div className="mb-3">
-                <label className="form-label">Goal Name</label>
-                <input type="text" className="form-control" placeholder="e.g., Complete 30 Workouts" value={newGoal.name} onChange={(e) => setNewGoal({ ...newGoal, name: e.target.value })} />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Target</label>
-                <input type="number" className="form-control" placeholder="50" value={newGoal.target} onChange={(e) => setNewGoal({ ...newGoal, target: e.target.value })} />
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Unit</label>
-                <select className="form-select" value={newGoal.unit} onChange={(e) => setNewGoal({ ...newGoal, unit: e.target.value })}>
-                  <option value="">Select unit</option>
-                  <option value="workouts">Workouts</option>
-                  <option value="calories">Calories</option>
-                  <option value="minutes">Minutes</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Deadline</label>
-                <input type="date" className="form-control" value={newGoal.deadline} onChange={(e) => setNewGoal({ ...newGoal, deadline: e.target.value })} />
-              </div>
-              <button className="btn btn-primary w-100" onClick={addGoal}>Add Goal</button>
+            <div className="form-group">
+              <label>Target Value</label>
+              <input
+                type="number"
+                placeholder="e.g., 50"
+                value={newGoal.target}
+                onChange={(e) => setNewGoal({ ...newGoal, target: e.target.value })}
+              />
             </div>
+            <div className="form-group">
+              <label>Metric</label>
+              <select
+                value={newGoal.unit}
+                onChange={(e) => setNewGoal({ ...newGoal, unit: e.target.value })}
+              >
+                <option value="">Select unit</option>
+                <option value="workouts">Workouts Completed</option>
+                <option value="calories">Calories Burned</option>
+                <option value="minutes">Minutes Exercised</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Deadline (Optional)</label>
+              <input
+                type="date"
+                value={newGoal.deadline}
+                onChange={(e) => setNewGoal({ ...newGoal, deadline: e.target.value })}
+              />
+            </div>
+            <button className="btn-add-goal" onClick={addGoal}>
+              Create Goal
+            </button>
           </div>
         </div>
 
-        <div className="col-lg-6">
-          <div className="card">
-            <div className="card-header bg-info text-white">
-              <h5 className="mb-0">Goal Tips</h5>
-            </div>
-            <div className="card-body">
-              <ul>
-                <li>Set realistic goals based on your schedule</li>
-                <li>Mix quantity (workouts) with intensity (calories)</li>
-                <li>Review progress weekly</li>
-                <li>Adjust goals as you progress</li>
-                <li>Celebrate milestones! 🎉</li>
-              </ul>
-            </div>
-          </div>
+        <div className="goals-card">
+          <h5><i className="bi bi-lightbulb-fill"></i> Goal Setting Tips</h5>
+          <ul className="tips-list">
+            <li><strong>Be Specific:</strong> Clear goals are easier to track and achieve.</li>
+            <li><strong>Be Realistic:</strong> Set targets that challenge you but remain attainable.</li>
+            <li><strong>Set Deadlines:</strong> Give yourself a timeframe to stay motivated.</li>
+            <li><strong>Track Regularly:</strong> Check your progress often to stay on course.</li>
+            <li><strong>Celebrate:</strong> Reward yourself when you hit a milestone! 🎉</li>
+          </ul>
         </div>
       </div>
 
-      <h3 className="mb-3">Your Goals</h3>
-      {goals.length === 0 ? (
-        <div className="alert alert-info">No goals yet. Create one to get started!</div>
-      ) : (
-        <div className="row">
-          {goals.map((goal) => {
-            const { current, percent } = getProgress(goal);
-            const isComplete = percent >= 100;
-            return (
-              <div key={goal.id} className="col-md-6 mb-3">
-                <div className={`card ${isComplete ? 'border-success' : ''}`}>
-                  <div className="card-body">
-                    <div className="d-flex justify-content-between mb-2">
-                      <h5 className="card-title">{goal.name}</h5>
-                      {isComplete && <span className="badge bg-success">✓ Done!</span>}
-                    </div>
-                    <p className="text-muted small">
-                      {current} / {goal.target} {goal.unit} {goal.deadline && `(by ${goal.deadline})`}
-                    </p>
-                    <div className="progress mb-2">
-                      <div className={`progress-bar ${isComplete ? 'bg-success' : 'bg-primary'}`} style={{ width: `${percent}%` }}></div>
-                    </div>
-                    <p className="text-muted small">{Math.round(percent)}% Complete</p>
-                    <button className="btn btn-sm btn-danger" onClick={() => deleteGoal(goal.id)}>Delete</button>
+      <div className="your-goals-section">
+        <h3>Active Goals</h3>
+        {goals.length === 0 ? (
+          <div className="goals-empty">
+            <i className="bi bi-trophy"></i>
+            <p>You haven't set any goals yet. Start your journey today!</p>
+          </div>
+        ) : (
+          <div className="goals-list">
+            {goals.map((goal) => {
+              const { current, percent } = getProgress(goal);
+              const isComplete = percent >= 100;
+              return (
+                <div key={goal.id} className={`goal-item ${isComplete ? 'completed' : ''}`}>
+                  <div className="goal-item-header">
+                    <h5>{goal.name}</h5>
+                    {isComplete && <i className="bi bi-patch-check-fill text-success fs-4"></i>}
                   </div>
+                  
+                  <div className="goal-stats">
+                    <i className="bi bi-calendar-event"></i>
+                    <span>
+                      {goal.deadline ? `Target date: ${new Date(goal.deadline).toLocaleDateString()}` : 'No deadline set'}
+                    </span>
+                  </div>
+
+                  <div className="progress-container">
+                    <div
+                      className="progress-bar"
+                      style={{ width: `${percent}%` }}
+                    ></div>
+                  </div>
+
+                  <div className="progress-info">
+                    <span>{current} / {goal.target} {goal.unit}</span>
+                    <span>{Math.round(percent)}%</span>
+                  </div>
+
+                  <button className="btn-delete-goal" onClick={() => deleteGoal(goal.id)}>
+                    <i className="bi bi-trash3-fill me-2"></i>
+                    Remove
+                  </button>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
+        )}
+      </div>
+      <TopNewsletterFooter />
     </div>
   );
 }

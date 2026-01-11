@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createWorkout, getExercises } from '../services/api';
+import './WorkoutForm.css';
 
 const WORKOUT_TEMPLATES = [
   {
@@ -9,7 +10,7 @@ const WORKOUT_TEMPLATES = [
     desc: 'Total body workout perfect for starters',
     duration: 45,
     difficulty: 'Beginner',
-    icon: '🌱',
+    icon: 'bi-brightness-low',
   },
   {
     id: 2,
@@ -17,7 +18,7 @@ const WORKOUT_TEMPLATES = [
     desc: 'Focus on chest, shoulders, and arms',
     duration: 60,
     difficulty: 'Intermediate',
-    icon: '💪',
+    icon: 'bi-hammer',
   },
   {
     id: 3,
@@ -25,7 +26,7 @@ const WORKOUT_TEMPLATES = [
     desc: 'High intensity cardio for max calorie burn',
     duration: 30,
     difficulty: 'Intermediate',
-    icon: '🔥',
+    icon: 'bi-fire',
   },
   {
     id: 4,
@@ -33,7 +34,7 @@ const WORKOUT_TEMPLATES = [
     desc: 'Improve flexibility and reduce stress',
     duration: 40,
     difficulty: 'Beginner',
-    icon: '🧘',
+    icon: 'bi-flower1',
   },
   {
     id: 5,
@@ -41,7 +42,7 @@ const WORKOUT_TEMPLATES = [
     desc: 'High Intensity Interval Training',
     duration: 30,
     difficulty: 'Advanced',
-    icon: '⚡',
+    icon: 'bi-lightning-charge',
   },
   {
     id: 6,
@@ -49,15 +50,15 @@ const WORKOUT_TEMPLATES = [
     desc: 'Build leg strength and endurance',
     duration: 50,
     difficulty: 'Intermediate',
-    icon: '🦵',
+    icon: 'bi-person-walking',
   },
   {
     id: 7,
     name: 'Core & Abs',
-    desc: 'Strengthen your core with targeted exercises',
+    desc: 'Strengthen your core with targeted moves',
     duration: 35,
     difficulty: 'Beginner',
-    icon: '🎯',
+    icon: 'bi-bullseye',
   },
   {
     id: 8,
@@ -65,39 +66,7 @@ const WORKOUT_TEMPLATES = [
     desc: 'Total body high intensity training',
     duration: 40,
     difficulty: 'Advanced',
-    icon: '🚀',
-  },
-  {
-    id: 9,
-    name: 'Pilates & Core',
-    desc: 'Low impact core strengthening routine',
-    duration: 45,
-    difficulty: 'Intermediate',
-    icon: '🏋️',
-  },
-  {
-    id: 10,
-    name: 'Swimming Session',
-    desc: 'Full body workout in the water',
-    duration: 60,
-    difficulty: 'Intermediate',
-    icon: '🏊',
-  },
-  {
-    id: 11,
-    name: 'Stretching & Recovery',
-    desc: 'Reduce soreness and improve flexibility',
-    duration: 25,
-    difficulty: 'Beginner',
-    icon: '🕐',
-  },
-  {
-    id: 12,
-    name: 'Boxing Training',
-    desc: 'High energy boxing workout',
-    duration: 45,
-    difficulty: 'Intermediate',
-    icon: '🥊',
+    icon: 'bi-rocket-takeoff',
   },
 ];
 
@@ -129,124 +98,43 @@ export default function NewWorkout() {
   };
 
   return (
-    <div className="container-fluid container-md mt-4 mt-md-5 mb-5 px-3 px-md-0">
-      <div className="mb-5">
-        <h1 className="mb-2 fs-4 fs-md-1">Choose Your Workout</h1>
-        <p className="text-muted">Pick a template or create a custom workout</p>
-      </div>
+    <div className="workout-form-page">
+      <div className="container">
+        <div className="form-header-modern">
+          <h1>Choose Your Workout</h1>
+          <p>Pick a template or design your own custom training session</p>
+        </div>
 
-      <div className="mb-5">
-        <h5 className="mb-4 fw-bold">Popular Templates</h5>
-        <div className="row g-3">
-          {WORKOUT_TEMPLATES.map((template) => (
-            <div key={template.id} className="col-12 col-sm-6 col-lg-3">
-              <div
-                className="card h-100 shadow-sm"
-                style={{
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  border: '1px solid #e5e7eb',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = '0 12px 24px rgba(99, 102, 241, 0.15)';
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <div className="card-body d-flex flex-column">
-                  <div style={{ fontSize: '40px', marginBottom: '12px' }}>{template.icon}</div>
-                  <h5 className="card-title" style={{ fontSize: '16px', fontWeight: 700 }}>
-                    {template.name}
-                  </h5>
-                  <p className="card-text text-muted small" style={{ fontSize: '13px' }}>
-                    {template.desc}
-                  </p>
-                  <div className="my-3">
-                    <span
-                      className="badge"
-                      style={{
-                        backgroundColor: '#f0f0f0',
-                        color: '#666',
-                        marginRight: '8px',
-                        fontSize: '12px',
-                      }}
-                    >
-                      <i className="bi bi-clock"></i> {template.duration} min
-                    </span>
-                    <span
-                      className="badge"
-                      style={{
-                        backgroundColor:
-                          template.difficulty === 'Beginner'
-                            ? '#d1fae5'
-                            : template.difficulty === 'Intermediate'
-                            ? '#fef3c7'
-                            : '#fee2e2',
-                        color:
-                          template.difficulty === 'Beginner'
-                            ? '#065f46'
-                            : template.difficulty === 'Intermediate'
-                            ? '#92400e'
-                            : '#7f1d1d',
-                        fontSize: '12px',
-                      }}
-                    >
-                      {template.difficulty}
-                    </span>
-                  </div>
-                  <button
-                    className="btn btn-sm mt-auto"
-                    style={{
-                      backgroundColor: '#6366f1',
-                      color: 'white',
-                      border: 'none',
-                      fontWeight: 600,
-                    }}
-                    onClick={() => handleSelectTemplate(template)}
-                  >
-                    <i className="bi bi-play-fill"></i> Start Workout
-                  </button>
+        <div className="mb-5">
+          <h5 className="fw-bold mb-4 text-uppercase small tracking-wider text-muted">Recommended Sessions</h5>
+          <div className="template-grid-modern">
+            {WORKOUT_TEMPLATES.map((template) => (
+              <div key={template.id} className="template-card-small" onClick={() => handleSelectTemplate(template)}>
+                <div className="icon-box">
+                  <i className={`bi ${template.icon}`}></i>
                 </div>
+                <h5>{template.name}</h5>
+                <p>{template.desc}</p>
+                <div className="template-meta-pills">
+                  <span className="meta-pill-sm">
+                    <i className="bi bi-clock me-1"></i> {template.duration}m
+                  </span>
+                  <span className="meta-pill-sm">{template.difficulty}</span>
+                </div>
+                <button className="btn-start-now mt-auto">
+                  Start Workout
+                </button>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="row g-3">
-        <div className="col-12 col-sm-6">
-          <button
-            className="btn w-100"
-            style={{
-              backgroundColor: '#6366f1',
-              color: 'white',
-              padding: '12px',
-              fontWeight: 600,
-              fontSize: '16px',
-              border: 'none',
-            }}
-            onClick={handleCustomWorkout}
-          >
-            <i className="bi bi-plus-circle"></i> Create Custom Workout
+        <div className="custom-actions-modern">
+          <button className="btn-custom-main btn-custom-primary" onClick={handleCustomWorkout}>
+            <i className="bi bi-plus-circle-fill"></i> Create Custom Workout
           </button>
-        </div>
-        <div className="col-12 col-sm-6">
-          <button
-            className="btn w-100"
-            style={{
-              backgroundColor: 'transparent',
-              color: '#6366f1',
-              padding: '12px',
-              fontWeight: 600,
-              fontSize: '16px',
-              border: '2px solid #6366f1',
-            }}
-            onClick={() => navigate('/templates')}
-          >
-            <i className="bi bi-layout-text-window"></i> View More Templates
+          <button className="btn-custom-main btn-custom-outline" onClick={() => navigate('/templates')}>
+            <i className="bi bi-grid-3x3-gap-fill"></i> Explore All Templates
           </button>
         </div>
       </div>

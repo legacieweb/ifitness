@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import Footer from '../components/Footer';
 
 export default function Nutrition() {
   const { user } = useAuth();
@@ -147,6 +148,7 @@ export default function Nutrition() {
           <li>Stay hydrated throughout the day</li>
         </ul>
       </div>
+      <Footer />
     </div>
   );
 }

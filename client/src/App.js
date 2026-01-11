@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import './styles/GlobalStyles.css';
 import Navigation from './components/Navigation';
+import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import SuspensionAlert from './components/SuspensionAlert';
@@ -26,6 +28,7 @@ import Nutrition from './pages/Nutrition';
 import Templates from './pages/Templates';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminBootcamp from './pages/AdminBootcamp';
+import AdminOutdoorActivity from './pages/AdminOutdoorActivity';
 import UserDetail from './pages/UserDetail';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
@@ -37,18 +40,35 @@ import Documentation from './pages/Documentation';
 import Community from './pages/Community';
 import Status from './pages/Status';
 import HelpCenter from './pages/HelpCenter';
+import MyRoutines from './pages/MyRoutines';
 
 function AppContent() {
   const { loading } = useAuth();
+  const location = useLocation();
+
+  // Header component - only show for home page
+  const showHeader = () => {
+    const path = location.pathname;
+    const noHeaderRoutes = ['/admin', '/login', '/register'];
+    
+    // Only show the original Navigation header for home page
+    if (path === '/') {
+      return true;
+    }
+    
+    // No original Navigation header for other pages
+    // (they will use their own headers)
+    return false;
+  };
 
   if (loading) {
     return <Preloader text="Loading..." />;
   }
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <SuspensionAlert />
-      <Navigation />
+      {showHeader() && <Navigation />}
       <ScrollToTop />
       <main style={{ flex: 1 }}>
       <Routes>
@@ -152,6 +172,14 @@ function AppContent() {
             }
           />
           <Route
+            path="/routines"
+            element={
+              <ProtectedRoute>
+                <MyRoutines />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/nutrition"
             element={
               <ProtectedRoute>
@@ -184,6 +212,14 @@ function AppContent() {
             }
           />
           <Route
+            path="/admin/outdoor-activities"
+            element={
+              <ProtectedRoute>
+                <AdminOutdoorActivity />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/admin/users/:userId"
             element={
               <ProtectedRoute>
@@ -204,47 +240,8 @@ function AppContent() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
-      <footer>
-        <div className="container">
-          <div className="row mb-5">
-            <div className="col-md-3 mb-4 mb-md-0">
-              <h5><i className="bi bi-activity"></i> ifitness</h5>
-              <p style={{ color: '#d1d5db', fontSize: '14px' }}>Your personal fitness companion for tracking workouts, monitoring progress, and achieving your fitness goals.</p>
-            </div>
-            <div className="col-md-3 mb-4 mb-md-0">
-              <h5>Product</h5>
-              <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><a href="/#features">Features</a></li>
-                <li><a href="/#how-it-works">How It Works</a></li>
-                <li><a href="/#pricing">Pricing</a></li>
-              </ul>
-            </div>
-            <div className="col-md-3 mb-4 mb-md-0">
-              <h5>Company</h5>
-              <ul>
-                <li><Link to="/about-us">About Us</Link></li>
-                <li><Link to="/blog">Blog</Link></li>
-                <li><Link to="/careers">Careers</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
-              </ul>
-            </div>
-            <div className="col-md-3">
-              <h5>Support</h5>
-              <ul>
-                <li><Link to="/documentation">Documentation</Link></li>
-                <li><Link to="/community">Community</Link></li>
-                <li><Link to="/status">Status</Link></li>
-                <li><Link to="/help-center">Help Center</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="footer-divider">
-            <p>&copy; 2026 ifitness. All rights reserved. | <Link to="/privacy-policy" style={{ color: '#d1d5db' }}>Privacy Policy</Link> | <Link to="/terms-of-service" style={{ color: '#d1d5db' }}>Terms of Service</Link></p>
-          </div>
-        </div>
-      </footer>
-    </>
+      <Footer />
+    </div>
   );
 }
 

@@ -1,0 +1,244 @@
+.achievements-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.achievements-header {
+  margin-bottom: 40px;
+  border-left: 5px solid var(--primary);
+  padding-left: 20px;
+}
+
+.achievements-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+
+.achievements-header p {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 60px;
+}
+
+@media (max-width: 576px) {
+  .badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+}
+
+.badge-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  padding: 30px 20px;
+  text-align: center;
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  box-shadow: var(--shadow-soft);
+}
+
+.badge-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-medium);
+}
+
+.badge-card.locked {
+  opacity: 0.6;
+  background: #f1f5f9;
+}
+
+.badge-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: var(--bg-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: var(--primary);
+  transition: var(--transition);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.badge-card.unlocked .badge-icon-wrapper {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+}
+
+.badge-card h6 {
+  font-weight: 800;
+  margin: 0;
+  color: var(--dark);
+  font-size: 1.1rem;
+}
+
+.badge-card p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.badge-status {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+}
+
+.badge-status.unlocked {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-status.locked {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.achievements-gallery-section h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.achievements-gallery-section h2::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 24px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.gallery-card {
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+  border: 1px solid var(--border);
+}
+
+.gallery-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-strong);
+}
+
+.gallery-image-wrapper {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.gallery-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.gallery-card:hover .gallery-image-wrapper img {
+  transform: scale(1.1);
+}
+
+.gallery-tag {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--primary);
+  color: white;
+  padding: 4px 15px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.gallery-body {
+  padding: 20px;
+}
+
+.gallery-body h5 {
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.gallery-date {
+  font-size: 0.85rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gallery-empty {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--bg-primary);
+  border-radius: var(--border-radius);
+  border: 2px dashed var(--border);
+}
+
+.gallery-empty i {
+  font-size: 4rem;
+  color: #cbd5e1;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.gallery-empty p {
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 5px;
+}
+
+.gallery-empty small {
+  color: #94a3b8;
+}
+
+.loading-spinner-achievements {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px;
+  gap: 20px;
+  color: var(--primary);
+  font-weight: 700;
+}

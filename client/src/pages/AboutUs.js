@@ -1,67 +1,258 @@
 import React from 'react';
+import DashboardHeader from '../components/DashboardHeader';
 import PageTransition from '../components/PageTransition';
+import TopNewsletterFooter from '../components/TopNewsletterFooter';
+import './AboutUs.css';
 
 export default function AboutUs() {
   return (
-    <PageTransition>
-      <div className="container py-5">
-      <div className="row">
-        <div className="col-lg-8 mx-auto">
-          <h1 className="mb-4">About Us</h1>
-
-          <section className="mb-5">
-            <h2 className="h4 mb-3">Our Mission</h2>
-            <p>
-              At ifitness, our mission is to empower individuals to take control of their fitness journey by providing intuitive tools for tracking workouts, monitoring progress, and achieving their health goals.
-            </p>
+    <>
+      <DashboardHeader />
+      <PageTransition>
+        <div className="modern-about-page">
+          <section className="hero-section">
+            <div className="container">
+              <div className="row align-items-center">
+                <div className="col-lg-6">
+                  <div className="hero-content">
+                    <div className="section-badge">
+                      <span>Our Story</span>
+                    </div>
+                    <h1 className="hero-title">
+                      Transforming Fitness Journeys
+                      <span className="gradient-text">Since 2024</span>
+                    </h1>
+                    <p className="hero-description">
+                      At ifitness, we're on a mission to empower individuals to take control of their health through intuitive, elegant fitness tracking solutions.
+                    </p>
+                    <div className="hero-stats">
+                      <div className="stat-item">
+                        <div className="stat-number counter" data-target="50000">50000</div>
+                        <div className="stat-label">Active Users</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-number counter" data-target="2000000">2000000</div>
+                        <div className="stat-label">Workouts Logged</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-number">4.9</div>
+                        <div className="stat-label">User Rating</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-6">
+                  <div className="hero-visual">
+                    <div className="floating-element element-1">
+                      <i className="bi bi-heart-pulse"></i>
+                    </div>
+                    <div className="floating-element element-2">
+                      <i className="bi bi-graph-up"></i>
+                    </div>
+                    <div className="floating-element element-3">
+                      <i className="bi bi-trophy"></i>
+                    </div>
+                    <div className="central-illustration">
+                      <div className="illustration-inner">
+                        <i className="bi bi-activity"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">Who We Are</h2>
-            <p>
-              ifitness is a dedicated team of fitness enthusiasts, software engineers, and health professionals committed to making fitness tracking accessible and engaging for everyone. We believe that everyone deserves the tools to monitor their progress and achieve their fitness goals.
-            </p>
+          <section className="mission-section">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-8 mx-auto text-center">
+                  <div className="section-badge">
+                    <span>Our Mission</span>
+                  </div>
+                  <h2 className="section-title">Empowering Your Fitness Journey</h2>
+                  <p className="section-description">
+                    We believe that fitness tracking should be simple, intuitive, and empowering. Our mission is to provide tools that help you monitor progress, achieve goals, and transform your lifestyle.
+                  </p>
+                </div>
+              </div>
+              <div className="row mt-5">
+                <div className="col-md-4 mb-4">
+                  <div className="mission-card">
+                    <div className="mission-icon">
+                      <i className="bi bi-lightning-charge"></i>
+                    </div>
+                    <h3>Simplicity</h3>
+                    <p>Clean, intuitive interfaces that make fitness tracking effortless and enjoyable.</p>
+                  </div>
+                </div>
+                <div className="col-md-4 mb-4">
+                  <div className="mission-card">
+                    <div className="mission-icon">
+                      <i className="bi bi-shield-check"></i>
+                    </div>
+                    <h3>Privacy</h3>
+                    <p>Your data is yours. We prioritize security and give you full control over your information.</p>
+                  </div>
+                </div>
+                <div className="col-md-4 mb-4">
+                  <div className="mission-card">
+                    <div className="mission-icon">
+                      <i className="bi bi-people"></i>
+                    </div>
+                    <h3>Community</h3>
+                    <p>Connect with like-minded individuals and share your journey in a supportive environment.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">Our Story</h2>
-            <p>
-              Founded in 2024, ifitness was created out of frustration with complex, cluttered fitness apps. We wanted to build something simple, clean, and effective—a platform where tracking workouts feels effortless, not burdensome.
-            </p>
+          <section className="features-section">
+            <div className="container">
+              <div className="row mb-5">
+                <div className="col-lg-8 mx-auto text-center">
+                  <div className="section-badge">
+                    <span>What We Offer</span>
+                  </div>
+                  <h2 className="section-title">Comprehensive Fitness Solutions</h2>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-6 mb-4">
+                  <div className="feature-card">
+                    <div className="feature-icon">
+                      <i className="bi bi-calendar2-event"></i>
+                    </div>
+                    <h3>Smart Workout Tracking</h3>
+                    <p>Log exercises with detailed analytics, track progress over time, and get personalized insights to optimize your training.</p>
+                    <div className="feature-highlight">
+                      <span>Real-time analytics</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-6 mb-4">
+                  <div className="feature-card">
+                    <div className="feature-icon">
+                      <i className="bi bi-target"></i>
+                    </div>
+                    <h3>Goal Setting & Tracking</h3>
+                    <p>Set SMART fitness goals, monitor your progress, and celebrate achievements with our comprehensive goal tracking system.</p>
+                    <div className="feature-highlight">
+                      <span>Personalized recommendations</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-6 mb-4">
+                  <div className="feature-card">
+                    <div className="feature-icon">
+                      <i className="bi bi-graph-up"></i>
+                    </div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Gain deep insights into your fitness journey with comprehensive charts, trends, and performance metrics.</p>
+                    <div className="feature-highlight">
+                      <span>Data-driven insights</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-6 mb-4">
+                  <div className="feature-card">
+                    <div className="feature-icon">
+                      <i className="bi bi-people"></i>
+                    </div>
+                    <h3>Community Support</h3>
+                    <p>Connect with fitness enthusiasts, share progress, participate in challenges, and get motivated by our supportive community.</p>
+                    <div className="feature-highlight">
+                      <span>Engagement & motivation</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">What We Offer</h2>
-            <ul className="mb-3">
-              <li><strong>Workout Tracking:</strong> Log exercises with details like duration, intensity, and calories burned</li>
-              <li><strong>Progress Analytics:</strong> Visualize your fitness journey with comprehensive analytics and charts</li>
-              <li><strong>Workout Templates:</strong> Get started quickly with pre-built workout templates</li>
-              <li><strong>Goal Setting:</strong> Define and track personal fitness goals</li>
-              <li><strong>User Profiles:</strong> Maintain personalized health information and fitness metrics</li>
-              <li><strong>Community:</strong> Connect with other fitness enthusiasts and share your journey</li>
-            </ul>
+          <section className="team-section">
+            <div className="container">
+              <div className="row mb-5">
+                <div className="col-lg-8 mx-auto text-center">
+                  <div className="section-badge">
+                    <span>Our Team</span>
+                  </div>
+                  <h2 className="section-title">Passionate Professionals</h2>
+                  <p className="section-description">
+                    Our dedicated team combines fitness expertise with technical innovation to create the best possible experience for our users.
+                  </p>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 mb-4">
+                  <div className="team-member">
+                    <div className="team-avatar">
+                      <i className="bi bi-person-circle"></i>
+                    </div>
+                    <h4>Sarah Johnson</h4>
+                    <p className="team-role">Fitness Expert</p>
+                  </div>
+                </div>
+                <div className="col-md-3 mb-4">
+                  <div className="team-member">
+                    <div className="team-avatar">
+                      <i className="bi bi-person-circle"></i>
+                    </div>
+                    <h4>Mike Chen</h4>
+                    <p className="team-role">Lead Developer</p>
+                  </div>
+                </div>
+                <div className="col-md-3 mb-4">
+                  <div className="team-member">
+                    <div className="team-avatar">
+                      <i className="bi bi-person-circle"></i>
+                    </div>
+                    <h4>Emma Davis</h4>
+                    <p className="team-role">UX Designer</p>
+                  </div>
+                </div>
+                <div className="col-md-3 mb-4">
+                  <div className="team-member">
+                    <div className="team-avatar">
+                      <i className="bi bi-person-circle"></i>
+                    </div>
+                    <h4>Alex Thompson</h4>
+                    <p className="team-role">Community Manager</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">Our Values</h2>
-            <ul className="mb-3">
-              <li><strong>Simplicity:</strong> We believe fitness tracking should be simple and intuitive</li>
-              <li><strong>Privacy:</strong> Your data is yours. We prioritize your privacy and security</li>
-              <li><strong>Transparency:</strong> We're honest about what we do and how we do it</li>
-              <li><strong>Innovation:</strong> We continuously improve to serve you better</li>
-              <li><strong>Community:</strong> We build for and with our users</li>
-            </ul>
-          </section>
-
-          <section className="mb-5">
-            <h2 className="h4 mb-3">Get in Touch</h2>
-            <p>
-              Have questions or feedback? We'd love to hear from you. Reach out to our team at <a href="mailto:hello@ifitness.com">hello@ifitness.com</a>.
-            </p>
+          <section className="cta-section">
+            <div className="container">
+              <div className="cta-content">
+                <div className="cta-bg-pattern"></div>
+                <div className="row">
+                  <div className="col-lg-8 mx-auto text-center">
+                    <h2 className="cta-title">Join Our Fitness Revolution</h2>
+                    <p className="cta-description">
+                      Ready to transform your fitness journey? Join thousands of satisfied users who have achieved their goals with ifitness.
+                    </p>
+                    <div className="cta-buttons">
+                      <a href="/register" className="btn-primary-modern large">
+                        <span>Get Started</span>
+                        <i className="bi bi-person-plus"></i>
+                      </a>
+                      <a href="/contact" className="btn-secondary-modern large">
+                        <i className="bi bi-envelope"></i>
+                        <span>Contact Us</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
-      </div>
-      </div>
-    </PageTransition>
+      </PageTransition>
+      <CleanFooter />
+    </>
   );
 }

@@ -37,10 +37,38 @@ export const updateBootcamp = (id, bootcampData) => API.put(`/bootcamps/${id}`, 
 export const deleteBootcamp = (id) => API.delete(`/bootcamps/${id}`);
 export const acceptBootcamp = (id) => API.post(`/bootcamps/${id}/accept`);
 export const declineBootcamp = (id) => API.post(`/bootcamps/${id}/decline`);
+export const inviteAllToBootcamp = (id) => API.post(`/bootcamps/${id}/invite-all`);
+
+export const getOutdoorActivities = () => API.get('/outdoor-activities');
+export const getActiveOutdoorActivity = () => API.get('/outdoor-activities/active');
+export const createOutdoorActivity = (data) => API.post('/outdoor-activities', data);
+export const updateOutdoorActivity = (id, data) => API.put(`/outdoor-activities/${id}`, data);
+export const deleteOutdoorActivity = (id) => API.delete(`/outdoor-activities/${id}`);
+export const acceptOutdoorActivity = (id) => API.post(`/outdoor-activities/${id}/accept`);
+export const inviteAllToOutdoorActivity = (id) => API.post(`/outdoor-activities/${id}/invite-all`);
 
 export const getUserProfile = (id) => API.get(`/users/profile/${id}`);
 export const updateUserProfile = (id, userData) => API.put(`/users/profile/${id}`, userData);
+export const uploadProfilePicture = (id, file, token) => {
+  const formData = new FormData();
+  formData.append('profilePicture', file);
+  return API.post(`/users/profile/${id}/upload`, formData, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+};
 export const getUserStats = (id) => API.get(`/users/stats/${id}`);
+export const getUserDashboard = (id) => API.get(`/users/dashboard/${id}`);
+export const getUserGallery = (id) => API.get(`/users/profile/${id}/gallery`);
+export const getUserGoals = (id) => API.get(`/users/goals/${id}`);
+export const createGoal = (id, goalData) => API.post(`/users/goals/${id}`, goalData);
+export const updateGoal = (userId, goalId, data) => API.put(`/users/goals/${userId}/${goalId}`, data);
+export const deleteGoal = (userId, goalId) => API.delete(`/users/goals/${userId}/${goalId}`);
+export const getUserRoutine = (id) => API.get(`/users/profile/${id}/routine`);
+export const updateRoutineDay = (id, dayIndex, completed) => API.put(`/users/profile/${id}/routine/${dayIndex}`, { completed });
+export const getRecentWorkouts = (id) => API.get(`/users/dashboard/${id}`).then(res => res.data.recentWorkouts);
 
 export const getAllUsers = (token) => API.get('/admin/users', {
   headers: { Authorization: `Bearer ${token}` }
@@ -51,6 +79,19 @@ export const getUserDetails = (id, token) => API.get(`/admin/users/${id}`, {
 });
 
 export const getAdminStats = (token) => API.get('/admin/stats', {
+  headers: { Authorization: `Bearer ${token}` }
+});
+
+export const getWeeklyActivity = (token, period = 'week') => API.get('/admin/weekly-activity', {
+  params: { period },
+  headers: { Authorization: `Bearer ${token}` }
+});
+
+export const getWorkoutDistribution = (token) => API.get('/admin/workout-distribution', {
+  headers: { Authorization: `Bearer ${token}` }
+});
+
+export const getSystemHealth = (token) => API.get('/admin/system-health', {
   headers: { Authorization: `Bearer ${token}` }
 });
 
