@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import SuspensionAlert from './components/SuspensionAlert';
 import Preloader from './components/Preloader';
 
+import DashboardLayout from './components/DashboardLayout';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -61,6 +62,15 @@ function AppContent() {
     return false;
   };
 
+  // Footer component - hide for dashboard and admin
+  const showFooter = () => {
+    const path = location.pathname;
+    const noFooterRoutes = ['/dashboard', '/workouts', '/profile', '/journey', '/analytics', '/achievements', '/calendar', '/goals', '/routines', '/nutrition', '/templates', '/admin'];
+    
+    // Check if path starts with any of the noFooterRoutes
+    return !noFooterRoutes.some(route => path.startsWith(route));
+  };
+
   if (loading) {
     return <Preloader text="Loading..." />;
   }
@@ -75,126 +85,26 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/workouts"
-            element={
-              <ProtectedRoute>
-                <Workouts />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/workouts/new"
-            element={
-              <ProtectedRoute>
-                <NewWorkout />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/workouts/create"
-            element={
-              <ProtectedRoute>
-                <CreateWorkout />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/workouts/:id"
-            element={
-              <ProtectedRoute>
-                <WorkoutDetail />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/workouts/:id/edit"
-            element={
-              <ProtectedRoute>
-                <EditWorkout />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/journey"
-            element={
-              <ProtectedRoute>
-                <Journey />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/analytics"
-            element={
-              <ProtectedRoute>
-                <Analytics />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/achievements"
-            element={
-              <ProtectedRoute>
-                <Achievements />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/calendar"
-            element={
-              <ProtectedRoute>
-                <Calendar />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/goals"
-            element={
-              <ProtectedRoute>
-                <Goals />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/routines"
-            element={
-              <ProtectedRoute>
-                <MyRoutines />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/nutrition"
-            element={
-              <ProtectedRoute>
-                <Nutrition />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/templates"
-            element={
-              <ProtectedRoute>
-                <Templates />
-              </ProtectedRoute>
-            }
-          />
+          
+          {/* User Dashboard Routes */}
+          <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/workouts" element={<Workouts />} />
+            <Route path="/workouts/new" element={<NewWorkout />} />
+            <Route path="/workouts/create" element={<CreateWorkout />} />
+            <Route path="/workouts/:id" element={<WorkoutDetail />} />
+            <Route path="/workouts/:id/edit" element={<EditWorkout />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/journey" element={<Journey />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/achievements" element={<Achievements />} />
+            <Route path="/calendar" element={<Calendar />} />
+            <Route path="/goals" element={<Goals />} />
+            <Route path="/routines" element={<MyRoutines />} />
+            <Route path="/nutrition" element={<Nutrition />} />
+            <Route path="/templates" element={<Templates />} />
+          </Route>
+
           <Route
             path="/admin"
             element={
@@ -240,7 +150,7 @@ function AppContent() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
-      <Footer />
+      {showFooter() && <Footer />}
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getUserProfile, updateUserProfile, uploadProfilePicture, getUserGallery } from '../services/api';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Profile.css';
 
 export default function Profile() {
@@ -265,7 +264,6 @@ export default function Profile() {
           )}
         </div>
       </div>
-      <TopNewsletterFooter />
     </div>
   );
 }

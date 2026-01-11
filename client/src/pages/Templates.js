@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Templates.css';
 
 export default function Templates() {
@@ -134,7 +133,6 @@ export default function Templates() {
           </div>
         </div>
       </div>
-      <TopNewsletterFooter />
     </div>
   );
 }

@@ -1,0 +1,214 @@
+.calendar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 0;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.calendar-header {
+  margin-bottom: 32px;
+}
+
+.calendar-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+
+.calendar-card {
+  background: white;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.calendar-nav {
+  padding: 24px;
+  background: white;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-nav h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.btn-nav {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-nav:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+  border-color: var(--primary-light);
+}
+
+.calendar-grid-wrapper {
+  padding: 24px;
+}
+
+.calendar-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 8px;
+}
+
+.calendar-table th {
+  padding: 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--gray-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.calendar-day {
+  height: 100px;
+  width: 14.28%;
+  background: var(--gray-50);
+  border-radius: 12px;
+  padding: 12px;
+  position: relative;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.calendar-day.active-month {
+  background: white;
+  border-color: var(--border-light);
+}
+
+.calendar-day.has-workouts {
+  background: var(--success-soft);
+  border-color: var(--success-light);
+}
+
+.calendar-day:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--primary-light);
+}
+
+.day-number {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--dark-light);
+}
+
+.workout-badges {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.workout-badge {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+  display: block;
+}
+
+.workout-count {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--success);
+  background: white;
+  padding: 2px 6px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.calendar-legend {
+  padding: 24px;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.legend-items {
+  display: flex;
+  gap: 24px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.legend-color.workout { background: var(--success); }
+.legend-color.empty { background: var(--gray-50); border: 1px solid var(--border); }
+
+.total-stats {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.total-stats strong {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .calendar-day {
+    height: 60px;
+    padding: 6px;
+  }
+  
+  .day-number {
+    font-size: 0.8rem;
+  }
+  
+  .workout-count {
+    bottom: 4px;
+    right: 4px;
+    font-size: 0.65rem;
+    padding: 1px 4px;
+  }
+  
+  .calendar-table {
+    border-spacing: 4px;
+  }
+}

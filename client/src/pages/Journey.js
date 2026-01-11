@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getUserStats } from '../services/api';
-import Footer from '../components/Footer';
+import './Journey.css';
 
 export default function Journey() {
   const { user } = useAuth();
@@ -22,8 +22,9 @@ export default function Journey() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        if (user?.id) {
-          const response = await getUserStats(user.id);
+        const userId = user?.id || user?._id;
+        if (userId) {
+          const response = await getUserStats(userId);
           setStats(response.data);
           
           const milestonesUpdated = journey.milestones.map((m) => {
@@ -55,7 +56,7 @@ export default function Journey() {
     };
 
     fetchStats();
-  }, [user]);
+  }, [user?.id, user?._id]);
 
   const getProgressColor = (current, target) => {
     const percent = (current / target) * 100;
@@ -65,122 +66,101 @@ export default function Journey() {
     return 'danger';
   };
 
-  return (
-    <div className="container mt-5 mb-5">
-      <h1 className="mb-4">🚀 Your Fitness Journey</h1>
+  const levelEmojis = {
+    'Beginner': '🌱',
+    'Intermediate': '💪',
+    'Advanced': '🏆',
+    'Elite': '👑'
+  };
 
-      <div className="card mb-4">
-        <div className="card-body">
-          <div className="row align-items-center">
-            <div className="col-md-8">
-              <h3>Current Level: <span className="badge bg-primary">{journey.level}</span></h3>
-              <p className="text-muted">Keep going! You're doing amazing!</p>
-              <div className="progress" style={{ height: '30px' }}>
-                <div
-                  className="progress-bar bg-success"
-                  role="progressbar"
-                  style={{ width: `${Math.min(journey.progress, 100)}%` }}
-                >
-                  {Math.round(journey.progress)}% Complete
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4 text-center">
-              <div style={{ fontSize: '60px' }}>
-                {journey.level === 'Beginner' && '🌱'}
-                {journey.level === 'Intermediate' && '💪'}
-                {journey.level === 'Advanced' && '🏆'}
-                {journey.level === 'Elite' && '👑'}
-              </div>
-              <p className="mt-2">Total Workouts: <strong>{stats?.totalWorkouts || 0}</strong></p>
+  return (
+    <div className="journey-container">
+      <div className="journey-header">
+        <h1>Your Fitness Journey</h1>
+      </div>
+
+      <div className="level-card">
+        <div className="level-info">
+          <h3>
+            Current Level
+            <span className="level-badge">{journey.level}</span>
+          </h3>
+          <p className="level-desc">Keep going! You're making great progress towards your goals.</p>
+          <div className="level-progress-wrapper">
+            <div
+              className="level-progress-fill"
+              style={{ width: `${Math.min(journey.progress, 100)}%` }}
+            >
+              {Math.round(journey.progress)}% Complete
             </div>
           </div>
+          <p className="mt-3 text-muted fw-bold">Total Workouts: {stats?.totalWorkouts || 0}</p>
+        </div>
+        <div className="level-emoji-wrapper">
+          {levelEmojis[journey.level]}
         </div>
       </div>
 
-      <h3 className="mb-4">📍 Milestones</h3>
-      <div className="row">
-        {journey.milestones.map((milestone) => (
-          <div key={milestone.id} className="col-md-6 col-lg-4 mb-3">
-            <div className="card h-100">
-              <div className="card-body">
-                <div className="d-flex justify-content-between align-items-start mb-2">
-                  <h5 className="card-title">{milestone.icon} {milestone.name}</h5>
-                  {milestone.current >= milestone.target && (
-                    <span className="badge bg-success">✓ Done</span>
-                  )}
-                </div>
-                
-                <div className="progress mb-2">
-                  <div
-                    className={`progress-bar bg-${getProgressColor(milestone.current, milestone.target)}`}
-                    style={{ width: `${Math.min((milestone.current / milestone.target) * 100, 100)}%` }}
-                  ></div>
-                </div>
+      <div className="milestones-section">
+        <h2>📍 Journey Milestones</h2>
+        <div className="milestones-grid">
+          {journey.milestones.map((milestone) => (
+            <div key={milestone.id} className="milestone-card">
+              <div className="milestone-header">
+                <h5 className="milestone-title">{milestone.icon} {milestone.name}</h5>
+                {milestone.current >= milestone.target && (
+                  <span className="done-badge">✓ COMPLETED</span>
+                )}
+              </div>
+              
+              <div className="milestone-progress-bar">
+                <div
+                  className={`milestone-progress-fill bg-${getProgressColor(milestone.current, milestone.target)}`}
+                  style={{ width: `${Math.min((milestone.current / milestone.target) * 100, 100)}%` }}
+                ></div>
+              </div>
 
-                <div className="text-center">
-                  <span className="text-muted">
-                    {Math.round(milestone.current)} / {milestone.target}
-                    {milestone.type === 'calories' && ' 🔥 cal'}
-                    {milestone.type === 'duration' && ' ⏱️ min'}
-                    {!milestone.type && ' 💪 workouts'}
-                  </span>
-                </div>
+              <div className="milestone-stats">
+                {Math.round(milestone.current)} / {milestone.target}
+                {milestone.type === 'calories' && ' calories'}
+                {milestone.type === 'duration' && ' minutes'}
+                {!milestone.type && ' workouts'}
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <div className="mt-5">
-        <h3 className="mb-3">What's Next?</h3>
-        <div className="row">
-          <div className="col-md-4 mb-3">
-            <div className="card">
-              <div className="card-body text-center">
-                <div style={{ fontSize: '40px' }}>📝</div>
-                <h5 className="card-title mt-2">Log Workout</h5>
-                <p className="card-text">Start your next training session</p>
-                <Link to="/workouts/new" className="btn btn-primary btn-sm">
-                  Begin Now
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4 mb-3">
-            <div className="card">
-              <div className="card-body text-center">
-                <div style={{ fontSize: '40px' }}>📊</div>
-                <h5 className="card-title mt-2">View History</h5>
-                <p className="card-text">Check your past workouts</p>
-                <Link to="/workouts" className="btn btn-primary btn-sm">
-                  View
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-4 mb-3">
-            <div className="card">
-              <div className="card-body text-center">
-                <div style={{ fontSize: '40px' }}>⚙️</div>
-                <h5 className="card-title mt-2">Update Profile</h5>
-                <p className="card-text">Adjust your fitness goals</p>
-                <Link to="/profile" className="btn btn-primary btn-sm">
-                  Edit
-                </Link>
-              </div>
-            </div>
-          </div>
+      <div className="next-steps-section">
+        <h2>What's Next?</h2>
+        <div className="next-steps-grid">
+          <Link to="/workouts/new" className="next-step-card">
+            <div className="step-icon">📝</div>
+            <h5>Log Workout</h5>
+            <p>Start your next training session</p>
+            <div className="btn-step">Begin Now</div>
+          </Link>
+          <Link to="/workouts" className="next-step-card">
+            <div className="step-icon">📊</div>
+            <h5>View History</h5>
+            <p>Check your past workouts</p>
+            <div className="btn-step">View All</div>
+          </Link>
+          <Link to="/profile" className="next-step-card">
+            <div className="step-icon">⚙️</div>
+            <h5>Update Profile</h5>
+            <p>Adjust your fitness goals</p>
+            <div className="btn-step">Edit Profile</div>
+          </Link>
         </div>
       </div>
 
       {journey.level === 'Elite' && (
-        <div className="alert alert-warning mt-4">
+        <div className="elite-alert">
           <h4>🎉 Congratulations! You've Reached Elite Level!</h4>
           <p>You are a fitness champion! Keep pushing your limits and inspiring others!</p>
         </div>
       )}
-      <Footer />
     </div>
   );
 }

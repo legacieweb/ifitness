@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts } from '../services/api';
-import Footer from '../components/Footer';
 import './Achievements.css';
 
 export default function Achievements() {
@@ -144,7 +143,6 @@ export default function Achievements() {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

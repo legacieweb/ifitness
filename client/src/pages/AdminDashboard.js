@@ -11,6 +11,12 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
   const [stats, setStats] = useState({
     totalUsers: 0,
     activeUsers: 0,
@@ -27,7 +33,6 @@ export default function AdminDashboard() {
     apiLatency: 0,
     uptime: 99.9
   });
-  const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
 
   // Bootcamp management state
@@ -155,18 +160,6 @@ export default function AdminDashboard() {
     setLoading(false);
   }, [user, navigate, fetchDashboardData]);
 
-  // Search filter
-  useEffect(() => {
-    if (searchQuery.trim() === '') {
-      setFilteredUsers(allUsers);
-    } else {
-      const query = searchQuery.toLowerCase();
-      setFilteredUsers(allUsers.filter(u => 
-        u.name?.toLowerCase().includes(query) || 
-        u.email?.toLowerCase().includes(query)
-      ));
-    }
-  }, [searchQuery, allUsers]);
 
   const navigateToUserProfile = (userId) => {
     navigate(`/admin/users/${userId}`);
@@ -353,61 +346,58 @@ export default function AdminDashboard() {
 
       <div className={`sidebar-overlay ${sidebarOpen ? 'active' : ''}`} onClick={() => setSidebarOpen(false)} />
 
-      <aside className={`admin-sidebar ${sidebarOpen ? 'open' : ''}`}>
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <a href="/" className="sidebar-logo">
-            <div className="sidebar-logo-icon">
-              <i className="bi bi-activity"></i>
-            </div>
-            <span className="sidebar-logo-text">iFitness</span>
+            <i className="bi bi-activity"></i>
+            <span>iFitness</span>
           </a>
         </div>
 
+        <div className="sidebar-user">
+          <div className="sidebar-user-avatar">
+            {user?.profilePicture ? (
+              <img src={user.profilePicture} alt="Profile" />
+            ) : (
+              <div className="sidebar-avatar-placeholder">
+                <i className="bi bi-person"></i>
+              </div>
+            )}
+          </div>
+          <div className="sidebar-user-info">
+            <span className="sidebar-user-name">{user?.name || 'Admin'}</span>
+            <span className="sidebar-user-status">System Administrator</span>
+          </div>
+        </div>
+
         <nav className="sidebar-nav">
-          <div className="nav-section">
-            <div className="nav-section-title">Main</div>
-            <div className={`nav-item ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => { setActiveTab('overview'); setSidebarOpen(false); }}>
-              <i className="bi bi-grid-1x2"></i>
-              <span>Dashboard</span>
-            </div>
+          <div className={`sidebar-nav-item ${activeTab === 'overview' ? 'active' : ''}`} onClick={() => { setActiveTab('overview'); setSidebarOpen(false); }}>
+            <i className="bi bi-grid"></i>
+            <span>Dashboard</span>
           </div>
-
-          <div className="nav-section">
-            <div className="nav-section-title">Management</div>
-            <div className={`nav-item ${activeTab === 'users' ? 'active' : ''}`} onClick={() => { setActiveTab('users'); setSidebarOpen(false); }}>
-              <i className="bi bi-people"></i>
-              <span>User Management</span>
-              <span className="nav-badge">{stats.totalUsers}</span>
-            </div>
-            <div className={`nav-item ${activeTab === 'bootcamps' ? 'active' : ''}`} onClick={() => { setActiveTab('bootcamps'); setSidebarOpen(false); }}>
-              <i className="bi bi-lightning-charge"></i>
-              <span>Bootcamps Management</span>
-            </div>
-            <div className={`nav-item ${activeTab === 'outdoor' ? 'active' : ''}`} onClick={() => { setActiveTab('outdoor'); setSidebarOpen(false); }}>
-              <i className="bi bi-tree"></i>
-              <span>Outdoor Activities</span>
-            </div>
+          <div className={`sidebar-nav-item ${activeTab === 'users' ? 'active' : ''}`} onClick={() => { setActiveTab('users'); setSidebarOpen(false); }}>
+            <i className="bi bi-people"></i>
+            <span>Users</span>
           </div>
-
-          <div className="nav-section">
-            <div className="nav-section-title">System</div>
-            <div className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => { setActiveTab('settings'); setSidebarOpen(false); }}>
-              <i className="bi bi-gear"></i>
-              <span>Settings</span>
-            </div>
+          <div className={`sidebar-nav-item ${activeTab === 'bootcamps' ? 'active' : ''}`} onClick={() => { setActiveTab('bootcamps'); setSidebarOpen(false); }}>
+            <i className="bi bi-lightning-charge"></i>
+            <span>Bootcamps</span>
+          </div>
+          <div className={`sidebar-nav-item ${activeTab === 'outdoor' ? 'active' : ''}`} onClick={() => { setActiveTab('outdoor'); setSidebarOpen(false); }}>
+            <i className="bi bi-tree"></i>
+            <span>Outdoor Activities</span>
+          </div>
+          <div className={`sidebar-nav-item ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => { setActiveTab('settings'); setSidebarOpen(false); }}>
+            <i className="bi bi-gear"></i>
+            <span>Settings</span>
           </div>
         </nav>
 
         <div className="sidebar-footer">
-          <div className="admin-profile">
-            <div className="admin-profile-avatar">
-              <i className="bi bi-person-fill"></i>
-            </div>
-            <div className="admin-profile-info">
-              <div className="admin-profile-name">{user?.name || 'Admin'}</div>
-              <div className="admin-profile-role">System Administrator</div>
-            </div>
-          </div>
+          <button onClick={handleLogout} className="sidebar-logout-btn">
+            <i className="bi bi-box-arrow-right"></i>
+            <span>Logout</span>
+          </button>
         </div>
       </aside>
 
@@ -432,16 +422,6 @@ export default function AdminDashboard() {
           </div>
 
           <div className="header-right">
-            <div className="header-search">
-              <i className="bi bi-search"></i>
-              <input 
-                type="text" 
-                placeholder="Search..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-
             <div className="admin-dropdown">
               <button className="admin-dropdown-btn">
                 <div className="admin-dropdown-avatar">
@@ -956,13 +936,6 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {activeTab === 'settings' && (
-            <div className="placeholder-content">
-              <i className="bi bi-gear"></i>
-              <h3>Settings</h3>
-              <p>System settings coming soon.</p>
-            </div>
-          )}
         </div>
       </main>
     </div>

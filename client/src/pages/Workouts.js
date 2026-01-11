@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getWorkouts, deleteWorkout, createWorkout } from '../services/api';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Workouts.css';
 
 const formatTime = (seconds) => {
@@ -311,7 +310,6 @@ export default function Workouts() {
           </div>
         )}
       </div>
-      <TopNewsletterFooter />
     </div>
   );
 }

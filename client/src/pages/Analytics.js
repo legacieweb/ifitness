@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts } from '../services/api';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 
 export default function Analytics() {
   const { user } = useAuth();
@@ -96,7 +95,6 @@ export default function Analytics() {
           </div>
         </div>
       </div>
-      <TopNewsletterFooter />
     </div>
   );
 }

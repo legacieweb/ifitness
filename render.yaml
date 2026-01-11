@@ -4,8 +4,8 @@ services:
     name: fitness-api
     env: node
     plan: free
-    buildCommand: cd backend && npm ci
-    startCommand: cd backend && npm start
+    buildCommand: cd server && npm ci && cd ../client && npm ci && npm run build
+    startCommand: cd server && npm start
     envVars:
       - key: NODE_ENV
         value: production
@@ -27,8 +27,8 @@ services:
   # Frontend Web Service
   - type: static
     name: fitness-frontend
-    buildCommand: cd frontend && npm ci && npm run build
-    staticPublishPath: ./frontend/build
+    buildCommand: cd client && npm ci && npm run build
+    staticPublishPath: ./client/build
     envVars:
       - key: REACT_APP_API_URL
         value: https://fitness-api.onrender.com

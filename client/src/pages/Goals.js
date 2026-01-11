@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts } from '../services/api';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Goals.css';
 
 export default function Goals() {
@@ -182,7 +181,6 @@ export default function Goals() {
           </div>
         )}
       </div>
-      <TopNewsletterFooter />
     </div>
   );
 }

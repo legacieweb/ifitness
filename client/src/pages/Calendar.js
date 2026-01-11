@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts } from '../services/api';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
+import './Calendar.css';
 
 export default function Calendar() {
   const { user } = useAuth();
@@ -18,7 +18,7 @@ export default function Calendar() {
       }
     };
     fetchWorkouts();
-  }, []);
+  }, [user?.id]);
 
   const getDaysInMonth = (date) => new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   const getFirstDayOfMonth = (date) => new Date(date.getFullYear(), date.getMonth(), 1).getDay();
@@ -37,64 +37,85 @@ export default function Calendar() {
   const prevMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1));
   const nextMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1));
 
+  const totalWorkouts = Object.values(workoutsByDate).reduce((sum, arr) => sum + arr.length, 0);
+
   return (
-    <div className="container-fluid container-md mt-4 mt-md-5 mb-5 px-3 px-md-0">
-      <h1 className="mb-4 fs-4 fs-md-1">Workout Calendar</h1>
+    <div className="calendar-container">
+      <div className="calendar-header">
+        <h1>Workout Calendar</h1>
+      </div>
 
-      <div className="card">
-        <div className="card-body p-2 p-md-3">
-          <div className="d-flex justify-content-between align-items-center mb-3 gap-2">
-            <button className="btn btn-sm btn-outline-primary" onClick={prevMonth}>← Prev</button>
-            <h5 className="mb-0 small">{currentMonth.toLocaleString('default', { month: 'short', year: 'numeric' })}</h5>
-            <button className="btn btn-sm btn-outline-primary" onClick={nextMonth}>Next →</button>
-          </div>
+      <div className="calendar-card">
+        <div className="calendar-nav">
+          <button className="btn-nav" onClick={prevMonth} aria-label="Previous Month">
+            <i className="bi bi-chevron-left"></i>
+          </button>
+          <h2>{currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}</h2>
+          <button className="btn-nav" onClick={nextMonth} aria-label="Next Month">
+            <i className="bi bi-chevron-right"></i>
+          </button>
+        </div>
 
-          <div className="table-responsive">
-            <table className="table table-bordered text-center small mb-0">
-              <thead>
-                <tr>
-                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <th key={day} className="bg-light p-1" style={{fontSize: '12px'}}>{day.slice(0, 1)}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {Array(Math.ceil((daysInMonth + firstDay) / 7)).fill(null).map((_, weekIdx) => (
-                  <tr key={weekIdx} style={{ height: '70px' }}>
-                    {days.slice(weekIdx * 7, (weekIdx + 1) * 7).concat(Array(7 - ((daysInMonth + firstDay) % 7 || 7)).fill(null)).slice(0, 7).map((day, dayIdx) => {
-                      const dateObj = day ? new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day) : null;
-                      const dateStr = dateObj?.toDateString();
-                      const dayWorkouts = dateStr ? (workoutsByDate[dateStr] || []) : [];
-
-                      return (
-                        <td key={dayIdx} className={day ? (dayWorkouts.length > 0 ? 'bg-success bg-opacity-10 border-success' : 'bg-light') : ''} style={{padding: '4px', fontSize: '12px'}}>
-                          {day && (
-                            <div>
-                              <strong className="small">{day}</strong>
-                              {dayWorkouts.length > 0 && (
-                                <div className="mt-1">
-                                  <span className="badge bg-success" style={{fontSize: '10px'}}>{dayWorkouts.length}</span>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                        </td>
-                      );
-                    })}
-                  </tr>
+        <div className="calendar-grid-wrapper">
+          <table className="calendar-table">
+            <thead>
+              <tr>
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                  <th key={day}>{day}</th>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </tr>
+            </thead>
+            <tbody>
+              {Array(Math.ceil((daysInMonth + firstDay) / 7)).fill(null).map((_, weekIdx) => (
+                <tr key={weekIdx}>
+                  {days.slice(weekIdx * 7, (weekIdx + 1) * 7).concat(Array(Math.max(0, 7 - (days.slice(weekIdx * 7, (weekIdx + 1) * 7).length))).fill(null)).map((day, dayIdx) => {
+                    const dateObj = day ? new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day) : null;
+                    const dateStr = dateObj?.toDateString();
+                    const dayWorkouts = dateStr ? (workoutsByDate[dateStr] || []) : [];
 
-          <div className="mt-3 small">
-            <h6>Legend</h6>
-            <p className="mb-1"><span className="badge bg-success">Workout Day</span> - Days with completed workouts</p>
-            <p className="mb-0">Total: <strong>{Object.values(workoutsByDate).reduce((sum, arr) => sum + arr.length, 0)}</strong> workouts</p>
+                    return (
+                      <td 
+                        key={dayIdx} 
+                        className={`calendar-day ${day ? 'active-month' : ''} ${dayWorkouts.length > 0 ? 'has-workouts' : ''}`}
+                      >
+                        {day && (
+                          <>
+                            <span className="day-number">{day}</span>
+                            {dayWorkouts.length > 0 && (
+                              <>
+                                <div className="workout-badges">
+                                  {dayWorkouts.map((_, i) => <span key={i} className="workout-badge"></span>)}
+                                </div>
+                                <span className="workout-count">{dayWorkouts.length}</span>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="calendar-legend">
+          <div className="legend-items">
+            <div className="legend-item">
+              <span className="legend-color workout"></span>
+              <span>Workout Completed</span>
+            </div>
+            <div className="legend-item">
+              <span className="legend-color empty"></span>
+              <span>Rest Day</span>
+            </div>
+          </div>
+          <div className="total-stats">
+            Total this month: <strong>{totalWorkouts}</strong> workouts
           </div>
         </div>
       </div>
-      <TopNewsletterFooter />
     </div>
   );
 }

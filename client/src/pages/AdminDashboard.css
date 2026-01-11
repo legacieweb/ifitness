@@ -64,30 +64,70 @@
   background: var(--admin-bg);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: var(--admin-dark);
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-main {
+  margin-left: 260px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: calc(100% - 260px);
+}
+
+.admin-content {
+  flex: 1;
+  padding: 32px;
+  min-height: calc(100vh - 120px);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Fix for section positioning */
+.admin-content > div {
+  position: relative;
+  min-height: auto;
+  overflow: visible;
+}
+
+/* Ensure sections don't push content down */
+.admin-content .animate-fade-in {
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ═════════════════════════════════════════════════════
    SIDEBAR - STUNNING MODERN DESIGN
    ═════════════════════════════════════════════════════ */
 
-.admin-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
+.sidebar {
+  width: 260px;
   height: 100vh;
-  background: var(--admin-sidebar-bg);
-  color: white;
-  z-index: 1000;
+  background: #ffffff;
+  border-right: 1px solid #f0f0f0;
   display: flex;
   flex-direction: column;
-  transition: var(--admin-transition-slow);
-  box-shadow: var(--admin-shadow-xl);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .sidebar-header {
   padding: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
 }
 
 .sidebar-logo {
@@ -95,174 +135,141 @@
   align-items: center;
   gap: 12px;
   text-decoration: none;
-  color: white;
+  color: var(--dark);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.5px;
 }
 
-.sidebar-logo-icon {
+.sidebar-logo span {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sidebar-logo i {
+  color: #4361ee;
+  font-size: 1.5rem;
+}
+
+.sidebar-user {
+  padding: 0 24px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #f8f9fa;
+  margin-bottom: 16px;
+}
+
+.sidebar-user-avatar {
   width: 44px;
   height: 44px;
-  background: var(--admin-gradient);
   border-radius: 12px;
+  overflow: hidden;
+  background: #f8f9fa;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
 }
 
-.sidebar-logo-text {
-  font-size: 24px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+.sidebar-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sidebar-avatar-placeholder i {
+  font-size: 1.25rem;
+  color: #adb5bd;
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-user-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+}
+
+.sidebar-user-status {
+  font-size: 0.75rem;
+  color: #6c757d;
 }
 
 .sidebar-nav {
   flex: 1;
-  padding: 20px 12px;
+  padding: 0 16px;
   overflow-y: auto;
 }
 
-.nav-section {
-  margin-bottom: 32px;
-}
-
-.nav-section-title {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: rgba(255, 255, 255, 0.4);
-  padding: 0 12px;
-  margin-bottom: 12px;
-}
-
-.nav-item {
+.sidebar-nav-item {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  border-radius: 10px;
-  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
-  transition: var(--admin-transition);
-  cursor: pointer;
-  margin-bottom: 4px;
-  font-size: 14px;
+  color: #6c757d;
   font-weight: 500;
-  position: relative;
-  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  transition: all 0.2s ease;
 }
 
-.nav-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 3px;
-  background: var(--admin-gradient);
-  transform: scaleY(0);
-  transition: var(--admin-transition);
+.sidebar-nav-item:hover {
+  background: #f8f9fa;
+  color: #4361ee;
 }
 
-.nav-item:hover {
-  background: var(--admin-sidebar-hover);
-  color: white;
-  transform: translateX(4px);
+.sidebar-nav-item i {
+  font-size: 1.2rem;
 }
 
-.nav-item:hover::before {
-  transform: scaleY(1);
-}
-
-.nav-item.active {
-  background: rgba(67, 97, 238, 0.2);
-  color: white;
-}
-
-.nav-item.active::before {
-  transform: scaleY(1);
-}
-
-.nav-item i {
-  font-size: 18px;
-  width: 24px;
-  text-align: center;
-}
-
-.nav-item span {
-  flex: 1;
-}
-
-.nav-badge {
-  background: var(--admin-danger);
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: var(--admin-radius-full);
+.sidebar-nav-item.active {
+  background: #f0f4ff;
+  color: #4361ee;
 }
 
 .sidebar-footer {
-  padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  border-top: 1px solid #f8f9fa;
 }
 
-.admin-profile {
+.sidebar-logout-btn {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  transition: var(--admin-transition);
-}
-
-.admin-profile:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.admin-profile-avatar {
-  width: 40px;
-  height: 40px;
-  background: var(--admin-gradient);
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: #dc3545;
+  font-weight: 500;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.admin-profile-info {
-  flex: 1;
-  min-width: 0;
+.sidebar-logout-btn:hover {
+  background: #fff5f5;
 }
 
-.admin-profile-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.admin-profile-role {
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+@media (max-width: 991px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
 }
 
 /* ═════════════════════════════════════════════════════
    MAIN CONTENT
    ═════════════════════════════════════════════════════ */
-
-.admin-main {
-  margin-left: 280px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
 
 /* Header */
 .admin-header {
@@ -495,11 +502,6 @@
 /* ═════════════════════════════════════════════════════
    DASHBOARD CONTENT
    ═════════════════════════════════════════════════════ */
-
-.admin-content {
-  padding: 32px;
-  flex: 1;
-}
 
 /* Stats Cards */
 .stats-grid {
@@ -1498,11 +1500,11 @@
 }
 
 @media (max-width: 992px) {
-  .admin-sidebar {
+  .sidebar {
     transform: translateX(-100%);
   }
   
-  .admin-sidebar.open {
+  .sidebar.open {
     transform: translateX(0);
   }
   
@@ -2093,4 +2095,49 @@
 
 .placeholder-content p {
   color: var(--admin-gray);
+}
+
+/* Fix for section scrolling issues */
+.admin-content {
+  padding: 32px;
+  flex: 1;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Ensure sections don't cause unwanted scrolling */
+.admin-content > div {
+  position: relative;
+  min-height: auto;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+/* Fix for section navigation */
+.admin-content .animate-fade-in {
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Additional fix for section positioning */
+.admin-content .data-section,
+.admin-content .stats-grid,
+.admin-content .charts-row,
+.admin-content .quick-actions {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+/* Prevent sections from pushing content down */
+.admin-content > * {
+  position: relative;
+  min-height: auto;
+  overflow: visible;
 }

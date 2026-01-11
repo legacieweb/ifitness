@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import BootcampBanner from '../components/BootcampBanner';
-import TopNotificationBanner from '../components/TopNotificationBanner';
 import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Home.css';
 
 export default function Home() {
-  const { isAuthenticated, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -20,8 +17,29 @@ export default function Home() {
 
   return (
     <div className="modern-homepage">
-      <TopNotificationBanner />
-      
+      {/* Clean Header with Signup and Login buttons */}
+      <header className="clean-home-header">
+        <div className="container">
+          <div className="header-content">
+            <div className="logo-section">
+              <Link to="/" className="logo-link">
+                <i className="bi bi-activity"></i>
+                <span>iFitness</span>
+              </Link>
+            </div>
+            <nav className="nav-section">
+              <Link to="/about-us" className="nav-link">About</Link>
+              <Link to="/blog" className="nav-link">Blog</Link>
+              <Link to="/contact" className="nav-link">Contact</Link>
+            </nav>
+            <div className="auth-section">
+              <Link to="/login" className="btn btn-secondary">Log In</Link>
+              <Link to="/register" className="btn btn-primary">Sign Up</Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
       <section className="hero-modern">
         <div className="container">
           <div className="hero-content-wrapper">

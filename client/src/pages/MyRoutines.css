@@ -1,11 +1,11 @@
 /* =====================================================
-   MY ROUTINES PAGE
+   MY ROUTINES PAGE - ELEGANT MODERN THEME
    ===================================================== */
 
 .myroutines-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 100px 24px 40px;
+  padding: 40px 24px;
 }
 
 .myroutines-loading {
@@ -31,95 +31,80 @@
 }
 
 .myroutines-header {
-  margin-bottom: 32px;
+  margin-bottom: 40px;
+  text-align: left;
 }
 
 .myroutines-header h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2.25rem;
+  font-weight: 800;
   color: var(--dark);
-  margin: 24px 0 8px 0;
+  margin: 0 0 12px 0;
+  letter-spacing: -1px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .myroutines-header h1 i {
   color: var(--primary);
+  font-size: 2.5rem;
 }
 
 .myroutines-header p {
   color: var(--gray);
-  font-size: 1rem;
-}
-
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--gray);
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.back-btn:hover {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  line-height: 1.6;
 }
 
 /* Overview Cards */
 .routines-overview {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 24px;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
 .overview-card {
-  background: var(--card-bg);
+  background: var(--bg-secondary);
   padding: 24px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
   display: flex;
   align-items: center;
-  gap: 16px;
-  transition: all 0.2s;
+  gap: 20px;
+  transition: all var(--transition-normal);
 }
 
 .overview-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-medium);
 }
 
 .overview-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 28px;
 }
 
 .overview-icon.completed {
-  background: rgba(16, 185, 129, 0.1);
+  background: #ecfdf5;
   color: var(--success);
 }
 
 .overview-icon.remaining {
-  background: rgba(245, 158, 11, 0.1);
+  background: #fffbeb;
   color: var(--warning);
 }
 
 .overview-icon.progress {
-  background: rgba(67, 97, 238, 0.1);
+  background: #eff6ff;
   color: var(--primary);
 }
 
@@ -129,88 +114,97 @@
 }
 
 .overview-value {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2rem;
+  font-weight: 800;
   color: var(--dark);
-  line-height: 1;
+  line-height: 1.1;
+  font-family: var(--font-heading);
 }
 
 .overview-label {
-  font-size: 0.9rem;
-  color: var(--gray);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   margin-top: 4px;
 }
 
 /* Progress Overview Card */
 .progress-overview-card {
-  background: var(--card-bg);
-  padding: 24px;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-  margin-bottom: 32px;
+  background: var(--bg-secondary);
+  padding: 32px;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 40px;
 }
 
 .progress-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+  align-items: baseline;
+  margin-bottom: 20px;
 }
 
 .progress-header h3 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--dark);
   margin: 0;
 }
 
 .progress-text {
-  font-size: 0.9rem;
-  color: var(--gray);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
 }
 
 .progress-bar-container {
   height: 12px;
-  background: var(--bg);
-  border-radius: 6px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-full);
   overflow: hidden;
 }
 
 .progress-bar-container .progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
-  border-radius: 6px;
-  transition: width 0.5s ease;
+  background: var(--primary-gradient);
+  border-radius: var(--radius-full);
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Routines Grid */
 .routines-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
 }
 
 .routine-card {
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
 }
 
 .routine-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-strong);
+  border-color: var(--primary-light);
 }
 
 .routine-card.today {
-  border-color: var(--primary);
+  border: 2px solid var(--primary);
+  background: linear-gradient(to bottom, #ffffff, #f0f7ff);
 }
 
 .routine-card.completed {
-  background: rgba(16, 185, 129, 0.05);
   border-color: var(--success);
 }
 
@@ -218,36 +212,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
+  padding: 24px;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .day-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .day-name {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--dark);
 }
 
 .today-badge {
-  font-size: 0.75rem;
-  padding: 4px 8px;
+  font-size: 0.7rem;
+  padding: 4px 10px;
   background: var(--primary);
   color: white;
-  border-radius: 4px;
-  font-weight: 500;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .completion-indicator {
-  font-size: 28px;
-  color: var(--gray-light);
-  transition: all 0.2s;
+  font-size: 24px;
+  color: var(--gray-lighter);
+  transition: all var(--transition-fast);
 }
 
 .completion-indicator.completed {
@@ -255,23 +249,24 @@
 }
 
 .routine-card-body {
-  padding: 20px;
-  min-height: 120px;
+  padding: 24px;
+  flex: 1;
 }
 
 .workout-name,
 .rest-day {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 1rem;
-  font-weight: 600;
+  gap: 12px;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--dark);
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .workout-name i {
   color: var(--primary);
+  font-size: 1.4rem;
 }
 
 .rest-day i {
@@ -279,20 +274,20 @@
 }
 
 .exercises-list h4 {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--gray);
-  margin: 0 0 10px 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gray-light);
+  margin: 0 0 16px 0;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .exercise-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
 }
 
 .exercise-item:last-child {
@@ -300,59 +295,62 @@
 }
 
 .exercise-name {
-  font-size: 0.9rem;
-  color: var(--dark);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dark-light);
 }
 
 .exercise-sets-reps {
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--primary);
-  background: rgba(67, 97, 238, 0.1);
-  padding: 4px 8px;
-  border-radius: 4px;
+  background: var(--primary-soft);
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
 }
 
 .routine-card-footer {
-  padding: 16px 20px;
-  background: var(--bg);
-  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  background: var(--bg-tertiary);
+  margin-top: auto;
 }
 
 .status-badge {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: var(--radius-lg);
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition: all var(--transition-fast);
 }
 
 .status-badge.completed {
-  background: rgba(16, 185, 129, 0.15);
+  background: var(--success-bg);
   color: var(--success);
 }
 
 .status-badge.pending {
-  background: rgba(245, 158, 11, 0.15);
-  color: var(--warning);
+  background: #f1f5f9;
+  color: var(--gray);
 }
 
 /* Empty State */
 .empty-routines {
   text-align: center;
-  padding: 80px 40px;
-  background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
+  padding: 100px 40px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-2xl);
+  border: 1px dashed var(--gray-lighter);
 }
 
 .empty-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 24px;
-  background: var(--bg);
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 32px;
+  background: var(--bg-tertiary);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -360,32 +358,37 @@
 }
 
 .empty-icon i {
-  font-size: 36px;
+  font-size: 48px;
   color: var(--gray-light);
 }
 
 .empty-routines h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.75rem;
+  font-weight: 800;
   color: var(--dark);
-  margin: 0 0 12px 0;
+  margin: 0 0 16px 0;
 }
 
 .empty-routines p {
   color: var(--gray);
-  margin: 0 0 8px 0;
-  font-size: 1rem;
+  max-width: 450px;
+  margin: 0 auto 8px;
+  font-size: 1.1rem;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .myroutines-container {
-    padding: 90px 16px 40px;
+    padding: 24px 16px;
+  }
+
+  .myroutines-header h1 {
+    font-size: 1.75rem;
   }
 
   .routines-overview {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
   }
 
   .overview-card {
@@ -394,15 +397,5 @@
 
   .routines-grid {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 480px) {
-  .myroutines-header h1 {
-    font-size: 1.5rem;
-  }
-
-  .overview-value {
-    font-size: 1.5rem;
   }
 }

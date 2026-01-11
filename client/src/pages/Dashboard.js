@@ -3,9 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts, getUserRoutine, getUserGoals } from '../services/api';
 import BootcampAlert from '../components/BootcampAlert';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Dashboard.css';
-import DashboardHeader from '../components/DashboardHeader';
 
 export default function Dashboard() {
   const { user, isAuthenticated, loading: authLoading } = useAuth();
@@ -250,8 +248,6 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      {/* Dashboard Header with Limited Navigation */}
-      <DashboardHeader />
       <BootcampAlert />
 
       {/* Error Message */}
@@ -285,7 +281,7 @@ export default function Dashboard() {
               <i className="bi bi-person"></i>
             </button>
             <button className="user-tile-btn" onClick={() => navigate('/goals')} title="Goals">
-              <i className="bi bi-target"></i>
+              <i className="bi bi-flag"></i>
             </button>
           </div>
         </div>
@@ -334,77 +330,9 @@ export default function Dashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="dashboard-main">
-        {/* Left Column - Quick Actions */}
-        <div className="dashboard-sidebar">
-          <div className="nav-card">
-            <h3>Quick Actions</h3>
-            <div className="nav-buttons">
-              <Link to="/workouts/create" className="nav-btn">
-                <i className="bi bi-plus-circle"></i>
-                <span>New Workout</span>
-              </Link>
-              <Link to="/workouts" className="nav-btn">
-                <i className="bi bi-list-ul"></i>
-                <span>My Workouts</span>
-              </Link>
-              <button className="nav-btn" onClick={() => navigate('/routines')}>
-                <i className="bi bi-calendar-week"></i>
-                <span>My Routines</span>
-              </button>
-              <Link to="/calendar" className="nav-btn">
-                <i className="bi bi-calendar"></i>
-                <span>Calendar</span>
-              </Link>
-              <Link to="/analytics" className="nav-btn">
-                <i className="bi bi-graph-up"></i>
-                <span>Analytics</span>
-              </Link>
-              <Link to="/goals" className="nav-btn">
-                <i className="bi bi-target"></i>
-                <span>Goals</span>
-              </Link>
-              <Link to="/profile" className="nav-btn">
-                <i className="bi bi-person"></i>
-                <span>Profile</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Goals Section */}
-          <div className={`goals-card ${activeGoals.length > 0 ? '' : 'empty'}`}>
-            <h3><i className="bi bi-trophy"></i> Goals</h3>
-            {activeGoals.length > 0 ? (
-              <div className="goals-list">
-                {activeGoals.slice(0, 3).map((goal, index) => (
-                  <div key={index} className="goal-item">
-                    <div className="goal-header">
-                      <i className={`bi ${getGoalIcon(goal.title)}`}></i>
-                      <span className="goal-title">{goal.title}</span>
-                    </div>
-                    <div className="goal-progress">
-                      <div className="progress-bar">
-                        <div 
-                          className="progress-fill" 
-                          style={{ width: `${getGoalProgress(goal)}%` }}
-                        ></div>
-                      </div>
-                      <span className="progress-text">{goal.current}/{goal.target} {goal.unit}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p>Start setting fitness goals to track your progress!</p>
-            )}
-            <Link to="/goals" className="view-all-btn">
-              {activeGoals.length > 0 ? 'View All Goals' : 'Create Goal'}
-            </Link>
-          </div>
-        </div>
-
-        {/* Right Column - Recent Activity */}
-        <div className="dashboard-content">
+      <div className="dashboard-grid">
+        {/* Left Column - Progress & Activity */}
+        <div className="dashboard-main-content">
           {/* Weekly Progress */}
           <div className="progress-card">
             <div className="card-header">
@@ -426,41 +354,6 @@ export default function Dashboard() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* My Routines Overview */}
-          <div className="routines-card">
-            <div className="card-header">
-              <h3><i className="bi bi-calendar-week"></i> Weekly Routines</h3>
-              <Link to="/routines" className="link-btn">View All</Link>
-            </div>
-            {routine.length > 0 ? (
-              <div className="routines-overview-mini">
-                {routine.slice(0, 4).map((day, index) => (
-                  <div 
-                    key={day.day} 
-                    className={`routine-day-mini ${day.completed ? 'completed' : ''} ${day.day.toLowerCase() === getTodayName().toLowerCase() ? 'today' : ''}`}
-                  >
-                    <div className="day-label">{day.day.substring(0, 3)}</div>
-                    <div className="day-status">
-                      <i className={`bi ${day.completed ? 'bi-check-circle-fill' : 'bi-circle'}`}></i>
-                    </div>
-                    <div className="day-workout">{day.workout || 'Rest'}</div>
-                  </div>
-                ))}
-                {routine.length > 4 && (
-                  <div className="more-days">
-                    +{routine.length - 4} more days
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="empty-routines-mini">
-                <i className="bi bi-calendar-x"></i>
-                <p>No routines assigned yet</p>
-                <Link to="/routines" className="link-btn">View Details</Link>
-              </div>
-            )}
           </div>
 
           {/* Recent Workouts */}
@@ -499,42 +392,92 @@ export default function Dashboard() {
               )}
             </div>
           </div>
+        </div>
 
-          {/* Achievements */}
-          {achievements.length > 0 ? (
-            <div className="achievements-card">
-              <div className="card-header">
-                <h3>Achievements</h3>
-                <Link to="/achievements" className="link-btn">View All</Link>
-              </div>
-              <div className="achievements-list">
-                {achievements.slice(0, 4).map((achievement, index) => (
-                  <div key={index} className="achievement-item">
-                    <div className="achievement-icon">
-                      <i className={`bi ${achievement.icon}`}></i>
+        {/* Right Column - Goals & Stats */}
+        <div className="dashboard-side-content">
+          {/* Goals Section */}
+          <div className={`goals-card ${activeGoals.length > 0 ? '' : 'empty'}`}>
+            <div className="card-header">
+              <h3><i className="bi bi-trophy"></i> Goals</h3>
+              <Link to="/goals" className="link-btn">View All</Link>
+            </div>
+            {activeGoals.length > 0 ? (
+              <div className="goals-list">
+                {activeGoals.slice(0, 3).map((goal, index) => (
+                  <div key={index} className="goal-item">
+                    <div className="goal-header">
+                      <i className={`bi ${getGoalIcon(goal.title)}`}></i>
+                      <span className="goal-title">{goal.title}</span>
                     </div>
-                    <div className="achievement-info">
-                      <span className="achievement-name">{achievement.name}</span>
-                      <span className="achievement-desc">{achievement.description}</span>
+                    <div className="goal-progress">
+                      <div className="progress-bar">
+                        <div 
+                          className="progress-fill" 
+                          style={{ width: `${getGoalProgress(goal)}%` }}
+                        ></div>
+                      </div>
+                      <span className="progress-text">{goal.current}/{goal.target} {goal.unit}</span>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-          ) : (
-            <div className="achievements-card empty">
-              <div className="card-header">
-                <h3>Achievements</h3>
+            ) : (
+              <div className="empty-goals">
+                <p>Start setting fitness goals to track your progress!</p>
+                <Link to="/goals" className="btn-secondary-sm">Create Goal</Link>
               </div>
-              <div className="empty-achievements">
-                <i className="bi bi-trophy"></i>
-                <p>Complete workouts to earn achievements!</p>
-              </div>
+            )}
+          </div>
+
+          {/* My Routines Overview */}
+          <div className="routines-card">
+            <div className="card-header">
+              <h3><i className="bi bi-calendar-week"></i> Weekly Routines</h3>
+              <Link to="/routines" className="link-btn">View All</Link>
             </div>
-          )}
+            {routine.length > 0 ? (
+              <div className="routines-overview-mini">
+                {routine.slice(0, 7).map((day, index) => (
+                  <div 
+                    key={index} 
+                    className={`routine-day-mini ${day.completed ? 'completed' : ''} ${day.day.toLowerCase() === getTodayName().toLowerCase() ? 'today' : ''}`}
+                  >
+                    <div className="day-label">{day.day.substring(0, 1)}</div>
+                    <div className="day-status">
+                      <i className={`bi ${day.completed ? 'bi-check-circle-fill' : 'bi-circle'}`}></i>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="empty-routines-mini">
+                <i className="bi bi-calendar-x"></i>
+                <p>No routines assigned</p>
+              </div>
+            )}
+          </div>
+
+          {/* Achievements */}
+          <div className="achievements-card-mini">
+            <div className="card-header">
+              <h3>Achievements</h3>
+              <Link to="/achievements" className="link-btn">All</Link>
+            </div>
+            <div className="achievements-list-mini">
+              {achievements.length > 0 ? (
+                achievements.slice(0, 3).map((achievement, index) => (
+                  <div key={index} className="achievement-item-mini" title={achievement.description}>
+                    <i className={`bi ${achievement.icon}`}></i>
+                  </div>
+                ))
+              ) : (
+                <p className="empty-text">Keep working to earn trophies!</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-      <TopNewsletterFooter />
     </div>
   );
 }

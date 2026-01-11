@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getUserRoutine, updateRoutineDay } from '../services/api';
-import Footer from '../components/Footer';
 import './MyRoutines.css';
 
 export default function MyRoutines() {
@@ -128,10 +127,6 @@ export default function MyRoutines() {
   return (
     <div className="myroutines-container">
       <div className="myroutines-header">
-        <button className="back-btn" onClick={() => navigate('/dashboard')}>
-          <i className="bi bi-chevron-left"></i>
-          <span>Back to Dashboard</span>
-        </button>
         <h1><i className="bi bi-calendar-week"></i> My Weekly Routines</h1>
         <p>View and track your weekly workout schedule assigned by your trainer</p>
       </div>
@@ -253,7 +248,6 @@ export default function MyRoutines() {
           <p>Check back later or contact your trainer for your workout schedule.</p>
         </div>
       )}
-      <Footer />
     </div>
   );
 }

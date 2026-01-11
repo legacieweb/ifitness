@@ -252,7 +252,7 @@ export default function AboutUs() {
           </section>
         </div>
       </PageTransition>
-      <CleanFooter />
+      <TopNewsletterFooter />
     </>
   );
 }
