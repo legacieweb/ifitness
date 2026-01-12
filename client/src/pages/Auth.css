@@ -132,16 +132,17 @@
 
 .input-wrapper {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   transition: var(--transition-fast);
+  padding: 2px;
 }
 
 .input-wrapper:focus-within {
   border-color: var(--neon-primary);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 1px var(--neon-primary);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 2px var(--neon-primary), 0 0 15px rgba(0, 242, 255, 0.2);
 }
 
 .form-control-modern {
@@ -152,10 +153,11 @@
   color: white;
   font-size: 15px;
   outline: none;
+  font-weight: 500;
 }
 
 .form-control-modern::placeholder {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .password-toggle {
@@ -219,11 +221,13 @@
   cursor: pointer;
   transition: var(--transition-normal);
   margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-auth-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 25px rgba(0, 242, 255, 0.4);
+  box-shadow: 0 5px 25px rgba(0, 242, 255, 0.4), 0 0 20px rgba(0, 242, 255, 0.3);
   background: white;
 }
 
@@ -365,12 +369,13 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: var(--transition-fast);
+  transition: var(--transition-normal);
 }
 
 .social-btn:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .auth-card-footer {
