@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BootcampBanner.css';
-import { getUpcomingBootcamp } from '../../services/api';
+import { getUpcomingBootcamp } from '../services/api';
 
 export default function BootcampBanner() {
   const navigate = useNavigate();
