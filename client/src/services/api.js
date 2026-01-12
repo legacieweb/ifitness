@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://ifitness-1.onrender.com/api',
 });
 
 API.interceptors.request.use(

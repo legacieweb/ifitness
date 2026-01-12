@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './BootcampBanner.css';
+import { getUpcomingBootcamp } from '../../services/api';
 
 export default function BootcampBanner() {
   const navigate = useNavigate();
@@ -16,11 +17,10 @@ export default function BootcampBanner() {
 
   const fetchBootcamp = async () => {
     try {
-      const response = await fetch('/api/bootcamps/upcoming');
-      const data = await response.json();
-      if (data && data._id) {
-        setBootcamp(data);
-        updateCountdown(data);
+      const response = await getUpcomingBootcamp();
+      if (response.data && response.data._id) {
+        setBootcamp(response.data);
+        updateCountdown(response.data);
       }
     } catch (err) {
       console.error('Error fetching bootcamp:', err);
