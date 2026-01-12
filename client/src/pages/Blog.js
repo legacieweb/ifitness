@@ -1,6 +1,5 @@
 import React from 'react';
 import PageTransition from '../components/PageTransition';
-import DashboardHeader from '../components/DashboardHeader';
 import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Blog.css';
 
@@ -64,7 +63,6 @@ export default function Blog() {
 
   return (
     <>
-      <DashboardHeader />
       <PageTransition>
         <div className="modern-blog-page">
           <section className="hero-section">

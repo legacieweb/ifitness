@@ -198,49 +198,118 @@
   display: flex;
   gap: 12px;
   flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.actions-label {
+  display: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+@media (min-width: 992px) {
+  .header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 24px;
+    border-left: 1px solid var(--border-color);
+    gap: 8px;
+  }
+
+  .actions-label {
+    display: block;
+  }
+
+  .action-btn {
+    width: 140px;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-actions {
+    width: 100%;
+    gap: 10px;
+  }
+  
+  .action-btn {
+    flex: 1;
+    justify-content: center;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 400px) {
+  .action-btn {
+    flex: none;
+    width: 100%;
+  }
 }
 
 .action-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border: none;
+  gap: 10px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.action-btn i {
+  font-size: 16px;
 }
 
 .action-btn.suspend {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--accent-danger);
+  background: white;
+  color: var(--accent-warning);
+  border-color: rgba(245, 158, 11, 0.3);
 }
 
 .action-btn.suspend:hover {
-  background: var(--accent-danger);
+  background: var(--accent-warning);
   color: white;
+  border-color: var(--accent-warning);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
 }
 
 .action-btn.unsuspend {
-  background: rgba(16, 185, 129, 0.1);
+  background: white;
   color: var(--accent-success);
+  border-color: rgba(16, 185, 129, 0.3);
 }
 
 .action-btn.unsuspend:hover {
   background: var(--accent-success);
   color: white;
+  border-color: var(--accent-success);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 }
 
 .action-btn.delete {
-  background: rgba(239, 68, 68, 0.1);
+  background: white;
   color: var(--accent-danger);
+  border-color: rgba(239, 68, 68, 0.3);
 }
 
 .action-btn.delete:hover {
   background: var(--accent-danger);
   color: white;
+  border-color: var(--accent-danger);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
 
 /* === Suspension Alert Banner === */

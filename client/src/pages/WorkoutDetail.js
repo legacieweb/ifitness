@@ -24,7 +24,7 @@ export default function WorkoutDetail() {
   }, [id]);
 
   if (loading) {
-    return <div className="container mt-5"><p>Loading...</p></div>;
+    return <Preloader text="Loading workout details..." />;
   }
 
   if (!workout) {

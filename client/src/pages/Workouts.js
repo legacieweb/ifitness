@@ -123,14 +123,7 @@ export default function Workouts() {
   const totalDuration = workouts.reduce((sum, w) => sum + (w.duration || 0), 0);
 
   if (loading) {
-    return (
-      <div className="workouts-container">
-        <div className="loading-skeleton">
-          <div className="skeleton-header"></div>
-          <div className="skeleton-cards"></div>
-        </div>
-      </div>
-    );
+    return <Preloader text="Loading workouts..." />;
   }
 
   return (

@@ -99,14 +99,7 @@ export default function CreateWorkout() {
   const { duration, caloriesBurned } = calculateStats();
 
   if (loading) {
-    return (
-      <div className="create-workout-container">
-        <div className="loading-skeleton">
-          <div className="skeleton-header"></div>
-          <div className="skeleton-body"></div>
-        </div>
-      </div>
-    );
+    return <Preloader text="Loading workout creator..." />;
   }
 
   return (

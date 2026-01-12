@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PageTransition from '../components/PageTransition';
-import DashboardHeader from '../components/DashboardHeader';
 import Footer from '../components/Footer';
 import './Documentation.css';
 
@@ -296,7 +295,6 @@ export default function Documentation() {
 
   return (
     <>
-      <DashboardHeader />
       <PageTransition>
         <div className="modern-documentation-page">
           <section className="hero-section">

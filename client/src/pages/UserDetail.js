@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { suspendUser, unsuspendUser } from '../services/api';
 import Preloader from '../components/Preloader';
-import Footer from '../components/Footer';
 import './UserDetail.css';
 
 export default function UserDetail() {
@@ -199,7 +198,7 @@ export default function UserDetail() {
 
       if (response.ok) {
         showAlert('User deleted successfully', 'success');
-        setTimeout(() => navigate('/admin'), 1500);
+        setTimeout(() => navigate('/admin', { state: { activeTab: 'users' } }), 1500);
       } else {
         showAlert('Failed to delete user', 'error');
       }
@@ -291,8 +290,12 @@ export default function UserDetail() {
     setTimeout(() => setIsAnimating(false), 300);
   };
 
+  const handleBackToUsers = () => {
+    navigate('/admin', { state: { activeTab: 'users' } });
+  };
+
   if (loading) {
-    return <Preloader text="Loading user details..." />;
+    return <Preloader text="Loading user profile..." />;
   }
 
   if (!user) {
@@ -301,7 +304,7 @@ export default function UserDetail() {
         <div className="error-state">
           <i className="bi bi-exclamation-circle"></i>
           <h2>User Not Found</h2>
-          <button className="btn-primary" onClick={() => navigate('/admin')}>
+          <button className="btn-primary" onClick={handleBackToUsers}>
             Back to Users
           </button>
         </div>
@@ -316,7 +319,7 @@ export default function UserDetail() {
   return (
     <div className="user-detail-wrapper">
       <div className="user-detail-header">
-        <button className="back-btn" onClick={() => navigate('/admin')}>
+        <button className="back-btn" onClick={handleBackToUsers}>
           <i className="bi bi-chevron-left"></i>
           <span>Back to Users</span>
         </button>
@@ -369,6 +372,7 @@ export default function UserDetail() {
           </div>
 
           <div className="header-actions">
+            <span className="actions-label">Management</span>
             {user.suspended ? (
               <button className="action-btn unsuspend" onClick={handleUnsuspendUser}>
                 <i className="bi bi-unlock"></i>
@@ -893,7 +897,6 @@ export default function UserDetail() {
           </div>
         </div>
       )}
-      <Footer />
     </div>
   );
 }

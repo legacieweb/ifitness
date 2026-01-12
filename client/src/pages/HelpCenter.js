@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PageTransition from '../components/PageTransition';
-import DashboardHeader from '../components/DashboardHeader';
 import TopNewsletterFooter from '../components/TopNewsletterFooter';
 
 export default function HelpCenter() {
@@ -78,7 +77,6 @@ export default function HelpCenter() {
 
   return (
     <>
-      <DashboardHeader />
       <PageTransition>
         <div className="container py-5">
           <div className="row mb-5">

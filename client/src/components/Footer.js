@@ -36,7 +36,6 @@ export default function Footer() {
 
   return (
     <footer className="ultra-modern-footer">
-      <div className="footer-wave-top"></div>
       <div className="container">
         {/* Main Footer Content */}
         <div className="footer-content-grid">
@@ -44,28 +43,22 @@ export default function Footer() {
           <div className="footer-brand-section">
             <div className="brand-logo-ultra">
               <div className="logo-icon">
-                <i className="bi bi-activity"></i>
+                <i className="bi bi-lightning-charge-fill"></i>
               </div>
               <div className="logo-text">
                 <span className="logo-main">iFitness</span>
-                <span className="logo-subtitle">Elevate Your Game</span>
+                <span className="logo-subtitle">Peak Performance</span>
               </div>
             </div>
             <p className="brand-tagline">
-              Transform your fitness journey with personalized workouts, expert guidance, and real-time progress tracking.
+              Unleash your potential with the world's most advanced fitness ecosystem. Engineered for those who demand excellence.
             </p>
             <div className="social-media-grid">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Facebook">
-                <i className="bi bi-facebook"></i>
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Twitter">
-                <i className="bi bi-twitter"></i>
-              </a>
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
                 <i className="bi bi-instagram"></i>
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn">
-                <i className="bi bi-linkedin"></i>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Twitter">
+                <i className="bi bi-twitter-x"></i>
               </a>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="YouTube">
                 <i className="bi bi-youtube"></i>
@@ -79,39 +72,31 @@ export default function Footer() {
           {/* Quick Links Section */}
           <div className="footer-links-section">
             <div className="footer-column">
-              <h4 className="footer-column-title">Explore</h4>
+              <h4 className="footer-column-title">Training</h4>
               <ul className="footer-links-list">
-                <li><Link to="/" className="footer-link-item">Home</Link></li>
-                <li><a href="/#features" className="footer-link-item">Features</a></li>
-                <li><a href="/#how-it-works" className="footer-link-item">How It Works</a></li>
+                <li><Link to="/workouts" className="footer-link-item">Workouts</Link></li>
                 <li><Link to="/templates" className="footer-link-item">Templates</Link></li>
-                <li><Link to="/pricing" className="footer-link-item">Pricing</Link></li>
+                <li><Link to="/nutrition" className="footer-link-item">Nutrition</Link></li>
+                <li><Link to="/journey" className="footer-link-item">Journey</Link></li>
               </ul>
             </div>
 
             <div className="footer-column">
-              <h4 className="footer-column-title">Resources</h4>
+              <h4 className="footer-column-title">Platform</h4>
               <ul className="footer-links-list">
-                <li><Link to="/nutrition" className="footer-link-item">Nutrition Guide</Link></li>
-                <li><Link to="/workouts" className="footer-link-item">Workout Library</Link></li>
-                <li><Link to="/templates" className="footer-link-item">Workout Templates</Link></li>
-                <li><Link to="/journey" className="footer-link-item">Fitness Journey</Link></li>
-                <li><Link to="/goals" className="footer-link-item">Goal Tracking</Link></li>
-              </ul>
-            </div>
-
-            <div className="footer-column">
-              <h4 className="footer-column-title">Company</h4>
-              <ul className="footer-links-list">
-                <li><Link to="/about-us" className="footer-link-item">About Us</Link></li>
-                <li><Link to="/blog" className="footer-link-item">Blog</Link></li>
-                <li><Link to="/careers" className="footer-link-item">Careers</Link></li>
-                <li><Link to="/contact" className="footer-link-item">Contact</Link></li>
-                <li><Link to="/help-center" className="footer-link-item">Support</Link></li>
-                <li><Link to="/documentation" className="footer-link-item">Documentation</Link></li>
+                <li><Link to="/pricing" className="footer-link-item">Premium</Link></li>
                 <li><Link to="/community" className="footer-link-item">Community</Link></li>
-                <li><Link to="/status" className="footer-link-item">Status</Link></li>
-                <li><Link to="/help-center" className="footer-link-item">Help Center</Link></li>
+                <li><Link to="/blog" className="footer-link-item">Insights</Link></li>
+                <li><Link to="/help-center" className="footer-link-item">Support</Link></li>
+              </ul>
+            </div>
+
+            <div className="footer-column">
+              <h4 className="footer-column-title">Legal</h4>
+              <ul className="footer-links-list">
+                <li><Link to="/privacy-policy" className="footer-link-item">Privacy</Link></li>
+                <li><Link to="/terms-of-service" className="footer-link-item">Terms</Link></li>
+                <li><Link to="/cookies" className="footer-link-item">Cookies</Link></li>
               </ul>
             </div>
           </div>
@@ -119,9 +104,9 @@ export default function Footer() {
           {/* Newsletter Section */}
           <div className="footer-newsletter-section">
             <div className="newsletter-header">
-              <h3 className="newsletter-title">Stay Fit, Stay Informed</h3>
+              <h3 className="newsletter-title">Join the Elite</h3>
               <p className="newsletter-subtitle">
-                Subscribe to our newsletter for exclusive fitness tips, workout plans, and special offers delivered straight to your inbox.
+                Get high-performance strategies and exclusive updates.
               </p>
             </div>
             {isSubscribed ? (
@@ -130,8 +115,8 @@ export default function Footer() {
                   <i className="bi bi-check-circle-fill"></i>
                 </div>
                 <div className="success-content">
-                  <h4>Subscription Successful!</h4>
-                  <p>Check your email for confirmation and get ready for amazing fitness content.</p>
+                  <h4>You're in.</h4>
+                  <p>Welcome to the iFitness elite community.</p>
                 </div>
               </div>
             ) : (
@@ -140,7 +125,7 @@ export default function Footer() {
                   <input
                     type="email"
                     className="newsletter-email-input"
-                    placeholder="Your email address"
+                    placeholder="Email Address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={isSubmitting}
@@ -148,15 +133,9 @@ export default function Footer() {
                   />
                   <button type="submit" className="newsletter-submit-btn" disabled={isSubmitting}>
                     {isSubmitting ? (
-                      <>
-                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                        <span>Subscribing...</span>
-                      </>
+                      <span className="spinner-border" role="status"></span>
                     ) : (
-                      <>
-                        <i className="bi bi-send-fill"></i>
-                        <span>Subscribe</span>
-                      </>
+                      "Subscribe"
                     )}
                   </button>
                 </div>
@@ -169,48 +148,27 @@ export default function Footer() {
         {/* Footer Stats Section */}
         <div className="footer-stats-section">
           <div className="footer-stat-item">
-            <div className="stat-icon">
-              <i className="bi bi-people-fill"></i>
-            </div>
-            <div className="stat-content">
-              <div className="stat-number">50K+</div>
-              <div className="stat-label">Active Users</div>
-            </div>
+            <div className="stat-number">50K+</div>
+            <div className="stat-label">Athletes</div>
           </div>
           <div className="footer-stat-item">
-            <div className="stat-icon">
-              <i className="bi bi-activity"></i>
-            </div>
-            <div className="stat-content">
-              <div className="stat-number">2M+</div>
-              <div className="stat-label">Workouts Completed</div>
-            </div>
+            <div className="stat-number">2M+</div>
+            <div className="stat-label">Sessions</div>
           </div>
           <div className="footer-stat-item">
-            <div className="stat-icon">
-              <i className="bi bi-star-fill"></i>
-            </div>
-            <div className="stat-content">
-              <div className="stat-number">4.9/5</div>
-              <div className="stat-label">User Rating</div>
-            </div>
+            <div className="stat-number">4.9/5</div>
+            <div className="stat-label">Performance</div>
           </div>
         </div>
 
         {/* Footer Bottom */}
         <div className="footer-bottom-section">
-          <div className="footer-divider"></div>
           <div className="footer-bottom-content">
             <div className="footer-copyright">
-              <p>© {new Date().getFullYear()} iFitness. All rights reserved.</p>
-            </div>
-            <div className="footer-legal-links">
-              <Link to="/privacy-policy" className="legal-link">Privacy Policy</Link>
-              <Link to="/terms-of-service" className="legal-link">Terms of Service</Link>
-              <Link to="/cookies" className="legal-link">Cookie Policy</Link>
+              <p>© {new Date().getFullYear()} iFitness. Engineered for Excellence.</p>
             </div>
             <div className="footer-credits">
-              <p>Crafted with <i className="bi bi-heart-fill"></i> by iFitness Team</p>
+              <p>Powered by <i className="bi bi-lightning-fill"></i> iFitness Core</p>
             </div>
           </div>
         </div>

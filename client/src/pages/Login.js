@@ -44,11 +44,11 @@ export default function Login() {
               <div className="auth-card-modern">
                 <div className="auth-card-header">
                   <div className="auth-logo">
-                    <i className="bi bi-activity"></i>
-                    <span>FitTracker</span>
+                    <i className="bi bi-lightning-charge-fill"></i>
+                    <span>iFitness</span>
                   </div>
                   <h1 className="auth-title">Welcome Back</h1>
-                  <p className="auth-subtitle">Sign in to continue your fitness journey</p>
+                  <p className="auth-subtitle">Sign in to continue your peak performance journey</p>
                 </div>
 
                 <div className="auth-card-body">

@@ -17,6 +17,7 @@ API.interceptors.request.use(
 
 export const register = (userData) => API.post('/auth/register', userData);
 export const login = (credentials) => API.post('/auth/login', credentials);
+export const checkUserStatus = () => API.get('/auth/user/status');
 
 export const getWorkouts = () => API.get('/workouts');
 export const getWorkout = (id) => API.get(`/workouts/${id}`);

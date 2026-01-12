@@ -36,7 +36,7 @@ export default function Analytics() {
   const totalCal = filtered.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0);
   const totalMin = filtered.reduce((sum, w) => sum + (w.duration || 0), 0);
 
-  if (loading) return <div className="container mt-5"><p>Loading...</p></div>;
+  if (loading) return <Preloader text="Loading analytics..." />;
 
   return (
     <div className="container-fluid container-md mt-4 mt-md-5 mb-5 px-3 px-md-0">

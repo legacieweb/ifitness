@@ -1,6 +1,5 @@
 import React from 'react';
 import PageTransition from '../components/PageTransition';
-import DashboardHeader from '../components/DashboardHeader';
 import Footer from '../components/Footer';
 import './Status.css';
 
@@ -62,7 +61,6 @@ export default function Status() {
 
   return (
     <>
-      <DashboardHeader />
       <PageTransition>
         <div className="modern-status-page">
           <section className="hero-section">

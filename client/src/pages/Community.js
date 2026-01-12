@@ -1,6 +1,5 @@
 import React from 'react';
 import PageTransition from '../components/PageTransition';
-import DashboardHeader from '../components/DashboardHeader';
 import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Community.css';
 
@@ -121,7 +120,6 @@ export default function Community() {
 
   return (
     <>
-      <DashboardHeader />
       <PageTransition>
         <div className="modern-community-page">
           <section className="hero-section">

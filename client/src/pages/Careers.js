@@ -1,6 +1,5 @@
 import React from 'react';
 import PageTransition from '../components/PageTransition';
-import DashboardHeader from '../components/DashboardHeader';
 import Footer from '../components/Footer';
 import './Careers.css';
 
@@ -97,7 +96,6 @@ export default function Careers() {
 
   return (
     <>
-      <DashboardHeader />
       <PageTransition>
         <div className="modern-careers-page">
           <section className="hero-section">

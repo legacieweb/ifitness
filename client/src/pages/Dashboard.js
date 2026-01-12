@@ -221,10 +221,7 @@ export default function Dashboard() {
   if (authLoading) {
     return (
       <div className="dashboard-container">
-        <div className="dashboard-loading">
-          <div className="loading-spinner"></div>
-          <p>Loading...</p>
-        </div>
+        <Preloader text="Loading your dashboard..." />
       </div>
     );
   }

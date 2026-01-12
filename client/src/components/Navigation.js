@@ -41,7 +41,7 @@ export default function Navigation() {
           <div className="brand-icon">
             <i className="bi bi-activity"></i>
           </div>
-          <span>iFitness</span>
+          <span className="brand-text">iFitness</span>
         </Link>
 
         <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''}`}>
@@ -72,29 +72,59 @@ export default function Navigation() {
               </>
             )}
           </ul>
-
-          <div className="nav-actions">
-            {!isAuthenticated ? (
-              <>
-                <Link to="/login" className="btn-ghost" onClick={() => setIsMenuOpen(false)}>Login</Link>
-                <Link to="/register" className="btn-primary-gradient" onClick={() => setIsMenuOpen(false)}>Sign Up</Link>
-              </>
-            ) : (
-              <div className="user-menu">
-                <button className="user-dropdown-trigger" onClick={handleLogout} title="Logout">
+          
+          {/* Mobile User Actions */}
+          {isAuthenticated && (
+            <div className="mobile-user-actions">
+              <div className="mobile-user-info">
+                <div className="mobile-user-avatar">
                   {user?.profilePicture ? (
-                    <img src={user.profilePicture} alt="Profile" className="user-avatar" />
+                    <img src={user.profilePicture} alt="Profile" />
                   ) : (
                     <div className="user-avatar-placeholder">
                       <i className="bi bi-person-fill"></i>
                     </div>
                   )}
-                  <span className="user-name">{user?.name || 'User'}</span>
-                  <i className="bi bi-box-arrow-right ms-1"></i>
+                </div>
+                <div className="mobile-user-details">
+                  <span className="mobile-user-name">{user?.name || 'User'}</span>
+                </div>
+              </div>
+              <div className="mobile-user-buttons">
+                <Link to="/profile" className="mobile-btn" onClick={() => setIsMenuOpen(false)}>
+                  <i className="bi bi-person"></i>
+                  <span>Profile</span>
+                </Link>
+                <button className="mobile-btn logout-btn" onClick={handleLogout}>
+                  <i className="bi bi-box-arrow-right"></i>
+                  <span>Logout</span>
                 </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
+
+        <div className="nav-actions">
+          {!isAuthenticated ? (
+            <>
+              <Link to="/login" className="btn-ghost" onClick={() => setIsMenuOpen(false)}>
+                <i className="bi bi-box-arrow-in-right"></i>
+                <span>Login</span>
+              </Link>
+              <Link to="/register" className="btn-primary-clean" onClick={() => setIsMenuOpen(false)}>
+                <i className="bi bi-person-plus"></i>
+                <span>Sign Up</span>
+              </Link>
+            </>
+          ) : (
+            <div className="user-actions">
+              <span className="user-name-display">{user?.name || 'User'}</span>
+              <button className="btn-logout" onClick={handleLogout} title="Logout">
+                <i className="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+              </button>
+            </div>
+          )}
         </div>
 
         <button className="navbar-toggler-clean" onClick={toggleMenu}>

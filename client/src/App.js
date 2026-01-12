@@ -47,19 +47,17 @@ function AppContent() {
   const { loading } = useAuth();
   const location = useLocation();
 
-  // Header component - only show for home page
+  // Header component - show for most public pages
   const showHeader = () => {
     const path = location.pathname;
     const noHeaderRoutes = ['/admin', '/login', '/register'];
     
-    // Only show the original Navigation header for home page
-    if (path === '/') {
-      return true;
+    // Don't show in admin or auth pages
+    if (noHeaderRoutes.some(route => path.startsWith(route))) {
+      return false;
     }
     
-    // No original Navigation header for other pages
-    // (they will use their own headers)
-    return false;
+    return true;
   };
 
   // Footer component - hide for dashboard and admin
@@ -72,7 +70,7 @@ function AppContent() {
   };
 
   if (loading) {
-    return <Preloader text="Loading..." />;
+    return <Preloader text="Initializing Experience..." />;
   }
 
   return (

@@ -236,10 +236,7 @@ export default function Profile() {
         <div className="gallery-section">
           <h2>Progress Gallery</h2>
           {galleryLoading ? (
-            <div className="loading-spinner">
-              <div className="spinner-border spinner-border-sm me-2"></div>
-              Loading your transformation...
-            </div>
+            <Preloader text="Loading your transformation..." />
           ) : gallery.length > 0 ? (
             <div className="gallery-grid">
               {gallery.map((image) => (

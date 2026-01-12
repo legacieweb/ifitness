@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import Preloader from '../components/Preloader';
 import './AdminDashboard.css';
 import './AdminBootcamp.css';
 
@@ -107,13 +108,7 @@ export default function AdminBootcamp() {
     }
   };
 
-  if (loading) return (
-    <div className="admin-wrapper d-flex align-items-center justify-content-center">
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>
-  );
+  if (loading) return <Preloader text="Loading bootcamp management..." />;
 
   return (
     <div className="admin-wrapper">

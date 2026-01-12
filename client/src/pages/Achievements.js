@@ -113,10 +113,7 @@ export default function Achievements() {
       <div className="achievements-gallery-section">
         <h2>Achievement Gallery</h2>
         {loadingGallery ? (
-          <div className="loading-spinner-achievements">
-            <div className="spinner-border text-primary"></div>
-            <span>Fetching your visual history...</span>
-          </div>
+          <Preloader text="Fetching your visual history..." />
         ) : gallery.length === 0 ? (
           <div className="gallery-empty">
             <i className="bi bi-images"></i>

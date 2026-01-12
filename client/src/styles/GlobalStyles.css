@@ -1,82 +1,56 @@
 /* =====================================================
-   iFITNESS - GLOBAL DESIGN SYSTEM
+   iFITNESS - GLOBAL DARK PREMIUM DESIGN SYSTEM
    ===================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 :root {
   /* ─── Colors ──────────────────────────────────── */
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
-  --primary-light: #60a5fa;
-  --primary-soft: rgba(37, 99, 235, 0.08);
-  --primary-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
-  --primary-glow: rgba(37, 99, 235, 0.2);
-
-  --secondary: #64748b;
-  --secondary-dark: #475569;
-  --accent: #f59e0b;
+  --neon-primary: #00f2ff;
+  --neon-secondary: #7000ff;
+  --neon-accent: #bcff00;
+  --dark-bg: #0a0a0a;
+  --dark-surface: #151515;
+  --dark-card: #1f1f1f;
+  --text-main: #ffffff;
+  --text-dim: #a0a0a0;
   
+  --primary: var(--neon-primary);
+  --primary-gradient: linear-gradient(135deg, var(--neon-primary) 0%, var(--neon-secondary) 100%);
+  --primary-glow: rgba(0, 242, 255, 0.2);
+
   --success: #10b981;
-  --success-bg: rgba(16, 185, 129, 0.1);
   --warning: #f59e0b;
-  --warning-bg: rgba(245, 158, 11, 0.1);
   --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.1);
   --info: #3b82f6;
 
-  /* ─── Neutrals ───────────────────────────────── */
-  --dark: #0f172a;
-  --dark-light: #1e293b;
-  --gray-dark: #334155;
-  --gray: #64748b;
-  --gray-light: #94a3b8;
-  --gray-lighter: #cbd5e1;
-  --border: #e2e8f0;
-  --border-light: #f1f5f9;
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f1f5f9;
+  /* ─── Neutrals (Legacy mapping for compatibility) ─── */
+  --dark: #ffffff;
+  --gray: #a0a0a0;
+  --border: rgba(255, 255, 255, 0.1);
+  --bg-primary: var(--dark-bg);
+  --bg-secondary: var(--dark-surface);
 
   /* ─── Shadows ───────────────────────────────── */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
-  --shadow-medium: 0 8px 30px rgba(37, 99, 235, 0.08);
-  --shadow-strong: 0 20px 40px rgba(37, 99, 235, 0.12);
-  --shadow-card: 0 2px 8px -2px rgba(0, 0, 0, 0.04), 0 4px 16px -4px rgba(0, 0, 0, 0.04);
-  --shadow-hover: 0 20px 40px -10px rgba(37, 99, 235, 0.15);
+  --shadow-neon: 0 0 20px rgba(0, 242, 255, 0.2);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-strong: 0 20px 40px rgba(0, 0, 0, 0.5);
 
   /* ─── Typography ───────────────────────────── */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 1.875rem;
-  --font-size-4xl: 2.25rem;
-  --font-size-5xl: 3rem;
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
 
   /* ─── Border Radius ────────────────────────── */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
 
   /* ─── Transitions ─────────────────────────── */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* ═════════════════════════════════════════════════════
-   RESET & BASE STYLES
-   ═════════════════════════════════════════════════════ */
 
 * {
   box-sizing: border-box;
@@ -86,17 +60,19 @@
 
 body {
   font-family: var(--font-primary);
-  color: var(--dark);
-  background-color: var(--bg-primary);
+  color: var(--text-main);
+  background-color: var(--dark-bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--dark);
-  line-height: 1.2;
+  font-family: var(--font-primary);
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 a {
@@ -110,6 +86,7 @@ button {
   border: none;
   background: none;
   font-family: inherit;
+  transition: var(--transition-fast);
 }
 
 /* ═════════════════════════════════════════════════════
@@ -117,9 +94,9 @@ button {
    ═════════════════════════════════════════════════════ */
 
 .container-custom {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
 }
 
 .text-gradient {
@@ -130,9 +107,45 @@ button {
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-soft);
+}
+
+.btn-neon {
+  padding: 14px 28px;
+  background: var(--neon-primary);
+  color: #000;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-neon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dark-card);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-primary);
 }

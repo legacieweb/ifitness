@@ -1,5 +1,4 @@
 import React from 'react';
-import DashboardHeader from '../components/DashboardHeader';
 import PageTransition from '../components/PageTransition';
 import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './AboutUs.css';
@@ -7,7 +6,6 @@ import './AboutUs.css';
 export default function AboutUs() {
   return (
     <>
-      <DashboardHeader />
       <PageTransition>
         <div className="modern-about-page">
           <section className="hero-section">

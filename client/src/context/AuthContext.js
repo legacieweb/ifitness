@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { login as loginAPI, register as registerAPI } from '../services/api';
+import { login as loginAPI, register as registerAPI, checkUserStatus as checkUserStatusAPI } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -23,22 +23,24 @@ export const AuthProvider = ({ children }) => {
 
     const checkSuspensionStatus = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('/api/auth/user/status', {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
-        
-        if (response.status === 403) {
-          const data = await response.json();
+        const response = await checkUserStatusAPI();
+        // If it succeeds and we had an alert, clear it
+        if (suspensionAlert) setSuspensionAlert(null);
+      } catch (error) {
+        if (error.response && error.response.status === 403) {
+          const data = error.response.data;
           if (data.message === 'Account suspended') {
             setSuspensionAlert({
               reason: data.reason,
               suspendedAt: data.suspendedAt
             });
           }
+        } else if (error.response && error.response.status === 401) {
+          // Token expired or invalid
+          logout();
+        } else {
+          console.error('Failed to check suspension status:', error);
         }
-      } catch (error) {
-        console.error('Failed to check suspension status:', error);
       }
     };
 

@@ -110,14 +110,7 @@ export default function MyRoutines() {
   const completionPercentage = totalDays > 0 ? Math.round((completedDays / totalDays) * 100) : 0;
 
   if (authLoading || loading) {
-    return (
-      <div className="myroutines-container">
-        <div className="myroutines-loading">
-          <div className="loading-spinner"></div>
-          <p>Loading your routines...</p>
-        </div>
-      </div>
-    );
+    return <Preloader text="Loading your routines..." />;
   }
 
   if (!isAuthenticated) {

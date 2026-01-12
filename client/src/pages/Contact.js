@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import DashboardHeader from '../components/DashboardHeader';
 import PageTransition from '../components/PageTransition';
 import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Contact.css';
@@ -83,7 +82,6 @@ export default function Contact() {
 
   return (
     <>
-      <DashboardHeader />
       <PageTransition>
         <div className="modern-contact-page">
           {/* Hero Section */}
