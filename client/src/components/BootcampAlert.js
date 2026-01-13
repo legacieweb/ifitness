@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../services/api';
 import './BootcampAlert.css';
 
 export default function BootcampAlert() {
@@ -26,8 +27,8 @@ export default function BootcampAlert() {
       const userId = user.id || user._id;
 
       // Bootcamps
-      const upcomingBRes = await fetch('/api/bootcamps/upcoming');
-      const activeBRes = await fetch('/api/bootcamps/active');
+      const upcomingBRes = await fetch(`${BASE_URL}/bootcamps/upcoming`);
+      const activeBRes = await fetch(`${BASE_URL}/bootcamps/active`);
       const upcomingB = await upcomingBRes.json();
       const activeB = await activeBRes.json();
 
@@ -47,7 +48,7 @@ export default function BootcampAlert() {
       }
 
       // Outdoor Activities
-      const activeARes = await fetch('/api/outdoor-activities/active');
+      const activeARes = await fetch(`${BASE_URL}/outdoor-activities/active`);
       const activeA = await activeARes.json();
 
       if (activeA && activeA._id) {
@@ -73,7 +74,7 @@ export default function BootcampAlert() {
   const handleAcceptBootcamp = async (bootcampId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/bootcamps/${bootcampId}/accept`, {
+      const response = await fetch(`${BASE_URL}/bootcamps/${bootcampId}/accept`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -94,7 +95,7 @@ export default function BootcampAlert() {
   const handleAcceptActivity = async (activityId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/outdoor-activities/${activityId}/accept`, {
+      const response = await fetch(`${BASE_URL}/outdoor-activities/${activityId}/accept`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });

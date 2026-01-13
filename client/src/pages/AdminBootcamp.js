@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Preloader from '../components/Preloader';
+import { BASE_URL } from '../services/api';
 import './AdminDashboard.css';
 import './AdminBootcamp.css';
 
@@ -26,7 +27,7 @@ export default function AdminBootcamp() {
 
   const fetchBootcamps = async () => {
     try {
-      const response = await fetch('/api/bootcamps');
+      const response = await fetch(`${BASE_URL}/bootcamps`);
       const data = await response.json();
       setBootcamps(data);
       setLoading(false);
@@ -47,8 +48,8 @@ export default function AdminBootcamp() {
       const token = localStorage.getItem('token');
       const method = editingId ? 'PUT' : 'POST';
       const url = editingId
-        ? `/api/bootcamps/${editingId}`
-        : '/api/bootcamps';
+        ? `${BASE_URL}/bootcamps/${editingId}`
+        : `${BASE_URL}/bootcamps`;
 
       const response = await fetch(url, {
         method,
@@ -97,7 +98,7 @@ export default function AdminBootcamp() {
     if (window.confirm('Delete this bootcamp?')) {
       try {
         const token = localStorage.getItem('token');
-        await fetch(`/api/bootcamps/${id}`, {
+        await fetch(`${BASE_URL}/bootcamps/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -265,7 +266,7 @@ export default function AdminBootcamp() {
                         if (window.confirm('Invite all users to this bootcamp?')) {
                           try {
                             const token = localStorage.getItem('token');
-                            const response = await fetch(`/api/bootcamps/${bootcamp._id}/invite-all`, {
+                            const response = await fetch(`${BASE_URL}/bootcamps/${bootcamp._id}/invite-all`, {
                               method: 'POST',
                               headers: { Authorization: `Bearer ${token}` }
                             });

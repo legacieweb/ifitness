@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import Preloader from '../components/Preloader';
+import { BASE_URL } from '../services/api';
 import './AdminDashboard.css';
 import './AdminBootcamp.css'; // Reusing styles
 
@@ -27,7 +28,7 @@ export default function AdminOutdoorActivity() {
 
   const fetchActivities = async () => {
     try {
-      const response = await fetch('/api/outdoor-activities');
+      const response = await fetch(`${BASE_URL}/outdoor-activities`);
       const data = await response.json();
       setActivities(data);
       setLoading(false);
@@ -48,8 +49,8 @@ export default function AdminOutdoorActivity() {
       const token = localStorage.getItem('token');
       const method = editingId ? 'PUT' : 'POST';
       const url = editingId
-        ? `/api/outdoor-activities/${editingId}`
-        : '/api/outdoor-activities';
+        ? `${BASE_URL}/outdoor-activities/${editingId}`
+        : `${BASE_URL}/outdoor-activities`;
 
       const response = await fetch(url, {
         method,
@@ -100,7 +101,7 @@ export default function AdminOutdoorActivity() {
     if (window.confirm('Delete this activity?')) {
       try {
         const token = localStorage.getItem('token');
-        await fetch(`/api/outdoor-activities/${id}`, {
+        await fetch(`${BASE_URL}/outdoor-activities/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -115,7 +116,7 @@ export default function AdminOutdoorActivity() {
     if (window.confirm('Invite all users to this activity?')) {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`/api/outdoor-activities/${id}/invite-all`, {
+        const response = await fetch(`${BASE_URL}/outdoor-activities/${id}/invite-all`, {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` }
         });

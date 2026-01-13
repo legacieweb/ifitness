@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getWorkouts } from '../services/api';
+import { getWorkouts, BASE_URL } from '../services/api';
 import './Achievements.css';
 
 export default function Achievements() {
@@ -29,7 +29,7 @@ export default function Achievements() {
       if (!user?.id) return;
       setLoadingGallery(true);
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/users/profile/${user.id}/gallery`, {
+      const response = await fetch(`${BASE_URL}/users/profile/${user.id}/gallery`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {

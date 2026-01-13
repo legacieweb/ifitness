@@ -4,31 +4,37 @@ services:
     name: fitness-api
     env: node
     plan: free
-    buildCommand: cd server && npm ci && cd ../client && npm ci && npm run build
+    buildCommand: cd server && npm install
     startCommand: cd server && npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 10000
-      - key: MONGODB_URI
+      - key: MONGO_URI
         fromDatabase:
           name: fitnessdb
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
-      - key: REACT_APP_API_URL
-        value: https://fitness-api.onrender.com
+      - key: ADMIN_EMAIL
+        value: admin@trainerhub.com
+      - key: ADMIN_PASSWORD
+        value: admin123
+      - key: RESEND_API_KEY
+        sync: false 
     database:
       name: fitnessdb
       databaseName: fitnessdb
       user: fitness_user
 
-  # Frontend Web Service
+  # Frontend Static Service
   - type: static
-    name: gf
-    buildCommand: cd client && npm ci && npm run build
+    name: fitness-web
+    env: static
+    plan: free
+    buildCommand: cd client && npm install && npm run build
     staticPublishPath: ./client/build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://fitness-api.onrender.com
+        value: https://fitness-api.onrender.com/api

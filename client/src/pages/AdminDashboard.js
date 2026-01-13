@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getAdminStats, getAllUsers, getSystemHealth } from '../services/api';
+import { getAdminStats, getAllUsers, getSystemHealth, BASE_URL } from '../services/api';
 import Preloader from '../components/Preloader';
 import './AdminDashboard.css';
 import './AdminBootcamp.css';
@@ -89,7 +89,7 @@ export default function AdminDashboard() {
 
   const fetchBootcamps = useCallback(async () => {
     try {
-      const response = await fetch('/api/bootcamps');
+      const response = await fetch(`${BASE_URL}/bootcamps`);
       if (response.ok) {
         const data = await response.json();
         setBootcamps(Array.isArray(data) ? data : []);
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
 
   const fetchOutdoorActivities = useCallback(async () => {
     try {
-      const response = await fetch('/api/outdoor-activities');
+      const response = await fetch(`${BASE_URL}/outdoor-activities`);
       if (response.ok) {
         const data = await response.json();
         setOutdoorActivities(Array.isArray(data) ? data : []);
@@ -262,8 +262,8 @@ export default function AdminDashboard() {
       const token = localStorage.getItem('token');
       const method = editingBootcampId ? 'PUT' : 'POST';
       const url = editingBootcampId
-        ? `/api/bootcamps/${editingBootcampId}`
-        : '/api/bootcamps';
+        ? `${BASE_URL}/bootcamps/${editingBootcampId}`
+        : `${BASE_URL}/bootcamps`;
 
       const response = await fetch(url, {
         method,
@@ -316,7 +316,7 @@ export default function AdminDashboard() {
     if (window.confirm('Delete this bootcamp?')) {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`/api/bootcamps/${id}`, {
+        const response = await fetch(`${BASE_URL}/bootcamps/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -341,8 +341,8 @@ export default function AdminDashboard() {
       const token = localStorage.getItem('token');
       const method = editingOutdoorId ? 'PUT' : 'POST';
       const url = editingOutdoorId
-        ? `/api/outdoor-activities/${editingOutdoorId}`
-        : '/api/outdoor-activities';
+        ? `${BASE_URL}/outdoor-activities/${editingOutdoorId}`
+        : `${BASE_URL}/outdoor-activities`;
 
       const response = await fetch(url, {
         method,
@@ -396,7 +396,7 @@ export default function AdminDashboard() {
     if (window.confirm('Delete this activity?')) {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`/api/outdoor-activities/${id}`, {
+        const response = await fetch(`${BASE_URL}/outdoor-activities/${id}`, {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -920,7 +920,7 @@ export default function AdminDashboard() {
                                       if (window.confirm('Invite all users to this activity?')) {
                                           try {
                                               const token = localStorage.getItem('token');
-                                              const response = await fetch(`/api/outdoor-activities/${activity._id}/invite-all`, {
+                                              const response = await fetch(`${BASE_URL}/outdoor-activities/${activity._id}/invite-all`, {
                                                   method: 'POST',
                                                   headers: { Authorization: `Bearer ${token}` }
                                               });
@@ -1120,7 +1120,7 @@ export default function AdminDashboard() {
                                             if (window.confirm('Invite all users to this bootcamp?')) {
                                                 try {
                                                     const token = localStorage.getItem('token');
-                                                    const response = await fetch(`/api/bootcamps/${bootcamp._id}/invite-all`, {
+                                                    const response = await fetch(`${BASE_URL}/bootcamps/${bootcamp._id}/invite-all`, {
                                                         method: 'POST',
                                                         headers: { Authorization: `Bearer ${token}` }
                                                     });

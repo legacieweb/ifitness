@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+export const BASE_URL = process.env.REACT_APP_API_URL || 'https://ifitness1.onrender.com/api';
+
 const API = axios.create({
-  baseURL: '/api',
+  baseURL: BASE_URL,
 });
 
 API.interceptors.request.use(
