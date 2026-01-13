@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import BootcampBanner from '../components/BootcampBanner';
 import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Home.css';
 
 export default function Home() {
+  const { isAuthenticated, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState('features');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,7 +20,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="modern-homepage">
+    <div className={`modern-homepage ${isMobileMenuOpen ? 'menu-open' : ''}`}>
       {/* Clean Header with Signup and Login buttons */}
       <header className={`clean-home-header ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container">
@@ -28,14 +31,51 @@ export default function Home() {
                 <span>iFitness</span>
               </Link>
             </div>
-            <nav className="nav-section">
-              <Link to="/about-us" className="nav-link">About</Link>
-              <Link to="/blog" className="nav-link">Blog</Link>
-              <Link to="/contact" className="nav-link">Contact</Link>
+            
+            <nav className={`nav-section ${isMobileMenuOpen ? 'mobile-active' : ''}`}>
+              <Link to="/about-us" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+              <Link to="/community" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Community</Link>
+              <Link to="/contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+              
+              <div className="mobile-auth-links">
+                {!isAuthenticated ? (
+                  <>
+                    <Link to="/login" className="btn btn-secondary w-100 mb-2" onClick={() => setIsMobileMenuOpen(false)}>Log In</Link>
+                    <Link to="/register" className="btn btn-primary w-100" onClick={() => setIsMobileMenuOpen(false)}>Sign Up</Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/dashboard" className="btn btn-primary w-100 mb-2" onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
+                    <button className="btn btn-secondary w-100" onClick={() => { logout(); setIsMobileMenuOpen(false); }}>Log Out</button>
+                  </>
+                )}
+              </div>
             </nav>
-            <div className="auth-section">
-              <Link to="/login" className="btn btn-secondary">Log In</Link>
-              <Link to="/register" className="btn btn-primary">Sign Up</Link>
+
+            <div className="header-actions">
+              <div className="auth-section d-none d-lg-flex">
+                {!isAuthenticated ? (
+                  <>
+                    <Link to="/login" className="btn btn-secondary">Log In</Link>
+                    <Link to="/register" className="btn btn-primary">Sign Up</Link>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/dashboard" className="btn btn-secondary">Dashboard</Link>
+                    <button className="btn btn-primary" onClick={logout}>Log Out</button>
+                  </>
+                )}
+              </div>
+              
+              <button 
+                className={`mobile-menu-toggle d-lg-none ${isMobileMenuOpen ? 'active' : ''}`}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
             </div>
           </div>
         </div>
@@ -138,25 +178,49 @@ export default function Home() {
         <div className="hero-wave-divider"></div>
       </section>
 
-      {/* Quick Stats */}
-      <section className="quick-stats">
+      {/* Bento Grid Stats */}
+      <section className="quick-stats-bento">
         <div className="container">
-          <div className="stats-grid">
-            <div className="stat-item">
-              <div className="stat-number">50K+</div>
-              <div className="stat-label">Active Users</div>
+          <div className="bento-grid">
+            <div className="bento-item stat-large main-stat">
+              <div className="bento-content">
+                <div className="stat-number">50K+</div>
+                <div className="stat-label">Active Users</div>
+                <div className="stat-desc">Joining us from all over the world to transform their lives.</div>
+                <div className="stat-icon-bg"><i className="bi bi-people-fill"></i></div>
+              </div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">2M+</div>
-              <div className="stat-label">Workouts</div>
+            
+            <div className="bento-item stat-medium">
+              <div className="bento-content">
+                <div className="stat-number">2M+</div>
+                <div className="stat-label">Workouts Logged</div>
+                <div className="stat-icon-bg"><i className="bi bi-lightning-fill"></i></div>
+              </div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">500K+</div>
-              <div className="stat-label">Goals Met</div>
+            
+            <div className="bento-item stat-small">
+              <div className="bento-content">
+                <div className="stat-number">4.9</div>
+                <div className="stat-icon-inline"><i className="bi bi-star-fill"></i></div>
+                <div className="stat-label">User Rating</div>
+              </div>
             </div>
-            <div className="stat-item">
-              <div className="stat-number">4.9</div>
-              <div className="stat-label">Rating</div>
+            
+            <div className="bento-item stat-medium accent-bg">
+              <div className="bento-content">
+                <div className="stat-number">500K+</div>
+                <div className="stat-label">Goals Achieved</div>
+                <p>Real results from real people.</p>
+                <div className="stat-icon-bg"><i className="bi bi-trophy-fill"></i></div>
+              </div>
+            </div>
+            
+            <div className="bento-item stat-small glass-bg">
+              <div className="bento-content">
+                <div className="stat-number">24/7</div>
+                <div className="stat-label">Support</div>
+              </div>
             </div>
           </div>
         </div>
@@ -206,7 +270,9 @@ export default function Home() {
           <div className="features-grid">
             {activeTab === 'features' || activeTab === 'analytics' ? (
               <div className="feature-card-modern">
+                <div className="feature-card-glass"></div>
                 <div className="feature-icon-modern"><i className="bi bi-graph-up-arrow"></i></div>
+                <div className="feature-tag">Smart Tech</div>
                 <h3>Smart Analytics</h3>
                 <p>Advanced tracking with expert insights to optimize your workout performance and track progress in real-time.</p>
                 <div className="feature-highlight">Real-time tracking</div>
@@ -215,7 +281,9 @@ export default function Home() {
             
             {activeTab === 'features' || activeTab === 'plans' ? (
               <div className="feature-card-modern">
+                <div className="feature-card-glass"></div>
                 <div className="feature-icon-modern"><i className="bi bi-lightning-charge-fill"></i></div>
+                <div className="feature-tag">Personalized</div>
                 <h3>Custom Plans</h3>
                 <p>Personalized workout routines created by your dedicated trainer based on your goals and fitness level.</p>
                 <div className="feature-highlight">Trainer-designed</div>
@@ -224,7 +292,9 @@ export default function Home() {
             
             {activeTab === 'features' || activeTab === 'community' ? (
               <div className="feature-card-modern">
+                <div className="feature-card-glass"></div>
                 <div className="feature-icon-modern"><i className="bi bi-people-fill"></i></div>
+                <div className="feature-tag">Social</div>
                 <h3>Community</h3>
                 <p>Connect with like-minded enthusiasts, share progress, and get motivated by our supportive community.</p>
                 <div className="feature-highlight">Community driven</div>
@@ -233,7 +303,9 @@ export default function Home() {
             
             {activeTab === 'analytics' ? (
               <div className="feature-card-modern">
+                <div className="feature-card-glass"></div>
                 <div className="feature-icon-modern"><i className="bi bi-bar-chart-line"></i></div>
+                <div className="feature-tag">Performance</div>
                 <h3>Progress Tracking</h3>
                 <p>Detailed analytics and visualizations to monitor your fitness journey and celebrate milestones.</p>
                 <div className="feature-highlight">Data visualization</div>
@@ -242,7 +314,9 @@ export default function Home() {
             
             {activeTab === 'plans' ? (
               <div className="feature-card-modern">
+                <div className="feature-card-glass"></div>
                 <div className="feature-icon-modern"><i className="bi bi-calendar-check"></i></div>
+                <div className="feature-tag">Efficiency</div>
                 <h3>Workout Scheduling</h3>
                 <p>Intelligent scheduling that adapts to your availability and optimizes your training routine.</p>
                 <div className="feature-highlight">Smart scheduling</div>
@@ -251,7 +325,9 @@ export default function Home() {
             
             {activeTab === 'community' ? (
               <div className="feature-card-modern">
+                <div className="feature-card-glass"></div>
                 <div className="feature-icon-modern"><i className="bi bi-chat-dots"></i></div>
+                <div className="feature-tag">Engagement</div>
                 <h3>Social Features</h3>
                 <p>Share achievements, join challenges, and connect with friends to stay motivated together.</p>
                 <div className="feature-highlight">Social integration</div>
@@ -269,49 +345,63 @@ export default function Home() {
             <h2 className="section-title-modern">Three Simple Steps</h2>
           </div>
           
-          <div className="steps-container">
+          <div className="steps-wrapper">
+            <div className="steps-connector-line"></div>
+            
             <div className="step-item-modern">
-              <div className="step-content-modern">
-                <h3>01. Create Profile</h3>
-                <p>Sign up and set your fitness goals. Our expert trainer will create a personalized workout plan just for you.</p>
-                <ul className="step-features">
-                  <li><i className="bi bi-check2"></i> Goal setting wizard</li>
-                  <li><i className="bi bi-check2"></i> Fitness assessment</li>
-                </ul>
+              <div className="step-number-container">
+                <div className="step-number-pill">01</div>
               </div>
-              <div className="step-visual">
-                <div className="step-icon"><i className="bi bi-person-plus"></i></div>
-                <div className="step-number-modern">01</div>
+              <div className="step-content-modern">
+                <div className="step-icon-wrapper"><i className="bi bi-person-plus"></i></div>
+                <h3>Create Profile</h3>
+                <p>Sign up and set your fitness goals. Our expert trainer will create a personalized workout plan just for you.</p>
+                <div className="step-tags">
+                  <span className="step-tag"><i className="bi bi-check2"></i> Goal setting</span>
+                  <span className="step-tag"><i className="bi bi-check2"></i> Assessment</span>
+                </div>
+              </div>
+              <div className="step-visual-modern">
+                <div className="visual-circle-bg"></div>
+                <div className="visual-content"><i className="bi bi-person-bounding-box"></i></div>
               </div>
             </div>
 
             <div className="step-item-modern reverse">
-              <div className="step-visual">
-                <div className="step-icon"><i className="bi bi-graph-up"></i></div>
-                <div className="step-number-modern">02</div>
+              <div className="step-number-container">
+                <div className="step-number-pill">02</div>
               </div>
               <div className="step-content-modern">
-                <h3>02. Track Progress</h3>
-                <p>Log your workouts and watch your stats grow with our comprehensive tracking system.</p>
-                <ul className="step-features">
-                  <li><i className="bi bi-check2"></i> Easy logging</li>
-                  <li><i className="bi bi-check2"></i> Real-time analytics</li>
-                </ul>
+                <div className="step-icon-wrapper"><i className="bi bi-graph-up"></i></div>
+                <h3>Track Progress</h3>
+                <p>Log your workouts and monitor your progress with our advanced analytics tools and expert feedback.</p>
+                <div className="step-tags">
+                  <span className="step-tag"><i className="bi bi-check2"></i> Real-time logs</span>
+                  <span className="step-tag"><i className="bi bi-check2"></i> Analytics</span>
+                </div>
+              </div>
+              <div className="step-visual-modern">
+                <div className="visual-circle-bg accent"></div>
+                <div className="visual-content"><i className="bi bi-activity"></i></div>
               </div>
             </div>
 
             <div className="step-item-modern">
-              <div className="step-content-modern">
-                <h3>03. Reach Goals</h3>
-                <p>Celebrate your achievements and reach new milestones as you transform your lifestyle.</p>
-                <ul className="step-features">
-                  <li><i className="bi bi-check2"></i> Achievement badges</li>
-                  <li><i className="bi bi-check2"></i> Rewards & Milestones</li>
-                </ul>
+              <div className="step-number-container">
+                <div className="step-number-pill">03</div>
               </div>
-              <div className="step-visual">
-                <div className="step-icon"><i className="bi bi-trophy-fill"></i></div>
-                <div className="step-number-modern">03</div>
+              <div className="step-content-modern">
+                <div className="step-icon-wrapper"><i className="bi bi-trophy"></i></div>
+                <h3>Achieve Goals</h3>
+                <p>Stay motivated, hit your milestones, and celebrate your success with our supportive community.</p>
+                <div className="step-tags">
+                  <span className="step-tag"><i className="bi bi-check2"></i> Milestones</span>
+                  <span className="step-tag"><i className="bi bi-check2"></i> Community</span>
+                </div>
+              </div>
+              <div className="step-visual-modern">
+                <div className="visual-circle-bg"></div>
+                <div className="visual-content"><i className="bi bi-award-fill"></i></div>
               </div>
             </div>
           </div>
