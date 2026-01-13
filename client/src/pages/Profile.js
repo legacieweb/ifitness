@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getUserProfile, updateUserProfile, uploadProfilePicture, getUserGallery } from '../services/api';
+import Preloader from '../components/Preloader';
 import './Profile.css';
 
 export default function Profile() {

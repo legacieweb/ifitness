@@ -47,14 +47,14 @@ export default function Login() {
                     <i className="bi bi-lightning-charge-fill"></i>
                     <span>iFitness</span>
                   </div>
-                  <h1 className="auth-title">Welcome Back</h1>
-                  <p className="auth-subtitle">Sign in to continue your peak performance journey</p>
+                  <h1 className="auth-title">Peak Performance</h1>
+                  <p className="auth-subtitle">Elevate your fitness journey with AI-driven insights</p>
                 </div>
 
                 <div className="auth-card-body">
                   {error && (
                     <div className="auth-error">
-                      <i className="bi bi-exclamation-triangle"></i>
+                      <i className="bi bi-exclamation-circle-fill"></i>
                       <span>{error}</span>
                     </div>
                   )}
@@ -62,7 +62,7 @@ export default function Login() {
                   <form onSubmit={handleSubmit} className="auth-form">
                     <div className="form-group-modern">
                       <label htmlFor="email" className="form-label-modern">
-                        <i className="bi bi-envelope"></i>
+                        <i className="bi bi-envelope-at"></i>
                         Email Address
                       </label>
                       <div className="input-wrapper">
@@ -72,7 +72,7 @@ export default function Login() {
                           id="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="Enter your email"
+                          placeholder="e.g. alex@example.com"
                           required
                         />
                       </div>
@@ -80,8 +80,8 @@ export default function Login() {
 
                     <div className="form-group-modern">
                       <label htmlFor="password" className="form-label-modern">
-                        <i className="bi bi-lock"></i>
-                        Password
+                        <i className="bi bi-shield-lock"></i>
+                        Security Password
                       </label>
                       <div className="input-wrapper">
                         <input
@@ -90,7 +90,7 @@ export default function Login() {
                           id="password"
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          placeholder="Enter your password"
+                          placeholder="••••••••"
                           required
                         />
                         <button

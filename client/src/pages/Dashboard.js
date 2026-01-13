@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts, getUserRoutine, getUserGoals } from '../services/api';
 import BootcampAlert from '../components/BootcampAlert';
+import Preloader from '../components/Preloader';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -66,16 +67,8 @@ export default function Dashboard() {
     };
   }, [user?.id, user?._id, isAuthenticated, authLoading]);
 
-  // Calculate stats from workouts
-  const stats = {
-    totalWorkouts: workouts.length,
-    totalCalories: workouts.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0),
-    totalDuration: workouts.reduce((sum, w) => sum + (w.duration || 0), 0),
-    streak: calculateStreak(workouts)
-  };
-
   // Calculate streak
-  function calculateStreak(workouts) {
+  const calculateStreak = useCallback((workouts) => {
     if (workouts.length === 0) return 0;
     
     const sorted = [...workouts].sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -104,17 +97,26 @@ export default function Dashboard() {
     }
     
     return streak;
-  }
+  }, [workouts]);
+
+  // Calculate stats from workouts
+  const calculateStats = useCallback(() => {
+    return {
+      totalWorkouts: workouts.length,
+      totalCalories: workouts.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0),
+      totalDuration: workouts.reduce((sum, w) => sum + (w.duration || 0), 0),
+      streak: calculateStreak(workouts)
+    };
+  }, [workouts, calculateStreak]);
+
+  const stats = calculateStats();
 
   // Get recent workouts (last 5)
   const recentWorkouts = [...workouts]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
 
-  // Calculate weekly progress
-  const weeklyProgress = calculateWeeklyProgress(workouts);
-
-  function calculateWeeklyProgress(workouts) {
+  const calculateWeeklyProgress = useCallback((workouts) => {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -143,90 +145,46 @@ export default function Dashboard() {
     }
     
     return progress;
-  }
+  }, [workouts]);
 
-  // Calculate achievements
+  const weeklyProgress = calculateWeeklyProgress(workouts);
+
+  const calculateAchievements = useCallback((stats) => {
+    const achievements = [];
+    if (stats.totalWorkouts >= 1) achievements.push({ icon: 'bi-star-fill' });
+    if (stats.totalWorkouts >= 5) achievements.push({ icon: 'bi-heart-fill' });
+    if (stats.totalWorkouts >= 10) achievements.push({ icon: 'bi-lightning-fill' });
+    return achievements;
+  }, [stats]);
+
   const achievements = calculateAchievements(stats);
   
-  function calculateAchievements(stats) {
-    const achievements = [];
-    
-    if (stats.totalWorkouts >= 1) {
-      achievements.push({ name: 'First Step', description: 'Completed first workout', icon: 'bi-star-fill' });
-    }
-    if (stats.totalWorkouts >= 5) {
-      achievements.push({ name: 'Getting Serious', description: '5 workouts completed', icon: 'bi-heart-fill' });
-    }
-    if (stats.totalWorkouts >= 10) {
-      achievements.push({ name: 'Workout Warrior', description: '10 workouts completed', icon: 'bi-lightning-fill' });
-    }
-    if (stats.streak >= 3) {
-      achievements.push({ name: 'On Fire', description: `${stats.streak} day streak`, icon: 'bi-fire' });
-    }
-    if (stats.totalCalories >= 500) {
-      achievements.push({ name: 'Calorie Crusher', description: '500+ calories burned', icon: 'bi-cup-hot-fill' });
-    }
-    if (stats.totalDuration >= 60) {
-      achievements.push({ name: 'Time Invested', description: '60+ minutes total', icon: 'bi-clock-fill' });
-    }
-    
-    return achievements;
-  }
-
-  const getWeekday = () => {
+  const getWeekday = useCallback(() => {
     const hours = new Date().getHours();
     if (hours < 12) return 'Morning';
     if (hours < 18) return 'Afternoon';
     return 'Evening';
-  };
+  }, []);
 
-  const formatDate = (dateString) => {
+  const formatDate = useCallback((dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  };
+  }, []);
 
-  const formatTime = (dateString) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-  };
-
-  // Calculate goals progress
-  const activeGoals = goals.filter(g => !g.completed);
-  
-  const getGoalIcon = (title) => {
-    const lowerTitle = title?.toLowerCase() || '';
-    if (lowerTitle.includes('workout') || lowerTitle.includes('exercise')) return 'bi-dumbbell';
-    if (lowerTitle.includes('weight') || lowerTitle.includes('loss')) return 'bi-graph-down';
-    if (lowerTitle.includes('muscle') || lowerTitle.includes('gain')) return 'bi-person-plus';
-    if (lowerTitle.includes('cardio') || lowerTitle.includes('run')) return 'bi-heart-pulse';
-    if (lowerTitle.includes('water') || lowerTitle.includes('hydration')) return 'bi-cup';
-    if (lowerTitle.includes('sleep')) return 'bi-moon';
-    if (lowerTitle.includes('calorie') || lowerTitle.includes('food')) return 'bi-fire';
-    if (lowerTitle.includes('stretch') || lowerTitle.includes('flex')) return 'bi-arrows-expand';
-    return 'bi-check-circle';
-  };
-
-  const getGoalProgress = (goal) => {
+  const getGoalProgress = useCallback((goal) => {
     if (!goal?.target || goal.target === 0) return 0;
     return Math.min(100, Math.round((goal.current / goal.target) * 100));
-  };
+  }, []);
 
-  const getTodayName = () => {
+  const getTodayName = useCallback(() => {
     return new Date().toLocaleDateString('en-US', { weekday: 'long' });
-  };
+  }, []);
 
-  // Loading state
-  if (authLoading) {
-    return (
-      <div className="dashboard-container">
-        <Preloader text="Loading your dashboard..." />
-      </div>
-    );
+  if (authLoading || loading) {
+    return <Preloader text="Loading your dashboard..." />;
   }
 
-  // Not authenticated
   if (!isAuthenticated) {
     return (
       <div className="dashboard-container">
@@ -239,238 +197,169 @@ export default function Dashboard() {
     );
   }
 
-  const userName = user?.name || 'Fitness Enthusiast';
-  const userGoal = user?.goal || 'Start your fitness journey!';
+  const userName = user?.name || 'Enthusiast';
   const maxCalories = Math.max(...weeklyProgress.map(d => d.calories), 100);
+  const activeGoals = goals.filter(g => !g.completed);
 
   return (
-    <div className="dashboard-container">
-      <BootcampAlert />
+    <div className="dashboard-page">
+      <div className="dashboard-container">
+        <BootcampAlert />
 
-      {/* Error Message */}
-      {error && (
-        <div className="error-banner">
-          <i className="bi bi-exclamation-triangle"></i>
-          <span>{error}</span>
-          <button onClick={() => setError(null)}><i className="bi bi-x"></i></button>
-        </div>
-      )}
+        {error && (
+          <div className="error-banner">
+            <i className="bi bi-exclamation-triangle"></i>
+            <span>{error}</span>
+            <button onClick={() => setError(null)}><i className="bi bi-x"></i></button>
+          </div>
+        )}
 
-      {/* User Tile Section */}
-      <div className="user-tile-section">
-        <div className="user-tile">
-          <div className="user-tile-avatar">
+        <div className="dash-welcome-section">
+          <div className="dash-profile-picture">
             {user?.profilePicture ? (
-              <img src={user.profilePicture} alt="Profile" />
+              <img
+                src={user.profilePicture}
+                alt="Profile"
+                className="welcome-profile-pic"
+              />
             ) : (
-              <div className="avatar-placeholder">
-                <i className="bi bi-person"></i>
+              <div className="welcome-profile-placeholder">
+                <i className="bi bi-person-circle"></i>
               </div>
             )}
           </div>
-          <div className="user-tile-content">
-            <p className="user-tile-greeting">Good {getWeekday()}</p>
-            <h1 className="user-tile-name">{userName}</h1>
-            <p className="user-tile-goal">{userGoal}</p>
+          <div className="dash-welcome-content">
+            <p className="welcome-label">Good {getWeekday()}</p>
+            <h1 className="welcome-name">{userName}</h1>
           </div>
-          <div className="user-tile-actions">
-            <button className="user-tile-btn" onClick={() => navigate('/profile')} title="Profile">
-              <i className="bi bi-person"></i>
-            </button>
-            <button className="user-tile-btn" onClick={() => navigate('/goals')} title="Goals">
-              <i className="bi bi-flag"></i>
-            </button>
+          <div className="dash-quick-actions">
+            <Link to="/workouts/new" className="quick-action-btn primary">
+              <i className="bi bi-plus-lg"></i>
+              <span>New Workout</span>
+            </Link>
           </div>
         </div>
-      </div>
 
-      {/* Stats Section */}
-      <div className="stats-section">
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-icon blue">
-              <i className="bi bi-dumbbell"></i>
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">{stats.totalWorkouts}</span>
-              <span className="stat-label">Workouts</span>
+        <div className="dash-stats-grid">
+          <div className="dash-stat-card">
+            <div className="dash-stat-icon"><i className="bi bi-activity"></i></div>
+            <div className="dash-stat-data">
+              <span className="dash-stat-value">{stats.totalWorkouts}</span>
+              <span className="dash-stat-label">Workouts</span>
             </div>
           </div>
-          <div className="stat-card">
-            <div className="stat-icon orange">
-              <i className="bi bi-fire"></i>
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">{stats.totalCalories}</span>
-              <span className="stat-label">Calories</span>
+          <div className="dash-stat-card">
+            <div className="dash-stat-icon"><i className="bi bi-fire"></i></div>
+            <div className="dash-stat-data">
+              <span className="dash-stat-value">{stats.totalCalories}</span>
+              <span className="dash-stat-label">Calories</span>
             </div>
           </div>
-          <div className="stat-card">
-            <div className="stat-icon green">
-              <i className="bi bi-clock"></i>
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">{stats.totalDuration}<small>min</small></span>
-              <span className="stat-label">Duration</span>
+          <div className="dash-stat-card">
+            <div className="dash-stat-icon"><i className="bi bi-clock"></i></div>
+            <div className="dash-stat-data">
+              <span className="dash-stat-value">{stats.totalDuration}m</span>
+              <span className="dash-stat-label">Time</span>
             </div>
           </div>
-          <div className="stat-card">
-            <div className="stat-icon red">
-              <i className="bi bi-flame"></i>
-            </div>
-            <div className="stat-info">
-              <span className="stat-number">{stats.streak}<small>days</small></span>
-              <span className="stat-label">Streak</span>
+          <div className="dash-stat-card">
+            <div className="dash-stat-icon"><i className="bi bi-lightning-charge"></i></div>
+            <div className="dash-stat-data">
+              <span className="dash-stat-value">{stats.streak}d</span>
+              <span className="dash-stat-label">Streak</span>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="dashboard-grid">
-        {/* Left Column - Progress & Activity */}
-        <div className="dashboard-main-content">
-          {/* Weekly Progress */}
-          <div className="progress-card">
-            <div className="card-header">
-              <h3>This Week</h3>
-              <Link to="/analytics" className="link-btn">Details</Link>
-            </div>
-            <div className="weekly-bars">
-              {weeklyProgress.map((day, index) => (
-                <div key={index} className="bar-item">
-                  <div className="bar-wrapper">
+        <div className="dash-main-grid">
+          <div className="dash-left-col">
+            <div className="dash-card">
+              <div className="dash-card-header">
+                <h3>Weekly Activity</h3>
+                <Link to="/analytics" className="dash-card-link">Details</Link>
+              </div>
+              <div className="dash-chart-container">
+                {weeklyProgress.map((day, index) => (
+                  <div key={index} className="dash-chart-bar-wrapper">
                     <div 
-                      className="bar" 
+                      className="dash-chart-bar" 
                       style={{ 
-                        height: day.calories > 0 ? `${(day.calories / maxCalories) * 100}%` : '8px'
+                        height: day.calories > 0 ? `${(day.calories / maxCalories) * 80 + 20}%` : '10%'
                       }}
                     ></div>
+                    <span className="dash-bar-day">{day.day}</span>
                   </div>
-                  <span className="bar-label">{day.day}</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Recent Workouts */}
-          <div className="workouts-card">
-            <div className="card-header">
-              <h3>Recent Workouts</h3>
-              <Link to="/workouts" className="link-btn">View All</Link>
-            </div>
-            <div className="workouts-list">
-              {recentWorkouts.length > 0 ? (
-                recentWorkouts.map((workout) => (
-                  <div 
-                    key={workout._id} 
-                    className="workout-row"
-                    onClick={() => navigate(`/workouts/${workout._id}`)}
-                  >
-                    <div className="workout-icon">
-                      <i className="bi bi-dumbbell"></i>
-                    </div>
-                    <div className="workout-info">
-                      <span className="workout-name">{workout.name}</span>
-                      <span className="workout-meta">{formatDate(workout.date)} • {formatTime(workout.date)}</span>
-                    </div>
-                    <div className="workout-stats">
-                      <span className="stat-item">{workout.duration || 0}min</span>
-                      <span className="stat-item">{workout.caloriesBurned || 0}cal</span>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="empty-workouts">
-                  <i className="bi bi-dumbbell"></i>
-                  <p>No workouts yet</p>
-                  <Link to="/workouts/create" className="btn-primary">Start Your First Workout</Link>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column - Goals & Stats */}
-        <div className="dashboard-side-content">
-          {/* Goals Section */}
-          <div className={`goals-card ${activeGoals.length > 0 ? '' : 'empty'}`}>
-            <div className="card-header">
-              <h3><i className="bi bi-trophy"></i> Goals</h3>
-              <Link to="/goals" className="link-btn">View All</Link>
-            </div>
-            {activeGoals.length > 0 ? (
-              <div className="goals-list">
-                {activeGoals.slice(0, 3).map((goal, index) => (
-                  <div key={index} className="goal-item">
-                    <div className="goal-header">
-                      <i className={`bi ${getGoalIcon(goal.title)}`}></i>
-                      <span className="goal-title">{goal.title}</span>
-                    </div>
-                    <div className="goal-progress">
-                      <div className="progress-bar">
-                        <div 
-                          className="progress-fill" 
-                          style={{ width: `${getGoalProgress(goal)}%` }}
-                        ></div>
+            <div className="dash-card">
+              <div className="dash-card-header">
+                <h3>Recent Workouts</h3>
+                <Link to="/workouts" className="dash-card-link">View All</Link>
+              </div>
+              <div className="dash-workout-list">
+                {recentWorkouts.length > 0 ? (
+                  recentWorkouts.map((workout) => (
+                    <div key={workout._id} className="dash-workout-item" onClick={() => navigate(`/workouts/${workout._id}`)}>
+                      <div className="workout-type-icon"><i className="bi bi-lightning-fill"></i></div>
+                      <div className="workout-item-info">
+                        <span className="workout-item-name">{workout.name}</span>
+                        <span className="workout-item-date">{formatDate(workout.date)}</span>
                       </div>
-                      <span className="progress-text">{goal.current}/{goal.target} {goal.unit}</span>
+                      <div className="workout-item-meta">
+                        <span className="workout-item-duration">{workout.duration}m</span>
+                        <i className="bi bi-chevron-right"></i>
+                      </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="dash-empty-state">
+                    <p>No workouts recorded.</p>
+                    <Link to="/workouts/new" className="dash-empty-btn">Log One</Link>
                   </div>
-                ))}
+                )}
               </div>
-            ) : (
-              <div className="empty-goals">
-                <p>Start setting fitness goals to track your progress!</p>
-                <Link to="/goals" className="btn-secondary-sm">Create Goal</Link>
-              </div>
-            )}
+            </div>
           </div>
 
-          {/* My Routines Overview */}
-          <div className="routines-card">
-            <div className="card-header">
-              <h3><i className="bi bi-calendar-week"></i> Weekly Routines</h3>
-              <Link to="/routines" className="link-btn">View All</Link>
-            </div>
-            {routine.length > 0 ? (
-              <div className="routines-overview-mini">
-                {routine.slice(0, 7).map((day, index) => (
-                  <div 
-                    key={index} 
-                    className={`routine-day-mini ${day.completed ? 'completed' : ''} ${day.day.toLowerCase() === getTodayName().toLowerCase() ? 'today' : ''}`}
-                  >
-                    <div className="day-label">{day.day.substring(0, 1)}</div>
-                    <div className="day-status">
-                      <i className={`bi ${day.completed ? 'bi-check-circle-fill' : 'bi-circle'}`}></i>
+          <div className="dash-right-col">
+            <div className="dash-card">
+              <div className="dash-card-header">
+                <h3>Active Goals</h3>
+              </div>
+              <div className="dash-goals-list">
+                {activeGoals.length > 0 ? (
+                  activeGoals.slice(0, 3).map((goal, index) => (
+                    <div key={index} className="dash-goal-item">
+                      <div className="dash-goal-info">
+                        <span className="dash-goal-title">{goal.title}</span>
+                        <span className="dash-goal-progress">{getGoalProgress(goal)}%</span>
+                      </div>
+                      <div className="dash-goal-bar-bg">
+                        <div className="dash-goal-bar-fill" style={{ width: `${getGoalProgress(goal)}%` }}></div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="dash-no-data">No active goals.</p>
+                )}
               </div>
-            ) : (
-              <div className="empty-routines-mini">
-                <i className="bi bi-calendar-x"></i>
-                <p>No routines assigned</p>
-              </div>
-            )}
-          </div>
-
-          {/* Achievements */}
-          <div className="achievements-card-mini">
-            <div className="card-header">
-              <h3>Achievements</h3>
-              <Link to="/achievements" className="link-btn">All</Link>
             </div>
-            <div className="achievements-list-mini">
-              {achievements.length > 0 ? (
-                achievements.slice(0, 3).map((achievement, index) => (
-                  <div key={index} className="achievement-item-mini" title={achievement.description}>
-                    <i className={`bi ${achievement.icon}`}></i>
-                  </div>
-                ))
-              ) : (
-                <p className="empty-text">Keep working to earn trophies!</p>
-              )}
+
+            <div className="dash-card">
+              <div className="dash-card-header">
+                <h3>Achievements</h3>
+              </div>
+              <div className="dash-achievements-mini">
+                {achievements.length > 0 ? (
+                  achievements.map((a, i) => (
+                    <div key={i} className="dash-achievement-icon"><i className={`bi ${a.icon}`}></i></div>
+                  ))
+                ) : (
+                  <p className="dash-no-data">Keep working!</p>
+                )}
+              </div>
             </div>
           </div>
         </div>

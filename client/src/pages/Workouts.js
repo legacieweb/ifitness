@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getWorkouts, deleteWorkout, createWorkout } from '../services/api';
+import Preloader from '../components/Preloader';
 import './Workouts.css';
 
 const formatTime = (seconds) => {

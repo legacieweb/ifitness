@@ -88,18 +88,18 @@ export default function Register() {
                     <i className="bi bi-lightning-charge-fill"></i>
                     <span>iFitness</span>
                   </div>
-                  <h1 className="auth-title">Create Your Account</h1>
-                  <p className="auth-subtitle">Start your peak performance journey today</p>
+                  <h1 className="auth-title">Join iFitness</h1>
+                  <p className="auth-subtitle">Begin your transformation with our elite community</p>
                   
                   {/* Progress Steps */}
                   <div className="progress-steps">
                     <div className={`step ${step >= 1 ? 'active' : ''}`}>
-                      <div className="step-number">1</div>
+                      <div className="step-number">01</div>
                       <span>Account</span>
                     </div>
                     <div className="step-line"></div>
                     <div className={`step ${step >= 2 ? 'active' : ''}`}>
-                      <div className="step-number">2</div>
+                      <div className="step-number">02</div>
                       <span>Profile</span>
                     </div>
                   </div>
@@ -108,7 +108,7 @@ export default function Register() {
                 <div className="auth-card-body">
                   {error && (
                     <div className="auth-error">
-                      <i className="bi bi-exclamation-triangle"></i>
+                      <i className="bi bi-exclamation-circle-fill"></i>
                       <span>{error}</span>
                     </div>
                   )}
@@ -118,7 +118,7 @@ export default function Register() {
                       <>
                         <div className="form-group-modern">
                           <label htmlFor="name" className="form-label-modern">
-                            <i className="bi bi-person"></i>
+                            <i className="bi bi-person-bounding-box"></i>
                             Full Name
                           </label>
                           <div className="input-wrapper">
@@ -129,7 +129,7 @@ export default function Register() {
                               name="name"
                               value={formData.name}
                               onChange={handleChange}
-                              placeholder="Enter your full name"
+                              placeholder="e.g. Alex Johnson"
                               required
                             />
                           </div>
@@ -137,7 +137,7 @@ export default function Register() {
 
                         <div className="form-group-modern">
                           <label htmlFor="email" className="form-label-modern">
-                            <i className="bi bi-envelope"></i>
+                            <i className="bi bi-envelope-at"></i>
                             Email Address
                           </label>
                           <div className="input-wrapper">
@@ -148,7 +148,7 @@ export default function Register() {
                               name="email"
                               value={formData.email}
                               onChange={handleChange}
-                              placeholder="Enter your email"
+                              placeholder="alex@premium.com"
                               required
                             />
                           </div>
@@ -156,8 +156,8 @@ export default function Register() {
 
                         <div className="form-group-modern">
                           <label htmlFor="password" className="form-label-modern">
-                            <i className="bi bi-lock"></i>
-                            Password
+                            <i className="bi bi-shield-lock"></i>
+                            Security Password
                           </label>
                           <div className="input-wrapper">
                             <input
@@ -167,7 +167,7 @@ export default function Register() {
                               name="password"
                               value={formData.password}
                               onChange={handleChange}
-                              placeholder="Create a strong password"
+                              placeholder="Create a master password"
                               required
                             />
                             <button
@@ -211,7 +211,7 @@ export default function Register() {
                         <div className="form-row">
                           <div className="form-group-modern">
                             <label htmlFor="age" className="form-label-modern">
-                              <i className="bi bi-calendar"></i>
+                              <i className="bi bi-calendar3"></i>
                               Age
                             </label>
                             <div className="input-wrapper">
@@ -229,7 +229,7 @@ export default function Register() {
 
                           <div className="form-group-modern">
                             <label htmlFor="weight" className="form-label-modern">
-                              <i className="bi bi-speedometer2"></i>
+                              <i className="bi bi-water"></i>
                               Weight (kg)
                             </label>
                             <div className="input-wrapper">
@@ -249,7 +249,7 @@ export default function Register() {
                         <div className="form-row">
                           <div className="form-group-modern">
                             <label htmlFor="height" className="form-label-modern">
-                              <i className="bi bi-rulers"></i>
+                              <i className="bi bi-arrows-expand"></i>
                               Height (cm)
                             </label>
                             <div className="input-wrapper">
@@ -267,7 +267,7 @@ export default function Register() {
 
                           <div className="form-group-modern">
                             <label htmlFor="goal" className="form-label-modern">
-                              <i className="bi bi-target"></i>
+                              <i className="bi bi-flag-fill"></i>
                               Fitness Goal
                             </label>
                             <div className="input-wrapper">

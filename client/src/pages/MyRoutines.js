@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getUserRoutine, updateRoutineDay } from '../services/api';
+import Preloader from '../components/Preloader';
 import './MyRoutines.css';
 
 export default function MyRoutines() {

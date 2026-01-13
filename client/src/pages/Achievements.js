@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts, BASE_URL } from '../services/api';
+import Preloader from '../components/Preloader';
 import './Achievements.css';
 
 export default function Achievements() {

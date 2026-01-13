@@ -66,6 +66,8 @@
   margin-bottom: 35px;
   padding-bottom: 30px;
   border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
 }
 
 .profile-picture {
@@ -77,6 +79,8 @@
   box-shadow: var(--shadow-medium);
   margin-bottom: 20px;
   transition: var(--transition);
+  position: relative;
+  z-index: 2;
 }
 
 .profile-picture:hover {
@@ -95,6 +99,8 @@
   font-size: 5rem;
   color: #cbd5e1;
   border: 2px dashed #cbd5e1;
+  position: relative;
+  z-index: 2;
 }
 
 .upload-section {
@@ -103,6 +109,8 @@
   gap: 15px;
   width: 100%;
   max-width: 300px;
+  position: relative;
+  z-index: 1;
 }
 
 .upload-section input[type="file"] {
@@ -112,6 +120,8 @@
   background: var(--bg-primary);
   border-radius: 8px;
   border: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
 }
 
 .btn-upload {
@@ -123,6 +133,8 @@
   cursor: pointer;
   font-weight: 600;
   transition: var(--transition);
+  position: relative;
+  z-index: 1;
 }
 
 .btn-upload:hover:not(:disabled) {

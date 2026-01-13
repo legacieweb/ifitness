@@ -50,9 +50,9 @@ function AppContent() {
   // Header component - show for most public pages
   const showHeader = () => {
     const path = location.pathname;
-    const noHeaderRoutes = ['/admin', '/login', '/register', '/'];
+    const noHeaderRoutes = ['/admin', '/login', '/register', '/', '/dashboard', '/workouts', '/profile', '/journey', '/analytics', '/achievements', '/calendar', '/goals', '/routines', '/nutrition', '/templates'];
     
-    // Don't show in admin, auth, or home pages
+    // Don't show in admin, auth, home, or dashboard pages
     if (noHeaderRoutes.some(route => path === route || (route !== '/' && path.startsWith(route)))) {
       return false;
     }
