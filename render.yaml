@@ -26,7 +26,7 @@ services:
 
   # Frontend Web Service
   - type: static
-    name: fitness-frontend
+    name: gf
     buildCommand: cd client && npm ci && npm run build
     staticPublishPath: ./client/build
     envVars:

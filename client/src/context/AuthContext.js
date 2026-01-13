@@ -12,8 +12,14 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userData = localStorage.getItem('user');
-    if (token && userData) {
-      setUser(JSON.parse(userData));
+    if (token && userData && userData !== 'undefined') {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (err) {
+        console.error('Error parsing user data from localStorage:', err);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+      }
     }
     setLoading(false);
   }, []);
@@ -53,9 +59,11 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       const response = await loginAPI({ email, password });
       const { token, user } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      setUser(user);
+      if (token && user) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
+      }
       return response.data;
     } catch (err) {
       const message = err.response?.data?.message || 'Login failed';
@@ -69,9 +77,11 @@ export const AuthProvider = ({ children }) => {
       setError(null);
       const response = await registerAPI(userData);
       const { token, user } = response.data;
-      localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      setUser(user);
+      if (token && user) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        setUser(user);
+      }
       return response.data;
     } catch (err) {
       const message = err.response?.data?.message || 'Registration failed';
