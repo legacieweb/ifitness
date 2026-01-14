@@ -1283,29 +1283,30 @@
   left: 16px;
   top: 50%;
   transform: translateY(-50%);
-  color: rgba(255, 255, 255, 0.6);
+  color: #64748b;
   font-size: 16px;
 }
 
 .admin-search-input input {
   width: 100%;
   padding: 10px 16px 10px 44px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: white;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
-  color: white;
+  color: #1e293b;
   font-size: 14px;
   transition: var(--admin-transition);
 }
 
 .admin-search-input input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.15);
+  background: white;
   border-color: var(--admin-primary);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
 }
 
 .admin-search-input input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: #94a3b8;
 }
 
 /* Global Search Suggestions */
