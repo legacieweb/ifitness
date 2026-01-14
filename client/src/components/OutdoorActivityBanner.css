@@ -1,0 +1,208 @@
+.activity-banner-container {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+  border-radius: 24px;
+  padding: 40px;
+  margin: 60px auto;
+  max-width: 1200px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 123, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.activity-banner-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 60px rgba(0, 123, 255, 0.1);
+}
+
+.activity-banner-decoration {
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(0, 123, 255, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.activity-banner-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.activity-banner-header i {
+  font-size: 24px;
+  color: #28a745;
+}
+
+.activity-banner-header h4 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #6c757d;
+  margin: 0;
+}
+
+.activity-banner-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #212529;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.activity-banner-description {
+  font-size: 18px;
+  color: #6c757d;
+  margin-bottom: 32px;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+}
+
+.activity-banner-features {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+
+.activity-banner-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #495057;
+  background: white;
+  padding: 8px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.activity-banner-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 32px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.activity-banner-countdown {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-banner-countdown-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #adb5bd;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.activity-banner-countdown-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #007bff;
+}
+
+.btn-activity-join {
+  background: #007bff;
+  color: white;
+  padding: 16px 40px;
+  border-radius: 16px;
+  font-weight: 700;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+}
+
+.btn-activity-join:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 123, 255, 0.3);
+  color: white;
+}
+
+/* Login Prompt Modal */
+.activity-login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.activity-login-modal {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.activity-login-icon {
+  width: 80px;
+  height: 80px;
+  background: #f0f7ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.activity-login-icon i {
+  font-size: 40px;
+  color: #007bff;
+}
+
+.activity-login-modal h3 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #212529;
+  margin-bottom: 16px;
+}
+
+.activity-login-modal p {
+  color: #6c757d;
+  font-size: 16px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.activity-login-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-login-actions .btn {
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+}

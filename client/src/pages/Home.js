@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import BootcampBanner from '../components/BootcampBanner';
+import OutdoorActivityBanner from '../components/OutdoorActivityBanner';
 import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Home.css';
 
@@ -55,7 +56,6 @@ export default function Home() {
               <Link to="/about-us" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
               <Link to="/community" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Community</Link>
               <Link to="/contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
-              <a href="#pricing" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
               
               <div className="mobile-auth-links d-lg-none">
                 {!isAuthenticated ? (
@@ -185,63 +185,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="pricing-modern reveal" id="pricing">
-        <div className="container">
-          <div className="section-header-modern text-center mb-5">
-            <div className="section-badge">Membership</div>
-            <h2 className="section-title-modern">Choose Your <span className="highlight-gradient">Plan</span></h2>
-            <p>Flexible pricing for every fitness level.</p>
-          </div>
-
-          <div className="pricing-grid">
-            <div className="pricing-card">
-              <div className="pricing-header">
-                <h3>Starter</h3>
-                <div className="price">$0<span>/month</span></div>
-              </div>
-              <ul className="pricing-features">
-                <li><i className="bi bi-check-circle-fill"></i> Basic Workout Logging</li>
-                <li><i className="bi bi-check-circle-fill"></i> Community Access</li>
-                <li><i className="bi bi-check-circle-fill"></i> Standard Analytics</li>
-                <li className="disabled"><i className="bi bi-x-circle"></i> AI Personal Trainer</li>
-              </ul>
-              <Link to="/register" className="btn-pricing secondary">Get Started</Link>
-            </div>
-
-            <div className="pricing-card popular">
-              <div className="popular-badge">Most Popular</div>
-              <div className="pricing-header">
-                <h3>Pro Elite</h3>
-                <div className="price">$29<span>/month</span></div>
-              </div>
-              <ul className="pricing-features">
-                <li><i className="bi bi-check-circle-fill"></i> AI-Powered Custom Plans</li>
-                <li><i className="bi bi-check-circle-fill"></i> Advanced Biometrics</li>
-                <li><i className="bi bi-check-circle-fill"></i> 24/7 Trainer Support</li>
-                <li><i className="bi bi-check-circle-fill"></i> Priority Community Support</li>
-              </ul>
-              <Link to="/register" className="btn-pricing primary">Go Pro Now</Link>
-            </div>
-
-            <div className="pricing-card">
-              <div className="pricing-header">
-                <h3>LIFETIME</h3>
-                <div className="price">$499<span>once</span></div>
-              </div>
-              <ul className="pricing-features">
-                <li><i className="bi bi-check-circle-fill"></i> All Pro Features</li>
-                <li><i className="bi bi-check-circle-fill"></i> Lifetime Updates</li>
-                <li><i className="bi bi-check-circle-fill"></i> Exclusive VIP Events</li>
-                <li><i className="bi bi-check-circle-fill"></i> 1-on-1 Kickoff Call</li>
-              </ul>
-              <Link to="/register" className="btn-pricing secondary">Get Lifetime</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <BootcampBanner />
+      <OutdoorActivityBanner />
 
       {/* Features Section */}
       <section className="features-modern reveal">
