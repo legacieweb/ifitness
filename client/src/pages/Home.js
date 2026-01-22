@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import BootcampBanner from '../components/BootcampBanner';
 import OutdoorActivityBanner from '../components/OutdoorActivityBanner';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './Home.css';
 
 export default function Home() {
   const { isAuthenticated, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState('features');
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,67 +38,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={`modern-homepage ${isMobileMenuOpen ? 'menu-open' : ''}`}>
-      {/* Clean Header with Signup and Login buttons */}
-      <header className={`clean-home-header ${isScrolled ? 'scrolled' : ''}`}>
-        <div className="container">
-          <div className="header-content">
-            <div className="logo-section">
-              <Link to="/" className="logo-link">
-                <i className="bi bi-activity"></i>
-                <span>iFitness</span>
-              </Link>
-            </div>
-            
-            <nav className={`nav-section ${isMobileMenuOpen ? 'mobile-active' : ''}`}>
-              <Link to="/about-us" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-              <Link to="/community" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Community</Link>
-              <Link to="/contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
-              
-              <div className="mobile-auth-links d-lg-none">
-                {!isAuthenticated ? (
-                  <>
-                    <Link to="/login" className="mobile-auth-btn secondary" onClick={() => setIsMobileMenuOpen(false)}>Log In</Link>
-                    <Link to="/register" className="mobile-auth-btn primary" onClick={() => setIsMobileMenuOpen(false)}>Sign Up</Link>
-                  </>
-                ) : (
-                  <>
-                    <Link to="/dashboard" className="mobile-auth-btn secondary" onClick={() => setIsMobileMenuOpen(false)}>Dashboard</Link>
-                    <button className="mobile-auth-btn primary" onClick={() => { logout(); setIsMobileMenuOpen(false); }}>Log Out</button>
-                  </>
-                )}
-              </div>
-            </nav>
-
-            <div className="header-actions">
-              <div className="auth-section d-none d-lg-flex">
-                {!isAuthenticated ? (
-                  <>
-                    <Link to="/login" className="btn btn-secondary">Log In</Link>
-                    <Link to="/register" className="btn btn-primary">Sign Up</Link>
-                  </>
-                ) : (
-                  <>
-                    <Link to="/dashboard" className="btn btn-secondary">Dashboard</Link>
-                    <button className="btn btn-primary" onClick={logout}>Log Out</button>
-                  </>
-                )}
-              </div>
-              
-              <button 
-                className={`mobile-menu-toggle d-lg-none ${isMobileMenuOpen ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle menu"
-              >
-                <span></span>
-                <span></span>
-                <span></span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <div className="modern-homepage">
       {/* Modern Hero Section */}
       <section className="modern-hero">
         <div className="hero-bg-gradient"></div>
@@ -146,44 +84,7 @@ export default function Home() {
       </section>
 
       {/* Bento Grid Stats */}
-      <section className="quick-stats-bento">
-        <div className="container">
-          <div className="bento-grid">
-            <div className="bento-item stat-large main-stat reveal">
-              <div className="bento-content">
-                <div className="stat-number">50K+</div>
-                <div className="stat-label">Active Users</div>
-                <p className="stat-desc">Joining us from all over the world to transform their lives.</p>
-                <div className="stat-icon-bg"><i className="bi bi-people-fill"></i></div>
-              </div>
-            </div>
-            
-            <div className="bento-item stat-medium reveal">
-              <div className="bento-content">
-                <div className="stat-number">2M+</div>
-                <div className="stat-label">Workouts</div>
-                <div className="stat-icon-bg"><i className="bi bi-lightning-fill"></i></div>
-              </div>
-            </div>
-            
-            <div className="bento-item stat-small reveal">
-              <div className="bento-content">
-                <div className="stat-number">4.9</div>
-                <div className="stat-icon-inline"><i className="bi bi-star-fill"></i></div>
-                <div className="stat-label">Rating</div>
-              </div>
-            </div>
-            
-            <div className="bento-item stat-medium accent-bg reveal">
-              <div className="bento-content">
-                <div className="stat-number">500K</div>
-                <div className="stat-label">Goals Hit</div>
-                <div className="stat-icon-bg"><i className="bi bi-trophy-fill"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       <BootcampBanner />
       <OutdoorActivityBanner />
@@ -297,155 +198,84 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="how-it-works-modern reveal">
+      {/* Minimalist How It Works */}
+      <section className="minimal-how-it-works reveal">
         <div className="container">
-          <div className="section-header-modern">
-            <div className="section-badge">How it works</div>
-            <h2 className="section-title-modern">Three Simple Steps</h2>
+          <div className="minimal-section-header">
+            <h2 className="minimal-section-title">How It Works</h2>
+            <p className="minimal-section-subtitle">Three Simple Steps to Success</p>
           </div>
           
-          <div className="steps-wrapper">
-            <div className="steps-connector-line"></div>
-            
-            <div className="step-item-modern reveal">
-              <div className="step-number-container">
-                <div className="step-number-pill">01</div>
-              </div>
-              <div className="step-content-modern">
-                <div className="step-icon-wrapper"><i className="bi bi-person-plus-fill"></i></div>
-                <h3>Create Profile</h3>
-                <p>Sign up and set your fitness goals. Our expert trainer will create a personalized workout plan just for you.</p>
-                <div className="step-tags">
-                  <span className="step-tag"><i className="bi bi-check2"></i> Goal setting</span>
-                  <span className="step-tag"><i className="bi bi-check2"></i> Assessment</span>
-                </div>
-              </div>
-              <div className="step-visual-modern">
-                <div className="visual-circle-bg"></div>
-                <div className="visual-content"><i className="bi bi-person-bounding-box"></i></div>
+          <div className="minimal-steps-grid">
+            <div className="minimal-step-item reveal">
+              <div className="minimal-step-number">01</div>
+              <div className="minimal-step-content">
+                <h3 className="minimal-step-title">Create Profile</h3>
+                <p className="minimal-step-description">Sign up and set your fitness goals. Our expert trainer will create a personalized workout plan just for you.</p>
               </div>
             </div>
 
-            <div className="step-item-modern reverse reveal">
-              <div className="step-number-container">
-                <div className="step-number-pill">02</div>
-              </div>
-              <div className="step-content-modern">
-                <div className="step-icon-wrapper"><i className="bi bi-graph-up"></i></div>
-                <h3>Track Progress</h3>
-                <p>Log your workouts and monitor your progress with our advanced analytics tools and expert feedback.</p>
-                <div className="step-tags">
-                  <span className="step-tag"><i className="bi bi-check2"></i> Real-time logs</span>
-                  <span className="step-tag"><i className="bi bi-check2"></i> Analytics</span>
-                </div>
-              </div>
-              <div className="step-visual-modern">
-                <div className="visual-circle-bg accent"></div>
-                <div className="visual-content"><i className="bi bi-activity"></i></div>
+            <div className="minimal-step-item reveal">
+              <div className="minimal-step-number">02</div>
+              <div className="minimal-step-content">
+                <h3 className="minimal-step-title">Track Progress</h3>
+                <p className="minimal-step-description">Log your workouts and monitor your progress with our advanced analytics tools and expert feedback.</p>
               </div>
             </div>
 
-            <div className="step-item-modern reveal">
-              <div className="step-number-container">
-                <div className="step-number-pill">03</div>
-              </div>
-              <div className="step-content-modern">
-                <div className="step-icon-wrapper"><i className="bi bi-trophy-fill"></i></div>
-                <h3>Achieve Goals</h3>
-                <p>Stay motivated, hit your milestones, and celebrate your success with our supportive community.</p>
-                <div className="step-tags">
-                  <span className="step-tag"><i className="bi bi-check2"></i> Milestones</span>
-                  <span className="step-tag"><i className="bi bi-check2"></i> Community</span>
-                </div>
-              </div>
-              <div className="step-visual-modern">
-                <div className="visual-circle-bg"></div>
-                <div className="visual-content"><i className="bi bi-award-fill"></i></div>
+            <div className="minimal-step-item reveal">
+              <div className="minimal-step-number">03</div>
+              <div className="minimal-step-content">
+                <h3 className="minimal-step-title">Achieve Goals</h3>
+                <p className="minimal-step-description">Stay motivated, hit your milestones, and celebrate your success with our supportive community.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Modern Testimonials Section */}
-      <section className="modern-testimonials reveal">
+      {/* Minimalist Testimonials Section */}
+      <section className="minimal-testimonials reveal">
         <div className="container">
-          <div className="modern-testimonials-header">
-            <div className="testimonials-badge">
-              <i className="bi bi-chat-quote-fill"></i>
-              <span>Real Stories</span>
-            </div>
-            <h2 className="testimonials-title">
-              Transformations That <span className="highlight-gradient">Inspire</span>
-            </h2>
+          <div className="minimal-testimonials-header">
+            <h2 className="minimal-testimonials-title">Real Stories</h2>
+            <p className="minimal-testimonials-subtitle">Transformations That Inspire</p>
           </div>
           
-          <div className="modern-testimonials-carousel">
-            <div className="testimonial-track">
-              <div className="modern-testimonial-card reveal">
-                <div className="testimonial-card-header">
-                  <div className="testimonial-rating">
-                    {[...Array(5)].map((_, i) => (
-                      <i key={i} className="bi bi-star-fill"></i>
-                    ))}
-                  </div>
-                  <i className="bi bi-quote quote-icon"></i>
-                </div>
-                <div className="testimonial-content">
-                  <p className="testimonial-text">
-                    "The community features and achievement system make fitness fun! I've lost 30 pounds and gained confidence I never thought possible."
-                  </p>
-                </div>
-                <div className="testimonial-author">
-                  <div className="author-info">
-                    <h4 className="author-name">Mike Chen</h4>
-                    <span className="author-role">Weight Loss Success</span>
-                  </div>
-                </div>
+          <div className="minimal-testimonials-grid">
+            <div className="minimal-testimonial-card reveal">
+              <p className="minimal-testimonial-text">
+                "The community features and achievement system make fitness fun! I've lost 30 pounds and gained confidence I never thought possible."
+              </p>
+              <div className="minimal-testimonial-author">
+                <h4 className="minimal-author-name">Mike Chen</h4>
+                <span className="minimal-author-role">Weight Loss Success</span>
               </div>
+            </div>
 
-              <div className="modern-testimonial-card reveal">
-                <div className="testimonial-card-header">
-                  <div className="testimonial-rating">
-                    {[...Array(5)].map((_, i) => (
-                      <i key={i} className="bi bi-star-fill"></i>
-                    ))}
-                  </div>
-                  <i className="bi bi-quote quote-icon"></i>
-                </div>
-                <div className="testimonial-content">
-                  <p className="testimonial-text">
-                    "As a personal trainer, I recommend iFitness to all my clients. The analytics are top-notch and help me track their progress effectively."
-                  </p>
-                </div>
-                <div className="testimonial-author">
-                  <div className="author-info">
-                    <h4 className="author-name">Emma Rodriguez</h4>
-                    <span className="author-role">Personal Trainer</span>
-                  </div>
-                </div>
+            <div className="minimal-testimonial-card reveal">
+              <p className="minimal-testimonial-text">
+                "As a personal trainer, I recommend iFitness to all my clients. The analytics are top-notch and help me track their progress effectively."
+              </p>
+              <div className="minimal-testimonial-author">
+                <h4 className="minimal-author-name">Emma Rodriguez</h4>
+                <span className="minimal-author-role">Personal Trainer</span>
+              </div>
+            </div>
+
+            <div className="minimal-testimonial-card reveal">
+              <p className="minimal-testimonial-text">
+                "The personalized workout plans and real-time feedback have completely transformed my fitness journey. I've never felt stronger!"
+              </p>
+              <div className="minimal-testimonial-author">
+                <h4 className="minimal-author-name">Sarah Johnson</h4>
+                <span className="minimal-author-role">Fitness Enthusiast</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="cta-modern reveal">
-        <div className="container">
-          <div className="cta-content-modern">
-            <h2 className="cta-title">Ready to Start?</h2>
-            <p className="cta-description">Join thousands of users who have achieved their goals with our personalized approach.</p>
-            <div className="cta-buttons">
-              <Link to="/register" className="btn-modern-primary">Get Started Free</Link>
-              <Link to="/about-us" className="btn-modern-secondary">Learn More</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <TopNewsletterFooter />
     </div>
   );
 }

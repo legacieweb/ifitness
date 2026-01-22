@@ -11,15 +11,19 @@ const upload = multer({ storage });
 // Route to serve profile picture from MongoDB (Publicly accessible)
 router.get('/profile/:id/picture', async (req, res) => {
   try {
+    console.log(`[UsersAPI] Fetching profile picture for user: ${req.params.id}`);
     const user = await User.findById(req.params.id);
     
-    if (!user || !user.profilePictureData) {
+    if (!user || !user.profilePictureData || user.profilePictureData.length === 0) {
+      console.log(`[UsersAPI] Profile picture not found or empty for user: ${req.params.id}`);
       return res.status(404).json({ message: 'Profile picture not found' });
     }
 
+    console.log(`[UsersAPI] Serving profile picture: ${user.profilePictureContentType} (${user.profilePictureData.length} bytes)`);
     res.set('Content-Type', user.profilePictureContentType);
     res.send(user.profilePictureData);
   } catch (error) {
+    console.error(`[UsersAPI] Error serving profile picture:`, error);
     res.status(500).json({ message: error.message });
   }
 });
@@ -36,8 +40,8 @@ router.get('/profile/:id', protect, async (req, res) => {
     
     res.json({
       ...userObj,
-      profilePicture: user.profilePictureData ? `/api/users/profile/${req.params.id}/picture` : null,
-      hasProfilePicture: !!user.profilePictureData,
+      profilePicture: (user.profilePictureData && user.profilePictureData.length > 0) ? `/api/users/profile/${req.params.id}/picture` : null,
+      hasProfilePicture: !!(user.profilePictureData && user.profilePictureData.length > 0),
     });
   } catch (error) {
     if (error.name === 'CastError') {
@@ -78,7 +82,7 @@ router.put('/profile/:id', protect, async (req, res) => {
         weight: user.weight,
         height: user.height,
         goal: user.goal,
-        profilePicture: user.profilePictureData ? `/api/users/profile/${user._id}/picture` : null,
+        profilePicture: (user.profilePictureData && user.profilePictureData.length > 0) ? `/api/users/profile/${user._id}/picture` : null,
       },
     });
   } catch (error) {
@@ -91,7 +95,9 @@ router.put('/profile/:id', protect, async (req, res) => {
 
 router.post('/profile/:id/upload', protect, upload.single('profilePicture'), async (req, res) => {
   try {
+    console.log(`[UsersAPI] Upload request for user: ${req.params.id}`);
     if (req.params.id !== req.user.id) {
+      console.log(`[UsersAPI] Unauthorized upload attempt: ${req.user.id} tried to upload for ${req.params.id}`);
       return res.status(403).json({ message: 'Not authorized to upload for this profile' });
     }
 
@@ -102,8 +108,11 @@ router.post('/profile/:id/upload', protect, upload.single('profilePicture'), asy
     }
 
     if (!req.file) {
+      console.log(`[UsersAPI] No file found in request. Body keys:`, Object.keys(req.body));
       return res.status(400).json({ message: 'No file uploaded' });
     }
+
+    console.log(`[UsersAPI] Received file: ${req.file.originalname} (${req.file.size} bytes)`);
 
     // Store image data in MongoDB
     user.profilePictureData = req.file.buffer;
@@ -346,7 +355,7 @@ router.get('/dashboard/:id', protect, async (req, res) => {
         name: user.name,
         email: user.email,
         goal: user.goal,
-        profilePicture: user.profilePictureData ? `/api/users/profile/${user._id}/picture` : null,
+        profilePicture: (user.profilePictureData && user.profilePictureData.length > 0) ? `/api/users/profile/${user._id}/picture` : null,
         weeklyRoutine: user.weeklyRoutine,
         goals: user.goals || [],
         achievements: user.achievements || achievements

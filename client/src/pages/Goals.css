@@ -19,6 +19,21 @@
   letter-spacing: -1px;
 }
 
+@media (max-width: 768px) {
+  .goals-container {
+    padding: 24px 16px;
+  }
+  .goals-header h1 {
+    font-size: 1.8rem;
+  }
+  .goals-card {
+    padding: 20px;
+  }
+  .your-goals-section h3 {
+    font-size: 1.5rem;
+  }
+}
+
 .goals-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

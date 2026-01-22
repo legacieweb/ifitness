@@ -489,12 +489,56 @@ input:-webkit-autofill:active {
   font-weight: 500;
 }
 
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.auth-card-footer {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid var(--auth-glass-border);
+}
+
+.auth-link {
+  color: var(--neon-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 991px) {
   .auth-card-modern {
     padding: 40px;
   }
   .auth-title {
     font-size: 28px;
+  }
+  .auth-illustration {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 20px 0;
+  }
+  .auth-card-modern {
+    padding: 35px 25px;
+  }
+  .auth-title {
+    font-size: 24px;
+  }
+  .progress-steps {
+    gap: 10px;
+  }
+  .step span {
+    font-size: 12px;
   }
 }
 
@@ -508,5 +552,12 @@ input:-webkit-autofill:active {
   }
   .form-row {
     grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+  .btn-auth-secondary, .btn-auth-primary {
+    width: 100%;
   }
 }

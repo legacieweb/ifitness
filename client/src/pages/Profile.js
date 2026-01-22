@@ -5,7 +5,7 @@ import Preloader from '../components/Preloader';
 import './Profile.css';
 
 export default function Profile() {
-  const { user } = useAuth();
+  const { user, updateUserProfilePicture } = useAuth();
   const [profile, setProfile] = useState({
     name: '',
     email: '',
@@ -92,7 +92,9 @@ export default function Profile() {
     try {
       setLoading(true);
       const response = await uploadProfilePicture(user.id, formData);
-      setProfile((prev) => ({ ...prev, profilePicture: response.data.profilePicture }));
+      const newPicUrl = response.data.profilePicture;
+      setProfile((prev) => ({ ...prev, profilePicture: newPicUrl }));
+      updateUserProfilePicture(newPicUrl);
       setSuccess('Profile picture updated!');
       setFile(null);
       setTimeout(() => setSuccess(null), 3000);

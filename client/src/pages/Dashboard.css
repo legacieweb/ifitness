@@ -378,26 +378,67 @@
   }
 }
 
-@media (max-width: 576px) {
-  .dash-welcome-section {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 20px 15px;
   }
   
+  .dash-welcome-section {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .dash-profile-picture {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .dash-quick-actions {
+    width: 100%;
+  }
+  
+  .quick-action-btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
   .welcome-name {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .dash-stats-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .dash-chart-bar-wrapper {
-    width: 10%;
+    gap: 15px;
   }
   
   .dash-stat-card {
-    padding: 20px;
+    padding: 15px;
+  }
+  
+  .dash-stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .dash-chart-container {
+    height: 150px;
+  }
+
+  .dash-card {
+    padding: 15px;
+  }
+  
+  .dash-workout-item {
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .workout-item-name {
+    font-size: 0.9rem;
+  }
+  
+  .workout-item-meta {
+    gap: 8px;
   }
 }

@@ -384,6 +384,11 @@
 
   .myroutines-header h1 {
     font-size: 1.75rem;
+    gap: 12px;
+  }
+
+  .myroutines-header h1 i {
+    font-size: 2rem;
   }
 
   .routines-overview {
@@ -397,5 +402,34 @@
 
   .routines-grid {
     grid-template-columns: 1fr;
+  }
+
+  .progress-overview-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .myroutines-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .overview-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+
+  .overview-value {
+    font-size: 1.5rem;
+  }
+
+  .routine-card-header,
+  .routine-card-body {
+    padding: 16px;
+  }
+
+  .workout-name {
+    font-size: 1rem;
   }
 }

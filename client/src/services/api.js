@@ -52,16 +52,7 @@ export const inviteAllToOutdoorActivity = (id) => API.post(`/outdoor-activities/
 
 export const getUserProfile = (id) => API.get(`/users/profile/${id}`);
 export const updateUserProfile = (id, userData) => API.put(`/users/profile/${id}`, userData);
-export const uploadProfilePicture = (id, file, token) => {
-  const formData = new FormData();
-  formData.append('profilePicture', file);
-  return API.post(`/users/profile/${id}/upload`, formData, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data'
-    }
-  });
-};
+export const uploadProfilePicture = (id, formData) => API.post(`/users/profile/${id}/upload`, formData);
 export const getUserStats = (id) => API.get(`/users/stats/${id}`);
 export const getUserDashboard = (id) => API.get(`/users/dashboard/${id}`);
 export const getUserGallery = (id) => API.get(`/users/profile/${id}/gallery`);

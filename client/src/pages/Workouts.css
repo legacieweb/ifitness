@@ -1,3 +1,98 @@
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .active-workout-card {
+    padding: 2.5rem;
+  }
+  
+  .timer-display {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .workouts-container {
+    padding: 80px 1rem 40px;
+  }
+
+  .active-workout-card {
+    padding: 2rem 1.5rem;
+    margin: 20px auto;
+  }
+
+  .active-workout-title {
+    font-size: 1.75rem;
+  }
+
+  .timer-display {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .status-info {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .btn-create-workout {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .stats-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .workouts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sort-section {
+    justify-content: flex-start;
+  }
+
+  .sort-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .timer-display {
+    font-size: 3rem;
+  }
+
+  .active-workout-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .workout-controls {
+    flex-direction: column;
+  }
+
+  .btn-control {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .page-title {
+    font-size: 1.75rem;
+  }
+
+  .workout-card-inner {
+    padding: 1.5rem;
+  }
+}
+
 /* =====================================================
    MODERN WORKOUTS - ELEGANT LIGHT THEME
    ===================================================== */
@@ -402,4 +497,86 @@
   align-items: center;
   justify-content: center;
   color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  
+  .btn-create-workout {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .workouts-container {
+    padding-top: 80px;
+  }
+
+  .active-workout-card {
+    padding: 2rem 1.5rem;
+    margin: 20px 0;
+  }
+
+  .active-workout-title {
+    font-size: 1.8rem;
+  }
+
+  .timer-display {
+    font-size: 3.5rem;
+  }
+
+  .status-info {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .workout-controls {
+    flex-direction: column;
+  }
+
+  .btn-control {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .stats-bar {
+    grid-template-columns: 1fr;
+  }
+  
+  .workouts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sort-section {
+    justify-content: flex-start;
+  }
+  
+  .sort-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .timer-display {
+    font-size: 2.8rem;
+  }
+  
+  .active-workout-title {
+    font-size: 1.5rem;
+  }
+  
+  .page-title {
+    font-size: 1.75rem;
+  }
 }

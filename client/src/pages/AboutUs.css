@@ -195,9 +195,78 @@
   50% { transform: translateY(-20px); }
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .hero-section {
+    padding: 60px 0;
+    text-align: center;
+  }
+  
+  .hero-content {
+    padding-right: 0;
+    margin-bottom: 50px;
+  }
+  
+  .hero-stats {
+    justify-content: center;
+  }
+  
+  .hero-visual {
+    height: 300px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-stats {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .mission-card, .feature-card {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .stat-item {
+    width: 100%;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .cta-buttons .btn-primary-modern,
+  .cta-buttons .btn-secondary-modern {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* =====================================================

@@ -19,10 +19,16 @@
   letter-spacing: -1px;
 }
 
-.achievements-header p {
-  font-size: 1.1rem;
-  color: #64748b;
-  margin: 0;
+@media (max-width: 768px) {
+  .achievements-container {
+    padding: 24px 16px;
+  }
+  .achievements-header h1 {
+    font-size: 1.8rem;
+  }
+  .achievements-header p {
+    font-size: 1rem;
+  }
 }
 
 .badges-grid {
@@ -32,10 +38,23 @@
   margin-bottom: 60px;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .badges-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .badges-grid {
+    grid-template-columns: 1fr;
     gap: 15px;
+  }
+  .achievements-gallery-section h2 {
+    font-size: 1.4rem;
+  }
+  .gallery-image-wrapper {
+    height: 180px;
   }
 }
 

@@ -273,7 +273,38 @@
 }
 
 @media (max-width: 768px) {
+  .workout-form-page {
+    padding: 2rem 0;
+  }
+  .form-header-modern {
+    margin-bottom: 2rem;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  .form-header-modern h1 {
+    font-size: 1.8rem;
+  }
+  .workout-card-edit {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+  .exercise-manager-card {
+    padding: 1.25rem;
+    border-radius: 16px;
+  }
+  .exercise-stats-edit {
+    grid-template-columns: 1fr 1fr;
+  }
   .custom-actions-modern {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .exercise-stats-edit {
+    grid-template-columns: 1fr;
+  }
+  .template-grid-modern {
     grid-template-columns: 1fr;
   }
 }

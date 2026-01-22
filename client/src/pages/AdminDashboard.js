@@ -445,6 +445,10 @@ export default function AdminDashboard() {
             <div className="admin-logo-icon">
               <i className="bi bi-shield-check"></i>
             </div>
+            <div className="admin-logo-text">
+              <span className="admin-logo-main">iFitness</span>
+              <span className="admin-logo-sub">Admin Panel</span>
+            </div>
           </div>
         </div>
 
@@ -558,6 +562,17 @@ export default function AdminDashboard() {
                 <i className="bi bi-tree-fill"></i>
               </div>
               <span className="admin-nav-text">Outdoor</span>
+              <div className="admin-nav-indicator"></div>
+            </button>
+            <button
+              className={`admin-nav-button ${activeTab === 'analytics' ? 'active' : ''}`}
+              onClick={() => handleTabChange('analytics')}
+              title="Analytics"
+            >
+              <div className="admin-nav-icon">
+                <i className="bi bi-bar-chart-fill"></i>
+              </div>
+              <span className="admin-nav-text">Analytics</span>
               <div className="admin-nav-indicator"></div>
             </button>
           </div>

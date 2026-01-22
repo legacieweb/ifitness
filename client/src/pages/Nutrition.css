@@ -312,6 +312,9 @@
 }
 
 @media (max-width: 991px) {
+  .nutrition-container {
+    padding: 24px 16px;
+  }
   .nutrition-stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -322,11 +325,17 @@
 }
 
 @media (max-width: 576px) {
+  .nutrition-header h1 {
+    font-size: 1.5rem;
+  }
   .nutrition-stats-grid {
     grid-template-columns: 1fr;
   }
   
   .nutrition-tips ul {
     grid-template-columns: 1fr;
+  }
+  .nutrition-stat-card .value {
+    font-size: 1.5rem;
   }
 }

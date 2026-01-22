@@ -69,7 +69,50 @@
   }
 }
 
-/* Form Cards */
+@media (max-width: 768px) {
+  .create-workout-page {
+    padding: 15px;
+  }
+  .workout-header-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  .header-content h1 {
+    font-size: 24px;
+    justify-content: center;
+  }
+  .exercises-grid {
+    grid-template-columns: 1fr;
+  }
+  .summary-sticky {
+    position: static;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-card {
+    padding: 20px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .category-filters {
+    gap: 8px;
+  }
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .action-buttons {
+    flex-direction: column;
+  }
+}
 .form-card {
   background: white;
   border-radius: 16px;

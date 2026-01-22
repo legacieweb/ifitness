@@ -1,4 +1,60 @@
 /* =====================================================
+   RESPONSIVE DESIGN
+   ===================================================== */
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 991px) {
+  :root {
+    --section-padding: 60px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .contact-form-card {
+    padding: 20px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* =====================================================
    MODERN CONTACT PAGE - ELEGANT DESIGN
    ===================================================== */
 

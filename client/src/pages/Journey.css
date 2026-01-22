@@ -260,9 +260,14 @@
 }
 
 @media (max-width: 991px) {
+  .journey-container {
+    padding: 24px 16px;
+  }
   .level-card {
     flex-direction: column;
     text-align: center;
+    padding: 24px;
+    gap: 20px;
   }
   
   .next-steps-grid {
@@ -271,6 +276,21 @@
 }
 
 @media (max-width: 576px) {
+  .journey-header h1 {
+    font-size: 1.5rem;
+  }
+  .level-info h3 {
+    font-size: 1.25rem;
+  }
+  .level-badge {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+  .level-emoji-wrapper {
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+  }
   .milestones-grid {
     grid-template-columns: 1fr;
   }

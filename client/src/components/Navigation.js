@@ -26,6 +26,7 @@ export default function Navigation() {
 
   const isActive = (path) => location.pathname === path;
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const isHome = location.pathname === '/';
 
   const publicLinks = [
     { name: 'Home', path: '/' },
@@ -35,7 +36,7 @@ export default function Navigation() {
   ];
 
   return (
-    <header className={`header ${isScrolled ? 'header-scrolled' : ''}`}>
+    <header className={`header ${isScrolled ? 'header-scrolled' : ''} ${isHome ? 'header-light' : ''}`}>
       <nav className="nav-container">
         <Link to="/" className="navbar-brand-clean" onClick={() => setIsMenuOpen(false)}>
           <div className="brand-icon">
@@ -44,7 +45,7 @@ export default function Navigation() {
           <span className="brand-text">iFitness</span>
         </Link>
 
-        <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''}`}>
+        <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''} ${isAuthenticated ? 'authenticated' : ''}`}>
           <ul className="nav-list">
             {publicLinks.map((link) => (
               <li key={link.path}>
@@ -74,7 +75,7 @@ export default function Navigation() {
           </ul>
           
           {/* Mobile User Actions */}
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <div className="mobile-user-actions">
               <div className="mobile-user-info">
                 <div className="mobile-user-avatar">
@@ -100,6 +101,17 @@ export default function Navigation() {
                   <span>Logout</span>
                 </button>
               </div>
+            </div>
+          ) : (
+            <div className="mobile-user-actions nav-actions-mobile d-lg-none">
+              <Link to="/login" className="mobile-btn" onClick={() => setIsMenuOpen(false)}>
+                <i className="bi bi-box-arrow-in-right"></i>
+                <span>Login</span>
+              </Link>
+              <Link to="/register" className="mobile-btn primary" style={{ background: 'var(--neon-primary)', color: '#000' }} onClick={() => setIsMenuOpen(false)}>
+                <i className="bi bi-person-plus"></i>
+                <span>Sign Up</span>
+              </Link>
             </div>
           )}
         </div>
