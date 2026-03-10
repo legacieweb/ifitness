@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getProfilePictureUrl } from '../services/api';
 import './CleanHeader.css';
 
 export default function CleanHeader({ title = 'iFitness', showLogo = true }) {
@@ -46,7 +47,7 @@ export default function CleanHeader({ title = 'iFitness', showLogo = true }) {
             </div>
             <div className="clean-user-avatar">
               {user?.profilePicture ? (
-                <img src={user.profilePicture} alt="Profile" />
+                <img src={getProfilePictureUrl(user.profilePicture)} alt="Profile" />
               ) : (
                 <i className="bi bi-person-fill"></i>
               )}

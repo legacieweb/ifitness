@@ -185,6 +185,7 @@
   border-radius: var(--dash-radius);
   padding: 24px;
   margin-bottom: 20px;
+  color: var(--dash-text);
 }
 
 .dash-card-header {

@@ -5,10 +5,42 @@ import BootcampBanner from '../components/BootcampBanner';
 import OutdoorActivityBanner from '../components/OutdoorActivityBanner';
 import './Home.css';
 
+const VIDEOS = [
+  {
+    id: 1,
+    title: 'Training Session 1',
+    description: 'A powerful full-body workout to build strength and endurance.',
+    url: '/videos/VID-20260228-WA0005.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    duration: '15:20',
+    category: 'Strength'
+  },
+  {
+    id: 2,
+    title: 'HIIT Cardio Blast',
+    description: 'High-intensity interval training to burn fat and improve cardiovascular health.',
+    url: '/videos/VID-20260228-WA0008.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    duration: '25:45',
+    category: 'HIIT'
+  },
+  {
+    id: 3,
+    title: 'Elite Training Session',
+    description: 'Advanced techniques for maximum results and peak performance.',
+    url: '/videos/VID-20260228-WA0010.mp4',
+    thumbnail: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+    duration: '45:00',
+    category: 'Elite'
+  }
+];
+
 export default function Home() {
   const { isAuthenticated, logout } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeTab, setActiveTab] = useState('features');
+  const [showGallery, setShowGallery] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,9 +96,13 @@ export default function Home() {
                 <Link to="/register" className="btn-modern-primary">
                   Start Your Journey <i className="bi bi-arrow-right"></i>
                 </Link>
-                <Link to="/about-us" className="btn-modern-secondary">
-                  <i className="bi bi-play-circle"></i> Watch Demo
-                </Link>
+                <button 
+                  onClick={() => setShowGallery(true)} 
+                  className="btn-modern-secondary"
+                  style={{ border: 'none', cursor: 'pointer' }}
+                >
+                  <i className="bi bi-play-circle"></i> View Videos
+                </button>
               </div>
               
               <div className="hero-trusted-by reveal">
@@ -276,6 +312,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Video Gallery Modal Overlay */}
+      {showGallery && (
+        <div className="home-gallery-overlay" onClick={() => setShowGallery(false)}>
+          <div className="home-gallery-modal" onClick={e => e.stopPropagation()}>
+            <div className="gallery-modal-header">
+              <h2>Expert Workout Videos</h2>
+              <button className="close-gallery" onClick={() => setShowGallery(false)}>
+                <i className="bi bi-x-lg"></i>
+              </button>
+            </div>
+            
+            <div className="gallery-modal-body">
+              <div className="home-video-grid">
+                {VIDEOS.map(video => (
+                  <div key={video.id} className="home-video-card" onClick={() => setSelectedVideo(video)}>
+                    <div className="home-video-thumb">
+                      <img src={video.thumbnail} alt={video.title} />
+                      <div className="home-video-play">
+                        <i className="bi bi-play-fill"></i>
+                      </div>
+                      <span className="home-video-time">{video.duration}</span>
+                    </div>
+                    <div className="home-video-details">
+                      <span className="home-video-cat">{video.category}</span>
+                      <h4>{video.title}</h4>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Video Player Modal */}
+      {selectedVideo && (
+        <div className="video-player-overlay" onClick={() => setSelectedVideo(null)}>
+          <div className="video-player-modal" onClick={e => e.stopPropagation()}>
+            <button className="close-player" onClick={() => setSelectedVideo(null)}>
+              <i className="bi bi-x-lg"></i>
+            </button>
+            <div className="player-wrapper">
+              <video controls autoPlay className="main-video-player">
+                <source src={selectedVideo.url} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div className="player-details">
+              <h3>{selectedVideo.title}</h3>
+              <p>{selectedVideo.description}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

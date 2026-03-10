@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getWorkouts, getUserRoutine, getUserGoals } from '../services/api';
+import { getWorkouts, getUserRoutine, getUserGoals, getProfilePictureUrl } from '../services/api';
 import BootcampAlert from '../components/BootcampAlert';
 import Preloader from '../components/Preloader';
 import './Dashboard.css';
@@ -218,7 +218,7 @@ export default function Dashboard() {
           <div className="dash-profile-picture">
             {user?.profilePicture ? (
               <img
-                src={user.profilePicture}
+                src={getProfilePictureUrl(user.profilePicture)}
                 alt="Profile"
                 className="welcome-profile-pic"
               />

@@ -8,6 +8,29 @@ const DEVELOPMENT_URL = 'http://localhost:5000/api';
 export const BASE_URL = process.env.REACT_APP_API_URL || 
   (process.env.NODE_ENV === 'production' ? PRODUCTION_URL : DEVELOPMENT_URL);
 
+/**
+ * Helper to get the full URL for a profile picture
+ * @param {string} path - The relative path from the backend (e.g., /api/users/profile/123/picture)
+ * @returns {string} The absolute URL
+ */
+export const getProfilePictureUrl = (path) => {
+  if (!path) return null;
+  if (path.startsWith('http')) return path;
+  
+  // Base URL is something like https://api.com/api
+  // Path is something like /api/users/...
+  // We want to avoid double /api
+  
+  const baseUrlClean = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+  const apiIndex = baseUrlClean.lastIndexOf('/api');
+  const domain = apiIndex !== -1 ? baseUrlClean.slice(0, apiIndex) : baseUrlClean;
+  
+  // Ensure path starts with /
+  const pathClean = path.startsWith('/') ? path : `/${path}`;
+  
+  return `${domain}${pathClean}`;
+};
+
 const API = axios.create({
   baseURL: BASE_URL,
 });

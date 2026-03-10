@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getProfilePictureUrl } from '../services/api';
 import './Navigation.css';
 
 export default function Navigation() {
@@ -38,20 +39,20 @@ export default function Navigation() {
   return (
     <header className={`header ${isScrolled ? 'header-scrolled' : ''} ${isHome ? 'header-light' : ''}`}>
       <nav className="nav-container">
-        <Link to="/" className="navbar-brand-clean" onClick={() => setIsMenuOpen(false)}>
-          <div className="brand-icon">
-            <i className="bi bi-activity"></i>
+        <Link to="/" className="navbar-brand-modern" onClick={() => setIsMenuOpen(false)}>
+          <div className="brand-logo">
+            <i className="bi bi-lightning-charge-fill"></i>
           </div>
-          <span className="brand-text">iFitness</span>
+          <span className="brand-name">iFitness</span>
         </Link>
 
         <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''} ${isAuthenticated ? 'authenticated' : ''}`}>
-          <ul className="nav-list">
+          <ul className="nav-links">
             {publicLinks.map((link) => (
               <li key={link.path}>
                 <Link
                   to={link.path}
-                  className={`nav-link ${isActive(link.path) ? 'active' : ''}`}
+                  className={`nav-item ${isActive(link.path) ? 'active' : ''}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.name}
@@ -59,88 +60,98 @@ export default function Navigation() {
               </li>
             ))}
             {isAuthenticated && (
-              <>
-                <li className="nav-divider"></li>
-                <li>
-                  <Link
-                    to="/dashboard"
-                    className={`nav-link ${isActive('/dashboard') ? 'active' : ''}`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
-                </li>
-              </>
+              <li>
+                <Link
+                  to="/dashboard"
+                  className={`nav-item dashboard-link ${isActive('/dashboard') ? 'active' : ''}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              </li>
             )}
           </ul>
           
-          {/* Mobile User Actions */}
+          {/* Mobile User Section */}
           {isAuthenticated ? (
-            <div className="mobile-user-actions">
-              <div className="mobile-user-info">
-                <div className="mobile-user-avatar">
+            <div className="mobile-user-section">
+              <div className="mobile-user-card">
+                <div className="user-avatar">
                   {user?.profilePicture ? (
-                    <img src={user.profilePicture} alt="Profile" />
+                    <img src={getProfilePictureUrl(user.profilePicture)} alt="Profile" />
                   ) : (
-                    <div className="user-avatar-placeholder">
-                      <i className="bi bi-person-fill"></i>
+                    <div className="avatar-placeholder">
+                      {user?.name?.charAt(0) || 'U'}
                     </div>
                   )}
                 </div>
-                <div className="mobile-user-details">
-                  <span className="mobile-user-name">{user?.name || 'User'}</span>
+                <div className="user-info">
+                  <span className="user-name">{user?.name || 'User'}</span>
+                  <span className="user-status">Member</span>
                 </div>
               </div>
-              <div className="mobile-user-buttons">
-                <Link to="/profile" className="mobile-btn" onClick={() => setIsMenuOpen(false)}>
-                  <i className="bi bi-person"></i>
+              <div className="mobile-actions">
+                <Link to="/profile" className="action-link" onClick={() => setIsMenuOpen(false)}>
+                  <i className="bi bi-person-circle"></i>
                   <span>Profile</span>
                 </Link>
-                <button className="mobile-btn logout-btn" onClick={handleLogout}>
+                <button className="action-link logout" onClick={handleLogout}>
                   <i className="bi bi-box-arrow-right"></i>
                   <span>Logout</span>
                 </button>
               </div>
             </div>
           ) : (
-            <div className="mobile-user-actions nav-actions-mobile d-lg-none">
-              <Link to="/login" className="mobile-btn" onClick={() => setIsMenuOpen(false)}>
-                <i className="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-              </Link>
-              <Link to="/register" className="mobile-btn primary" style={{ background: 'var(--neon-primary)', color: '#000' }} onClick={() => setIsMenuOpen(false)}>
-                <i className="bi bi-person-plus"></i>
-                <span>Sign Up</span>
-              </Link>
+            <div className="mobile-auth-actions d-lg-none">
+              <Link to="/login" className="auth-btn login" onClick={() => setIsMenuOpen(false)}>Login</Link>
+              <Link to="/register" className="auth-btn signup" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
             </div>
           )}
         </div>
 
-        <div className="nav-actions">
+        <div className="nav-actions-desktop">
           {!isAuthenticated ? (
-            <>
-              <Link to="/login" className="btn-ghost" onClick={() => setIsMenuOpen(false)}>
-                <i className="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-              </Link>
-              <Link to="/register" className="btn-primary-clean" onClick={() => setIsMenuOpen(false)}>
-                <i className="bi bi-person-plus"></i>
-                <span>Sign Up</span>
-              </Link>
-            </>
+            <div className="auth-buttons">
+              <Link to="/login" className="link-login">Login</Link>
+              <Link to="/register" className="btn-get-started">Get Started</Link>
+            </div>
           ) : (
-            <div className="user-actions">
-              <span className="user-name-display">{user?.name || 'User'}</span>
-              <button className="btn-logout" onClick={handleLogout} title="Logout">
-                <i className="bi bi-box-arrow-right"></i>
-                <span>Logout</span>
-              </button>
+            <div className="user-profile-dropdown">
+              <div className="user-trigger">
+                <span className="user-name-text">{user?.name}</span>
+                <div className="user-avatar-mini">
+                  {user?.profilePicture ? (
+                    <img src={getProfilePictureUrl(user.profilePicture)} alt="Profile" />
+                  ) : (
+                    <div className="avatar-placeholder-mini">{user?.name?.charAt(0)}</div>
+                  )}
+                </div>
+              </div>
+              <div className="dropdown-content">
+                <Link to="/profile" className="dropdown-item">
+                  <i className="bi bi-person"></i>
+                  Profile
+                </Link>
+                <Link to="/dashboard" className="dropdown-item">
+                  <i className="bi bi-grid"></i>
+                  Dashboard
+                </Link>
+                <div className="dropdown-divider"></div>
+                <button onClick={handleLogout} className="dropdown-item logout">
+                  <i className="bi bi-box-arrow-right"></i>
+                  Logout
+                </button>
+              </div>
             </div>
           )}
         </div>
 
-        <button className="navbar-toggler-clean" onClick={toggleMenu}>
-          <i className={`bi ${isMenuOpen ? 'bi-x' : 'bi-list'}`}></i>
+        <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
+          <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </button>
       </nav>
     </header>

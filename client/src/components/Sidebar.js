@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { getProfilePictureUrl } from '../services/api';
 import './Sidebar.css';
 
 export default function Sidebar({ isOpen }) {
@@ -37,7 +38,7 @@ export default function Sidebar({ isOpen }) {
       <div className="sidebar-user">
         <div className="sidebar-user-avatar">
           {user?.profilePicture ? (
-            <img src={user.profilePicture} alt="Profile" />
+            <img src={getProfilePictureUrl(user.profilePicture)} alt="Profile" />
           ) : (
             <div className="sidebar-avatar-placeholder">
               <i className="bi bi-person"></i>
