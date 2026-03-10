@@ -1,427 +1,204 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageTransition from '../components/PageTransition';
-import Footer from '../components/Footer';
 import './Documentation.css';
 
 export default function Documentation() {
   const [activeSection, setActiveSection] = useState('getting-started');
 
+  useEffect(() => {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [activeSection]);
+
   const sections = {
     'getting-started': {
-      title: 'Getting Started',
-      icon: 'bi-rocket-takeoff',
+      title: 'INITIALIZATION',
+      icon: 'bi-terminal',
       content: (
-        <>
-          <div className="doc-section">
-            <h3>Welcome to ifitness</h3>
-            <p>This guide will help you get started with ifitness in just a few minutes.</p>
+        <div className="protocol-body">
+          <div className="doc-section reveal">
+            <h3>SYSTEM_INITIALIZATION</h3>
+            <p>Welcome to the Crimson Protocol. This manual outlines the necessary steps to synchronize your physical architecture with our core network.</p>
           </div>
 
-          <div className="doc-section">
-            <h4>Creating an Account</h4>
-            <ol>
-              <li>Visit the registration page</li>
-              <li>Enter your name, email, and password</li>
-              <li>Provide your age, weight, and height</li>
-              <li>Set your fitness goal</li>
-              <li>Click "Register" to create your account</li>
-            </ol>
+          <div className="doc-section reveal">
+            <h4>OPERATOR_ONBOARDING</h4>
+            <div className="terminal-code">
+              <div className="code-line"><span className="c-dim">01</span> EXECUTE register_node.sh</div>
+              <div className="code-line"><span className="c-dim">02</span> INPUT biometric_data --age --weight --height</div>
+              <div className="code-line"><span className="c-dim">03</span> SET primary_objective [LOSS | GAIN | ENDURANCE]</div>
+              <div className="code-line"><span className="c-dim">04</span> ESTABLISH encrypted_link</div>
+            </div>
           </div>
 
-          <div className="doc-section">
-            <h4>First Steps</h4>
-            <ul className="checklist">
-              <li><i className="bi bi-check-circle"></i> Complete your profile with accurate health information</li>
-              <li><i className="bi bi-check-circle"></i> Log your first workout</li>
-              <li><i className="bi bi-check-circle"></i> Set some fitness goals</li>
-              <li><i className="bi bi-check-circle"></i> Explore the analytics dashboard</li>
+          <div className="doc-section reveal">
+            <h4>CORE_CHECKLIST</h4>
+            <ul className="elite-checklist">
+              <li><i className="bi bi-shield-check"></i> CALIBRATE_BIOMETRICS</li>
+              <li><i className="bi bi-shield-check"></i> INITIALIZE_FIRST_CYCLE</li>
+              <li><i className="bi bi-shield-check"></i> DEFINE_TARGET_PARAMETERS</li>
             </ul>
           </div>
-
-          <div className="doc-tip">
-            <i className="bi bi-lightbulb"></i>
-            <p><strong>Tip:</strong> Take the guided tour to familiarize yourself with all features!</p>
-          </div>
-        </>
+        </div>
       )
     },
     'workouts': {
-      title: 'Logging Workouts',
-      icon: 'bi-calendar2-event',
+      title: 'TRAINING_LOGS',
+      icon: 'bi-activity',
       content: (
-        <>
-          <div className="doc-section">
-            <h3>How to Log a Workout</h3>
+        <div className="protocol-body">
+          <div className="doc-section reveal">
+            <h3>PROTOCOL_EXECUTION</h3>
+            <p>Precise data collection is mandatory for protocol optimization.</p>
           </div>
 
-          <div className="doc-section">
-            <h4>Manual Workout Entry</h4>
-            <ol>
-              <li>Go to "New Workout" from the Training menu</li>
-              <li>Select the workout type or create a custom workout</li>
-              <li>Add exercises with details (sets, reps, weight)</li>
-              <li>Enter duration and estimated calories burned</li>
-              <li>Add notes if desired</li>
-              <li>Click "Save Workout"</li>
+          <div className="doc-section reveal">
+            <h4>MANUAL_DATA_ENTRY</h4>
+            <ol className="protocol-steps">
+              <li>ACCESS "TRAINING_NODE" FROM COMMAND_CENTER</li>
+              <li>SELECT PRE-DEFINED ARCHITECTURE OR CUSTOM_PROTOCOL</li>
+              <li>INPUT EXERCISE_DATA [SETS | REPS | LOAD]</li>
+              <li>RECORD DURATION & METABOLIC_OUTPUT</li>
+              <li>COMMIT_TRANSMISSION</li>
             </ol>
           </div>
 
-          <div className="doc-section">
-            <h4>Using Workout Templates</h4>
-            <p>We provide pre-built templates for common workout types. To use them:</p>
-            <ol>
-              <li>Navigate to "Workout Templates"</li>
-              <li>Select a template that matches your routine</li>
-              <li>Customize exercises as needed</li>
-              <li>Save as a new workout</li>
-            </ol>
-          </div>
-
-          <div className="doc-visual">
-            <div className="visual-placeholder">
-              <i className="bi bi-graph-up"></i>
-              <span>Workout Progress Visualization</span>
+          <div className="doc-visual reveal">
+            <div className="tech-placeholder">
+              <div className="pulse-dot"></div>
+              <span>DATA_VISUALIZATION_ACTIVE</span>
             </div>
           </div>
-        </>
+        </div>
       )
     },
     'analytics': {
-      title: 'Understanding Analytics',
-      icon: 'bi-graph-up',
+      title: 'INTEL_ANALYSIS',
+      icon: 'bi-graph-up-arrow',
       content: (
-        <>
-          <div className="doc-section">
-            <h3>Analytics Dashboard</h3>
+        <div className="protocol-body">
+          <div className="doc-section reveal">
+            <h3>METRIC_DECRYPTION</h3>
+            <p>The system automatically processes all training telemetry to provide tactical insights.</p>
           </div>
 
-          <div className="doc-section">
-            <h4>Key Metrics</h4>
-            <div className="metrics-grid">
-              <div className="metric-card">
-                <i className="bi bi-calendar-week"></i>
-                <span>Total Workouts</span>
+          <div className="doc-section reveal">
+            <h4>TACTICAL_KPIs</h4>
+            <div className="protocol-grid">
+              <div className="p-card">
+                <i className="bi bi-cpu"></i>
+                <span>CYCLE_COUNT</span>
               </div>
-              <div className="metric-card">
-                <i className="bi bi-clock"></i>
-                <span>Total Duration</span>
+              <div className="p-card">
+                <i className="bi bi-clock-history"></i>
+                <span>UPTIME</span>
               </div>
-              <div className="metric-card">
+              <div className="p-card">
                 <i className="bi bi-fire"></i>
-                <span>Total Calories</span>
+                <span>THERMAL_OUTPUT</span>
               </div>
-              <div className="metric-card">
-                <i className="bi bi-speedometer"></i>
-                <span>Average Intensity</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="doc-section">
-            <h4>Charts and Graphs</h4>
-            <p>View trends over time with our interactive charts:</p>
-            <ul className="checklist">
-              <li><i className="bi bi-check-circle"></i> Weekly activity overview</li>
-              <li><i className="bi bi-check-circle"></i> Monthly progress tracking</li>
-              <li><i className="bi bi-check-circle"></i> Exercise frequency analysis</li>
-              <li><i className="bi bi-check-circle"></i> Calories burned trends</li>
-            </ul>
-          </div>
-
-          <div className="doc-tip">
-            <i className="bi bi-lightbulb"></i>
-            <p><strong>Tip:</strong> Use the date range filter to analyze specific time periods!</p>
-          </div>
-        </>
-      )
-    },
-    'goals': {
-      title: 'Setting Goals',
-      icon: 'bi-target',
-      content: (
-        <>
-          <div className="doc-section">
-            <h3>How to Set Fitness Goals</h3>
-          </div>
-
-          <div className="doc-section">
-            <h4>Creating a Goal</h4>
-            <ol>
-              <li>Navigate to "Health" → "Goals"</li>
-              <li>Click "Create New Goal"</li>
-              <li>Set a goal type (weight loss, muscle gain, endurance, etc.)</li>
-              <li>Define your target and deadline</li>
-              <li>Add motivation notes</li>
-              <li>Track progress regularly</li>
-            </ol>
-          </div>
-
-          <div className="doc-section">
-            <h4>SMART Goals</h4>
-            <p>Create effective goals that are:</p>
-            <div className="smart-goals">
-              <div className="smart-item">
-                <span className="smart-letter">S</span>
-                <span>Specific</span>
-              </div>
-              <div className="smart-item">
-                <span className="smart-letter">M</span>
-                <span>Measurable</span>
-              </div>
-              <div className="smart-item">
-                <span className="smart-letter">A</span>
-                <span>Achievable</span>
-              </div>
-              <div className="smart-item">
-                <span className="smart-letter">R</span>
-                <span>Relevant</span>
-              </div>
-              <div className="smart-item">
-                <span className="smart-letter">T</span>
-                <span>Time-bound</span>
+              <div className="p-card">
+                <i className="bi bi-lightning"></i>
+                <span>INTENSITY_LEVEL</span>
               </div>
             </div>
           </div>
-
-          <div className="doc-visual">
-            <div className="visual-placeholder">
-              <i className="bi bi-trophy"></i>
-              <span>Goal Achievement Visualization</span>
-            </div>
-          </div>
-        </>
-      )
-    },
-    'privacy': {
-      title: 'Privacy & Security',
-      icon: 'bi-shield-check',
-      content: (
-        <>
-          <div className="doc-section">
-            <h3>Your Data is Safe</h3>
-          </div>
-
-          <div className="doc-section">
-            <h4>Data Protection</h4>
-            <p>We use industry-standard encryption and security measures to protect your personal information and workout data.</p>
-            <ul className="security-features">
-              <li><i className="bi bi-lock"></i> End-to-end encryption</li>
-              <li><i className="bi bi-shield"></i> Regular security audits</li>
-              <li><i className="bi bi-server"></i> Secure cloud storage</li>
-              <li><i className="bi bi-person-check"></i> Two-factor authentication</li>
-            </ul>
-          </div>
-
-          <div className="doc-section">
-            <h4>Privacy Controls</h4>
-            <ul className="checklist">
-              <li><i className="bi bi-check-circle"></i> Control who can see your profile</li>
-              <li><i className="bi bi-check-circle"></i> Manage data sharing preferences</li>
-              <li><i className="bi bi-check-circle"></i> Download your data anytime</li>
-              <li><i className="bi bi-check-circle"></i> Request data deletion</li>
-            </ul>
-          </div>
-
-          <div className="doc-section">
-            <h4>Learn More</h4>
-            <p>For detailed information, please read our <a href="/privacy-policy">Privacy Policy</a> and <a href="/terms-of-service">Terms of Service</a>.</p>
-          </div>
-
-          <div className="doc-tip">
-            <i className="bi bi-lightbulb"></i>
-            <p><strong>Tip:</strong> Review your privacy settings regularly in the account dashboard!</p>
-          </div>
-        </>
-      )
-    },
-    'advanced': {
-      title: 'Advanced Features',
-      icon: 'bi-stars',
-      content: (
-        <>
-          <div className="doc-section">
-            <h3>Advanced Features Guide</h3>
-          </div>
-
-          <div className="doc-section">
-            <h4>Custom Workout Plans</h4>
-            <p>Create personalized workout plans with our advanced planner:</p>
-            <ul className="checklist">
-              <li><i className="bi bi-check-circle"></i> Multi-week workout schedules</li>
-              <li><i className="bi bi-check-circle"></i> Progressive overload tracking</li>
-              <li><i className="bi bi-check-circle"></i> Exercise rotation suggestions</li>
-              <li><i className="bi bi-check-circle"></i> Recovery period planning</li>
-            </ul>
-          </div>
-
-          <div className="doc-section">
-            <h4>Integration Options</h4>
-            <p>Connect ifitness with your favorite apps and devices:</p>
-            <div className="integrations-grid">
-              <div className="integration-card">
-                <i className="bi bi-apple"></i>
-                <span>Apple Health</span>
-              </div>
-              <div className="integration-card">
-                <i className="bi bi-google"></i>
-                <span>Google Fit</span>
-              </div>
-              <div className="integration-card">
-                <i className="bi bi-watch"></i>
-                <span>Wearables</span>
-              </div>
-              <div className="integration-card">
-                <i className="bi bi-calendar"></i>
-                <span>Calendar</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="doc-section">
-            <h4>API Access</h4>
-            <p>For developers, we offer API access to integrate ifitness data with your applications. Contact our developer support for more information.</p>
-          </div>
-
-          <div className="doc-visual">
-            <div className="visual-placeholder">
-              <i className="bi bi-code"></i>
-              <span>API Integration Example</span>
-            </div>
-          </div>
-        </>
+        </div>
       )
     }
   };
 
   return (
-    <>
-      <PageTransition>
-        <div className="modern-documentation-page">
-          <section className="hero-section">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-8 mx-auto text-center">
-                  <div className="section-badge">
-                    <span>Documentation</span>
-                  </div>
-                  <h1 className="hero-title">
-                    Complete ifitness
-                    <span className="gradient-text">Guide</span>
-                  </h1>
-                  <p className="hero-description">
-                    Everything you need to know to get the most out of your ifitness experience.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
+    <PageTransition>
+      <div className="crimson-doc">
+        <div className="hero-mesh-background"></div>
+        <div className="hero-noise-overlay"></div>
+        <div className="footer-scanner-line"></div>
 
-          <section className="content-section">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-3 mb-4 mb-lg-0">
-                  <div className="sidebar">
-                    <div className="sidebar-header">
-                      <h3>Guide Contents</h3>
-                    </div>
-                    <div className="sidebar-menu">
-                      {Object.entries(sections).map(([key, section]) => (
-                        <button
-                          key={key}
-                          className={`sidebar-item ${activeSection === key ? 'active' : ''}`}
-                          onClick={() => setActiveSection(key)}
-                        >
-                          <i className={`bi ${section.icon}`}></i>
-                          <span>{section.title}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-9">
-                  <div className="main-content">
-                    <div className="content-header">
-                      <h2 className="content-title">
-                        <i className={`bi ${sections[activeSection].icon}`}></i>
-                        {sections[activeSection].title}
-                      </h2>
-                    </div>
-                    <div className="content-body">
-                      {sections[activeSection].content}
-                    </div>
-                  </div>
-                </div>
+        {/* Doc Hero */}
+        <section className="doc-hero">
+          <div className="crimson-container">
+            <div className="hero-content-modern reveal">
+              <div className="hero-badge">
+                <span className="badge-line"></span>
+                <span className="badge-text">SYSTEM_PROTOCOLS</span>
               </div>
+              
+              <h1 className="hero-title">
+                OPERATOR <span className="text-crimson">MANUAL</span>
+                <br />
+                <span className="hero-subtitle">CRIMSON_CORE_V2.0</span>
+              </h1>
+              
+              <p className="hero-description">
+                Technical documentation for the synchronization and optimization of physical assets within the network.
+              </p>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section className="help-section">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-8 mx-auto">
-                  <div className="help-card">
-                    <div className="help-content">
-                      <h2 className="help-title">Still need help?</h2>
-                      <p className="help-description">
-                        Can't find what you're looking for? Our support team is here to assist you.
-                      </p>
-                      <div className="help-options">
-                        <a href="/help-center" className="help-option">
-                          <i className="bi bi-question-circle"></i>
-                          <span>Visit Help Center</span>
-                          <i className="bi bi-arrow-right"></i>
-                        </a>
-                        <a href="/contact" className="help-option">
-                          <i className="bi bi-envelope"></i>
-                          <span>Contact Support</span>
-                          <i className="bi bi-arrow-right"></i>
-                        </a>
-                        <a href="/" className="help-option">
-                          <i className="bi bi-discord"></i>
-                          <span>Join Community</span>
-                          <i className="bi bi-arrow-right"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div className="help-visual">
-                      <div className="help-illustration">
-                        <i className="bi bi-headset"></i>
-                      </div>
-                    </div>
-                  </div>
+        {/* Doc Main */}
+        <section className="doc-main-section">
+          <div className="crimson-container">
+            <div className="doc-layout">
+              <aside className="doc-sidebar">
+                <div className="sidebar-label">PROTOCOL_TREE</div>
+                <div className="sidebar-nav">
+                  {Object.entries(sections).map(([key, section]) => (
+                    <button
+                      key={key}
+                      className={`nav-node ${activeSection === key ? 'active' : ''}`}
+                      onClick={() => setActiveSection(key)}
+                    >
+                      <i className={`bi ${section.icon}`}></i>
+                      <span>{section.title}</span>
+                      {activeSection === key && <div className="nav-active-line"></div>}
+                    </button>
+                  ))}
                 </div>
-              </div>
-            </div>
-          </section>
+              </aside>
 
-          <section className="cta-section">
-            <div className="container">
-              <div className="cta-content">
-                <div className="cta-bg-pattern"></div>
-                <div className="row">
-                  <div className="col-lg-8 mx-auto text-center">
-                    <h2 className="cta-title">Ready to Master ifitness?</h2>
-                    <p className="cta-description">
-                      Now that you have all the knowledge, it's time to put it into practice and achieve your fitness goals!
-                    </p>
-                    <div className="cta-buttons">
-                      <a href="/dashboard" className="btn-primary-modern large">
-                        <span>Go to Dashboard</span>
-                        <i className="bi bi-arrow-right"></i>
-                      </a>
-                      <a href="/workouts" className="btn-secondary-modern large">
-                        <i className="bi bi-calendar2-event"></i>
-                        <span>Log Workout</span>
-                      </a>
-                    </div>
-                  </div>
+              <main className="doc-content-node">
+                <div className="content-header">
+                  <div className="header-id">SEC_0{Object.keys(sections).indexOf(activeSection) + 1}</div>
+                  <h2>{sections[activeSection].title}</h2>
+                </div>
+                <div className="content-body">
+                  {sections[activeSection].content}
+                </div>
+              </main>
+            </div>
+          </div>
+        </section>
+
+        {/* Support Node */}
+        <section className="support-section reveal">
+          <div className="crimson-container">
+            <div className="support-card">
+              <div className="card-content">
+                <h2>NEED_ASSISTANCE?</h2>
+                <p>Establish a direct link with our core command if protocols are unclear.</p>
+                <div className="support-actions">
+                  <button className="btn-modern-primary">CONTACT_COMMAND</button>
+                  <button className="btn-modern-secondary">COMMUNITY_INTEL</button>
                 </div>
               </div>
+              <div className="card-visual">
+                <i className="bi bi-headset"></i>
+              </div>
             </div>
-          </section>
-        </div>
-      </PageTransition>
-      <Footer />
-    </>
+          </div>
+        </section>
+      </div>
+    </PageTransition>
   );
 }

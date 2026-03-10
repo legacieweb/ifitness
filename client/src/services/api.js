@@ -132,4 +132,14 @@ export const unsuspendUser = (id, token) => API.put(`/admin/users/${id}/unsuspen
   { headers: { Authorization: `Bearer ${token}` } }
 );
 
+export const updateUserRoutine = (id, routine, token) => API.put(`/admin/users/${id}/routine`,
+  { routine },
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
+export const sendRoutineReminder = (id, dayIndex, token) => API.post(`/admin/users/${id}/send-reminder`,
+  { dayIndex },
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 export default API;

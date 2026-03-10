@@ -15,350 +15,235 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch workouts and routine
   useEffect(() => {
     let timeoutId;
-    
     const fetchData = async () => {
       if (authLoading) return;
-      
       if (!isAuthenticated) {
         setLoading(false);
         return;
       }
-      
-      // Wait for user object to be ready
       const userId = user?.id || user?._id;
       if (!userId) {
-        // Retry after a short delay to allow user object to load
         timeoutId = setTimeout(fetchData, 100);
         return;
       }
-      
       try {
         setLoading(true);
         setError(null);
-        
-        // Fetch workouts, routine, and goals in parallel
         const [workoutsRes, routineRes, goalsRes] = await Promise.all([
           getWorkouts(),
           getUserRoutine(userId).catch(() => ({ data: [] })),
           getUserGoals(userId).catch(() => ({ data: [] }))
         ]);
-        
         setWorkouts(workoutsRes.data || []);
         setRoutine(routineRes.data || []);
         setGoals(goalsRes.data || []);
       } catch (err) {
-        setError(err.response?.data?.message || 'Failed to load data');
-        setWorkouts([]);
-        setRoutine([]);
-        setGoals([]);
+        setError(err.response?.data?.message || 'Failed to sync with command center');
       } finally {
         setLoading(false);
       }
     };
-    
     fetchData();
-    
-    // Cleanup timeout on unmount or dependency change
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
+    return () => timeoutId && clearTimeout(timeoutId);
   }, [user?.id, user?._id, isAuthenticated, authLoading]);
 
-  // Calculate streak
   const calculateStreak = useCallback((workouts) => {
     if (workouts.length === 0) return 0;
-    
     const sorted = [...workouts].sort((a, b) => new Date(b.date) - new Date(a.date));
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
     let lastDate = new Date(sorted[0].date);
     lastDate.setHours(0, 0, 0, 0);
-    
-    const daysDiff = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
-    
-    if (daysDiff > 1) return 0;
-    
+    if (Math.floor((today - lastDate) / (1000 * 60 * 60 * 24)) > 1) return 0;
     let streak = 1;
     let checkDate = new Date(lastDate);
-    
     for (let i = 1; i < sorted.length; i++) {
       const workoutDate = new Date(sorted[i].date);
       workoutDate.setHours(0, 0, 0, 0);
       checkDate.setDate(checkDate.getDate() - 1);
-      if (workoutDate.getTime() === checkDate.getTime()) {
-        streak++;
-      } else {
-        break;
-      }
+      if (workoutDate.getTime() === checkDate.getTime()) streak++;
+      else break;
     }
-    
     return streak;
-  }, [workouts]);
+  }, []);
 
-  // Calculate stats from workouts
-  const calculateStats = useCallback(() => {
-    return {
-      totalWorkouts: workouts.length,
-      totalCalories: workouts.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0),
-      totalDuration: workouts.reduce((sum, w) => sum + (w.duration || 0), 0),
-      streak: calculateStreak(workouts)
-    };
-  }, [workouts, calculateStreak]);
+  const stats = {
+    totalWorkouts: workouts.length,
+    totalCalories: workouts.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0),
+    totalDuration: workouts.reduce((sum, w) => sum + (w.duration || 0), 0),
+    streak: calculateStreak(workouts)
+  };
 
-  const stats = calculateStats();
-
-  // Get recent workouts (last 5)
   const recentWorkouts = [...workouts]
     .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 5);
+    .slice(0, 4);
 
-  const calculateWeeklyProgress = useCallback((workouts) => {
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const weeklyProgress = (() => {
+    const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
     const progress = [];
-    
     for (let i = 6; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
       date.setHours(0, 0, 0, 0);
-      
       const nextDate = new Date(date);
       nextDate.setDate(nextDate.getDate() + 1);
-      
-      const dayWorkouts = workouts.filter(w => {
-        const workoutDate = new Date(w.date);
-        return workoutDate >= date && workoutDate < nextDate;
-      });
-      
-      const dayCalories = dayWorkouts.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0);
-      
-      progress.push({
-        day: days[date.getDay()],
-        calories: dayCalories
-      });
+      const dayCalories = workouts
+        .filter(w => {
+          const wd = new Date(w.date);
+          return wd >= date && wd < nextDate;
+        })
+        .reduce((sum, w) => sum + (w.caloriesBurned || 0), 0);
+      progress.push({ day: days[date.getDay()], calories: dayCalories });
     }
-    
     return progress;
-  }, [workouts]);
+  })();
 
-  const weeklyProgress = calculateWeeklyProgress(workouts);
+  const maxCalories = Math.max(...weeklyProgress.map(d => d.calories), 100);
 
-  const calculateAchievements = useCallback((stats) => {
-    const achievements = [];
-    if (stats.totalWorkouts >= 1) achievements.push({ icon: 'bi-star-fill' });
-    if (stats.totalWorkouts >= 5) achievements.push({ icon: 'bi-heart-fill' });
-    if (stats.totalWorkouts >= 10) achievements.push({ icon: 'bi-lightning-fill' });
-    return achievements;
-  }, [stats]);
-
-  const achievements = calculateAchievements(stats);
-  
-  const getWeekday = useCallback(() => {
-    const hours = new Date().getHours();
-    if (hours < 12) return 'Morning';
-    if (hours < 18) return 'Afternoon';
-    return 'Evening';
-  }, []);
-
-  const formatDate = useCallback((dateString) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-  }, []);
-
-  const getGoalProgress = useCallback((goal) => {
-    if (!goal?.target || goal.target === 0) return 0;
-    return Math.min(100, Math.round((goal.current / goal.target) * 100));
-  }, []);
-
-  const getTodayName = useCallback(() => {
-    return new Date().toLocaleDateString('en-US', { weekday: 'long' });
-  }, []);
-
-  if (authLoading || loading) {
-    return <Preloader text="Loading your dashboard..." />;
-  }
+  if (authLoading || loading) return <Preloader text="ESTABLISHING SECURE CONNECTION..." />;
 
   if (!isAuthenticated) {
     return (
-      <div className="dashboard-container">
-        <div className="dashboard-loading">
-          <i className="bi bi-person-lock" style={{ fontSize: '48px', color: 'var(--gray-light)' }}></i>
-          <p>Please log in to view your dashboard</p>
-          <Link to="/login" className="btn-primary">Log In</Link>
+      <div className="crimson-dashboard-locked">
+        <div className="lock-box glass-morphism">
+          <i className="bi bi-shield-fill-exclamation"></i>
+          <h2>SYSTEM LOCKED</h2>
+          <p>Authentication required for protocol access.</p>
+          <Link to="/login" className="btn-crimson">LOGIN</Link>
         </div>
       </div>
     );
   }
 
-  const userName = user?.name || 'Enthusiast';
-  const maxCalories = Math.max(...weeklyProgress.map(d => d.calories), 100);
-  const activeGoals = goals.filter(g => !g.completed);
-
   return (
-    <div className="dashboard-page">
-      <div className="dashboard-container">
+    <div className="crimson-dashboard">
+      <div className="hero-mesh-background"></div>
+      <div className="hero-noise-overlay"></div>
+      <div className="footer-scanner-line"></div>
+      <div className="crimson-container">
         <BootcampAlert />
-
-        {error && (
-          <div className="error-banner">
-            <i className="bi bi-exclamation-triangle"></i>
-            <span>{error}</span>
-            <button onClick={() => setError(null)}><i className="bi bi-x"></i></button>
+        
+        {/* Terminal Header */}
+        <header className="crimson-terminal-header">
+          <div className="node-info-group">
+            <div className="node-frame">
+              {user?.profilePicture ? (
+                <img src={getProfilePictureUrl(user.profilePicture)} alt="User" />
+              ) : (
+                <i className="bi bi-person-fill"></i>
+              )}
+            </div>
+            <div className="node-text">
+              <span className="node-id">OPERATOR_{user?.id?.substring(0, 6)}</span>
+              <h1 className="node-welcome">WELCOME, {user?.name?.split(' ')[0].toUpperCase()}</h1>
+            </div>
           </div>
-        )}
-
-        <div className="dash-welcome-section">
-          <div className="dash-profile-picture">
-            {user?.profilePicture ? (
-              <img
-                src={getProfilePictureUrl(user.profilePicture)}
-                alt="Profile"
-                className="welcome-profile-pic"
-              />
-            ) : (
-              <div className="welcome-profile-placeholder">
-                <i className="bi bi-person-circle"></i>
-              </div>
-            )}
-          </div>
-          <div className="dash-welcome-content">
-            <p className="welcome-label">Good {getWeekday()}</p>
-            <h1 className="welcome-name">{userName}</h1>
-          </div>
-          <div className="dash-quick-actions">
-            <Link to="/workouts/new" className="quick-action-btn primary">
-              <i className="bi bi-plus-lg"></i>
-              <span>New Workout</span>
+          <div className="header-actions">
+            <Link to="/workouts/new" className="btn-crimson">
+              <i className="bi bi-plus-lg"></i> NEW SESSION
             </Link>
           </div>
-        </div>
+        </header>
 
-        <div className="dash-stats-grid">
-          <div className="dash-stat-card">
-            <div className="dash-stat-icon"><i className="bi bi-activity"></i></div>
-            <div className="dash-stat-data">
-              <span className="dash-stat-value">{stats.totalWorkouts}</span>
-              <span className="dash-stat-label">Workouts</span>
-            </div>
-          </div>
-          <div className="dash-stat-card">
-            <div className="dash-stat-icon"><i className="bi bi-fire"></i></div>
-            <div className="dash-stat-data">
-              <span className="dash-stat-value">{stats.totalCalories}</span>
-              <span className="dash-stat-label">Calories</span>
-            </div>
-          </div>
-          <div className="dash-stat-card">
-            <div className="dash-stat-icon"><i className="bi bi-clock"></i></div>
-            <div className="dash-stat-data">
-              <span className="dash-stat-value">{stats.totalDuration}m</span>
-              <span className="dash-stat-label">Time</span>
-            </div>
-          </div>
-          <div className="dash-stat-card">
-            <div className="dash-stat-icon"><i className="bi bi-lightning-charge"></i></div>
-            <div className="dash-stat-data">
-              <span className="dash-stat-value">{stats.streak}d</span>
-              <span className="dash-stat-label">Streak</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="dash-main-grid">
-          <div className="dash-left-col">
-            <div className="dash-card">
-              <div className="dash-card-header">
-                <h3>Weekly Activity</h3>
-                <Link to="/analytics" className="dash-card-link">Details</Link>
+        {/* Vital Stats */}
+        <div className="vitals-grid">
+          {[
+            { label: 'SESSIONS', value: stats.totalWorkouts, icon: 'bi-activity' },
+            { label: 'CALORIES', value: stats.totalCalories, icon: 'bi-fire' },
+            { label: 'MINUTES', value: stats.totalDuration, icon: 'bi-clock-history' },
+            { label: 'STREAK', value: stats.streak, icon: 'bi-lightning-fill' }
+          ].map((stat, i) => (
+            <div key={i} className="vital-card crimson-card">
+              <div className="vital-icon"><i className={`bi ${stat.icon}`}></i></div>
+              <div className="vital-data">
+                <span className="vital-label">{stat.label}</span>
+                <span className="vital-value">{stat.value}</span>
               </div>
-              <div className="dash-chart-container">
-                {weeklyProgress.map((day, index) => (
-                  <div key={index} className="dash-chart-bar-wrapper">
+            </div>
+          ))}
+        </div>
+
+        {/* Module Grid */}
+        <div className="modules-grid">
+          <div className="module-main">
+            <div className="crimson-card module-box">
+              <div className="module-head">
+                <h3><i className="bi bi-graph-up"></i> PERFORMANCE TIMELINE</h3>
+                <Link to="/analytics" className="module-action">DETAILS</Link>
+              </div>
+              <div className="performance-chart">
+                {weeklyProgress.map((day, i) => (
+                  <div key={i} className="performance-col">
                     <div 
-                      className="dash-chart-bar" 
-                      style={{ 
-                        height: day.calories > 0 ? `${(day.calories / maxCalories) * 80 + 20}%` : '10%'
-                      }}
-                    ></div>
-                    <span className="dash-bar-day">{day.day}</span>
+                      className="performance-bar" 
+                      style={{ height: `${(day.calories / maxCalories) * 100}%` }}
+                    >
+                      <div className="bar-crimson-glow"></div>
+                    </div>
+                    <span className="performance-day">{day.day}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="dash-card">
-              <div className="dash-card-header">
-                <h3>Recent Workouts</h3>
-                <Link to="/workouts" className="dash-card-link">View All</Link>
+            <div className="crimson-card module-box">
+              <div className="module-head">
+                <h3><i className="bi bi-list-task"></i> RECENT PROTOCOLS</h3>
+                <Link to="/workouts" className="module-action">ARCHIVE</Link>
               </div>
-              <div className="dash-workout-list">
-                {recentWorkouts.length > 0 ? (
-                  recentWorkouts.map((workout) => (
-                    <div key={workout._id} className="dash-workout-item" onClick={() => navigate(`/workouts/${workout._id}`)}>
-                      <div className="workout-type-icon"><i className="bi bi-lightning-fill"></i></div>
-                      <div className="workout-item-info">
-                        <span className="workout-item-name">{workout.name}</span>
-                        <span className="workout-item-date">{formatDate(workout.date)}</span>
-                      </div>
-                      <div className="workout-item-meta">
-                        <span className="workout-item-duration">{workout.duration}m</span>
-                        <i className="bi bi-chevron-right"></i>
-                      </div>
+              <div className="protocol-list">
+                {recentWorkouts.map((w) => (
+                  <div key={w._id} className="protocol-entry" onClick={() => navigate(`/workouts/${w._id}`)}>
+                    <div className="entry-icon"><i className="bi bi-shield-shaded"></i></div>
+                    <div className="entry-info">
+                      <span className="entry-name">{w.name}</span>
+                      <span className="entry-date">{new Date(w.date).toLocaleDateString()}</span>
                     </div>
-                  ))
-                ) : (
-                  <div className="dash-empty-state">
-                    <p>No workouts recorded.</p>
-                    <Link to="/workouts/new" className="dash-empty-btn">Log One</Link>
+                    <div className="entry-meta">
+                      <span className="entry-duration">{w.duration}M</span>
+                      <i className="bi bi-arrow-right-short"></i>
+                    </div>
                   </div>
-                )}
+                ))}
               </div>
             </div>
           </div>
 
-          <div className="dash-right-col">
-            <div className="dash-card">
-              <div className="dash-card-header">
-                <h3>Active Goals</h3>
+          <div className="module-side">
+            <div className="crimson-card module-box">
+              <div className="module-head">
+                <h3><i className="bi bi-bullseye"></i> OBJECTIVES</h3>
               </div>
-              <div className="dash-goals-list">
-                {activeGoals.length > 0 ? (
-                  activeGoals.slice(0, 3).map((goal, index) => (
-                    <div key={index} className="dash-goal-item">
-                      <div className="dash-goal-info">
-                        <span className="dash-goal-title">{goal.title}</span>
-                        <span className="dash-goal-progress">{getGoalProgress(goal)}%</span>
+              <div className="objectives-stack">
+                {goals.filter(g => !g.completed).slice(0, 3).map((goal, i) => {
+                  const progress = Math.min(100, Math.round((goal.current / goal.target) * 100) || 0);
+                  return (
+                    <div key={i} className="obj-node">
+                      <div className="obj-info">
+                        <span>{goal.title}</span>
+                        <span>{progress}%</span>
                       </div>
-                      <div className="dash-goal-bar-bg">
-                        <div className="dash-goal-bar-fill" style={{ width: `${getGoalProgress(goal)}%` }}></div>
+                      <div className="obj-bar-base">
+                        <div className="obj-bar-progress" style={{ width: `${progress}%` }}></div>
                       </div>
                     </div>
-                  ))
-                ) : (
-                  <p className="dash-no-data">No active goals.</p>
-                )}
+                  );
+                })}
               </div>
             </div>
 
-            <div className="dash-card">
-              <div className="dash-card-header">
-                <h3>Achievements</h3>
+            <div className="crimson-card module-box">
+              <div className="module-head">
+                <h3><i className="bi bi-trophy"></i> COMMANDER BADGES</h3>
               </div>
-              <div className="dash-achievements-mini">
-                {achievements.length > 0 ? (
-                  achievements.map((a, i) => (
-                    <div key={i} className="dash-achievement-icon"><i className={`bi ${a.icon}`}></i></div>
-                  ))
-                ) : (
-                  <p className="dash-no-data">Keep working!</p>
-                )}
+              <div className="badges-flex">
+                {stats.totalWorkouts >= 1 && <div className="crimson-badge-item"><i className="bi bi-star-fill"></i></div>}
+                {stats.totalWorkouts >= 5 && <div className="crimson-badge-item"><i className="bi bi-shield-fill-check"></i></div>}
+                {stats.totalWorkouts >= 10 && <div className="crimson-badge-item"><i className="bi bi-lightning-fill"></i></div>}
+                {stats.totalWorkouts >= 20 && <div className="crimson-badge-item"><i className="bi bi-gem"></i></div>}
               </div>
             </div>
           </div>

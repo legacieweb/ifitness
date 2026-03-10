@@ -2,7 +2,7 @@
 
 .workout-form-page {
   padding: 4rem 0;
-  background: #f8fafc;
+  background: #000;
   min-height: 100vh;
 }
 
@@ -13,14 +13,14 @@
 .form-header-modern h1 {
   font-weight: 800;
   font-size: 2.5rem;
-  color: #1e293b;
+  color: #ff0000;
   letter-spacing: -0.025em;
   margin-bottom: 0.5rem;
 }
 
 .form-header-modern p {
   font-size: 1.125rem;
-  color: #64748b;
+  color: #cc0000;
 }
 
 /* Template Selection Cards */
@@ -32,28 +32,29 @@
 }
 
 .template-card-small {
-  background: white;
+  background: #000;
   border-radius: 20px;
   padding: 1.75rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid rgba(0,0,0,0.02);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ff0000;
+  box-shadow: 0 10px 25px -5px rgba(255, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
 
 .template-card-small:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
-  border-color: rgba(67, 97, 238, 0.15);
+  box-shadow: 0 20px 40px -12px rgba(255, 0, 0, 0.2);
+  border-color: #ff3333;
 }
 
 .template-card-small .icon-box {
   width: 48px;
   height: 48px;
-  background: #f1f5f9;
-  color: #4361ee;
+  background: #111;
+  color: #ff0000;
+  border: 1px solid #ff0000;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -64,20 +65,20 @@
 }
 
 .template-card-small:hover .icon-box {
-  background: #4361ee;
-  color: white;
+  background: #ff0000;
+  color: #000;
 }
 
 .template-card-small h5 {
   font-weight: 700;
   font-size: 1.1rem;
-  color: #1e293b;
+  color: #ff0000;
   margin-bottom: 0.5rem;
 }
 
 .template-card-small p {
   font-size: 0.875rem;
-  color: #64748b;
+  color: #cc0000;
   line-height: 1.5;
   margin-bottom: 1.25rem;
   flex-grow: 1;
@@ -95,17 +96,17 @@
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  background: #f8fafc;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
+  background: #000;
+  color: #ff0000;
+  border: 1px solid #ff0000;
 }
 
 .btn-start-now {
   width: 100%;
   padding: 0.75rem;
   border-radius: 12px;
-  background: #4361ee;
-  color: white;
+  background: #ff0000;
+  color: #000;
   border: none;
   font-weight: 700;
   font-size: 0.875rem;
@@ -113,8 +114,8 @@
 }
 
 .btn-start-now:hover {
-  background: #3f37c9;
-  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+  background: #cc0000;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.2);
 }
 
 /* Custom Action Section */
@@ -137,42 +138,42 @@
 }
 
 .btn-custom-primary {
-  background: #4361ee;
-  color: white;
+  background: #ff0000;
+  color: #000;
   border: none;
-  box-shadow: 0 10px 25px -5px rgba(67, 97, 238, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(255, 0, 0, 0.3);
 }
 
 .btn-custom-primary:hover {
-  background: #3f37c9;
+  background: #cc0000;
   transform: translateY(-4px);
-  box-shadow: 0 15px 30px -5px rgba(67, 97, 238, 0.4);
+  box-shadow: 0 15px 30px -5px rgba(255, 0, 0, 0.4);
 }
 
 .btn-custom-outline {
   background: transparent;
-  color: #4361ee;
-  border: 2px solid #4361ee;
+  color: #ff0000;
+  border: 2px solid #ff0000;
 }
 
 .btn-custom-outline:hover {
-  background: rgba(67, 97, 238, 0.05);
+  background: rgba(255, 0, 0, 0.05);
   transform: translateY(-4px);
 }
 
 /* Edit Form Specific */
 .workout-card-edit {
-  background: white;
+  background: #000;
   border-radius: 28px;
   padding: 3rem;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0,0,0,0.02);
+  box-shadow: 0 10px 25px -5px rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff0000;
 }
 
 .form-label-modern {
   font-size: 0.875rem;
   font-weight: 700;
-  color: #475569;
+  color: #ff0000;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.75rem;
@@ -182,35 +183,39 @@
 .form-control-modern {
   width: 100%;
   padding: 1rem 1.25rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
+  background: #000;
+  border: 1px solid #ff0000;
   border-radius: 16px;
   font-size: 1rem;
-  color: #1e293b;
+  color: #ff0000;
   transition: all 0.2s;
 }
 
 .form-control-modern:focus {
   outline: none;
-  border-color: #4361ee;
-  background: white;
-  box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.08);
+  border-color: #ff3333;
+  background: #000;
+  box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.08);
+}
+
+.form-control-modern::placeholder {
+  color: #660000;
 }
 
 .exercise-manager-card {
-  background: #f8fafc;
+  background: #000;
   border-radius: 24px;
   padding: 2rem;
   height: 100%;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #ff0000;
 }
 
 .exercise-item-edit {
-  background: white;
+  background: #000;
   padding: 1.25rem;
   border-radius: 18px;
   margin-bottom: 1rem;
-  border: 1px solid #f1f5f9;
+  border: 1px solid #330000;
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
 }
 
@@ -223,15 +228,15 @@
 
 .exercise-title-edit {
   font-weight: 700;
-  color: #1e293b;
+  color: #ff0000;
 }
 
 .btn-remove-ex {
   width: 32px;
   height: 32px;
   border-radius: 10px;
-  background: rgba(239, 71, 111, 0.1);
-  color: #ef476f;
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff0000;
   border: none;
   display: flex;
   align-items: center;
@@ -240,8 +245,8 @@
 }
 
 .btn-remove-ex:hover {
-  background: #ef476f;
-  color: white;
+  background: #ff0000;
+  color: #000;
 }
 
 .exercise-stats-edit {
@@ -260,17 +265,24 @@
   font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: #cc0000;
 }
 
 .ex-control-sm {
   width: 100%;
   padding: 0.5rem 0.75rem;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #ff0000;
+  background: #000;
+  color: #ff0000;
   font-size: 0.875rem;
   font-weight: 600;
 }
+
+.workout-form-page .text-muted {
+  color: #cc0000 !important;
+}
+
 
 @media (max-width: 768px) {
   .workout-form-page {

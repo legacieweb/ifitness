@@ -43,6 +43,7 @@ import Status from './pages/Status';
 import HelpCenter from './pages/HelpCenter';
 import MyRoutines from './pages/MyRoutines';
 import Gallery from './pages/Gallery';
+import Showreel from './pages/Showreel';
 
 function AppContent() {
   const { loading } = useAuth();
@@ -146,6 +147,7 @@ function AppContent() {
           <Route path="/community" element={<Community />} />
           <Route path="/status" element={<Status />} />
           <Route path="/help-center" element={<HelpCenter />} />
+          <Route path="/showreel" element={<Showreel />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>

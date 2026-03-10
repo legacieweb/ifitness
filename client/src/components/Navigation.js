@@ -12,9 +12,7 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -27,32 +25,30 @@ export default function Navigation() {
 
   const isActive = (path) => location.pathname === path;
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const isHome = location.pathname === '/';
 
   const publicLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about-us' },
-    { name: 'Community', path: '/community' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'HOME', path: '/' },
+    { name: 'COMMUNITY', path: '/community' },
+    { name: 'CONTACT', path: '/contact' },
   ];
 
   return (
-    <header className={`header ${isScrolled ? 'header-scrolled' : ''} ${isHome ? 'header-light' : ''}`}>
-      <nav className="nav-container">
-        <Link to="/" className="navbar-brand-modern" onClick={() => setIsMenuOpen(false)}>
-          <div className="brand-logo">
-            <i className="bi bi-lightning-charge-fill"></i>
+    <header className={`crimson-header ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className="crimson-nav-container">
+        <Link to="/" className="crimson-brand" onClick={() => setIsMenuOpen(false)}>
+          <div className="brand-icon-crimson">
+            <i className="bi bi-shield-shaded"></i>
           </div>
-          <span className="brand-name">iFitness</span>
+          <span className="brand-text">iFITNESS<span className="text-crimson">.RED</span></span>
         </Link>
 
-        <div className={`nav-menu ${isMenuOpen ? 'nav-menu-open' : ''} ${isAuthenticated ? 'authenticated' : ''}`}>
-          <ul className="nav-links">
+        <div className={`crimson-menu ${isMenuOpen ? 'open' : ''}`}>
+          <ul className="crimson-nav-links">
             {publicLinks.map((link) => (
               <li key={link.path}>
                 <Link
                   to={link.path}
-                  className={`nav-item ${isActive(link.path) ? 'active' : ''}`}
+                  className={`crimson-nav-item ${isActive(link.path) ? 'active' : ''}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.name}
@@ -63,95 +59,62 @@ export default function Navigation() {
               <li>
                 <Link
                   to="/dashboard"
-                  className={`nav-item dashboard-link ${isActive('/dashboard') ? 'active' : ''}`}
+                  className={`crimson-nav-item dashboard-red-accent ${isActive('/dashboard') ? 'active' : ''}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Dashboard
+                  TERMINAL
                 </Link>
               </li>
             )}
           </ul>
           
-          {/* Mobile User Section */}
-          {isAuthenticated ? (
-            <div className="mobile-user-section">
-              <div className="mobile-user-card">
-                <div className="user-avatar">
-                  {user?.profilePicture ? (
-                    <img src={getProfilePictureUrl(user.profilePicture)} alt="Profile" />
-                  ) : (
-                    <div className="avatar-placeholder">
-                      {user?.name?.charAt(0) || 'U'}
-                    </div>
-                  )}
-                </div>
-                <div className="user-info">
-                  <span className="user-name">{user?.name || 'User'}</span>
-                  <span className="user-status">Member</span>
-                </div>
-              </div>
-              <div className="mobile-actions">
-                <Link to="/profile" className="action-link" onClick={() => setIsMenuOpen(false)}>
-                  <i className="bi bi-person-circle"></i>
-                  <span>Profile</span>
-                </Link>
-                <button className="action-link logout" onClick={handleLogout}>
-                  <i className="bi bi-box-arrow-right"></i>
-                  <span>Logout</span>
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="mobile-auth-actions d-lg-none">
-              <Link to="/login" className="auth-btn login" onClick={() => setIsMenuOpen(false)}>Login</Link>
-              <Link to="/register" className="auth-btn signup" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
+          {/* Mobile Operator Controls */}
+          {isAuthenticated && (
+            <div className="mobile-operator-group">
+              <button className="op-logout-btn" onClick={handleLogout}>
+                OFFLINE <i className="bi bi-power"></i>
+              </button>
             </div>
           )}
         </div>
 
-        <div className="nav-actions-desktop">
+        <div className="crimson-nav-actions">
           {!isAuthenticated ? (
-            <div className="auth-buttons">
-              <Link to="/login" className="link-login">Login</Link>
-              <Link to="/register" className="btn-get-started">Get Started</Link>
+            <div className="auth-row-crimson">
+              <Link to="/login" className="login-link-crimson">LOGIN</Link>
+              <Link to="/register" className="btn-crimson">JOIN</Link>
             </div>
           ) : (
-            <div className="user-profile-dropdown">
-              <div className="user-trigger">
-                <span className="user-name-text">{user?.name}</span>
-                <div className="user-avatar-mini">
+            <div className="operator-dropdown">
+              <div className="op-trigger">
+                <div className="op-avatar">
                   {user?.profilePicture ? (
-                    <img src={getProfilePictureUrl(user.profilePicture)} alt="Profile" />
+                    <img src={getProfilePictureUrl(user.profilePicture)} alt="Op" />
                   ) : (
-                    <div className="avatar-placeholder-mini">{user?.name?.charAt(0)}</div>
+                    <i className="bi bi-person-fill"></i>
                   )}
                 </div>
               </div>
-              <div className="dropdown-content">
-                <Link to="/profile" className="dropdown-item">
-                  <i className="bi bi-person"></i>
-                  Profile
+              <div className="op-drop-menu glass-morphism">
+                <Link to="/profile" className="op-drop-link">
+                  <i className="bi bi-person-badge"></i> PROFILE
                 </Link>
-                <Link to="/dashboard" className="dropdown-item">
-                  <i className="bi bi-grid"></i>
-                  Dashboard
+                <Link to="/dashboard" className="op-drop-link">
+                  <i className="bi bi-terminal-fill"></i> TERMINAL
                 </Link>
-                <div className="dropdown-divider"></div>
-                <button onClick={handleLogout} className="dropdown-item logout">
-                  <i className="bi bi-box-arrow-right"></i>
-                  Logout
+                <div className="op-drop-divider"></div>
+                <button onClick={handleLogout} className="op-drop-link logout-red">
+                  <i className="bi bi-power"></i> OFFLINE
                 </button>
               </div>
             </div>
           )}
         </div>
 
-        <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle Menu">
-          <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+        <button className={`crimson-toggler ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </nav>
     </header>

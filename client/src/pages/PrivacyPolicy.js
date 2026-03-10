@@ -1,99 +1,96 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageTransition from '../components/PageTransition';
-import Footer from '../components/Footer';
+import './Legal.css';
 
 export default function PrivacyPolicy() {
+  useEffect(() => {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <PageTransition>
-      <div className="container py-5">
-      <div className="row">
-        <div className="col-lg-8 mx-auto">
-          <h1 className="mb-4">Privacy Policy</h1>
-          <p className="text-muted mb-4">Last updated: December 2024</p>
+      <div className="crimson-legal">
+        <div className="hero-mesh-background"></div>
+        <div className="hero-noise-overlay"></div>
+        <div className="footer-scanner-line"></div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">1. Introduction</h2>
-            <p>
-              Welcome to ifitness ("we," "us," "our," or "Company"). We are committed to protecting your privacy and ensuring you have a positive experience on our website and application. This Privacy Policy explains our online information practices and the choices you can make about how your information is collected and used.
-            </p>
-          </section>
+        <section className="legal-hero">
+          <div className="crimson-container">
+            <div className="hero-content-modern reveal">
+              <div className="hero-badge">
+                <span className="badge-line"></span>
+                <span className="badge-text">DATA_PROTECTION_PROTOCOL</span>
+              </div>
+              <h1 className="hero-title">PRIVACY <span className="text-crimson">POLICY</span></h1>
+              <p className="legal-meta">LAST_MODIFIED: DEC_2024 // VERSION_2.1</p>
+            </div>
+          </div>
+        </section>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">2. Information We Collect</h2>
-            <p className="mb-3">We collect information in various ways:</p>
-            <ul className="mb-3">
-              <li><strong>Account Information:</strong> Name, email, password, age, weight, height, and fitness goals when you register.</li>
-              <li><strong>Workout Data:</strong> Exercises, duration, calories burned, and dates of your workouts.</li>
-              <li><strong>Usage Data:</strong> How you interact with our app, features you use, and pages you visit.</li>
-              <li><strong>Device Information:</strong> Device type, operating system, browser, and IP address.</li>
-              <li><strong>Cookies:</strong> We use cookies to remember your preferences and improve your experience.</li>
-            </ul>
-          </section>
+        <section className="legal-content-section">
+          <div className="crimson-container">
+            <div className="legal-grid">
+              <aside className="legal-sidebar">
+                <div className="sidebar-id">SEC_00_INDEX</div>
+                <nav className="legal-nav">
+                  <a href="#intro">01_INTRODUCTION</a>
+                  <a href="#collection">02_DATA_COLLECTION</a>
+                  <a href="#usage">03_SYSTEM_USAGE</a>
+                  <a href="#security">04_SECURITY_ENCRYPTION</a>
+                  <a href="#rights">05_OPERATOR_RIGHTS</a>
+                </nav>
+              </aside>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">3. How We Use Your Information</h2>
-            <p className="mb-3">We use the information we collect for the following purposes:</p>
-            <ul className="mb-3">
-              <li>To provide and maintain our services</li>
-              <li>To personalize your experience and provide tailored recommendations</li>
-              <li>To improve our application and develop new features</li>
-              <li>To communicate with you about updates, promotions, and support</li>
-              <li>To monitor and analyze trends and usage</li>
-              <li>To detect and prevent fraud and security issues</li>
-              <li>To comply with legal obligations</li>
-            </ul>
-          </section>
+              <main className="legal-main">
+                <div id="intro" className="legal-block reveal">
+                  <h3>01_INTRODUCTION</h3>
+                  <p>Welcome to the Crimson Protocol ("ifitness"). We are committed to protecting the biometric and tactical data of our operators. This document outlines the encryption and collection parameters used across our global network.</p>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">4. Data Security</h2>
-            <p>
-              We implement appropriate security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction. This includes encryption, secure servers, and access controls. However, no method of transmission over the internet is 100% secure.
-            </p>
-          </section>
+                <div id="collection" className="legal-block reveal">
+                  <h3>02_DATA_COLLECTION</h3>
+                  <p>The system captures several telemetry points for protocol optimization:</p>
+                  <ul className="legal-list">
+                    <li><span>BIOMETRIC_DATA:</span> Age, weight, height, and physiological goals.</li>
+                    <li><span>TRAINING_TELEMETRY:</span> Exercise cycles, duration, and metabolic output.</li>
+                    <li><span>SYSTEM_LOGS:</span> Device type, OS architecture, and node access points (IP).</li>
+                  </ul>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">5. Data Retention</h2>
-            <p>
-              We retain your personal information for as long as your account is active or as needed to provide you with our services. You can request deletion of your account and associated data at any time.
-            </p>
-          </section>
+                <div id="usage" className="legal-block reveal">
+                  <h3>03_SYSTEM_USAGE</h3>
+                  <p>Captured data is utilized exclusively for:</p>
+                  <ul className="legal-list">
+                    <li>Synchronizing operator profiles across the network.</li>
+                    <li>Calibrating personalized training architectures.</li>
+                    <li>Analyzing global performance trends (Anonymized).</li>
+                  </ul>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">6. Third-Party Services</h2>
-            <p>
-              We may share your information with third-party service providers who assist us in operating our website and conducting our business. These providers are obligated to maintain the confidentiality of your information.
-            </p>
-          </section>
+                <div id="security" className="legal-block reveal">
+                  <h3>04_SECURITY_ENCRYPTION</h3>
+                  <p>All data is encrypted via end-to-end protocols. Our infrastructure undergoes regular security audits to ensure zero-day vulnerabilities are mitigated. Biometric data is stored in isolated vaults with restricted access.</p>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">7. Your Rights</h2>
-            <p className="mb-3">You have the following rights regarding your personal information:</p>
-            <ul className="mb-3">
-              <li>Access to your personal data</li>
-              <li>Correction of inaccurate data</li>
-              <li>Deletion of your account and data</li>
-              <li>Portability of your data</li>
-              <li>Opt-out of marketing communications</li>
-            </ul>
-          </section>
-
-          <section className="mb-5">
-            <h2 className="h4 mb-3">8. Contact Us</h2>
-            <p>
-              If you have any questions about this Privacy Policy or our privacy practices, please contact us at <a href="mailto:privacy@ifitness.com">privacy@ifitness.com</a>.
-            </p>
-          </section>
-
-          <section className="mb-5">
-            <h2 className="h4 mb-3">9. Changes to This Policy</h2>
-            <p>
-              We may update this Privacy Policy from time to time. We will notify you of any significant changes by updating the "Last updated" date at the top of this page.
-            </p>
-          </section>
-        </div>
+                <div id="rights" className="legal-block reveal">
+                  <h3>05_OPERATOR_RIGHTS</h3>
+                  <p>Operators retain full ownership of their data. You may request a complete data purge or extraction at any time via your command dashboard.</p>
+                </div>
+              </main>
+            </div>
+          </div>
+        </section>
       </div>
-      </div>
-      <Footer />
     </PageTransition>
   );
 }

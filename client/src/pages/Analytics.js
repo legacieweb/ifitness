@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getWorkouts } from '../services/api';
 import Preloader from '../components/Preloader';
+import './Analytics.css';
 
 export default function Analytics() {
   const { user } = useAuth();
@@ -37,63 +38,55 @@ export default function Analytics() {
   const totalCal = filtered.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0);
   const totalMin = filtered.reduce((sum, w) => sum + (w.duration || 0), 0);
 
-  if (loading) return <Preloader text="Loading analytics..." />;
+  if (loading) return <Preloader text="Analyzing your performance..." />;
 
   return (
-    <div className="container-fluid container-md mt-4 mt-md-5 mb-5 px-3 px-md-0">
-      <h1 className="mb-4 fs-4 fs-md-1">Analytics & Progress</h1>
-      <div className="d-flex flex-wrap gap-2 mb-4">
-        <button
-          className={`btn btn-sm ${timeRange === 'week' ? 'btn-primary' : 'btn-outline-primary'}`}
-          onClick={() => setTimeRange('week')}
-        >
-          Week
-        </button>
-        <button
-          className={`btn btn-sm ${timeRange === 'month' ? 'btn-primary' : 'btn-outline-primary'}`}
-          onClick={() => setTimeRange('month')}
-        >
-          Month
-        </button>
-        <button
-          className={`btn btn-sm ${timeRange === 'all' ? 'btn-primary' : 'btn-outline-primary'}`}
-          onClick={() => setTimeRange('all')}
-        >
-          All Time
-        </button>
+    <div className="analytics-page">
+      <div className="analytics-header">
+        <h1>Analytics & Progress</h1>
+        <div className="filter-group">
+          <button
+            className={`filter-btn ${timeRange === 'week' ? 'active' : ''}`}
+            onClick={() => setTimeRange('week')}
+          >
+            Week
+          </button>
+          <button
+            className={`filter-btn ${timeRange === 'month' ? 'active' : ''}`}
+            onClick={() => setTimeRange('month')}
+          >
+            Month
+          </button>
+          <button
+            className={`filter-btn ${timeRange === 'all' ? 'active' : ''}`}
+            onClick={() => setTimeRange('all')}
+          >
+            All Time
+          </button>
+        </div>
       </div>
-      <div className="row g-2 g-md-3 mb-4">
-        <div className="col-6 col-md-3">
-          <div className="card h-100">
-            <div className="card-body text-center p-2 p-md-3">
-              <h6 className="card-title small mb-2">Workouts</h6>
-              <h3 className="text-primary mb-0">{filtered.length}</h3>
-            </div>
-          </div>
+
+      <div className="analytics-grid">
+        <div className="analytic-card primary">
+          <span className="analytic-label">Workouts</span>
+          <h3 className="analytic-value">{filtered.length}</h3>
         </div>
-        <div className="col-6 col-md-3">
-          <div className="card h-100">
-            <div className="card-body text-center p-2 p-md-3">
-              <h6 className="card-title small mb-2">Duration</h6>
-              <h3 className="text-success mb-0">{totalMin}m</h3>
-            </div>
-          </div>
+        
+        <div className="analytic-card success">
+          <span className="analytic-label">Duration</span>
+          <h3 className="analytic-value">{totalMin}m</h3>
         </div>
-        <div className="col-6 col-md-3">
-          <div className="card h-100">
-            <div className="card-body text-center p-2 p-md-3">
-              <h6 className="card-title small mb-2">Calories</h6>
-              <h3 className="text-danger mb-0">{Math.round(totalCal)}</h3>
-            </div>
-          </div>
+        
+        <div className="analytic-card danger">
+          <span className="analytic-label">Calories</span>
+          <h3 className="analytic-value">{Math.round(totalCal)}</h3>
         </div>
-        <div className="col-6 col-md-3">
-          <div className="card h-100">
-            <div className="card-body text-center p-2 p-md-3">
-              <h6 className="card-title small mb-2">Avg/Workout</h6>
-              <h3 className="text-warning mb-0">{filtered.length > 0 ? Math.round(totalCal / filtered.length) : 0}</h3>
-            </div>
-          </div>
+        
+        <div className="analytic-card warning">
+          <span className="analytic-label">Avg/Workout</span>
+          <h3 className="analytic-value">
+            {filtered.length > 0 ? Math.round(totalCal / filtered.length) : 0}
+          </h3>
         </div>
       </div>
     </div>

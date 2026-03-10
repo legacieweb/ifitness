@@ -29,53 +29,55 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div className="auth-page">
-        <div className="auth-card-modern">
+    <div className="crimson-auth-wrapper">
+      <div className="ambient-particles"></div>
+      <div className="hero-noise-overlay"></div>
+      
+      <div className="auth-container reveal-active">
+        <div className="auth-card-creative glass-morphism">
           <div className="auth-card-header">
-            <div className="auth-logo">
-              <i className="bi bi-activity"></i>
-              <span>iFitness</span>
+            <div className="protocol-status mb-4">
+              <span className="status-dot pulse"></span>
+              <span className="status-label">IDENTITY VERIFICATION REQUIRED</span>
             </div>
-            <h1 className="auth-title">Welcome back</h1>
-            <p className="auth-subtitle">Enter your details to sign in and continue your journey</p>
+            
+            <h1 className="creative-title mb-2">
+              LEVEL <span className="title-outline">ACCESS</span><br/>
+              <span className="title-bold">RESTRICTED</span>
+            </h1>
+            <p className="auth-subtitle text-muted mb-4">Enter credentials to bypass security gateway</p>
           </div>
 
           <div className="auth-card-body">
             {error && (
-              <div className="auth-error">
-                <i className="bi bi-exclamation-circle-fill"></i>
-                <span>{error}</span>
+              <div className="auth-error-glitch mb-4">
+                <i className="bi bi-exclamation-triangle-fill"></i>
+                <span>{error.toUpperCase()}</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="auth-form">
-              <div className="form-group-modern">
-                <label htmlFor="email" className="form-label-modern">
-                  Email Address
-                </label>
-                <div className="input-wrapper">
+            <form onSubmit={handleSubmit} className="creative-form">
+              <div className="form-group-creative mb-4">
+                <label className="creative-label">OPERATOR_ID</label>
+                <div className="input-frame">
                   <input
                     type="email"
-                    className="form-control-modern"
-                    id="email"
+                    className="creative-input"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@example.com"
+                    placeholder="NAME@DOMAIN.COM"
                     required
                   />
+                  <div className="input-focus-line"></div>
                 </div>
               </div>
 
-              <div className="form-group-modern">
-                <label htmlFor="password" className="form-label-modern">
-                  Password
-                </label>
-                <div className="input-wrapper">
+              <div className="form-group-creative mb-4">
+                <label className="creative-label">ACCESS_KEY</label>
+                <div className="input-frame">
                   <input
                     type={showPassword ? 'text' : 'password'}
-                    className="form-control-modern password-input"
-                    id="password"
+                    className="creative-input"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
@@ -83,67 +85,53 @@ export default function Login() {
                   />
                   <button
                     type="button"
-                    className="password-toggle"
+                    className="input-icon-btn"
                     onClick={() => setShowPassword(!showPassword)}
                   >
                     <i className={`bi bi-${showPassword ? 'eye-slash' : 'eye'}`}></i>
                   </button>
+                  <div className="input-focus-line"></div>
                 </div>
               </div>
 
-              <div className="form-options">
-                <label className="checkbox-modern">
+              <div className="d-flex justify-content-between align-items-center mb-5">
+                <label className="creative-checkbox">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
                   />
-                  Remember me
+                  <span className="checkbox-box"></span>
+                  <span className="checkbox-text">MAINTAIN_SESSION</span>
                 </label>
-                <Link to="/forgot-password" disabled className="forgot-password">
-                  Forgot password?
+                <Link to="/forgot-password" hidden className="forgot-password-link">
+                  RESET_ENCRYPTION
                 </Link>
               </div>
 
               <button
                 type="submit"
-                className="btn-auth-primary"
+                className="btn-glitch w-100 border-0"
                 disabled={loading}
               >
-                {loading ? (
-                  <div className="loading-spinner"></div>
-                ) : (
-                  <span>Sign In</span>
-                )}
+                <span className="glitch-text" data-text={loading ? "VERIFYING..." : "AUTHORIZE"}>
+                  {loading ? "VERIFYING..." : "AUTHORIZE"}
+                </span>
+                <div className="glitch-line"></div>
               </button>
             </form>
-
-            <div className="auth-divider">
-              <span>or</span>
-            </div>
-
-            <div className="social-login">
-              <button className="social-btn">
-                <i className="bi bi-google"></i>
-                <span>Google</span>
-              </button>
-              <button className="social-btn">
-                <i className="bi bi-apple"></i>
-                <span>Apple</span>
-              </button>
-            </div>
           </div>
 
-          <div className="auth-card-footer">
-            <p>
-              Don't have an account?{' '}
-              <Link to="/register" className="auth-link">
-                Sign up
+          <div className="auth-card-footer mt-5 text-center">
+            <p className="text-muted small">
+              NEW OPERATOR?{' '}
+              <Link to="/register" className="text-crimson fw-bold text-decoration-none">
+                INITIALIZE_RECRUITMENT
               </Link>
             </p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

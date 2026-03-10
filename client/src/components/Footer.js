@@ -35,141 +35,75 @@ export default function Footer() {
   };
 
   return (
-    <footer className="ultra-modern-footer">
-      <div className="container">
-        {/* Main Footer Content */}
-        <div className="footer-content-grid">
-          {/* Brand Section */}
-          <div className="footer-brand-section">
-            <div className="brand-logo-ultra">
-              <div className="logo-icon">
-                <i className="bi bi-lightning-charge-fill"></i>
-              </div>
-              <div className="logo-text">
-                <span className="logo-main">iFitness</span>
-                <span className="logo-subtitle">Peak Performance</span>
-              </div>
+    <footer className="footer-modern-elite">
+      <div className="footer-line-top"></div>
+      <div className="crimson-container">
+        <div className="footer-elite-grid">
+          {/* Brand Info */}
+          <div className="footer-elite-brand">
+            <div className="elite-logo">
+              <span className="logo-icon-minimal"></span>
+              <span className="logo-name">iFITNESS<span className="text-crimson">.RED</span></span>
             </div>
-            <p className="brand-tagline">
-              Unleash your potential with the world's most advanced fitness ecosystem. Engineered for those who demand excellence.
+            <p className="elite-tagline">
+              Redefining the architecture of human performance through elite-level training protocols.
             </p>
-            <div className="social-media-grid">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
-                <i className="bi bi-instagram"></i>
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Twitter">
-                <i className="bi bi-twitter-x"></i>
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="YouTube">
-                <i className="bi bi-youtube"></i>
-              </a>
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="TikTok">
-                <i className="bi bi-tiktok"></i>
-              </a>
+          </div>
+
+          {/* Links Section */}
+          <div className="footer-elite-links">
+            <div className="elite-link-group">
+              <h6>CORE</h6>
+              <Link to="/workouts">Workouts</Link>
+              <Link to="/analytics">Analytics</Link>
+              <Link to="/dashboard">Terminal</Link>
+            </div>
+            <div className="elite-link-group">
+              <h6>NETWORK</h6>
+              <Link to="/community">Community</Link>
+              <Link to="/blog">Insights</Link>
+              <Link to="/careers">Careers</Link>
+            </div>
+            <div className="elite-link-group">
+              <h6>LEGAL</h6>
+              <Link to="/privacy-policy">Privacy</Link>
+              <Link to="/terms-of-service">Terms</Link>
             </div>
           </div>
 
-          {/* Quick Links Section */}
-          <div className="footer-links-section">
-            <div className="footer-column">
-              <h4 className="footer-column-title">Training</h4>
-              <ul className="footer-links-list">
-                <li><Link to="/workouts" className="footer-link-item">Workouts</Link></li>
-                <li><Link to="/templates" className="footer-link-item">Templates</Link></li>
-                <li><Link to="/nutrition" className="footer-link-item">Nutrition</Link></li>
-                <li><Link to="/journey" className="footer-link-item">Journey</Link></li>
-              </ul>
-            </div>
-
-            <div className="footer-column">
-              <h4 className="footer-column-title">Platform</h4>
-              <ul className="footer-links-list">
-                <li><Link to="/pricing" className="footer-link-item">Premium</Link></li>
-                <li><Link to="/community" className="footer-link-item">Community</Link></li>
-                <li><Link to="/blog" className="footer-link-item">Insights</Link></li>
-                <li><Link to="/help-center" className="footer-link-item">Support</Link></li>
-              </ul>
-            </div>
-
-            <div className="footer-column">
-              <h4 className="footer-column-title">Legal</h4>
-              <ul className="footer-links-list">
-                <li><Link to="/privacy-policy" className="footer-link-item">Privacy</Link></li>
-                <li><Link to="/terms-of-service" className="footer-link-item">Terms</Link></li>
-                <li><Link to="/cookies" className="footer-link-item">Cookies</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Newsletter Section */}
-          <div className="footer-newsletter-section">
-            <div className="newsletter-header">
-              <h3 className="newsletter-title">Join the Elite</h3>
-              <p className="newsletter-subtitle">
-                Get high-performance strategies and exclusive updates.
-              </p>
-            </div>
+          {/* Contact/Newsletter */}
+          <div className="footer-elite-subscribe">
+            <h6>ELITE ACCESS</h6>
             {isSubscribed ? (
-              <div className="newsletter-success-message">
-                <div className="success-icon">
-                  <i className="bi bi-check-circle-fill"></i>
-                </div>
-                <div className="success-content">
-                  <h4>You're in.</h4>
-                  <p>Welcome to the iFitness elite community.</p>
-                </div>
+              <div className="elite-success">
+                <i className="bi bi-shield-check"></i>
+                <span>ACCESS GRANTED</span>
               </div>
             ) : (
-              <form className="newsletter-form" onSubmit={handleSubmit}>
-                <div className="newsletter-input-group">
-                  <input
-                    type="email"
-                    className="newsletter-email-input"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={isSubmitting}
-                    required
-                  />
-                  <button type="submit" className="newsletter-submit-btn" disabled={isSubmitting}>
-                    {isSubmitting ? (
-                      <span className="spinner-border" role="status"></span>
-                    ) : (
-                      "Subscribe"
-                    )}
-                  </button>
-                </div>
-                {error && <p className="newsletter-error">{error}</p>}
+              <form className="elite-form" onSubmit={handleSubmit}>
+                <input 
+                  type="email" 
+                  placeholder="OPERATOR EMAIL" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required 
+                />
+                <button type="submit">JOIN</button>
               </form>
             )}
+            <div className="elite-socials">
+              <a href="#"><i className="bi bi-instagram"></i></a>
+              <a href="#"><i className="bi bi-twitter-x"></i></a>
+            </div>
           </div>
         </div>
 
-        {/* Footer Stats Section */}
-        <div className="footer-stats-section">
-          <div className="footer-stat-item">
-            <div className="stat-number">50K+</div>
-            <div className="stat-label">Athletes</div>
+        <div className="footer-elite-bottom">
+          <div className="elite-copyright">
+            © {new Date().getFullYear()} CRIMSON CORE
           </div>
-          <div className="footer-stat-item">
-            <div className="stat-number">2M+</div>
-            <div className="stat-label">Sessions</div>
-          </div>
-          <div className="footer-stat-item">
-            <div className="stat-number">4.9/5</div>
-            <div className="stat-label">Performance</div>
-          </div>
-        </div>
-
-        {/* Footer Bottom */}
-        <div className="footer-bottom-section">
-          <div className="footer-bottom-content">
-            <div className="footer-copyright">
-              <p>© {new Date().getFullYear()} iFitness. Engineered for Excellence.</p>
-            </div>
-            <div className="footer-credits">
-              <p>Powered by <i className="bi bi-lightning-fill"></i> iFitness Core</p>
-            </div>
+          <div className="elite-utility">
+            <span className="text-crimson fw-bold">powered by iyonicorp</span>
           </div>
         </div>
       </div>

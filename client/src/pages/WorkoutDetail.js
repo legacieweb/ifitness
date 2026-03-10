@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getWorkout } from '../services/api';
+import Preloader from '../components/Preloader';
+import './WorkoutDetail.css';
 
 export default function WorkoutDetail() {
   const { id } = useParams();
@@ -28,74 +30,87 @@ export default function WorkoutDetail() {
   }
 
   if (!workout) {
-    return <div className="container mt-5"><p>Workout not found</p></div>;
+    return (
+      <div className="workout-detail-container mt-5">
+        <p className="text-center">Workout not found</p>
+        <button onClick={() => navigate('/workouts')} className="btn-detail-action btn-back mx-auto d-block">
+          Back to Workouts
+        </button>
+      </div>
+    );
   }
 
   return (
-    <div className="container mt-5">
-      <button onClick={() => navigate(-1)} className="btn btn-secondary mb-3">
-        ← Back
-      </button>
+    <div className="workout-detail-container">
+      <div className="detail-header">
+        <div>
+          <h1 className="detail-title">{workout.name}</h1>
+          <p className="m-0 text-muted">Protocol ID: #{workout._id?.substring(0, 8)}</p>
+        </div>
+        <div className="d-flex gap-2">
+          <button onClick={() => navigate(-1)} className="btn-detail-action btn-back">
+            <i className="bi bi-arrow-left me-2"></i> Back
+          </button>
+          <button onClick={() => navigate(`/workouts/${id}/edit`)} className="btn-detail-action btn-edit-workout">
+            <i className="bi bi-pencil-square me-2"></i> Edit
+          </button>
+        </div>
+      </div>
 
-      <div className="card">
-        <div className="card-body">
-          <h2>{workout.name}</h2>
-          <p className="text-muted">{workout.description}</p>
+      <div className="detail-card">
+        {workout.description && (
+          <p className="detail-description">{workout.description}</p>
+        )}
 
-          <div className="row mt-4">
-            <div className="col-md-3">
-              <strong>Date:</strong>
-              <p>{new Date(workout.date).toLocaleDateString()}</p>
-            </div>
-            <div className="col-md-3">
-              <strong>Duration:</strong>
-              <p>{workout.duration} minutes</p>
-            </div>
-            <div className="col-md-3">
-              <strong>Calories Burned:</strong>
-              <p>{workout.caloriesBurned || 'Not tracked'}</p>
-            </div>
+        <div className="detail-stats-grid">
+          <div className="detail-stat-item">
+            <span className="detail-stat-label">Date Recorded</span>
+            <span className="detail-stat-value">{new Date(workout.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
           </div>
+          <div className="detail-stat-item">
+            <span className="detail-stat-label">Total Duration</span>
+            <span className="detail-stat-value">{workout.duration} MIN</span>
+          </div>
+          <div className="detail-stat-item">
+            <span className="detail-stat-label">Energy Burned</span>
+            <span className="detail-stat-value">{workout.caloriesBurned || '0'} KCAL</span>
+          </div>
+        </div>
 
-          {workout.exercises && workout.exercises.length > 0 && (
-            <div className="mt-4">
-              <h4>Exercises</h4>
-              <table className="table">
+        {workout.exercises && workout.exercises.length > 0 && (
+          <div className="exercises-section mt-5">
+            <h4>Training Exercises</h4>
+            <div className="table-responsive">
+              <table className="detail-table">
                 <thead>
                   <tr>
-                    <th>Exercise</th>
+                    <th>Exercise Name</th>
                     <th>Sets</th>
                     <th>Reps</th>
-                    <th>Weight (kg)</th>
+                    <th>Weight</th>
                   </tr>
                 </thead>
                 <tbody>
                   {workout.exercises.map((ex, idx) => (
                     <tr key={idx}>
-                      <td>
-                        {ex.exerciseId?.name || 'Unknown'}
-                      </td>
+                      <td>{ex.exerciseId?.name || 'Unknown Exercise'}</td>
                       <td>{ex.sets}</td>
                       <td>{ex.reps}</td>
-                      <td>{ex.weight || '-'}</td>
+                      <td>{ex.weight ? `${ex.weight} kg` : '--'}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          )}
+          </div>
+        )}
 
-          {workout.notes && (
-            <div className="mt-4">
-              <strong>Notes:</strong>
-              <p>{workout.notes}</p>
-            </div>
-          )}
-
-          <button onClick={() => navigate(`/workouts/${id}/edit`)} className="btn btn-warning me-2">
-            Edit
-          </button>
-        </div>
+        {workout.notes && (
+          <div className="detail-notes">
+            <strong>Commander's Notes</strong>
+            <p>{workout.notes}</p>
+          </div>
+        )}
       </div>
     </div>
   );

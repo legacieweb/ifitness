@@ -1,0 +1,203 @@
+/* =====================================================
+   MODERN EXERCISES - DARK PREMIUM REDESIGN
+   ===================================================== */
+
+.exercises-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 0;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.exercises-header {
+  margin-bottom: 40px;
+  border-left: 6px solid var(--neon-primary);
+  padding-left: 24px;
+}
+
+.exercises-header h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: -1.5px;
+}
+
+/* Filters Section */
+.exercise-filters {
+  background: var(--dark-surface);
+  padding: 30px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 40px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.filter-group label {
+  font-weight: 800;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 10px;
+  display: block;
+  letter-spacing: 1.5px;
+}
+
+.filter-group input, .filter-group select {
+  width: 100%;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.filter-group input:focus, .filter-group select:focus {
+  outline: none;
+  border-color: var(--neon-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Exercise Cards Grid */
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.exercise-card {
+  background: var(--dark-surface);
+  border-radius: 28px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.exercise-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--neon-primary);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.exercise-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.badge-beginner { background: rgba(188, 255, 0, 0.1); color: var(--neon-accent); border: 1px solid var(--neon-accent); }
+.badge-intermediate { background: rgba(0, 242, 255, 0.1); color: var(--neon-primary); border: 1px solid var(--neon-primary); }
+.badge-advanced { background: rgba(255, 0, 110, 0.1); color: var(--neon-secondary); border: 1px solid var(--neon-secondary); }
+
+.exercise-card h3 {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 16px;
+  margin-top: 10px;
+  line-height: 1.2;
+}
+
+.exercise-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.meta-item {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.meta-item i {
+  color: var(--neon-primary);
+}
+
+.exercise-instructions {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.btn-add-workout {
+  width: 100%;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-add-workout:hover {
+  background: var(--neon-primary);
+  color: #000;
+  border-color: var(--neon-primary);
+  transform: scale(1.02);
+}
+
+.exercises-loading {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.exercises-empty {
+  text-align: center;
+  padding: 100px 40px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 28px;
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  .exercises-header h1 {
+    font-size: 2rem;
+  }
+  
+  .exercises-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .exercise-filters {
+    padding: 20px;
+  }
+}

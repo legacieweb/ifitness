@@ -1,0 +1,120 @@
+.analytics-page {
+  padding: 40px 0;
+  color: #fff;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.analytics-header {
+  margin-bottom: 40px;
+}
+
+.analytics-header h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
+}
+
+.filter-group {
+  display: flex;
+  gap: 12px;
+  background: var(--dark-surface);
+  padding: 6px;
+  border-radius: 16px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.filter-btn {
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.filter-btn.active {
+  background: var(--neon-primary);
+  color: #000;
+  box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.analytic-card {
+  background: var(--dark-surface);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.analytic-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--neon-primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.analytic-label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+}
+
+.analytic-value {
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.analytic-card.primary .analytic-value { color: var(--neon-primary); }
+.analytic-card.success .analytic-value { color: var(--neon-accent); }
+.analytic-card.danger .analytic-value { color: #ff4d4d; }
+.analytic-card.warning .analytic-value { color: var(--neon-secondary); }
+
+@media (max-width: 1200px) {
+  .analytics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics-header h1 {
+    font-size: 2rem;
+  }
+  
+  .analytics-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .filter-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .filter-btn {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+}

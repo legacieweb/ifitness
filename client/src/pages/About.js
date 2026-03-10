@@ -1,5 +1,4 @@
 import React from 'react';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 
 export default function About() {
   return (
@@ -304,7 +303,6 @@ export default function About() {
           </div>
         </div>
       </section>
-      <TopNewsletterFooter />
     </div>
   );
 }

@@ -1,108 +1,102 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageTransition from '../components/PageTransition';
-import Footer from '../components/Footer';
+import './Legal.css';
 
 export default function TermsOfService() {
+  useEffect(() => {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <PageTransition>
-      <div className="container py-5">
-      <div className="row">
-        <div className="col-lg-8 mx-auto">
-          <h1 className="mb-4">Terms of Service</h1>
-          <p className="text-muted mb-4">Last updated: December 2024</p>
+      <div className="crimson-legal">
+        <div className="hero-mesh-background"></div>
+        <div className="hero-noise-overlay"></div>
+        <div className="footer-scanner-line"></div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">1. Acceptance of Terms</h2>
-            <p>
-              By accessing and using ifitness, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
-            </p>
-          </section>
+        <section className="legal-hero">
+          <div className="crimson-container">
+            <div className="hero-content-modern reveal">
+              <div className="hero-badge">
+                <span className="badge-line"></span>
+                <span className="badge-text">OPERATIONAL_GUIDELINES</span>
+              </div>
+              <h1 className="hero-title">TERMS OF <span className="text-crimson">SERVICE</span></h1>
+              <p className="legal-meta">LAST_MODIFIED: DEC_2024 // VERSION_1.8</p>
+            </div>
+          </div>
+        </section>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">2. Use License</h2>
-            <p className="mb-3">Permission is granted to temporarily download one copy of the materials (information or software) on ifitness for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
-            <ul className="mb-3">
-              <li>Modify or copy the materials</li>
-              <li>Use the materials for any commercial purpose or for any public display</li>
-              <li>Attempt to decompile or reverse engineer any software contained on the application</li>
-              <li>Remove any copyright or other proprietary notations from the materials</li>
-              <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
-              <li>Use the application for unlawful purposes</li>
-            </ul>
-          </section>
+        <section className="legal-content-section">
+          <div className="crimson-container">
+            <div className="legal-grid">
+              <aside className="legal-sidebar">
+                <div className="sidebar-id">SEC_00_INDEX</div>
+                <nav className="legal-nav">
+                  <a href="#acceptance">01_ACCEPTANCE</a>
+                  <a href="#license">02_USAGE_LICENSE</a>
+                  <a href="#disclaimer">03_SYSTEM_DISCLAIMER</a>
+                  <a href="#limitations">04_LIABILITY_LIMITS</a>
+                  <a href="#conduct">05_OPERATOR_CONDUCT</a>
+                </nav>
+              </aside>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">3. Disclaimer</h2>
-            <p>
-              The materials on ifitness are provided on an 'as is' basis. ifitness makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.
-            </p>
-          </section>
+              <main className="legal-main">
+                <div id="acceptance" className="legal-block reveal">
+                  <h3>01_ACCEPTANCE_OF_TERMS</h3>
+                  <p>By initializing a connection with the Crimson Protocol ("ifitness"), you agree to be bound by these operational guidelines. Unauthorized access or deviation from these protocols is strictly prohibited.</p>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">4. Limitations</h2>
-            <p>
-              In no event shall ifitness or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on ifitness, even if ifitness or an authorized representative has been notified orally or in writing of the possibility of such damage.
-            </p>
-          </section>
+                <div id="license" className="legal-block reveal">
+                  <h3>02_USAGE_LICENSE</h3>
+                  <p>Permission is granted to use the Crimson Protocol for personal physiological optimization only. This is a license to operate, not a transfer of intellectual property. Operators may not:</p>
+                  <ul className="legal-list">
+                    <li><span>DECOMPILE:</span> Attempt to reverse-engineer core system logic.</li>
+                    <li><span>MIRROR:</span> Replicate the protocol architecture on external nodes.</li>
+                    <li><span>EXPLOIT:</span> Use the system for unauthorized commercial operations.</li>
+                  </ul>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">5. Accuracy of Materials</h2>
-            <p>
-              The materials appearing on ifitness could include technical, typographical, or photographic errors. ifitness does not warrant that any of the materials on its website are accurate, complete, or current. ifitness may make changes to the materials contained on its website at any time without notice.
-            </p>
-          </section>
+                <div id="disclaimer" className="legal-block reveal">
+                  <h3>03_SYSTEM_DISCLAIMER</h3>
+                  <p>The Crimson Protocol is provided "AS_IS" without explicit warranties. While we strive for 100% operational uptime, we do not guarantee constant synchronization under all network conditions.</p>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">6. Links</h2>
-            <p>
-              ifitness has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by ifitness of the site. Use of any such linked website is at the user's own risk.
-            </p>
-          </section>
+                <div id="limitations" className="legal-block reveal">
+                  <h3>04_LIABILITY_LIMITATIONS</h3>
+                  <p>The Core Command ("ifitness") shall not be held liable for any data loss, system interruptions, or metabolic discrepancies arising from the use or inability to synchronize with our network.</p>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">7. Modifications</h2>
-            <p>
-              ifitness may revise these terms of service for its website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.
-            </p>
-          </section>
+                <div id="conduct" className="legal-block reveal">
+                  <h3>05_OPERATOR_CONDUCT</h3>
+                  <p>All network participants must adhere to the following directives:</p>
+                  <ul className="legal-list">
+                    <li>Maintain secure access keys.</li>
+                    <li>Ensure biometric data integrity.</li>
+                    <li>Do not transmit malicious code into the network.</li>
+                    <li>Respect the hierarchy of the global operator network.</li>
+                  </ul>
+                </div>
 
-          <section className="mb-5">
-            <h2 className="h4 mb-3">8. Governing Law</h2>
-            <p>
-              These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which ifitness operates, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.
-            </p>
-          </section>
-
-          <section className="mb-5">
-            <h2 className="h4 mb-3">9. Health Disclaimer</h2>
-            <p>
-              ifitness is a fitness tracking application. The information provided is for informational and educational purposes only and should not be considered as medical advice. Always consult with a qualified healthcare professional before starting any fitness program or making significant changes to your exercise routine.
-            </p>
-          </section>
-
-          <section className="mb-5">
-            <h2 className="h4 mb-3">10. User Conduct</h2>
-            <p className="mb-3">You agree not to:</p>
-            <ul className="mb-3">
-              <li>Violate any applicable laws or regulations</li>
-              <li>Infringe upon any intellectual property rights</li>
-              <li>Harass, abuse, or threaten other users</li>
-              <li>Attempt to gain unauthorized access to the application</li>
-              <li>Transmit viruses or malicious code</li>
-              <li>Post offensive or inappropriate content</li>
-            </ul>
-          </section>
-
-          <section className="mb-5">
-            <h2 className="h4 mb-3">11. Contact</h2>
-            <p>
-              If you have any questions about these Terms of Service, please contact us at <a href="mailto:legal@ifitness.com">legal@ifitness.com</a>.
-            </p>
-          </section>
-        </div>
+                <div className="legal-block reveal">
+                  <h3 className="text-crimson">HEALTH_WARNING_LEVEL_1</h3>
+                  <p>The Crimson Protocol is a high-intensity optimization system. Consult with medical technicians before initializing advanced training cycles. Proceeding with high-load protocols is done at the operator's own risk.</p>
+                </div>
+              </main>
+            </div>
+          </div>
+        </section>
       </div>
-      </div>
-      <Footer />
     </PageTransition>
   );
 }

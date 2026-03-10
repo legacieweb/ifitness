@@ -1,256 +1,153 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PageTransition from '../components/PageTransition';
-import TopNewsletterFooter from '../components/TopNewsletterFooter';
 import './AboutUs.css';
 
 export default function AboutUs() {
+  useEffect(() => {
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-active');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <>
-      <PageTransition>
-        <div className="modern-about-page">
-          <section className="hero-section">
-            <div className="container">
-              <div className="row align-items-center">
-                <div className="col-lg-6">
-                  <div className="hero-content">
-                    <div className="section-badge">
-                      <span>Our Story</span>
-                    </div>
-                    <h1 className="hero-title">
-                      Transforming Fitness Journeys
-                      <span className="gradient-text">Since 2024</span>
-                    </h1>
-                    <p className="hero-description">
-                      At ifitness, we're on a mission to empower individuals to take control of their health through intuitive, elegant fitness tracking solutions.
-                    </p>
-                    <div className="hero-stats">
-                      <div className="stat-item">
-                        <div className="stat-number counter" data-target="50000">50000</div>
-                        <div className="stat-label">Active Users</div>
-                      </div>
-                      <div className="stat-item">
-                        <div className="stat-number counter" data-target="2000000">2000000</div>
-                        <div className="stat-label">Workouts Logged</div>
-                      </div>
-                      <div className="stat-item">
-                        <div className="stat-number">4.9</div>
-                        <div className="stat-label">User Rating</div>
-                      </div>
-                    </div>
-                  </div>
+    <PageTransition>
+      <div className="crimson-about">
+        <div className="hero-mesh-background"></div>
+        <div className="hero-noise-overlay"></div>
+        <div className="footer-scanner-line"></div>
+
+        {/* Hero Section */}
+        <section className="about-hero">
+          <div className="crimson-container">
+            <div className="hero-content-modern reveal">
+              <div className="hero-badge">
+                <span className="badge-line"></span>
+                <span className="badge-text">OUR ARCHITECTURE</span>
+              </div>
+              
+              <h1 className="hero-title">
+                THE <span className="text-crimson">MISSION</span>
+                <br />
+                <span className="hero-subtitle">REDEFINING LIMITS</span>
+              </h1>
+              
+              <p className="hero-description">
+                Engineered in 2024, Crimson Protocol was built to bridge the gap between elite athletic performance and data-driven precision.
+              </p>
+
+              <div className="hero-stats-row">
+                <div className="stat-node">
+                  <span className="stat-num">2.4M</span>
+                  <span className="stat-tag">LOGGED_PROTOCOLS</span>
                 </div>
-                <div className="col-lg-6">
-                  <div className="hero-visual">
-                    <div className="floating-element element-1">
-                      <i className="bi bi-heart-pulse"></i>
-                    </div>
-                    <div className="floating-element element-2">
-                      <i className="bi bi-graph-up"></i>
-                    </div>
-                    <div className="floating-element element-3">
-                      <i className="bi bi-trophy"></i>
-                    </div>
-                    <div className="central-illustration">
-                      <div className="illustration-inner">
-                        <i className="bi bi-activity"></i>
-                      </div>
-                    </div>
-                  </div>
+                <div className="stat-node">
+                  <span className="stat-num">4.9/5</span>
+                  <span className="stat-tag">SYSTEM_RATING</span>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section className="mission-section">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-8 mx-auto text-center">
-                  <div className="section-badge">
-                    <span>Our Mission</span>
-                  </div>
-                  <h2 className="section-title">Empowering Your Fitness Journey</h2>
-                  <p className="section-description">
-                    We believe that fitness tracking should be simple, intuitive, and empowering. Our mission is to provide tools that help you monitor progress, achieve goals, and transform your lifestyle.
-                  </p>
+        {/* Vision Section */}
+        <section className="about-vision">
+          <div className="crimson-container">
+            <div className="systems-header reveal">
+              <div className="systems-badge">
+                <span className="badge-bullet"></span>
+                <span>CORE VISION</span>
+              </div>
+              <h2 className="systems-title">SYSTEM <span className="text-crimson">INTEGRITY</span></h2>
+            </div>
+
+            <div className="vision-matrix">
+              <div className="vision-module reveal">
+                <div className="module-num">01</div>
+                <div className="module-content">
+                  <div className="module-icon"><i className="bi bi-lightning-charge"></i></div>
+                  <h3>VELOCITY</h3>
+                  <p>Rapid execution and real-time synchronization of training data for immediate feedback.</p>
                 </div>
               </div>
-              <div className="row mt-5">
-                <div className="col-md-4 mb-4">
-                  <div className="mission-card">
-                    <div className="mission-icon">
-                      <i className="bi bi-lightning-charge"></i>
-                    </div>
-                    <h3>Simplicity</h3>
-                    <p>Clean, intuitive interfaces that make fitness tracking effortless and enjoyable.</p>
-                  </div>
+
+              <div className="vision-module active reveal">
+                <div className="module-num">02</div>
+                <div className="module-content">
+                  <div className="module-icon"><i className="bi bi-shield-check"></i></div>
+                  <h3>SECURITY</h3>
+                  <p>Absolute privacy of biometric data and training protocols through encrypted nodes.</p>
                 </div>
-                <div className="col-md-4 mb-4">
-                  <div className="mission-card">
-                    <div className="mission-icon">
-                      <i className="bi bi-shield-check"></i>
-                    </div>
-                    <h3>Privacy</h3>
-                    <p>Your data is yours. We prioritize security and give you full control over your information.</p>
-                  </div>
-                </div>
-                <div className="col-md-4 mb-4">
-                  <div className="mission-card">
-                    <div className="mission-icon">
-                      <i className="bi bi-people"></i>
-                    </div>
-                    <h3>Community</h3>
-                    <p>Connect with like-minded individuals and share your journey in a supportive environment.</p>
-                  </div>
+                <div className="module-glow"></div>
+              </div>
+
+              <div className="vision-module reveal">
+                <div className="module-num">03</div>
+                <div className="module-content">
+                  <div className="module-icon"><i className="bi bi-people"></i></div>
+                  <h3>SYNERGY</h3>
+                  <p>Harmonizing individual efforts with a global network of elite performance operators.</p>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section className="features-section">
-            <div className="container">
-              <div className="row mb-5">
-                <div className="col-lg-8 mx-auto text-center">
-                  <div className="section-badge">
-                    <span>What We Offer</span>
-                  </div>
-                  <h2 className="section-title">Comprehensive Fitness Solutions</h2>
-                </div>
+        {/* Team Intel */}
+        <section className="about-intel">
+          <div className="crimson-container">
+            <div className="systems-header reveal">
+              <div className="systems-badge">
+                <span className="badge-bullet"></span>
+                <span>COMMAND UNIT</span>
               </div>
-              <div className="row">
-                <div className="col-lg-6 mb-4">
-                  <div className="feature-card">
-                    <div className="feature-icon">
-                      <i className="bi bi-calendar2-event"></i>
-                    </div>
-                    <h3>Smart Workout Tracking</h3>
-                    <p>Log exercises with detailed analytics, track progress over time, and get personalized insights to optimize your training.</p>
-                    <div className="feature-highlight">
-                      <span>Real-time analytics</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="feature-card">
-                    <div className="feature-icon">
-                      <i className="bi bi-target"></i>
-                    </div>
-                    <h3>Goal Setting & Tracking</h3>
-                    <p>Set SMART fitness goals, monitor your progress, and celebrate achievements with our comprehensive goal tracking system.</p>
-                    <div className="feature-highlight">
-                      <span>Personalized recommendations</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="feature-card">
-                    <div className="feature-icon">
-                      <i className="bi bi-graph-up"></i>
-                    </div>
-                    <h3>Advanced Analytics</h3>
-                    <p>Gain deep insights into your fitness journey with comprehensive charts, trends, and performance metrics.</p>
-                    <div className="feature-highlight">
-                      <span>Data-driven insights</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-lg-6 mb-4">
-                  <div className="feature-card">
-                    <div className="feature-icon">
-                      <i className="bi bi-people"></i>
-                    </div>
-                    <h3>Community Support</h3>
-                    <p>Connect with fitness enthusiasts, share progress, participate in challenges, and get motivated by our supportive community.</p>
-                    <div className="feature-highlight">
-                      <span>Engagement & motivation</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <h2 className="systems-title">THE <span className="text-crimson">ARCHITECTS</span></h2>
             </div>
-          </section>
 
-          <section className="team-section">
-            <div className="container">
-              <div className="row mb-5">
-                <div className="col-lg-8 mx-auto text-center">
-                  <div className="section-badge">
-                    <span>Our Team</span>
-                  </div>
-                  <h2 className="section-title">Passionate Professionals</h2>
-                  <p className="section-description">
-                    Our dedicated team combines fitness expertise with technical innovation to create the best possible experience for our users.
-                  </p>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-3 mb-4">
-                  <div className="team-member">
-                    <div className="team-avatar">
-                      <i className="bi bi-person-circle"></i>
-                    </div>
-                    <h4>Sarah Johnson</h4>
-                    <p className="team-role">Fitness Expert</p>
+            <div className="team-matrix">
+              {[
+                { name: "SARAH_J", role: "FITNESS_LEAD", id: "U1" },
+                { name: "MIKE_C", role: "TECH_ARCHITECT", id: "U2" },
+                { name: "EMMA_D", role: "UX_STRATEGIST", id: "U3" },
+                { name: "ALEX_T", role: "NETWORK_LEAD", id: "U4" }
+              ].map((member, index) => (
+                <div key={index} className="member-card reveal">
+                  <div className="member-id-box">{member.id}</div>
+                  <div className="member-info">
+                    <div className="member-name">{member.name}</div>
+                    <div className="member-role text-crimson">{member.role}</div>
                   </div>
                 </div>
-                <div className="col-md-3 mb-4">
-                  <div className="team-member">
-                    <div className="team-avatar">
-                      <i className="bi bi-person-circle"></i>
-                    </div>
-                    <h4>Mike Chen</h4>
-                    <p className="team-role">Lead Developer</p>
-                  </div>
-                </div>
-                <div className="col-md-3 mb-4">
-                  <div className="team-member">
-                    <div className="team-avatar">
-                      <i className="bi bi-person-circle"></i>
-                    </div>
-                    <h4>Emma Davis</h4>
-                    <p className="team-role">UX Designer</p>
-                  </div>
-                </div>
-                <div className="col-md-3 mb-4">
-                  <div className="team-member">
-                    <div className="team-avatar">
-                      <i className="bi bi-person-circle"></i>
-                    </div>
-                    <h4>Alex Thompson</h4>
-                    <p className="team-role">Community Manager</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          <section className="cta-section">
-            <div className="container">
+        {/* CTA */}
+        <section className="about-cta reveal">
+          <div className="crimson-container">
+            <div className="cta-modern-box">
               <div className="cta-content">
-                <div className="cta-bg-pattern"></div>
-                <div className="row">
-                  <div className="col-lg-8 mx-auto text-center">
-                    <h2 className="cta-title">Join Our Fitness Revolution</h2>
-                    <p className="cta-description">
-                      Ready to transform your fitness journey? Join thousands of satisfied users who have achieved their goals with ifitness.
-                    </p>
-                    <div className="cta-buttons">
-                      <a href="/register" className="btn-primary-modern large">
-                        <span>Get Started</span>
-                        <i className="bi bi-person-plus"></i>
-                      </a>
-                      <a href="/contact" className="btn-secondary-modern large">
-                        <i className="bi bi-envelope"></i>
-                        <span>Contact Us</span>
-                      </a>
-                    </div>
-                  </div>
+                <h2>READY TO <span className="text-crimson">EVOLVE?</span></h2>
+                <p>Initialize your training protocol and join the elite network.</p>
+                <div className="cta-actions">
+                  <Link to="/register" className="btn-modern-primary">INITIALIZE_SYSTEM</Link>
+                  <Link to="/contact" className="btn-modern-secondary">CONTACT_CMD</Link>
                 </div>
               </div>
+              <div className="cta-glow"></div>
             </div>
-          </section>
-        </div>
-      </PageTransition>
-      <TopNewsletterFooter />
-    </>
+          </div>
+        </section>
+      </div>
+    </PageTransition>
   );
 }

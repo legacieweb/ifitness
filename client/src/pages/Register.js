@@ -70,85 +70,84 @@ export default function Register() {
   };
 
   return (
-    <>
-      <div className="auth-page">
-        <div className="auth-card-modern">
+    <div className="crimson-auth-wrapper">
+      <div className="ambient-particles"></div>
+      <div className="hero-noise-overlay"></div>
+      
+      <div className="auth-container reveal-active">
+        <div className="auth-card-creative glass-morphism">
           <div className="auth-card-header">
-            <div className="auth-logo">
-              <i className="bi bi-activity"></i>
-              <span>iFitness</span>
+            <div className="protocol-status mb-4">
+              <span className="status-dot pulse"></span>
+              <span className="status-label">NEW OPERATOR RECRUITMENT</span>
             </div>
-            <h1 className="auth-title">Join iFitness</h1>
-            <p className="auth-subtitle">Start your transformation today</p>
+            
+            <h1 className="creative-title mb-2">
+              INITIATE <span className="title-outline">EVOLUTION</span><br/>
+              <span className="title-bold">PROTOCOL</span>
+            </h1>
 
-            <div className="progress-steps">
-              <div className={`step ${step >= 1 ? 'active' : ''}`}>
-                <div className="step-number">1</div>
-                <span>Account</span>
+            <div className="creative-steps-indicator mb-4">
+              <div className={`creative-step ${step >= 1 ? 'active' : ''}`}>
+                <span className="step-label">CORE_ID</span>
+                <div className="step-bar"></div>
               </div>
-              <div className={`step ${step >= 2 ? 'active' : ''}`}>
-                <div className="step-number">2</div>
-                <span>Profile</span>
+              <div className={`creative-step ${step >= 2 ? 'active' : ''}`}>
+                <span className="step-label">BIOMETRICS</span>
+                <div className="step-bar"></div>
               </div>
             </div>
           </div>
 
           <div className="auth-card-body">
             {error && (
-              <div className="auth-error">
-                <i className="bi bi-exclamation-circle-fill"></i>
-                <span>{error}</span>
+              <div className="auth-error-glitch mb-4">
+                <i className="bi bi-exclamation-triangle-fill"></i>
+                <span>{error.toUpperCase()}</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="auth-form">
+            <form onSubmit={handleSubmit} className="creative-form">
               {step === 1 && (
                 <>
-                  <div className="form-group-modern">
-                    <label htmlFor="name" className="form-label-modern">
-                      Full Name
-                    </label>
-                    <div className="input-wrapper">
+                  <div className="form-group-creative mb-4">
+                    <label className="creative-label">OPERATOR_NAME</label>
+                    <div className="input-frame">
                       <input
                         type="text"
-                        className="form-control-modern"
-                        id="name"
+                        className="creative-input"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Alex Johnson"
+                        placeholder="ALEX JOHNSON"
                         required
                       />
+                      <div className="input-focus-line"></div>
                     </div>
                   </div>
 
-                  <div className="form-group-modern">
-                    <label htmlFor="email" className="form-label-modern">
-                      Email Address
-                    </label>
-                    <div className="input-wrapper">
+                  <div className="form-group-creative mb-4">
+                    <label className="creative-label">OPERATOR_EMAIL</label>
+                    <div className="input-frame">
                       <input
                         type="email"
-                        className="form-control-modern"
-                        id="email"
+                        className="creative-input"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="name@example.com"
+                        placeholder="NAME@DOMAIN.COM"
                         required
                       />
+                      <div className="input-focus-line"></div>
                     </div>
                   </div>
 
-                  <div className="form-group-modern">
-                    <label htmlFor="password" className="form-label-modern">
-                      Password
-                    </label>
-                    <div className="input-wrapper">
+                  <div className="form-group-creative mb-4">
+                    <label className="creative-label">ACCESS_KEY</label>
+                    <div className="input-frame">
                       <input
                         type={showPassword ? 'text' : 'password'}
-                        className="form-control-modern password-input"
-                        id="password"
+                        className="creative-input"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
@@ -157,166 +156,150 @@ export default function Register() {
                       />
                       <button
                         type="button"
-                        className="password-toggle"
+                        className="input-icon-btn"
                         onClick={() => setShowPassword(!showPassword)}
                       >
                         <i className={`bi bi-${showPassword ? 'eye-slash' : 'eye'}`}></i>
                       </button>
+                      <div className="input-focus-line"></div>
                     </div>
-                    <div className="password-strength">
-                      <div className="strength-bar">
-                        <div className="strength-fill" style={{
-                          width: `${(passwordStrength / 4) * 100}%`,
-                          backgroundColor: passwordStrength === 0 ? '#e5e7eb' : passwordStrength === 1 ? '#ef4444' : passwordStrength === 2 ? '#f59e0b' : passwordStrength === 3 ? '#10b981' : '#3b82f6'
-                        }}></div>
+                    {formData.password && (
+                      <div className="password-strength-creative mt-2">
+                        <div className="strength-bars">
+                          {[1, 2, 3, 4].map((i) => (
+                            <div key={i} className={`s-bar ${passwordStrength >= i ? 'active' : ''}`}></div>
+                          ))}
+                        </div>
+                        <span className="strength-label">
+                          {passwordStrength === 1 && 'WEAK_ENCRYPTION'}
+                          {passwordStrength === 2 && 'MODERATE_ENCRYPTION'}
+                          {passwordStrength === 3 && 'STRONG_ENCRYPTION'}
+                          {passwordStrength === 4 && 'MAXIMUM_ENCRYPTION'}
+                        </span>
                       </div>
-                      <span className="strength-text">
-                        {passwordStrength === 0 && 'Minimum 8 characters'}
-                        {passwordStrength === 1 && 'Weak'}
-                        {passwordStrength === 2 && 'Fair'}
-                        {passwordStrength === 3 && 'Good'}
-                        {passwordStrength === 4 && 'Strong'}
-                      </span>
-                    </div>
+                    )}
                   </div>
 
                   <button
                     type="button"
-                    className="btn-auth-primary"
+                    className="btn-glitch w-100 border-0 mt-4"
                     onClick={nextStep}
                   >
-                    <span>Continue</span>
+                    <span className="glitch-text" data-text="CONTINUE_SYNC">CONTINUE_SYNC</span>
+                    <div className="glitch-line"></div>
                   </button>
                 </>
               )}
 
               {step === 2 && (
                 <>
-                  <div className="form-row">
-                    <div className="form-group-modern">
-                      <label htmlFor="age" className="form-label-modern">
-                        Age
-                      </label>
-                      <div className="input-wrapper">
-                        <input
-                          type="number"
-                          className="form-control-modern"
-                          id="age"
-                          name="age"
-                          value={formData.age}
-                          onChange={handleChange}
-                          placeholder="25"
-                        />
+                  <div className="row g-3 mb-4">
+                    <div className="col-6">
+                      <div className="form-group-creative">
+                        <label className="creative-label">AGE_YRS</label>
+                        <div className="input-frame">
+                          <input
+                            type="number"
+                            className="creative-input"
+                            name="age"
+                            value={formData.age}
+                            onChange={handleChange}
+                            placeholder="25"
+                          />
+                          <div className="input-focus-line"></div>
+                        </div>
                       </div>
                     </div>
-
-                    <div className="form-group-modern">
-                      <label htmlFor="weight" className="form-label-modern">
-                        Weight (kg)
-                      </label>
-                      <div className="input-wrapper">
-                        <input
-                          type="number"
-                          className="form-control-modern"
-                          id="weight"
-                          name="weight"
-                          value={formData.weight}
-                          onChange={handleChange}
-                          placeholder="70"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="form-row">
-                    <div className="form-group-modern">
-                      <label htmlFor="height" className="form-label-modern">
-                        Height (cm)
-                      </label>
-                      <div className="input-wrapper">
-                        <input
-                          type="number"
-                          className="form-control-modern"
-                          id="height"
-                          name="height"
-                          value={formData.height}
-                          onChange={handleChange}
-                          placeholder="175"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="form-group-modern">
-                      <label htmlFor="goal" className="form-label-modern">
-                        Goal
-                      </label>
-                      <div className="input-wrapper">
-                        <select
-                          className="form-control-modern"
-                          id="goal"
-                          name="goal"
-                          value={formData.goal}
-                          onChange={handleChange}
-                        >
-                          <option value="weight loss">Weight Loss</option>
-                          <option value="muscle gain">Muscle Gain</option>
-                          <option value="maintain fitness">Maintain Fitness</option>
-                          <option value="improve endurance">Improve Endurance</option>
-                        </select>
+                    <div className="col-6">
+                      <div className="form-group-creative">
+                        <label className="creative-label">WEIGHT_KG</label>
+                        <div className="input-frame">
+                          <input
+                            type="number"
+                            className="creative-input"
+                            name="weight"
+                            value={formData.weight}
+                            onChange={handleChange}
+                            placeholder="70"
+                          />
+                          <div className="input-focus-line"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="form-actions">
+                  <div className="row g-3 mb-4">
+                    <div className="col-6">
+                      <div className="form-group-creative">
+                        <label className="creative-label">HEIGHT_CM</label>
+                        <div className="input-frame">
+                          <input
+                            type="number"
+                            className="creative-input"
+                            name="height"
+                            value={formData.height}
+                            onChange={handleChange}
+                            placeholder="175"
+                          />
+                          <div className="input-focus-line"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-6">
+                      <div className="form-group-creative">
+                        <label className="creative-label">CORE_GOAL</label>
+                        <div className="input-frame">
+                          <select
+                            className="creative-input"
+                            name="goal"
+                            value={formData.goal}
+                            onChange={handleChange}
+                          >
+                            <option value="weight loss">WEIGHT_LOSS</option>
+                            <option value="muscle gain">MUSCLE_GAIN</option>
+                            <option value="maintain fitness">MAINTAIN_SYNC</option>
+                            <option value="improve endurance">ENDUR_OPT</option>
+                          </select>
+                          <div className="input-focus-line"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="d-flex gap-3 mt-5">
                     <button
                       type="button"
-                      className="btn-auth-secondary"
+                      className="admin-btn-secondary flex-1"
                       onClick={prevStep}
                     >
-                      <span>Back</span>
+                      PREVIOUS_STG
                     </button>
                     <button
                       type="submit"
-                      className="btn-auth-primary"
+                      className="btn-glitch flex-2 border-0"
                       disabled={loading}
                     >
-                      {loading ? (
-                        <div className="loading-spinner"></div>
-                      ) : (
-                        <span>Create Account</span>
-                      )}
+                      <span className="glitch-text" data-text={loading ? "INITIATING..." : "COMMENCE"}>
+                        {loading ? "INITIATING..." : "COMMENCE"}
+                      </span>
+                      <div className="glitch-line"></div>
                     </button>
                   </div>
                 </>
               )}
             </form>
-
-            <div className="auth-divider">
-              <span>or</span>
-            </div>
-
-            <div className="social-login">
-              <button className="social-btn">
-                <i className="bi bi-google"></i>
-                <span>Google</span>
-              </button>
-              <button className="social-btn">
-                <i className="bi bi-apple"></i>
-                <span>Apple</span>
-              </button>
-            </div>
           </div>
 
-          <div className="auth-card-footer">
-            <p>
-              Already have an account?{' '}
-              <Link to="/login" className="auth-link">
-                Sign in
+          <div className="auth-card-footer mt-5 text-center">
+            <p className="text-muted small">
+              ALREADY REGISTERED?{' '}
+              <Link to="/login" className="text-crimson fw-bold text-decoration-none">
+                RETURN_TO_STATION
               </Link>
             </p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
