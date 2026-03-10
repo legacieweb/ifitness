@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-export const BASE_URL = process.env.REACT_APP_API_URL || 'https://ifitness1.onrender.com/api';
+// THE BACKEND URL - CHANGE THIS IF YOUR API IS ON A DIFFERENT HOST
+const PRODUCTION_URL = 'https://fitness-api.onrender.com/api'; 
+const DEVELOPMENT_URL = 'http://localhost:5000/api';
+
+// Use environment variable if provided, otherwise fallback to local/prod defaults
+export const BASE_URL = process.env.REACT_APP_API_URL || 
+  (process.env.NODE_ENV === 'production' ? PRODUCTION_URL : DEVELOPMENT_URL);
 
 const API = axios.create({
   baseURL: BASE_URL,
