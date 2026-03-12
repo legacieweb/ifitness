@@ -10,10 +10,14 @@ export default function DashboardLayout() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <div className="dashboard-layout">
       <div className={`sidebar-wrapper ${isSidebarOpen ? 'open' : ''}`}>
-        <Sidebar isOpen={isSidebarOpen} />
+        <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
       </div>
       
       {/* Mobile Toggle */}

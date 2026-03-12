@@ -93,6 +93,35 @@
   gap: 30px;
 }
 
+@media (max-width: 576px) {
+  .video-matrix-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  .video-metadata {
+    padding: 12px;
+  }
+  
+  .video-name {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+  
+  .video-info {
+    display: none;
+  }
+  
+  .matrix-video-card {
+    border-radius: 12px;
+  }
+  
+  .video-type {
+    font-size: 7px;
+    margin-bottom: 5px;
+  }
+}
+
 .matrix-video-card {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -347,12 +376,6 @@
   justify-content: center;
   font-size: 1.4rem;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-.node-icon:hover {
-  background: var(--crimson-red);
-  transform: scale(1.1);
 }
 
 .action-node span {
@@ -545,4 +568,131 @@
 .playback-actions button:hover {
   transform: scale(1.1);
   background: var(--crimson-red);
+}
+
+.bottom-progress-bar {
+  cursor: pointer;
+}
+
+/* Settings Popup */
+.settings-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-popup-content {
+  background: #080808;
+  border: 1px solid var(--crimson-red);
+  padding: 40px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.settings-group label {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.speed-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.speed-options button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.speed-options button.active {
+  background: var(--crimson-red);
+  border-color: var(--crimson-red);
+}
+
+.speed-options button:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Guest Limit Overlay */
+.guest-limit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(15px);
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  animation: fadeIn 0.5s ease;
+}
+
+.limit-content {
+  text-align: center;
+  max-width: 400px;
+}
+
+.limit-badge {
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--crimson-red);
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.limit-title {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.limit-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.limit-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+.cyber-btn-v2.small-btn {
+  padding: 15px 30px;
+  font-size: 12px;
+}
+
+.side-actions-stack {
+  bottom: 60px;
+  gap: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

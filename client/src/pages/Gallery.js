@@ -60,12 +60,12 @@ export default function Gallery() {
     : VIDEOS.filter(v => v.category === activeCategory);
 
   return (
-    <div className="gallery-page">
+    <div className="gallery-page crimson-theme">
       <div className="gallery-container">
         <header className="gallery-header">
-          <div className="header-badge">PREMIUM CONTENT</div>
-          <h1>Our Video Gallery</h1>
-          <p>Exclusive workout videos and tutorials to help you reach your goals.</p>
+          <div className="header-badge">EXCLUSIVE ACCESS</div>
+          <h1>Training Archive</h1>
+          <p>Tactical instructionals and elite training protocols.</p>
         </header>
 
         <div className="gallery-filters">

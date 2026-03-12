@@ -6,7 +6,7 @@
   min-height: 100vh;
   background: #000;
   padding: 40px 0 80px;
-  color: #fff;
+  color: #ff0000;
 }
 
 .workouts-container {
@@ -31,7 +31,7 @@
 .page-title {
   font-size: 2.5rem;
   font-weight: 900;
-  color: #fff;
+  color: #ff0000;
   margin-bottom: 8px;
   letter-spacing: -1px;
 }
@@ -51,15 +51,9 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 0.85rem;
-  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.btn-create-workout:hover {
-  background: #cc0000;
-  transform: translateY(-2px);
 }
 
 /* Stats Overview */
@@ -105,7 +99,7 @@
 .stat-value {
   font-size: 1.4rem;
   font-weight: 900;
-  color: #fff;
+  color: #ff0000;
 }
 
 /* Workouts Grid */
@@ -121,20 +115,14 @@
   border: 1px solid #111;
   border-radius: 16px;
   padding: 25px;
-  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-}
-
-.workout-card-inner:hover {
-  border-color: #ff0000;
-  transform: translateY(-5px);
 }
 
 .workout-name {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #fff;
+  color: #ff0000;
   margin-bottom: 20px;
 }
 
@@ -169,7 +157,7 @@
 .stat-value-card {
   font-size: 0.95rem;
   font-weight: 800;
-  color: #fff;
+  color: #ff0000;
 }
 
 .card-actions {
@@ -183,18 +171,11 @@
   padding: 10px;
   background: #000;
   border: 1px solid #111;
-  color: #fff;
+  color: #ff0000;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.action-btn:hover {
-  color: #ff0000;
-  border-color: #ff0000;
-  background: rgba(255, 0, 0, 0.05);
 }
 
 /* Empty State - Clean Design */

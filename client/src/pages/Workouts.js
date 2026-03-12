@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getWorkouts, deleteWorkout, createWorkout } from '../services/api';
+import { useWorkout } from '../context/WorkoutContext';
 import Preloader from '../components/Preloader';
 import './Workouts.css';
 
@@ -17,41 +18,24 @@ const formatTime = (seconds) => {
 
 export default function Workouts() {
   const navigate = useNavigate();
+  const { 
+    activeWorkout, 
+    timeLeft, 
+    isRunning, 
+    totalSeconds, 
+    togglePause, 
+    cancelWorkout, 
+    completeWorkout 
+  } = useWorkout();
+
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [activeWorkout, setActiveWorkout] = useState(null);
-  const [timeLeft, setTimeLeft] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
-  const [totalSeconds, setTotalSeconds] = useState(0);
   const [sortBy, setSortBy] = useState('recent');
 
   useEffect(() => {
     fetchWorkouts();
-    const workout = localStorage.getItem('activeWorkout');
-    if (workout) {
-      const parsed = JSON.parse(workout);
-      setActiveWorkout(parsed);
-      setTotalSeconds(parsed.duration * 60);
-      setTimeLeft(parsed.duration * 60);
-    }
   }, []);
-
-  useEffect(() => {
-    if (!activeWorkout || !isRunning) return;
-
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          setIsRunning(false);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [activeWorkout, isRunning]);
 
   const fetchWorkouts = async () => {
     try {
@@ -65,33 +49,20 @@ export default function Workouts() {
   };
 
   const handleTogglePause = () => {
-    setIsRunning(!isRunning);
+    togglePause();
   };
 
   const handleCancel = () => {
     if (window.confirm('Are you sure you want to cancel this workout?')) {
-      localStorage.removeItem('activeWorkout');
-      setActiveWorkout(null);
-      setTimeLeft(0);
-      setIsRunning(false);
+      cancelWorkout();
     }
   };
 
   const handleComplete = async () => {
-    try {
-      await createWorkout({
-        name: activeWorkout.name,
-        description: activeWorkout.description,
-        duration: activeWorkout.duration,
-        caloriesBurned: Math.round(activeWorkout.duration * 5),
-        date: new Date(),
-      });
-      localStorage.removeItem('activeWorkout');
-      setActiveWorkout(null);
-      setTimeLeft(0);
-      setIsRunning(false);
+    const success = await completeWorkout();
+    if (success) {
       fetchWorkouts();
-    } catch (err) {
+    } else {
       setError('Failed to save workout');
     }
   };

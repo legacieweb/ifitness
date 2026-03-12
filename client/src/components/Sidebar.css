@@ -10,6 +10,25 @@
   padding: 30px 0;
   border-right: 1px solid #111;
   position: relative;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbar for Sidebar */
+.crimson-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.crimson-sidebar::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.crimson-sidebar::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 10px;
+}
+
+.crimson-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
 }
 
 .sidebar-brand-red {
@@ -33,7 +52,7 @@
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 1.3rem;
-  color: #fff;
+  color: #ff0000;
   letter-spacing: 1px;
 }
 
@@ -85,13 +104,13 @@
 .op-name-sidebar {
   font-weight: 700;
   font-size: 0.85rem;
-  color: #fff;
+  color: #ff0000;
 }
 
 .op-status-sidebar {
   font-size: 9px;
   font-weight: 600;
-  color: #660000;
+  color: #ffffff;
   letter-spacing: 1px;
   text-transform: uppercase;
 }

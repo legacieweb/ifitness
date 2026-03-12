@@ -73,7 +73,7 @@
 .node-welcome {
   font-size: 2.5rem;
   font-weight: 900;
-  color: #fff;
+  color: var(--crimson-red);
   margin-top: 5px;
   letter-spacing: -1px;
 }
@@ -132,7 +132,7 @@
 .vital-value {
   font-size: 2rem;
   font-weight: 900;
-  color: #fff;
+  color: var(--crimson-red);
   line-height: 1;
 }
 
@@ -167,7 +167,7 @@
   font-size: 1.1rem;
   font-weight: 900;
   letter-spacing: 1px;
-  color: #fff;
+  color: var(--crimson-red);
   display: flex;
   align-items: center;
   gap: 15px;
@@ -239,6 +239,27 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Custom scrollbar for protocol list */
+.protocol-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.protocol-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.protocol-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.protocol-list::-webkit-scrollbar-thumb:hover {
+  background: var(--crimson-red);
 }
 
 .protocol-entry {
@@ -274,7 +295,7 @@
 .entry-name {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #fff;
+  color: var(--crimson-red);
   display: block;
 }
 
@@ -302,6 +323,27 @@
   display: flex;
   flex-direction: column;
   gap: 25px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Custom scrollbar for objectives stack */
+.objectives-stack::-webkit-scrollbar {
+  width: 4px;
+}
+
+.objectives-stack::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.objectives-stack::-webkit-scrollbar-thumb {
+  background: rgba(255, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.objectives-stack::-webkit-scrollbar-thumb:hover {
+  background: var(--crimson-red);
 }
 
 .obj-node {

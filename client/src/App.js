@@ -1,6 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Routes, Route, Navigate, Link, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { WorkoutProvider } from './context/WorkoutContext';
 import './styles/GlobalStyles.css';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
@@ -85,6 +86,8 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/showreel" element={<Showreel />} />
+          <Route path="/showreel/:id" element={<Showreel />} />
           
           {/* User Dashboard Routes */}
           <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
@@ -160,7 +163,9 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <AppContent />
+        <WorkoutProvider>
+          <AppContent />
+        </WorkoutProvider>
       </AuthProvider>
     </Router>
   );

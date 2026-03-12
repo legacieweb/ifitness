@@ -110,214 +110,181 @@ export default function Profile() {
   }
 
   return (
-    <div className="profile-page">
-      <div className="profile-hero">
-        <div className="hero-content">
-          <div className="profile-avatar-wrapper">
-            {profile.profilePicture ? (
-              <img
-                src={getProfilePictureUrl(profile.profilePicture)}
-                alt="Profile"
-                className="hero-avatar"
-              />
-            ) : (
-              <div className="hero-avatar-placeholder">
-                {profile.name?.charAt(0) || 'U'}
-              </div>
-            )}
-            <label className="avatar-edit-badge" title="Change Photo">
-              <i className="bi bi-camera-fill"></i>
-              <input type="file" onChange={handleFileChange} accept="image/*" hidden />
-            </label>
-          </div>
-          <div className="hero-user-info">
-            <h1 className="hero-name">{profile.name}</h1>
-            <p className="hero-email">{profile.email}</p>
-            <div className="profile-badges">
-              <span className="badge-item"><i className="bi bi-shield-check"></i> Verified Member</span>
-              <span className="badge-item"><i className="bi bi-lightning-fill"></i> Pro Athlete</span>
-            </div>
-          </div>
-        </div>
-        
-        {file && (
-          <div className="upload-confirm-toast">
-            <span>New photo selected</span>
-            <button onClick={handleUpload} className="btn-confirm-upload">
-              {loading ? 'Uploading...' : 'Confirm Upload'}
-            </button>
-            <button onClick={() => setFile(null)} className="btn-cancel-upload">Cancel</button>
-          </div>
-        )}
-      </div>
-
-      <div className="profile-main-content">
-        <div className="profile-grid">
-          <div className="profile-sidebar-col">
-            <div className="settings-card glass-card">
-              <h3>Account Settings</h3>
-              <nav className="settings-nav">
-                <button className="nav-item active"><i className="bi bi-person"></i> Personal Info</button>
-                <button className="nav-item"><i className="bi bi-lock"></i> Security</button>
-                <button className="nav-item"><i className="bi bi-bell"></i> Notifications</button>
-                <button className="nav-item"><i className="bi bi-palette"></i> Appearance</button>
-              </nav>
-            </div>
-
-            <div className="stats-card-mini glass-card">
-              <div className="mini-stat">
-                <span className="stat-label">Member Since</span>
-                <span className="stat-value">March 2024</span>
-              </div>
-              <div className="mini-stat">
-                <span className="stat-label">Total Workouts</span>
-                <span className="stat-value">42</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="profile-form-col">
-            {error && (
-              <div className="status-alert error">
-                <i className="bi bi-exclamation-circle"></i> {error}
-              </div>
-            )}
-            {success && (
-              <div className="status-alert success">
-                <i className="bi bi-check-circle"></i> {success}
-              </div>
-            )}
-
-            <div className="form-container glass-card">
-              <div className="form-header">
-                <h2>Personal Information</h2>
-                <p>Keep your health metrics updated for better tracking</p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="modern-form">
-                <div className="form-group-grid">
-                  <div className="form-group">
-                    <label>Full Name</label>
-                    <div className="input-wrapper">
-                      <i className="bi bi-person"></i>
-                      <input
-                        type="text"
-                        name="name"
-                        value={profile.name || ''}
-                        onChange={handleInputChange}
-                        placeholder="Your Name"
-                        required
-                      />
-                    </div>
+    <div className="profile-page crimson-theme">
+      <div className="profile-container">
+        {/* Profile Header */}
+        <header className="profile-header-modern">
+          <div className="profile-cover"></div>
+          <div className="profile-header-content">
+            <div className="profile-avatar-container">
+              <div className="profile-avatar-wrapper">
+                {profile.profilePicture ? (
+                  <img
+                    src={getProfilePictureUrl(profile.profilePicture)}
+                    alt="Profile"
+                    className="profile-avatar-main"
+                  />
+                ) : (
+                  <div className="profile-avatar-placeholder">
+                    {profile.name?.charAt(0) || 'U'}
                   </div>
+                )}
+                <label className="avatar-edit-badge" title="Change Photo">
+                  <i className="bi bi-camera-fill"></i>
+                  <input type="file" onChange={handleFileChange} accept="image/*" hidden />
+                </label>
+              </div>
+            </div>
+            
+            <div className="profile-identity">
+              <h1 className="profile-name-main">{profile.name}</h1>
+              <p className="profile-email-main">{profile.email}</p>
+              <div className="profile-pills">
+                <span className="profile-pill"><i className="bi bi-shield-check"></i> VERIFIED OPERATOR</span>
+                <span className="profile-pill-alt"><i className="bi bi-lightning-charge-fill"></i> ACTIVE STATUS</span>
+              </div>
+            </div>
 
+            <div className="profile-header-actions">
+              <button onClick={() => setFile(null)} className="btn-outline-crimson" style={{display: file ? 'block' : 'none'}}>
+                CANCEL
+              </button>
+              {file && (
+                <button onClick={handleUpload} className="btn-crimson-main" disabled={loading}>
+                  {loading ? 'UPLOADING...' : 'CONFIRM PHOTO'}
+                </button>
+              )}
+            </div>
+          </div>
+        </header>
+
+        <div className="profile-content-grid">
+          {/* Left Column: Form & Stats */}
+          <div className="profile-left-col">
+            <div className="glass-panel profile-form-panel">
+              <div className="panel-header">
+                <h3><i className="bi bi-person-gear"></i> BIOMETRIC DATA</h3>
+              </div>
+              
+              <form onSubmit={handleSubmit} className="crimson-form">
+                <div className="form-row">
                   <div className="form-group">
-                    <label>Email Address</label>
-                    <div className="input-wrapper readonly">
-                      <i className="bi bi-envelope"></i>
-                      <input
-                        type="email"
-                        value={profile.email || ''}
-                        readOnly
-                      />
-                    </div>
+                    <label>NAME</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={profile.name || ''}
+                      onChange={handleInputChange}
+                      placeholder="ENTER NAME"
+                      required
+                    />
                   </div>
                 </div>
 
-                <div className="form-metrics-grid">
+                <div className="form-metrics-row">
                   <div className="form-group">
-                    <label>Age</label>
+                    <label>AGE</label>
                     <input
                       type="number"
                       name="age"
                       value={profile.age || ''}
                       onChange={handleInputChange}
-                      placeholder="Years"
+                      placeholder="--"
                     />
                   </div>
                   <div className="form-group">
-                    <label>Weight (kg)</label>
+                    <label>WEIGHT (KG)</label>
                     <input
                       type="number"
                       name="weight"
                       value={profile.weight || ''}
                       onChange={handleInputChange}
-                      placeholder="kg"
+                      placeholder="0.0"
                     />
                   </div>
                   <div className="form-group">
-                    <label>Height (cm)</label>
+                    <label>HEIGHT (CM)</label>
                     <input
                       type="number"
                       name="height"
                       value={profile.height || ''}
                       onChange={handleInputChange}
-                      placeholder="cm"
+                      placeholder="000"
                     />
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label>Your Fitness Goal</label>
+                  <label>PRIMARY OBJECTIVE</label>
                   <textarea
                     name="goal"
                     value={profile.goal || ''}
                     onChange={handleInputChange}
-                    rows="4"
-                    placeholder="Describe what you want to achieve..."
+                    rows="3"
+                    placeholder="DEFINE YOUR MISSION..."
                   />
                 </div>
 
-                <div className="form-actions">
-                  <button type="submit" className="btn-save-modern" disabled={loading}>
-                    {loading ? (
-                      <>
-                        <span className="spinner-border spinner-border-sm me-2"></span>
-                        Saving...
-                      </>
-                    ) : (
-                      <>
-                        <i className="bi bi-check2-circle me-2"></i>
-                        Save Changes
-                      </>
-                    )}
-                  </button>
-                </div>
+                <button type="submit" className="btn-crimson-submit" disabled={loading}>
+                  {loading ? 'SYNCING...' : 'UPDATE PROFILE'}
+                </button>
               </form>
             </div>
 
-            <div className="gallery-container glass-card">
-              <div className="gallery-header">
-                <h2>Transformation Gallery</h2>
-                <p>Visualizing your progress over time</p>
+            <div className="stats-mini-grid">
+              <div className="stat-mini-card">
+                <span className="stat-mini-label">SESSIONS</span>
+                <span className="stat-mini-value">42</span>
+              </div>
+              <div className="stat-mini-card">
+                <span className="stat-mini-label">RANK</span>
+                <span className="stat-mini-value">PRO</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Transformation Gallery */}
+          <div className="profile-right-col">
+            <div className="glass-panel gallery-panel">
+              <div className="panel-header">
+                <h3><i className="bi bi-images"></i> TRANSFORMATION GALLERY</h3>
+                <p>VISUAL PROGRESS LOG</p>
               </div>
 
               {galleryLoading ? (
-                <div className="gallery-loading">
-                  <div className="spinner-border text-primary"></div>
+                <div className="gallery-spinner">
+                  <div className="spinner-border text-danger"></div>
                 </div>
               ) : gallery.length > 0 ? (
-                <div className="modern-gallery-grid">
+                <div className="transformation-grid">
                   {gallery.map((image) => (
-                    <div key={image.id} className="modern-gallery-item">
-                      <img src={image.imageUrl} alt="Progress" />
-                      <div className="item-overlay">
-                        <span className="item-tag">{image.tag}</span>
-                        <span className="item-date">{new Date(image.uploadedAt).toLocaleDateString()}</span>
+                    <div key={image.id} className="transformation-item">
+                      <div className="transformation-img-wrapper">
+                        <img src={image.imageUrl} alt="Progress" />
+                        <div className="transformation-overlay">
+                          <span className="trans-tag">{image.tag}</span>
+                          <span className="trans-date">{new Date(image.uploadedAt).toLocaleDateString()}</span>
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="modern-gallery-empty">
-                  <div className="empty-icon"><i className="bi bi-images"></i></div>
-                  <p>No progress photos yet</p>
-                  <small>Upload photos from your dashboard to see them here</small>
+                <div className="gallery-empty-state">
+                  <i className="bi bi-camera-video"></i>
+                  <p>NO VISUAL DATA RECORDED</p>
+                  <small>UPLOAD VIA DASHBOARD</small>
                 </div>
               )}
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Alerts */}
+      <div className="profile-alerts">
+        {error && <div className="crimson-alert error">{error}</div>}
+        {success && <div className="crimson-alert success">{success}</div>}
       </div>
     </div>
   );

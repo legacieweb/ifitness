@@ -4,13 +4,18 @@ import { useAuth } from '../context/AuthContext';
 import { getProfilePictureUrl } from '../services/api';
 import './Sidebar.css';
 
-export default function Sidebar({ isOpen }) {
+export default function Sidebar({ isOpen, onClose }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
+    if (onClose) onClose();
     navigate('/');
+  };
+
+  const handleLinkClick = () => {
+    if (onClose) onClose();
   };
 
   const navItems = [
@@ -29,7 +34,7 @@ export default function Sidebar({ isOpen }) {
   return (
     <div className={`crimson-sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-brand-red">
-        <NavLink to="/" className="sidebar-logo-red">
+        <NavLink to="/" className="sidebar-logo-red" onClick={handleLinkClick}>
           <i className="bi bi-shield-shaded"></i>
           <span>My<span className="text-crimson">.FITNESS</span></span>
         </NavLink>
@@ -57,6 +62,7 @@ export default function Sidebar({ isOpen }) {
             key={item.path} 
             to={item.path} 
             className={({ isActive }) => `sidebar-link-red ${isActive ? 'active' : ''}`}
+            onClick={handleLinkClick}
           >
             <i className={`bi ${item.icon}`}></i>
             <span>{item.name}</span>

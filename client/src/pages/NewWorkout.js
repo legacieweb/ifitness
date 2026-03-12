@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useWorkout } from '../context/WorkoutContext';
 import { createWorkout, getExercises } from '../services/api';
 import './WorkoutForm.css';
 
@@ -72,29 +73,24 @@ const WORKOUT_TEMPLATES = [
 
 export default function NewWorkout() {
   const navigate = useNavigate();
+  const { startWorkout } = useWorkout();
 
   const handleSelectTemplate = (template) => {
-    const selectedWorkout = {
+    startWorkout({
       name: template.name,
       description: template.desc,
       duration: template.duration,
-      startTime: new Date().toISOString(),
-      status: 'active',
-    };
-    localStorage.setItem('activeWorkout', JSON.stringify(selectedWorkout));
-    navigate('/dashboard');
+    });
+    navigate('/workouts');
   };
 
   const handleCustomWorkout = () => {
-    const customWorkout = {
+    startWorkout({
       name: 'Custom Workout',
       description: '',
-      duration: 0,
-      startTime: new Date().toISOString(),
-      status: 'custom',
-    };
-    localStorage.setItem('activeWorkout', JSON.stringify(customWorkout));
-    navigate('/dashboard');
+      duration: 30, // Default to 30 mins
+    });
+    navigate('/workouts');
   };
 
   return (

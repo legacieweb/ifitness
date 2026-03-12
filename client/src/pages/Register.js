@@ -255,8 +255,8 @@ export default function Register() {
               <div className="d-flex gap-3 mt-5">
                 <button
                   type="button"
-                  className="cyber-btn-v2"
-                  style={{ flex: 1, borderColor: 'rgba(255,255,255,0.1)' }}
+                  className="cyber-btn-v2 back-btn"
+                  style={{ flex: 1 }}
                   onClick={prevStep}
                 >
                   BACK
