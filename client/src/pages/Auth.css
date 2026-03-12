@@ -720,3 +720,286 @@
     gap: 20px;
   }
 }
+
+/* =====================================================
+   IMMERSIVE CYBER-INTERFACE REDESIGN
+   ===================================================== */
+
+.immersive-auth-layout {
+  min-height: 100vh;
+  background-color: #050505;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.cyber-grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scanning-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.2), transparent);
+  animation: scan 8s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100vh); }
+  100% { transform: translateY(100vh); }
+}
+
+.cyber-content-v2 {
+  width: 100%;
+  max-width: 600px;
+  padding: 40px;
+  position: relative;
+  z-index: 10;
+  animation: fadeInBlur 1.5s ease-out;
+}
+
+@keyframes fadeInBlur {
+  0% { opacity: 0; filter: blur(20px); transform: scale(0.95); }
+  100% { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+
+.cyber-header-v2 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.cyber-title-v2 {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 576px) {
+  .cyber-title-v2 {
+    font-size: 2.5rem;
+    letter-spacing: -1px;
+  }
+}
+
+.cyber-title-v2 .outline-text {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  color: transparent;
+  display: block;
+}
+
+.cyber-title-v2 .glow-text {
+  color: var(--crimson-red);
+  text-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  display: block;
+}
+
+.cyber-subtitle-v2 {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+/* Modern Minimalist Inputs */
+.cyber-field-v2 {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.cyber-input-v2 {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 0;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 300;
+  outline: none;
+  transition: all 0.4s ease;
+}
+
+.cyber-label-v2 {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  pointer-events: none;
+}
+
+.cyber-input-v2:focus + .cyber-label-v2,
+.cyber-input-v2:not(:placeholder-shown) + .cyber-label-v2 {
+  top: -15px;
+  color: var(--crimson-red);
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.cyber-input-v2:focus {
+  border-bottom-color: var(--crimson-red);
+}
+
+.cyber-focus-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--crimson-red);
+  box-shadow: 0 0 10px var(--crimson-red);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.cyber-input-v2:focus ~ .cyber-focus-bar {
+  width: 100%;
+}
+
+/* Action Buttons */
+.cyber-btn-v2 {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--crimson-red);
+  padding: 20px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.cyber-btn-v2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--crimson-red);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  z-index: -1;
+}
+
+.cyber-btn-v2:hover {
+  color: #000;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+}
+
+.cyber-btn-v2:hover::before {
+  left: 0;
+}
+
+.cyber-footer-v2 {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.footer-link-v2 {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.footer-link-v2:hover {
+  color: var(--crimson-red);
+}
+
+.footer-link-v2 span {
+  color: #fff;
+  margin-left: 10px;
+  position: relative;
+}
+
+.footer-link-v2 span::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--crimson-red);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+  transform-origin: right;
+}
+
+.footer-link-v2:hover span::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Background elements */
+.data-stream {
+  position: absolute;
+  font-size: 10px;
+  color: rgba(255, 0, 0, 0.05);
+  font-family: monospace;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ds-1 { top: 10%; left: -5%; transform: rotate(-5deg); animation: stream 20s linear infinite; }
+.ds-2 { top: 80%; right: -5%; transform: rotate(5deg); animation: stream 15s linear infinite reverse; }
+
+@keyframes stream {
+  0% { transform: translateX(-100%) rotate(-5deg); }
+  100% { transform: translateX(100vw) rotate(-5deg); }
+}
+
+.status-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  border: 1px solid rgba(255, 0, 0, 0.03);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ring-2 { width: 1000px; height: 1000px; border-style: dashed; animation: rotate 60s linear infinite; }
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}

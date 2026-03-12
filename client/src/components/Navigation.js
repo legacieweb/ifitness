@@ -39,7 +39,7 @@ export default function Navigation() {
           <div className="brand-icon-crimson">
             <i className="bi bi-shield-shaded"></i>
           </div>
-          <span className="brand-text">iFITNESS<span className="text-crimson">.RED</span></span>
+          <span className="brand-text">MY<span className="text-crimson">.FITNESS</span></span>
         </Link>
 
         <div className={`crimson-menu ${isMenuOpen ? 'open' : ''}`}>

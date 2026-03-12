@@ -54,7 +54,7 @@ export default function PrivacyPolicy() {
               <main className="legal-main">
                 <div id="intro" className="legal-block reveal">
                   <h3>01_INTRODUCTION</h3>
-                  <p>Welcome to the Crimson Protocol ("ifitness"). We are committed to protecting the biometric and tactical data of our operators. This document outlines the encryption and collection parameters used across our global network.</p>
+                  <p>Welcome to the Crimson Protocol ("My FITNESS"). We are committed to protecting the biometric and tactical data of our operators. This document outlines the encryption and collection parameters used across our global network.</p>
                 </div>
 
                 <div id="collection" className="legal-block reveal">

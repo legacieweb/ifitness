@@ -31,7 +31,7 @@ export default function Sidebar({ isOpen }) {
       <div className="sidebar-brand-red">
         <NavLink to="/" className="sidebar-logo-red">
           <i className="bi bi-shield-shaded"></i>
-          <span>iFITNESS<span className="text-crimson">.RED</span></span>
+          <span>My<span className="text-crimson">.FITNESS</span></span>
         </NavLink>
       </div>
 

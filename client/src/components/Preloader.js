@@ -28,7 +28,7 @@ export default function Preloader({ text = 'INITIALIZING' }) {
         
         <div className="core-content">
           <div className="protocol-id">PROTOCOL_CRIMSON_v2.0</div>
-          <h1 className="system-title">iFITNESS</h1>
+          <h1 className="system-title">My FITNESS</h1>
           
           <div className="progress-container">
             <div className="progress-label">
@@ -45,9 +45,9 @@ export default function Preloader({ text = 'INITIALIZING' }) {
           </div>
 
           <div className="terminal-log">
-            <div className="log-line">> ESTABLISHING_SECURE_LINK...</div>
-            <div className="log-line">> CALIBRATING_BIOMETRICS...</div>
-            <div className="log-line">> LOADING_OPERATOR_INTEL...</div>
+            <div className="log-line"> ESTABLISHING_SECURE_LINK...</div>
+            <div className="log-line"> CALIBRATING_BIOMETRICS...</div>
+            <div className="log-line"> LOADING_OPERATOR_INTEL...</div>
           </div>
         </div>
       </div>

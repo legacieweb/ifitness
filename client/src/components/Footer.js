@@ -43,7 +43,7 @@ export default function Footer() {
           <div className="footer-elite-brand">
             <div className="elite-logo">
               <span className="logo-icon-minimal"></span>
-              <span className="logo-name">iFITNESS<span className="text-crimson">.RED</span></span>
+              <span className="logo-name">MY<span className="text-crimson">.FITNESS</span></span>
             </div>
             <p className="elite-tagline">
               Redefining the architecture of human performance through elite-level training protocols.
@@ -100,7 +100,7 @@ export default function Footer() {
 
         <div className="footer-elite-bottom">
           <div className="elite-copyright">
-            © {new Date().getFullYear()} CRIMSON CORE
+            © {new Date().getFullYear()} MYFITNESS 
           </div>
           <div className="elite-utility">
             <span className="text-crimson fw-bold">powered by iyonicorp</span>

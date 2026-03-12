@@ -8,6 +8,9 @@ export default function Showreel() {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [selectedVideoIndex, setSelectedVideoIndex] = useState(null);
+  const [showSharePopup, setShowSharePopup] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const [showControls, setShowControls] = useState(false);
   const scrollContainerRef = useRef(null);
   const videoRefs = useRef([]);
 
@@ -22,7 +25,22 @@ export default function Showreel() {
 
   const closePlayer = () => {
     setSelectedVideoIndex(null);
+    setShowSharePopup(false);
     document.body.style.overflow = 'auto';
+  };
+
+  const copyToClipboard = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    });
+  };
+
+  const toggleControls = (e) => {
+    // Prevent toggling when clicking buttons
+    if (e.target.closest('button') || e.target.closest('.action-node')) return;
+    setShowControls(!showControls);
   };
 
   useEffect(() => {
@@ -133,10 +151,25 @@ export default function Showreel() {
             <span>EXIT_FEED</span>
           </button>
 
+          {showSharePopup && (
+            <div className="share-popup-overlay" onClick={() => setShowSharePopup(false)}>
+              <div className="share-popup-content" onClick={e => e.stopPropagation()}>
+                <h3 className="popup-title">SHARE_PROTOCOL</h3>
+                <div className="url-display">
+                  <input type="text" readOnly value={window.location.href} />
+                  <button onClick={copyToClipboard} className={copySuccess ? 'copied' : ''}>
+                    {copySuccess ? 'COPIED!' : 'COPY_URL'}
+                  </button>
+                </div>
+                <button className="popup-close" onClick={() => setShowSharePopup(false)}>CLOSE</button>
+              </div>
+            </div>
+          )}
+
           <div className="tiktok-scroll-container" ref={scrollContainerRef}>
             {VIDEOS.map((video, index) => (
               <div key={video.id} className="tiktok-video-slide">
-                <div className="video-wrapper">
+                <div className="video-wrapper" onClick={toggleControls}>
                   <video
                     ref={el => videoRefs.current[index] = el}
                     data-index={index}
@@ -146,6 +179,19 @@ export default function Showreel() {
                     className="tiktok-video-element"
                   ></video>
                   
+                  {/* Playback Controls (Visible on click) */}
+                  <div className={`video-playback-controls ${showControls ? 'visible' : ''}`}>
+                    <div className="playback-actions">
+                      <button onClick={(e) => {
+                        e.stopPropagation();
+                        const v = videoRefs.current[index];
+                        if (v.paused) v.play(); else v.pause();
+                      }}>
+                        <i className={`bi bi-${videoRefs.current[index]?.paused ? 'play' : 'pause'}-fill`}></i>
+                      </button>
+                    </div>
+                  </div>
+
                   {/* Custom Controls Overlay */}
                   <div className="video-controls-overlay">
                     <div className="video-info-stack">
@@ -160,20 +206,13 @@ export default function Showreel() {
                     </div>
 
                     <div className="side-actions-stack">
-                      <div className="action-node">
-                        <div className="node-icon"><i className="bi bi-heart-fill"></i></div>
-                        <span>4.2K</span>
-                      </div>
-                      <div className="action-node">
-                        <div className="node-icon"><i className="bi bi-chat-dots-fill"></i></div>
-                        <span>842</span>
-                      </div>
-                      <div className="action-node">
+                      <div className="action-node" onClick={() => setShowSharePopup(true)}>
                         <div className="node-icon"><i className="bi bi-share-fill"></i></div>
                         <span>SHARE</span>
                       </div>
-                      <div className="action-node profile-node">
-                        <div className="node-avatar">IF</div>
+                      <div className="action-node">
+                        <div className="node-icon"><i className="bi bi-gear-fill"></i></div>
+                        <span>SETTINGS</span>
                       </div>
                     </div>
 

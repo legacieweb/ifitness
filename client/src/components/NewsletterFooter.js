@@ -48,7 +48,7 @@ export default function NewsletterFooter() {
                     <i className="bi bi-activity"></i>
                   </div>
                   <div className="logo-text">
-                    <span className="logo-name">iFitness</span>
+                    <span className="logo-name">My FITNESS</span>
                     <span className="logo-tagline">Elevate Your Game</span>
                   </div>
                 </div>

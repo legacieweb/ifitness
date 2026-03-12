@@ -29,107 +29,91 @@ export default function Login() {
   };
 
   return (
-    <div className="crimson-auth-wrapper">
-      <div className="ambient-particles"></div>
-      <div className="hero-noise-overlay"></div>
-      
-      <div className="auth-container reveal-active">
-        <div className="auth-card-creative glass-morphism">
-          <div className="auth-card-header">
-            <div className="protocol-status mb-4">
-              <span className="status-dot pulse"></span>
-              <span className="status-label">IDENTITY VERIFICATION REQUIRED</span>
-            </div>
-            
-            <h1 className="creative-title mb-2">
-              LEVEL <span className="title-outline">ACCESS</span><br/>
-              <span className="title-bold">RESTRICTED</span>
-            </h1>
-            <p className="auth-subtitle text-muted mb-4">Enter credentials to bypass security gateway</p>
+    <div className="immersive-auth-layout">
+      {/* Background elements */}
+      <div className="cyber-grid-overlay"></div>
+      <div className="scanning-line"></div>
+      <div className="status-ring"></div>
+      <div className="status-ring ring-2"></div>
+      <div className="data-stream ds-1">ACCESS_GATEWAY_V2 // SYNCING_BIOMETRICS // PROTOCOL_LEVEL_9</div>
+      <div className="data-stream ds-2">ENCRYPTION_ACTIVE // SESSION_PERSISTENCE_ENABLED // BYPASS_RESTRICTED</div>
+
+      <div className="cyber-content-v2">
+        <div className="cyber-header-v2">
+          <h1 className="cyber-title-v2">
+            <span className="outline-text">LEVEL_ACCESS</span>
+            <span className="glow-text">RESTRICTED</span>
+          </h1>
+          <p className="cyber-subtitle-v2">Enter credentials to bypass security gateway</p>
+        </div>
+
+        {error && (
+          <div className="auth-error-glitch mb-5">
+            <i className="bi bi-exclamation-triangle-fill"></i>
+            <span>{error.toUpperCase()}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="cyber-form-v2">
+          <div className="cyber-field-v2">
+            <input
+              type="email"
+              className="cyber-input-v2"
+              placeholder=" "
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <label className="cyber-label-v2">OPERATOR_ID</label>
+            <div className="cyber-focus-bar"></div>
           </div>
 
-          <div className="auth-card-body">
-            {error && (
-              <div className="auth-error-glitch mb-4">
-                <i className="bi bi-exclamation-triangle-fill"></i>
-                <span>{error.toUpperCase()}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="creative-form">
-              <div className="form-group-creative mb-4">
-                <label className="creative-label">OPERATOR_ID</label>
-                <div className="input-frame">
-                  <input
-                    type="email"
-                    className="creative-input"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="NAME@DOMAIN.COM"
-                    required
-                  />
-                  <div className="input-focus-line"></div>
-                </div>
-              </div>
-
-              <div className="form-group-creative mb-4">
-                <label className="creative-label">ACCESS_KEY</label>
-                <div className="input-frame">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    className="creative-input"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="input-icon-btn"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    <i className={`bi bi-${showPassword ? 'eye-slash' : 'eye'}`}></i>
-                  </button>
-                  <div className="input-focus-line"></div>
-                </div>
-              </div>
-
-              <div className="d-flex justify-content-between align-items-center mb-5">
-                <label className="creative-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                  />
-                  <span className="checkbox-box"></span>
-                  <span className="checkbox-text">MAINTAIN_SESSION</span>
-                </label>
-                <Link to="/forgot-password" hidden className="forgot-password-link">
-                  RESET_ENCRYPTION
-                </Link>
-              </div>
-
-              <button
-                type="submit"
-                className="btn-glitch w-100 border-0"
-                disabled={loading}
-              >
-                <span className="glitch-text" data-text={loading ? "VERIFYING..." : "AUTHORIZE"}>
-                  {loading ? "VERIFYING..." : "AUTHORIZE"}
-                </span>
-                <div className="glitch-line"></div>
-              </button>
-            </form>
+          <div className="cyber-field-v2">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className="cyber-input-v2"
+              placeholder=" "
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <label className="cyber-label-v2">ACCESS_KEY</label>
+            <div className="cyber-focus-bar"></div>
+            <button
+              type="button"
+              className="input-icon-btn"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ bottom: '15px', top: 'auto', transform: 'none' }}
+            >
+              <i className={`bi bi-${showPassword ? 'eye-slash' : 'eye'}`}></i>
+            </button>
           </div>
 
-          <div className="auth-card-footer mt-5 text-center">
-            <p className="text-muted small">
-              NEW OPERATOR?{' '}
-              <Link to="/register" className="text-crimson fw-bold text-decoration-none">
-                INITIALIZE_RECRUITMENT
-              </Link>
-            </p>
+          <div className="d-flex justify-content-between align-items-center mb-5">
+            <label className="creative-checkbox">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              <span className="checkbox-box"></span>
+              <span className="checkbox-text">MAINTAIN_SESSION</span>
+            </label>
           </div>
+
+          <button
+            type="submit"
+            className="cyber-btn-v2"
+            disabled={loading}
+          >
+            {loading ? "VERIFYING..." : "AUTHORIZE_ACCESS"}
+          </button>
+        </form>
+
+        <div className="cyber-footer-v2">
+          <Link to="/register" className="footer-link-v2">
+            NEW_OPERATOR? <span>INITIALIZE_RECRUITMENT</span>
+          </Link>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ export default function DashboardHeader() {
           <div className="header-logo">
             <Link to="/" className="logo-link">
               <i className="bi bi-activity"></i>
-              <span>iFitness</span>
+              <span>MY FITNESS</span>
             </Link>
           </div>
           <div className="header-auth">

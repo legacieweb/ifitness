@@ -248,6 +248,7 @@
   width: 100%;
   height: 100vh;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -424,4 +425,124 @@
   .scroll-indicator {
     display: none;
   }
+}
+
+/* Share Popup */
+.share-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.share-popup-content {
+  background: #080808;
+  border: 1px solid var(--crimson-red);
+  padding: 40px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.url-display {
+  display: flex;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+.url-display input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  outline: none;
+}
+
+.url-display button {
+  background: var(--crimson-red);
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.url-display button.copied {
+  background: #fff;
+  color: #000;
+}
+
+.popup-close {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px 30px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popup-close:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Video Playback Controls */
+.video-playback-controls {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 100;
+}
+
+.video-playback-controls.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.playback-actions button {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+  transition: 0.2s;
+}
+
+.playback-actions button:hover {
+  transform: scale(1.1);
+  background: var(--crimson-red);
 }

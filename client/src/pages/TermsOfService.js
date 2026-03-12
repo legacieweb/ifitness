@@ -54,7 +54,7 @@ export default function TermsOfService() {
               <main className="legal-main">
                 <div id="acceptance" className="legal-block reveal">
                   <h3>01_ACCEPTANCE_OF_TERMS</h3>
-                  <p>By initializing a connection with the Crimson Protocol ("ifitness"), you agree to be bound by these operational guidelines. Unauthorized access or deviation from these protocols is strictly prohibited.</p>
+                  <p>By initializing a connection with the Crimson Protocol ("My FITNESS"), you agree to be bound by these operational guidelines. Unauthorized access or deviation from these protocols is strictly prohibited.</p>
                 </div>
 
                 <div id="license" className="legal-block reveal">
@@ -74,7 +74,7 @@ export default function TermsOfService() {
 
                 <div id="limitations" className="legal-block reveal">
                   <h3>04_LIABILITY_LIMITATIONS</h3>
-                  <p>The Core Command ("ifitness") shall not be held liable for any data loss, system interruptions, or metabolic discrepancies arising from the use or inability to synchronize with our network.</p>
+                  <p>The Core Command ("My FITNESS") shall not be held liable for any data loss, system interruptions, or metabolic discrepancies arising from the use or inability to synchronize with our network.</p>
                 </div>
 
                 <div id="conduct" className="legal-block reveal">

@@ -70,234 +70,214 @@ export default function Register() {
   };
 
   return (
-    <div className="crimson-auth-wrapper">
-      <div className="ambient-particles"></div>
-      <div className="hero-noise-overlay"></div>
-      
-      <div className="auth-container reveal-active">
-        <div className="auth-card-creative glass-morphism">
-          <div className="auth-card-header">
-            <div className="protocol-status mb-4">
-              <span className="status-dot pulse"></span>
-              <span className="status-label">NEW OPERATOR RECRUITMENT</span>
-            </div>
-            
-            <h1 className="creative-title mb-2">
-              INITIATE <span className="title-outline">EVOLUTION</span><br/>
-              <span className="title-bold">PROTOCOL</span>
-            </h1>
+    <div className="immersive-auth-layout">
+      {/* Background elements */}
+      <div className="cyber-grid-overlay"></div>
+      <div className="scanning-line"></div>
+      <div className="status-ring"></div>
+      <div className="status-ring ring-2"></div>
+      <div className="data-stream ds-1">INITIATE_RECRUITMENT_V2 // SYNCING_BIOMETRICS // PROTOCOL_LEVEL_1</div>
+      <div className="data-stream ds-2">ENCRYPTION_ACTIVE // BIOMETRIC_CAPTURE_READY // CORE_ID_INITIATED</div>
 
-            <div className="creative-steps-indicator mb-4">
-              <div className={`creative-step ${step >= 1 ? 'active' : ''}`}>
-                <span className="step-label">CORE_ID</span>
-                <div className="step-bar"></div>
-              </div>
-              <div className={`creative-step ${step >= 2 ? 'active' : ''}`}>
-                <span className="step-label">BIOMETRICS</span>
-                <div className="step-bar"></div>
-              </div>
+      <div className="cyber-content-v2">
+        <div className="cyber-header-v2">
+          <div className="creative-steps-indicator mb-4 justify-content-center">
+            <div className={`creative-step ${step >= 1 ? 'active' : ''}`} style={{ maxWidth: '100px' }}>
+              <span className="step-label">CORE_ID</span>
+              <div className="step-bar"></div>
+            </div>
+            <div className={`creative-step ${step >= 2 ? 'active' : ''}`} style={{ maxWidth: '100px' }}>
+              <span className="step-label">BIOMETRICS</span>
+              <div className="step-bar"></div>
             </div>
           </div>
+          
+          <h1 className="cyber-title-v2">
+            <span className="outline-text">INITIATE</span>
+            <span className="glow-text">EVOLUTION</span>
+          </h1>
+          <p className="cyber-subtitle-v2">Operator Recruitment Protocol Phase {step}</p>
+        </div>
 
-          <div className="auth-card-body">
-            {error && (
-              <div className="auth-error-glitch mb-4">
-                <i className="bi bi-exclamation-triangle-fill"></i>
-                <span>{error.toUpperCase()}</span>
+        {error && (
+          <div className="auth-error-glitch mb-5">
+            <i className="bi bi-exclamation-triangle-fill"></i>
+            <span>{error.toUpperCase()}</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="cyber-form-v2">
+          {step === 1 && (
+            <div className="animate-in">
+              <div className="cyber-field-v2">
+                <input
+                  type="text"
+                  className="cyber-input-v2"
+                  name="name"
+                  placeholder=" "
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <label className="cyber-label-v2">OPERATOR_NAME</label>
+                <div className="cyber-focus-bar"></div>
               </div>
-            )}
 
-            <form onSubmit={handleSubmit} className="creative-form">
-              {step === 1 && (
-                <>
-                  <div className="form-group-creative mb-4">
-                    <label className="creative-label">OPERATOR_NAME</label>
-                    <div className="input-frame">
-                      <input
-                        type="text"
-                        className="creative-input"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="ALEX JOHNSON"
-                        required
-                      />
-                      <div className="input-focus-line"></div>
+              <div className="cyber-field-v2">
+                <input
+                  type="email"
+                  className="cyber-input-v2"
+                  name="email"
+                  placeholder=" "
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <label className="cyber-label-v2">OPERATOR_EMAIL</label>
+                <div className="cyber-focus-bar"></div>
+              </div>
+
+              <div className="cyber-field-v2">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  className="cyber-input-v2"
+                  name="password"
+                  placeholder=" "
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <label className="cyber-label-v2">ACCESS_KEY</label>
+                <div className="cyber-focus-bar"></div>
+                <button
+                  type="button"
+                  className="input-icon-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ bottom: '15px', top: 'auto', transform: 'none' }}
+                >
+                  <i className={`bi bi-${showPassword ? 'eye-slash' : 'eye'}`}></i>
+                </button>
+                {formData.password && (
+                  <div className="password-strength-creative mt-2">
+                    <div className="strength-bars">
+                      {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className={`s-bar ${passwordStrength >= i ? 'active' : ''}`}></div>
+                      ))}
                     </div>
+                    <span className="strength-label">
+                      {passwordStrength === 1 && 'WEAK'}
+                      {passwordStrength === 2 && 'MODERATE'}
+                      {passwordStrength === 3 && 'STRONG'}
+                      {passwordStrength === 4 && 'MAXIMUM'}
+                    </span>
                   </div>
+                )}
+              </div>
 
-                  <div className="form-group-creative mb-4">
-                    <label className="creative-label">OPERATOR_EMAIL</label>
-                    <div className="input-frame">
-                      <input
-                        type="email"
-                        className="creative-input"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="NAME@DOMAIN.COM"
-                        required
-                      />
-                      <div className="input-focus-line"></div>
-                    </div>
+              <button
+                type="button"
+                className="cyber-btn-v2 mt-4"
+                onClick={nextStep}
+              >
+                CONTINUE_SYNC
+              </button>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="animate-in">
+              <div className="row g-4">
+                <div className="col-6">
+                  <div className="cyber-field-v2">
+                    <input
+                      type="number"
+                      className="cyber-input-v2"
+                      name="age"
+                      placeholder=" "
+                      value={formData.age}
+                      onChange={handleChange}
+                    />
+                    <label className="cyber-label-v2">AGE_YRS</label>
+                    <div className="cyber-focus-bar"></div>
                   </div>
-
-                  <div className="form-group-creative mb-4">
-                    <label className="creative-label">ACCESS_KEY</label>
-                    <div className="input-frame">
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        className="creative-input"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="••••••••"
-                        required
-                      />
-                      <button
-                        type="button"
-                        className="input-icon-btn"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        <i className={`bi bi-${showPassword ? 'eye-slash' : 'eye'}`}></i>
-                      </button>
-                      <div className="input-focus-line"></div>
-                    </div>
-                    {formData.password && (
-                      <div className="password-strength-creative mt-2">
-                        <div className="strength-bars">
-                          {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className={`s-bar ${passwordStrength >= i ? 'active' : ''}`}></div>
-                          ))}
-                        </div>
-                        <span className="strength-label">
-                          {passwordStrength === 1 && 'WEAK_ENCRYPTION'}
-                          {passwordStrength === 2 && 'MODERATE_ENCRYPTION'}
-                          {passwordStrength === 3 && 'STRONG_ENCRYPTION'}
-                          {passwordStrength === 4 && 'MAXIMUM_ENCRYPTION'}
-                        </span>
-                      </div>
-                    )}
+                </div>
+                <div className="col-6">
+                  <div className="cyber-field-v2">
+                    <input
+                      type="number"
+                      className="cyber-input-v2"
+                      name="weight"
+                      placeholder=" "
+                      value={formData.weight}
+                      onChange={handleChange}
+                    />
+                    <label className="cyber-label-v2">WEIGHT_KG</label>
+                    <div className="cyber-focus-bar"></div>
                   </div>
+                </div>
+              </div>
 
-                  <button
-                    type="button"
-                    className="btn-glitch w-100 border-0 mt-4"
-                    onClick={nextStep}
-                  >
-                    <span className="glitch-text" data-text="CONTINUE_SYNC">CONTINUE_SYNC</span>
-                    <div className="glitch-line"></div>
-                  </button>
-                </>
-              )}
-
-              {step === 2 && (
-                <>
-                  <div className="row g-3 mb-4">
-                    <div className="col-6">
-                      <div className="form-group-creative">
-                        <label className="creative-label">AGE_YRS</label>
-                        <div className="input-frame">
-                          <input
-                            type="number"
-                            className="creative-input"
-                            name="age"
-                            value={formData.age}
-                            onChange={handleChange}
-                            placeholder="25"
-                          />
-                          <div className="input-focus-line"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="form-group-creative">
-                        <label className="creative-label">WEIGHT_KG</label>
-                        <div className="input-frame">
-                          <input
-                            type="number"
-                            className="creative-input"
-                            name="weight"
-                            value={formData.weight}
-                            onChange={handleChange}
-                            placeholder="70"
-                          />
-                          <div className="input-focus-line"></div>
-                        </div>
-                      </div>
-                    </div>
+              <div className="row g-4">
+                <div className="col-6">
+                  <div className="cyber-field-v2">
+                    <input
+                      type="number"
+                      className="cyber-input-v2"
+                      name="height"
+                      placeholder=" "
+                      value={formData.height}
+                      onChange={handleChange}
+                    />
+                    <label className="cyber-label-v2">HEIGHT_CM</label>
+                    <div className="cyber-focus-bar"></div>
                   </div>
-
-                  <div className="row g-3 mb-4">
-                    <div className="col-6">
-                      <div className="form-group-creative">
-                        <label className="creative-label">HEIGHT_CM</label>
-                        <div className="input-frame">
-                          <input
-                            type="number"
-                            className="creative-input"
-                            name="height"
-                            value={formData.height}
-                            onChange={handleChange}
-                            placeholder="175"
-                          />
-                          <div className="input-focus-line"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="form-group-creative">
-                        <label className="creative-label">CORE_GOAL</label>
-                        <div className="input-frame">
-                          <select
-                            className="creative-input"
-                            name="goal"
-                            value={formData.goal}
-                            onChange={handleChange}
-                          >
-                            <option value="weight loss">WEIGHT_LOSS</option>
-                            <option value="muscle gain">MUSCLE_GAIN</option>
-                            <option value="maintain fitness">MAINTAIN_SYNC</option>
-                            <option value="improve endurance">ENDUR_OPT</option>
-                          </select>
-                          <div className="input-focus-line"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="d-flex gap-3 mt-5">
-                    <button
-                      type="button"
-                      className="admin-btn-secondary flex-1"
-                      onClick={prevStep}
+                </div>
+                <div className="col-6">
+                  <div className="cyber-field-v2">
+                    <select
+                      className="cyber-input-v2"
+                      name="goal"
+                      value={formData.goal}
+                      onChange={handleChange}
+                      style={{ fontSize: '1rem' }}
                     >
-                      PREVIOUS_STG
-                    </button>
-                    <button
-                      type="submit"
-                      className="btn-glitch flex-2 border-0"
-                      disabled={loading}
-                    >
-                      <span className="glitch-text" data-text={loading ? "INITIATING..." : "COMMENCE"}>
-                        {loading ? "INITIATING..." : "COMMENCE"}
-                      </span>
-                      <div className="glitch-line"></div>
-                    </button>
+                      <option value="weight loss">WEIGHT_LOSS</option>
+                      <option value="muscle gain">MUSCLE_GAIN</option>
+                      <option value="maintain fitness">MAINTAIN_SYNC</option>
+                      <option value="improve endurance">ENDUR_OPT</option>
+                    </select>
+                    <label className="cyber-label-v2">CORE_GOAL</label>
+                    <div className="cyber-focus-bar"></div>
                   </div>
-                </>
-              )}
-            </form>
-          </div>
+                </div>
+              </div>
 
-          <div className="auth-card-footer mt-5 text-center">
-            <p className="text-muted small">
-              ALREADY REGISTERED?{' '}
-              <Link to="/login" className="text-crimson fw-bold text-decoration-none">
-                RETURN_TO_STATION
-              </Link>
-            </p>
-          </div>
+              <div className="d-flex gap-3 mt-5">
+                <button
+                  type="button"
+                  className="cyber-btn-v2"
+                  style={{ flex: 1, borderColor: 'rgba(255,255,255,0.1)' }}
+                  onClick={prevStep}
+                >
+                  BACK
+                </button>
+                <button
+                  type="submit"
+                  className="cyber-btn-v2"
+                  style={{ flex: 2 }}
+                  disabled={loading}
+                >
+                  {loading ? "INITIATING..." : "COMMENCE_EVOLUTION"}
+                </button>
+              </div>
+            </div>
+          )}
+        </form>
+
+        <div className="cyber-footer-v2">
+          <Link to="/login" className="footer-link-v2">
+            ALREADY_REGISTERED? <span>RETURN_TO_STATION</span>
+          </Link>
         </div>
       </div>
     </div>

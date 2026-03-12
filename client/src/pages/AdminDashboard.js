@@ -274,7 +274,7 @@ export default function AdminDashboard() {
         <div className="admin-header-section">
           <div className="admin-header-content">
             <div>
-              <h1 className="admin-page-title">IFITNESS <span>COMMAND CENTER</span></h1>
+              <h1 className="admin-page-title">My FITNESS <span>COMMAND CENTER</span></h1>
               <div className="admin-status-badge">PROTOCOL ACTIVE: SECURE SESSION</div>
             </div>
             <button onClick={handleLogout} className="admin-btn-secondary">
