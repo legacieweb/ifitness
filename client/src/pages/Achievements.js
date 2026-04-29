@@ -46,14 +46,14 @@ export default function Achievements() {
 
   const calculateBadges = (workoutList) => {
     const allBadges = [
-      { id: 1, name: 'Starter', desc: 'Complete 1 workout', icon: 'bi-rocket-takeoff', unlocked: workoutList.length >= 1 },
-      { id: 2, name: 'Week Warrior', desc: 'Complete 7 workouts', icon: 'bi-lightning-charge', unlocked: workoutList.length >= 7 },
-      { id: 3, name: 'Month Master', desc: 'Complete 30 workouts', icon: 'bi-trophy', unlocked: workoutList.length >= 30 },
-      { id: 4, name: 'Calorie Crusher', desc: 'Burn 5000 calories', icon: 'bi-fire', unlocked: workoutList.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0) >= 5000 },
-      { id: 5, name: 'Endurance King', desc: '500+ minutes exercised', icon: 'bi-stopwatch', unlocked: workoutList.reduce((sum, w) => sum + (w.duration || 0), 0) >= 500 },
-      { id: 6, name: 'Consistency Pro', desc: '10 consecutive days', icon: 'bi-calendar-check', unlocked: hasConsecutiveDays(workoutList, 10) },
-      { id: 7, name: 'Strength Builder', desc: 'Log 100 exercises', icon: 'bi-hammer', unlocked: countTotalExercises(workoutList) >= 100 },
-      { id: 8, name: 'Unstoppable', desc: 'Unlock all badges', icon: 'bi-infinity', unlocked: false },
+      { id: 1, name: 'INITIATE', desc: 'Execute 1 fusion protocol', icon: 'bi-rocket-takeoff', unlocked: workoutList.length >= 1 },
+      { id: 2, name: 'OPERATOR', desc: 'Execute 7 fusion protocols', icon: 'bi-lightning-charge', unlocked: workoutList.length >= 7 },
+      { id: 3, name: 'COMMANDER', desc: 'Execute 30 fusion protocols', icon: 'bi-trophy', unlocked: workoutList.length >= 30 },
+      { id: 4, name: 'METABOLIC_ELITE', desc: 'Expend 5000 energy units', icon: 'bi-fire', unlocked: workoutList.reduce((sum, w) => sum + (w.caloriesBurned || 0), 0) >= 5000 },
+      { id: 5, name: 'UPTIME_LEGEND', desc: '500+ minutes operational', icon: 'bi-stopwatch', unlocked: workoutList.reduce((sum, w) => sum + (w.duration || 0), 0) >= 500 },
+      { id: 6, name: 'STABILITY_PRO', desc: '10 consecutive cycles', icon: 'bi-calendar-check', unlocked: hasConsecutiveDays(workoutList, 10) },
+      { id: 7, name: 'COMPONENT_MASTER', desc: 'Synchronize 100 components', icon: 'bi-hammer', unlocked: countTotalExercises(workoutList) >= 100 },
+      { id: 8, name: 'OMNIPOTENCE', desc: 'Achieve total system synchronization', icon: 'bi-infinity', unlocked: false },
     ];
     
     // Check if all other badges are unlocked
@@ -88,13 +88,13 @@ export default function Achievements() {
   return (
     <div className="achievements-container">
       <div className="achievements-header">
-        <h1>Achievements & Badges</h1>
-        <p>Unlock milestones and build your collection of fitness glory</p>
+        <h1>ACHIEVEMENT_NODES</h1>
+        <p>Synchronize milestones and expand your collection of operational glory</p>
       </div>
 
       <div className="badges-grid">
         {badges.map((badge) => (
-          <div key={badge.id} className={`badge-card ${badge.unlocked ? 'unlocked' : 'locked'}`}>
+          <div key={badge.id} className={`badge-card fusion-card ${badge.unlocked ? 'unlocked' : 'locked'}`}>
             <div className="badge-icon-wrapper">
               <i className={`bi ${badge.icon}`}></i>
             </div>
@@ -102,9 +102,9 @@ export default function Achievements() {
             <p>{badge.desc}</p>
             <span className={`badge-status ${badge.unlocked ? 'unlocked' : 'locked'}`}>
               {badge.unlocked ? (
-                <><i className="bi bi-check2-circle me-1"></i> Unlocked</>
+                <><i className="bi bi-patch-check-fill me-1"></i> SYNCHRONIZED</>
               ) : (
-                <><i className="bi bi-lock-fill me-1"></i> Locked</>
+                <><i className="bi bi-lock-fill me-1"></i> ENCRYPTED</>
               )}
             </span>
           </div>
@@ -112,25 +112,25 @@ export default function Achievements() {
       </div>
 
       <div className="achievements-gallery-section">
-        <h2>Achievement Gallery</h2>
+        <h2>OPERATIONAL_GALLERY</h2>
         {loadingGallery ? (
-          <Preloader text="Fetching your visual history..." />
+          <Preloader text="EXTRACTING VISUAL DATA..." />
         ) : gallery.length === 0 ? (
-          <div className="gallery-empty">
+          <div className="gallery-empty fusion-card">
             <i className="bi bi-images"></i>
-            <p>Your achievement gallery is currently empty.</p>
-            <small>Photos uploaded by your trainer to mark milestones will appear here!</small>
+            <p>VISUAL ARCHIVE IS CURRENTLY EMPTY.</p>
+            <small>Data nodes uploaded by command will appear here.</small>
           </div>
         ) : (
           <div className="gallery-grid">
             {gallery.map((img) => (
-              <div key={img.id} className="gallery-card">
+              <div key={img.id} className="gallery-card fusion-card">
                 <div className="gallery-image-wrapper">
                   <img src={img.imageUrl} alt={img.label} />
-                  <span className="gallery-tag">{img.tag}</span>
+                  <span className="gallery-tag">{img.tag.toUpperCase()}</span>
                 </div>
                 <div className="gallery-body">
-                  <h5>{img.label || 'Milestone Achievement'}</h5>
+                  <h5>{img.label?.toUpperCase() || 'MILESTONE_SYNCHRONIZATION'}</h5>
                   <div className="gallery-date">
                     <i className="bi bi-calendar3"></i>
                     {new Date(img.uploadedAt).toLocaleDateString()}

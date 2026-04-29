@@ -3,7 +3,7 @@
   bottom: 40px;
   right: 40px;
   background: rgba(8, 8, 8, 0.95);
-  border: 1px solid var(--crimson-red);
+  border: 1px solid var(--fusion-blue);
   padding: 15px 30px;
   border-radius: 4px;
   z-index: 9999;
@@ -11,19 +11,19 @@
   align-items: center;
   min-width: 280px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
+  box-shadow: 0 10px 40px rgba(62, 139, 255, 0.2);
   animation: toastIn 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
   overflow: hidden;
 }
 
 .cyber-toast.error {
-  border-color: #ff5252;
-  box-shadow: 0 10px 40px rgba(255, 82, 82, 0.2);
+  border-color: var(--fusion-red);
+  box-shadow: 0 10px 40px rgba(255, 62, 62, 0.2);
 }
 
 .cyber-toast.success {
-  border-color: #4caf50;
-  box-shadow: 0 10px 40px rgba(76, 175, 80, 0.2);
+  border-color: #10b981;
+  box-shadow: 0 10px 40px rgba(16, 185, 129, 0.2);
 }
 
 .toast-glitch-line {
@@ -32,7 +32,7 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--crimson-red);
+  background: var(--fusion-blue);
   animation: toastScan 3s linear infinite;
 }
 
@@ -48,7 +48,15 @@
 
 .toast-content i {
   font-size: 1.2rem;
-  color: var(--crimson-red);
+  color: var(--fusion-blue);
+}
+
+.cyber-toast.error .toast-content i {
+  color: var(--fusion-red);
+}
+
+.cyber-toast.error .toast-glitch-line {
+  background: var(--fusion-red);
 }
 
 @keyframes toastIn {

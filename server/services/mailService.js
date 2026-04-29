@@ -27,11 +27,11 @@ const sendSignUpEmail = async (userEmail, userName) => {
       <body>
         <div class="container">
           <div class="header">
-            <h1>Welcome to iFitness! 🎉</h1>
+            <h1>Welcome to HIIT Revolution! 🎉</h1>
           </div>
           <div class="content">
             <h2>Hello ${userName},</h2>
-            <p>Thank you for signing up for iFitness! We're excited to have you on board.</p>
+            <p>Thank you for signing up for HIIT Revolution! We're excited to have you on board.</p>
             <p>Your account has been created and you can now start tracking your fitness journey with us.</p>
             <p>Here's what you can do:</p>
             <ul>
@@ -45,7 +45,7 @@ const sendSignUpEmail = async (userEmail, userName) => {
             <p style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">If you didn't create this account, please ignore this email.</p>
           </div>
           <div class="footer">
-            <p>&copy; 2025 iFitness. All rights reserved.</p>
+            <p>&copy; 2025 HIIT Revolution. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -56,7 +56,7 @@ const sendSignUpEmail = async (userEmail, userName) => {
     const data = await resend.emails.send({
       from: FROM_EMAIL,
       to: userEmail,
-      subject: 'Welcome to iFitness!',
+      subject: 'Welcome to HIIT Revolution!',
       html: htmlContent,
     });
     console.log(`✅ Sign-up email sent to ${userEmail}. Message ID: ${data.id}`);
@@ -103,7 +103,7 @@ const sendBootcampInvitationEmail = async (userEmail, userName, bootcampName, bo
             <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard" class="btn">View Bootcamp</a>
           </div>
           <div class="footer">
-            <p>&copy; 2025 iFitness. All rights reserved.</p>
+            <p>&copy; 2025 HIIT Revolution. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -163,7 +163,7 @@ const sendBootcampAcceptanceEmail = async (userEmail, userName, bootcampName) =>
             <p style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">If you have any questions about the bootcamp, please contact our support team.</p>
           </div>
           <div class="footer">
-            <p>&copy; 2025 iFitness. All rights reserved.</p>
+            <p>&copy; 2025 HIIT Revolution. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -206,16 +206,16 @@ const sendSuspensionEmail = async (userEmail, userName, reason) => {
           </div>
           <div class="content">
             <h2>Hello ${userName},</h2>
-            <p>We regret to inform you that your iFitness account has been suspended.</p>
+            <p>We regret to inform you that your HIIT Revolution account has been suspended.</p>
             <div class="warning-box">
               <h3>Suspension Reason:</h3>
               <p>${reason}</p>
             </div>
-            <p>If you believe this suspension is a mistake, please contact our support team immediately at support@ifitness.com</p>
+            <p>If you believe this suspension is a mistake, please contact our support team immediately at support@hiitrevolution.com</p>
             <p>Your account will remain locked until further notice from our administrators.</p>
           </div>
           <div class="footer">
-            <p>&copy; 2025 iFitness. All rights reserved.</p>
+            <p>&copy; 2025 HIIT Revolution. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -226,7 +226,7 @@ const sendSuspensionEmail = async (userEmail, userName, reason) => {
     const data = await resend.emails.send({
       from: FROM_EMAIL,
       to: userEmail,
-      subject: 'Your iFitness Account Has Been Suspended',
+      subject: 'Your HIIT Revolution Account Has Been Suspended',
       html: htmlContent,
     });
     console.log(`✅ Suspension email sent to ${userEmail}. Message ID: ${data.id}`);
@@ -258,14 +258,14 @@ const sendUnsuspensionEmail = async (userEmail, userName) => {
           </div>
           <div class="content">
             <h2>Hello ${userName},</h2>
-            <p>Great news! Your iFitness account has been unsuspended and is now active again.</p>
+            <p>Great news! Your HIIT Revolution account has been unsuspended and is now active again.</p>
             <p>You can now log in and continue your fitness journey with us.</p>
             <p>We look forward to seeing you back on the platform!</p>
             <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/login" class="btn">Log In to Your Account</a>
-            <p style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">If you have any questions, please don't hesitate to contact our support team at support@ifitness.com</p>
+            <p style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">If you have any questions, please don't hesitate to contact our support team at support@hiitrevolution.com</p>
           </div>
           <div class="footer">
-            <p>&copy; 2025 iFitness. All rights reserved.</p>
+            <p>&copy; 2025 HIIT Revolution. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -276,7 +276,7 @@ const sendUnsuspensionEmail = async (userEmail, userName) => {
     const data = await resend.emails.send({
       from: FROM_EMAIL,
       to: userEmail,
-      subject: 'Your iFitness Account Has Been Restored',
+      subject: 'Your HIIT Revolution Account Has Been Restored',
       html: htmlContent,
     });
     console.log(`✅ Unsuspension email sent to ${userEmail}. Message ID: ${data.id}`);
@@ -324,7 +324,7 @@ const sendWorkoutReminderEmail = async (userEmail, userName, workoutDetails) => 
             <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard" class="btn">View My Routine</a>
           </div>
           <div class="footer">
-            <p>&copy; 2025 iFitness. All rights reserved.</p>
+            <p>&copy; 2025 HIIT Revolution. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -381,7 +381,7 @@ const sendOutdoorActivityInvitationEmail = async (userEmail, userName, activityN
             <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}/dashboard" class="btn">Join Activity</a>
           </div>
           <div class="footer">
-            <p>&copy; 2025 iFitness. All rights reserved.</p>
+            <p>&copy; 2025 HIIT Revolution. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -430,7 +430,7 @@ const sendOutdoorActivityAcceptanceEmail = async (userEmail, userName, activityN
             </div>
           </div>
           <div class="footer">
-            <p>&copy; 2025 iFitness. All rights reserved.</p>
+            <p>&copy; 2025 HIIT Revolution. All rights reserved.</p>
           </div>
         </div>
       </body>

@@ -32,11 +32,11 @@ export default function Sidebar({ isOpen, onClose }) {
   ];
 
   return (
-    <div className={`crimson-sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="sidebar-brand-red">
-        <NavLink to="/" className="sidebar-logo-red" onClick={handleLinkClick}>
-          <i className="bi bi-shield-shaded"></i>
-          <span>My<span className="text-crimson">.FITNESS</span></span>
+    <div className={`fusion-sidebar ${isOpen ? 'open' : ''}`}>
+      <div className="sidebar-brand-accent">
+        <NavLink to="/" className="sidebar-logo-accent" onClick={handleLinkClick}>
+          <img src="/logo.png" alt="HIIT Revolution" className="sidebar-logo-img" />
+          <span>HIIT <span className="text-fusion">Revolution</span></span>
         </NavLink>
       </div>
 
@@ -56,12 +56,12 @@ export default function Sidebar({ isOpen, onClose }) {
         </div>
       </div>
 
-      <nav className="sidebar-nav-red">
+      <nav className="sidebar-nav-accent">
         {navItems.map((item) => (
           <NavLink 
             key={item.path} 
             to={item.path} 
-            className={({ isActive }) => `sidebar-link-red ${isActive ? 'active' : ''}`}
+            className={({ isActive }) => `sidebar-link-accent ${isActive ? 'active' : ''}`}
             onClick={handleLinkClick}
           >
             <i className={`bi ${item.icon}`}></i>
@@ -70,8 +70,8 @@ export default function Sidebar({ isOpen, onClose }) {
         ))}
       </nav>
 
-      <div className="sidebar-footer-red">
-        <button onClick={handleLogout} className="red-logout-btn">
+      <div className="sidebar-footer-accent">
+        <button onClick={handleLogout} className="fusion-logout-btn">
           <i className="bi bi-power"></i>
           <span>DISCONNECT</span>
         </button>

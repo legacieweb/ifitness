@@ -46,7 +46,7 @@ export default function CleanFooter() {
                 <i className="bi bi-activity"></i>
               </div>
               <div className="logo-text">
-                <span className="logo-main">iFitness</span>
+                  <span className="logo-main">HIIT Revolution</span>
                 <span className="logo-subtitle">Elevate Your Game</span>
               </div>
             </div>
@@ -151,7 +151,7 @@ export default function CleanFooter() {
           <div className="footer-divider"></div>
           <div className="footer-meta">
             <div className="copyright">
-              © {new Date().getFullYear()} iFitness. All rights reserved.
+              © {new Date().getFullYear()} HIIT Revolution. All rights reserved.
             </div>
             <div className="legal-links">
               <Link to="/privacy-policy">Privacy Policy</Link>
@@ -159,7 +159,7 @@ export default function CleanFooter() {
               <Link to="/cookies">Cookie Policy</Link>
             </div>
             <div className="credits">
-              Crafted with <i className="bi bi-heart-fill"></i> by iFitness Team
+              Crafted with <i className="bi bi-heart-fill"></i> by HIIT Revolution Team
             </div>
           </div>
         </div>

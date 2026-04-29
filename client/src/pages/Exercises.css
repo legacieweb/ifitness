@@ -1,47 +1,35 @@
 /* =====================================================
-   MODERN EXERCISES - DARK PREMIUM REDESIGN
+   FUSION PROTOCOL - EXERCISES LIBRARY
    ===================================================== */
 
 .exercises-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 0;
-  animation: fadeIn 0.6s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  padding: 100px 2rem 80px;
+  background: #000;
+  min-height: 100vh;
 }
 
 .exercises-header {
-  margin-bottom: 40px;
-  border-left: 6px solid var(--neon-primary);
-  padding-left: 24px;
+  margin-bottom: 50px;
+  border-left: 4px solid var(--fusion-blue);
+  padding-left: 30px;
 }
 
 .exercises-header h1 {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 900;
-  color: #fff;
-  margin-bottom: 8px;
-  letter-spacing: -1.5px;
+  color: var(--fusion-blue);
+  letter-spacing: -2px;
 }
 
 /* Filters Section */
 .exercise-filters {
-  background: var(--dark-surface);
-  padding: 30px;
-  border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  margin-bottom: 40px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-}
-
-.filter-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
+  background: #050505;
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(62, 139, 255, 0.1);
+  margin-bottom: 50px;
 }
 
 .filter-group label {
@@ -49,41 +37,41 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: block;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
 }
 
 .filter-group input, .filter-group select {
   width: 100%;
-  padding: 12px 18px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  padding: 14px 20px;
+  background: #000;
+  border: 1px solid #222;
+  border-radius: 10px;
   color: #fff;
   font-size: 0.95rem;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 }
 
 .filter-group input:focus, .filter-group select:focus {
   outline: none;
-  border-color: var(--neon-primary);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--fusion-blue);
+  box-shadow: 0 0 15px rgba(62, 139, 255, 0.15);
 }
 
 /* Exercise Cards Grid */
 .exercises-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
 }
 
 .exercise-card {
-  background: var(--dark-surface);
-  border-radius: 28px;
-  padding: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #050505;
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  border: 1px solid #111;
+  transition: var(--transition);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -92,33 +80,32 @@
 
 .exercise-card:hover {
   transform: translateY(-10px);
-  border-color: var(--neon-primary);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  border-color: var(--fusion-blue);
+  box-shadow: 0 20px 40px rgba(62, 139, 255, 0.15);
 }
 
 .exercise-badge {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 25px;
+  right: 25px;
   padding: 6px 14px;
-  border-radius: 10px;
+  border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.badge-beginner { background: rgba(188, 255, 0, 0.1); color: var(--neon-accent); border: 1px solid var(--neon-accent); }
-.badge-intermediate { background: rgba(0, 242, 255, 0.1); color: var(--neon-primary); border: 1px solid var(--neon-primary); }
-.badge-advanced { background: rgba(255, 0, 110, 0.1); color: var(--neon-secondary); border: 1px solid var(--neon-secondary); }
+.badge-beginner { background: rgba(62, 139, 255, 0.1); color: var(--fusion-blue); border: 1px solid var(--fusion-blue); }
+.badge-intermediate { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid #444; }
+.badge-advanced { background: rgba(255, 62, 62, 0.1); color: var(--fusion-red); border: 1px solid var(--fusion-red); }
 
 .exercise-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 900;
   color: #fff;
-  margin-bottom: 16px;
-  margin-top: 10px;
-  line-height: 1.2;
+  margin-bottom: 20px;
+  margin-top: 15px;
 }
 
 .exercise-meta {
@@ -141,7 +128,7 @@
 }
 
 .meta-item i {
-  color: var(--neon-primary);
+  color: var(--fusion-blue);
 }
 
 .exercise-instructions {
@@ -154,23 +141,23 @@
 
 .btn-add-workout {
   width: 100%;
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  color: #fff;
-  font-weight: 800;
+  padding: 16px;
+  background: transparent;
+  border: 1px solid var(--fusion-blue);
+  border-radius: 8px;
+  color: var(--fusion-blue);
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  letter-spacing: 2px;
+  transition: var(--transition);
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .btn-add-workout:hover {
-  background: var(--neon-primary);
+  background: var(--fusion-blue);
   color: #000;
-  border-color: var(--neon-primary);
-  transform: scale(1.02);
+  box-shadow: var(--fusion-glow);
 }
 
 .exercises-loading {

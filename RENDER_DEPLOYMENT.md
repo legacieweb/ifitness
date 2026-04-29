@@ -3,18 +3,18 @@
 ## Deployment Configuration
 
 ### Backend Service
-- **Service Name**: fitness-api
+- **Service Name**: hiit-revolution-api
 - **Environment**: Node.js
 - **Plan**: Free
 
 **Build Command:**
 ```bash
-cd backend && npm ci
+cd server && npm ci
 ```
 
 **Start Command:**
 ```bash
-cd backend && npm start
+cd server && npm start
 ```
 
 **Environment Variables:**
@@ -22,18 +22,18 @@ cd backend && npm start
 - `PORT`: 10000
 - `MONGODB_URI`: (auto-configured from Render database)
 - `JWT_SECRET`: (auto-generated)
-- `REACT_APP_API_URL`: https://fitness-api.onrender.com
+- `REACT_APP_API_URL`: https://hiit-revolution-api.onrender.com
 
 ### Frontend Service
-- **Service Name**: fitness-frontend
+- **Service Name**: hiit-revolution-frontend
 - **Type**: Static Site
 - **Build Command:**
 ```bash
-cd frontend && npm ci && npm run build
+cd client && npm ci && npm run build
 ```
 
 **Environment Variables:**
-- `REACT_APP_API_URL`https://ifitness.onrender.com
+- `REACT_APP_API_URL`: https://hiitrevolution.onrender.com
 
 
 ### Database

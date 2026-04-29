@@ -1,5 +1,5 @@
 /* =====================================================
-   CRIMSON PROTOCOL - NUTRITION TRACKER STYLES
+   FUSION PROTOCOL - NUTRITION TRACKER STYLES
    ===================================================== */
 
 .nutrition-container {
@@ -8,25 +8,27 @@
   padding: 100px 2rem 80px;
   background: #000;
   min-height: 100vh;
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .nutrition-header {
   margin-bottom: 50px;
-  border-left: 4px solid #ff0000;
+  border-left: 4px solid var(--fusion-blue);
   padding-left: 30px;
 }
 
 .nutrition-header h1 {
   font-size: 3.5rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: -2px;
+  text-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
 }
 
 .nutrition-header p {
-  color: #cc0000;
+  color: #a0a0ff;
   font-size: 1.2rem;
+  font-weight: 600;
 }
 
 /* Stats Cards */
@@ -38,18 +40,31 @@
 }
 
 .nutrition-stat-card {
-  background: #000;
-  border: 1px solid #ff0000;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--fusion-blue);
   border-radius: var(--radius-lg);
   padding: 30px;
   text-align: center;
   transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.nutrition-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--fusion-blue), transparent);
+  opacity: 0.5;
 }
 
 .nutrition-stat-card h5 {
   font-size: 10px;
   font-weight: 800;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 15px;
@@ -58,40 +73,46 @@
 .nutrition-stat-card .value {
   font-size: 2.2rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
+  text-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
 }
 
-.text-primary { color: #ff0000 !important; }
+.text-primary { color: var(--fusion-blue) !important; }
 .text-success { color: #00ff00 !important; }
 .text-warning { color: #ffff00 !important; }
-.text-danger { color: #ff0000 !important; }
-.text-info { color: #ff0000 !important; }
+.text-danger { color: var(--fusion-red) !important; }
+.text-info { color: var(--fusion-blue) !important; }
 
 /* Progress Bar */
 .nutrition-progress-wrapper {
-  background: #000;
-  border: 1px solid #ff0000;
+  background: rgba(10, 10, 20, 0.8);
+  border: 1px solid var(--fusion-blue);
   border-radius: var(--radius-lg);
   padding: 35px;
   margin-bottom: 50px;
+  box-shadow: inset 0 0 30px rgba(0, 102, 255, 0.05);
 }
 
 .nutrition-progress-header {
-  color: #ff0000;
+  color: var(--fusion-blue);
   font-weight: 800;
   margin-bottom: 15px;
   letter-spacing: 1px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .nutrition-progress-bar {
-  height: 8px;
-  background: #330000;
+  height: 12px;
+  background: rgba(0, 10, 30, 0.6);
   border-radius: 10px;
+  border: 1px solid rgba(0, 102, 255, 0.3);
+  overflow: hidden;
 }
 
 .nutrition-progress-fill {
-  background: #ff0000;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+  background: linear-gradient(90deg, var(--fusion-blue), #00ffff);
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
   border-radius: 10px;
 }
 
@@ -104,26 +125,27 @@
 }
 
 .nutrition-card {
-  background: #000;
-  border: 1px solid #ff0000;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--fusion-blue);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
 .nutrition-card-header {
   padding: 25px 35px;
-  border-bottom: 1px solid #ff0000;
+  border-bottom: 1px solid rgba(0, 102, 255, 0.3);
+  background: linear-gradient(90deg, rgba(0, 102, 255, 0.05), transparent);
 }
 
 .nutrition-card-header h3 {
   font-size: 1.3rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: 1px;
 }
 
 .form-group label {
-  color: #ff0000;
+  color: var(--fusion-blue);
   font-size: 11px;
   letter-spacing: 2px;
   margin-bottom: 10px;
@@ -131,90 +153,160 @@
 }
 
 .form-control {
-  background: #000;
-  border: 1px solid #ff0000;
-  color: #ff0000;
+  background: rgba(0, 0, 20, 0.5);
+  border: 1px solid rgba(0, 102, 255, 0.4);
+  color: #fff;
   border-radius: 12px;
   padding: 14px 20px;
 }
 
+.form-control:focus {
+  background: rgba(0, 0, 30, 0.8);
+  border-color: var(--fusion-blue);
+  box-shadow: 0 0 15px rgba(0, 102, 255, 0.3);
+  color: #fff;
+}
+
 .form-control::placeholder {
-  color: #660000;
+  color: rgba(0, 102, 255, 0.3);
 }
 
 .btn-primary {
-  background: #ff0000;
-  color: #000 !important;
+  background: var(--fusion-blue);
+  color: #fff !important;
   border-radius: 12px;
   font-weight: 900;
   letter-spacing: 1px;
   border: none;
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  background: #0077ff;
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+  transform: translateY(-2px);
 }
 
 /* Meals List */
 .meal-item {
-  background: #000;
-  border: 1px solid #ff0000;
+  background: rgba(10, 10, 30, 0.4);
+  border: 1px solid rgba(0, 102, 255, 0.2);
   border-radius: 15px;
   padding: 20px;
   transition: var(--transition);
   margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meal-item:hover {
+  border-color: var(--fusion-blue);
+  background: rgba(0, 102, 255, 0.05);
 }
 
 .meal-info h4 {
-  color: #ff0000;
+  color: #fff;
   font-weight: 800;
   font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.meal-info span {
+  color: var(--fusion-blue);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.meal-stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .meal-calories {
-  color: #ff0000;
+  color: var(--fusion-blue);
   font-weight: 900;
   font-size: 1.2rem;
 }
 
 .btn-delete {
   background: rgba(255, 0, 0, 0.1);
-  color: #ff0000;
-  border: 1px solid #ff0000;
+  color: var(--fusion-red);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.btn-delete:hover {
+  background: var(--fusion-red);
+  color: #fff;
 }
 
 /* Tips Section */
 .nutrition-tips {
-  background: #000;
+  background: rgba(0, 0, 0, 0.8);
   border-radius: var(--radius-lg);
-  border: 1px solid #ff0000;
-  border-left-width: 6px;
+  border: 1px solid var(--fusion-blue);
+  border-left: 6px solid var(--fusion-red);
   padding: 40px;
 }
 
 .nutrition-tips h3 {
-  color: #ff0000;
+  color: var(--fusion-red);
   font-weight: 900;
   margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.nutrition-tips li {
-  color: #ff0000;
+.tips-list-modern {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.tips-list-modern li {
+  color: #fff;
   font-weight: 600;
+  position: relative;
+  padding-left: 25px;
 }
 
-.nutrition-tips li::before {
-  color: #ff0000;
+.tips-list-modern li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--fusion-red);
+  font-weight: 900;
+}
+
+.tips-list-modern li strong {
+  color: var(--fusion-blue);
 }
 
 /* Global dashboard text override */
 .nutrition-container * {
-  color: #ff0000;
-}
-
-.btn-primary, .btn-primary * {
-  color: #000 !important;
+  color: inherit;
 }
 
 .unit {
-  color: #cc0000;
+  color: #8080ff;
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.empty-meals {
+  text-align: center;
+  padding: 40px;
+  color: rgba(0, 102, 255, 0.4);
 }

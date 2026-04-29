@@ -42,15 +42,15 @@ export default function Calendar() {
   return (
     <div className="calendar-container">
       <div className="calendar-header">
-        <h1>Workout Calendar</h1>
+        <h1>TEMPORAL LOG</h1>
       </div>
 
-      <div className="calendar-card">
+      <div className="calendar-card fusion-card">
         <div className="calendar-nav">
           <button className="btn-nav" onClick={prevMonth} aria-label="Previous Month">
             <i className="bi bi-chevron-left"></i>
           </button>
-          <h2>{currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}</h2>
+          <h2>{currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' }).toUpperCase()}</h2>
           <button className="btn-nav" onClick={nextMonth} aria-label="Next Month">
             <i className="bi bi-chevron-right"></i>
           </button>
@@ -60,7 +60,7 @@ export default function Calendar() {
           <table className="calendar-table">
             <thead>
               <tr>
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(day => (
                   <th key={day}>{day}</th>
                 ))}
               </tr>
@@ -104,15 +104,15 @@ export default function Calendar() {
           <div className="legend-items">
             <div className="legend-item">
               <span className="legend-color workout"></span>
-              <span>Workout Completed</span>
+              <span>SESSION_LOGGED</span>
             </div>
             <div className="legend-item">
               <span className="legend-color empty"></span>
-              <span>Rest Day</span>
+              <span>INACTIVE_STATE</span>
             </div>
           </div>
           <div className="total-stats">
-            Total this month: <strong>{totalWorkouts}</strong> workouts
+            MONTHLY_YIELD: <strong>{totalWorkouts}</strong> SESSIONS
           </div>
         </div>
       </div>

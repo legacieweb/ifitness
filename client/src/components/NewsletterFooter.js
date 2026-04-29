@@ -48,7 +48,7 @@ export default function NewsletterFooter() {
                     <i className="bi bi-activity"></i>
                   </div>
                   <div className="logo-text">
-                    <span className="logo-name">My FITNESS</span>
+                    <span className="logo-name">HIIT Revolution</span>
                     <span className="logo-tagline">Elevate Your Game</span>
                   </div>
                 </div>
@@ -162,10 +162,10 @@ export default function NewsletterFooter() {
         <div className="container">
           <div className="final-footer-content">
             <div className="copyright">
-              © 2026 iFitness. All rights reserved.
+              © 2026 HIIT Revolution. All rights reserved.
             </div>
             <div className="footer-credits">
-              Crafted with <i className="bi bi-heart-fill"></i> by iFitness Team
+              Crafted with <i className="bi bi-heart-fill"></i> by HIIT Revolution Team
             </div>
           </div>
         </div>

@@ -109,8 +109,8 @@ export default function CreateWorkout() {
           <i className="bi bi-arrow-left"></i>
         </button>
         <div className="header-content">
-          <h1><i className="bi bi-dumbbell"></i> Create Custom Workout</h1>
-          <p>Build your personalized fitness routine</p>
+          <h1><i className="bi bi-cpu-fill"></i> INITIALIZE_CUSTOM_PROTOCOL</h1>
+          <p>Configure unique operational parameters for your next sequence</p>
         </div>
       </div>
 
@@ -118,37 +118,37 @@ export default function CreateWorkout() {
         <div className="workout-form-section">
           {error && (
             <div className="alert-error">
-              <i className="bi bi-exclamation-circle"></i>
+              <i className="bi bi-exclamation-triangle-fill"></i>
               <span>{error}</span>
             </div>
           )}
 
-          <div className="form-card">
+          <div className="form-card fusion-card">
             <div className="form-header">
-              <h2>Workout Details</h2>
-              <p>Give your workout a name and difficulty level</p>
+              <h2>PROTOCOL_PARAMETERS</h2>
+              <p>Establish primary identifiers and complexity nodes</p>
             </div>
 
             <div className="form-group">
               <label htmlFor="workoutName" className="form-label">
-                <i className="bi bi-pencil"></i> Workout Name
+                <i className="bi bi-terminal-fill"></i> PROTOCOL_IDENTIFIER
               </label>
               <input
                 type="text"
                 id="workoutName"
                 className="form-input"
-                placeholder="e.g., Upper Body Strength"
+                placeholder="e.g., UPPER_CHASSIS_OVERLOAD"
                 value={workoutName}
                 onChange={(e) => setWorkoutName(e.target.value)}
                 disabled={submitting}
               />
-              <div className="input-hint">Give your workout a descriptive name</div>
+              <div className="input-hint">Assign a unique string to identify this operation</div>
             </div>
 
             <div className="form-row">
               <div className="form-group">
                 <label className="form-label">
-                  <i className="bi bi-speedometer2"></i> Difficulty Level
+                  <i className="bi bi-node-plus-fill"></i> COMPLEXITY_NODE
                 </label>
                 <select
                   className="form-select"
@@ -156,21 +156,21 @@ export default function CreateWorkout() {
                   onChange={(e) => setDifficulty(e.target.value)}
                   disabled={submitting}
                 >
-                  <option value="beginner">Beginner</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="advanced">Advanced</option>
+                  <option value="beginner">INITIATE</option>
+                  <option value="intermediate">OPERATOR</option>
+                  <option value="advanced">OVERLORD</option>
                 </select>
               </div>
             </div>
 
             <div className="form-group">
               <label htmlFor="notes" className="form-label">
-                <i className="bi bi-chat"></i> Notes (Optional)
+                <i className="bi bi-card-text"></i> OPERATIONAL_ANNOTATIONS
               </label>
               <textarea
                 id="notes"
                 className="form-textarea"
-                placeholder="Add any additional notes about this workout..."
+                placeholder="Include specific execution constraints or system notes..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 disabled={submitting}
@@ -179,10 +179,10 @@ export default function CreateWorkout() {
             </div>
           </div>
 
-          <div className="form-card">
+          <div className="form-card fusion-card">
             <div className="form-header">
-              <h2>Select Exercises</h2>
-              <p>Choose exercises to add to your workout</p>
+              <h2>COMPONENT_SELECTION</h2>
+              <p>Select modular components to integrate into the sequence</p>
             </div>
 
             <div className="search-filters">
@@ -190,7 +190,7 @@ export default function CreateWorkout() {
                 <i className="bi bi-search"></i>
                 <input
                   type="text"
-                  placeholder="Search exercises..."
+                  placeholder="FILTER_COMPONENTS..."
                   value={searchFilter}
                   onChange={(e) => setSearchFilter(e.target.value)}
                   disabled={submitting}
@@ -205,7 +205,7 @@ export default function CreateWorkout() {
                     disabled={submitting}
                     className={`filter-btn ${categoryFilter === cat ? 'active' : ''}`}
                   >
-                    {cat ? cat.charAt(0).toUpperCase() + cat.slice(1) : 'All'}
+                    {cat ? cat.toUpperCase() : 'ALL_MODULES'}
                   </button>
                 ))}
               </div>
@@ -214,8 +214,8 @@ export default function CreateWorkout() {
             <div className="exercises-grid">
               {filteredExercises.length === 0 ? (
                 <div className="empty-state">
-                  <i className="bi bi-inbox"></i>
-                  <p>No exercises found</p>
+                  <i className="bi bi-slash-circle"></i>
+                  <p>NO COMPATIBLE COMPONENTS FOUND</p>
                 </div>
               ) : (
                 filteredExercises.map((exercise) => (
@@ -225,23 +225,15 @@ export default function CreateWorkout() {
                     onClick={() => toggleExercise(exercise)}
                   >
                     <div className="exercise-header">
-                      <div className="exercise-checkbox">
-                        <input
-                          type="checkbox"
-                          checked={selectedExercises.some((e) => e._id === exercise._id)}
-                          onChange={() => {}}
-                          disabled={submitting}
-                        />
-                      </div>
                       <div className="exercise-title">
-                        <h4>{exercise.name}</h4>
-                        <p className="category-badge">{exercise.category}</p>
+                        <h4>{exercise.name.toUpperCase()}</h4>
+                        <p className="category-badge">{exercise.category.toUpperCase()}</p>
                       </div>
                     </div>
                     <div className="exercise-meta">
-                      <span className="muscle-group">{exercise.muscleGroup}</span>
+                      <span className="muscle-group">{exercise.muscleGroup.toUpperCase()}</span>
                       <span className={`difficulty ${exercise.difficulty}`}>
-                        {exercise.difficulty}
+                        {exercise.difficulty.toUpperCase()}
                       </span>
                     </div>
                   </div>
@@ -253,24 +245,24 @@ export default function CreateWorkout() {
 
         <div className="workout-summary-section">
           <div className="summary-sticky">
-            <div className="summary-card">
-              <h3>Selected Exercises</h3>
+            <div className="summary-card fusion-card">
+              <h3>INTEGRATED_COMPONENTS</h3>
               <div className="selected-count">
                 <div className="count-badge">{selectedExercises.length}</div>
-                <span>exercises selected</span>
+                <span>UNITS_STAGED</span>
               </div>
 
               {selectedExercises.length > 0 && (
                 <div className="selected-list">
                   {selectedExercises.map((ex) => (
                     <div key={ex._id} className="selected-item">
-                      <span>{ex.name}</span>
+                      <span>{ex.name.toUpperCase()}</span>
                       <button
-                        onClick={() => toggleExercise(ex)}
+                        onClick={(e) => { e.stopPropagation(); toggleExercise(ex); }}
                         disabled={submitting}
                         className="btn-remove"
                       >
-                        <i className="bi bi-x"></i>
+                        <i className="bi bi-x-circle-fill"></i>
                       </button>
                     </div>
                   ))}
@@ -279,21 +271,21 @@ export default function CreateWorkout() {
             </div>
 
             {selectedExercises.length > 0 && (
-              <div className="summary-card stats-card">
-                <h3>Estimated Stats</h3>
+              <div className="summary-card stats-card fusion-card">
+                <h3>PROJECTED_YIELD</h3>
                 <div className="stats-grid">
                   <div className="stat-item">
                     <i className="bi bi-hourglass-split"></i>
                     <div>
                       <div className="stat-value">{duration}</div>
-                      <div className="stat-label">minutes</div>
+                      <div className="stat-label">UPTIME</div>
                     </div>
                   </div>
                   <div className="stat-item">
                     <i className="bi bi-fire"></i>
                     <div>
                       <div className="stat-value">{caloriesBurned}</div>
-                      <div className="stat-label">calories</div>
+                      <div className="stat-label">ENERGY</div>
                     </div>
                   </div>
                 </div>
@@ -306,7 +298,7 @@ export default function CreateWorkout() {
                 onClick={() => navigate(-1)}
                 disabled={submitting}
               >
-                Cancel
+                ABORT_INITIALIZATION
               </button>
               <button
                 className="btn-primary"
@@ -315,13 +307,13 @@ export default function CreateWorkout() {
               >
                 {submitting ? (
                   <>
-                    <span className="spinner"></span>
-                    Creating...
+                    <span className="spinner-border spinner-border-sm me-2"></span>
+                    INITIALIZING...
                   </>
                 ) : (
                   <>
-                    <i className="bi bi-check-circle"></i>
-                    Create Workout
+                    <i className="bi bi-check-circle-fill me-2"></i>
+                    COMMIT_PROTOCOL
                   </>
                 )}
               </button>

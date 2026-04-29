@@ -47,7 +47,7 @@ export default function Blog() {
     },
     {
       id: 4,
-      title: "SYSTEM_UPGRADE: IFITNESS_V2.0",
+      title: "SYSTEM_UPGRADE: HIIT_REVOLUTION_V1.0",
       date: "NOV_28_2024",
       author: "CORE_TECH",
       excerpt: "Deep dive into the latest architectural improvements and protocol enhancements.",
@@ -58,14 +58,14 @@ export default function Blog() {
 
   return (
     <PageTransition>
-      <div className="crimson-blog">
+      <div className="fusion-blog">
         <div className="hero-mesh-background"></div>
         <div className="hero-noise-overlay"></div>
         <div className="footer-scanner-line"></div>
 
         {/* Blog Hero */}
         <section className="blog-hero">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="hero-content-modern reveal">
               <div className="hero-badge">
                 <span className="badge-line"></span>
@@ -73,7 +73,7 @@ export default function Blog() {
               </div>
               
               <h1 className="hero-title">
-                STRATEGIC <span className="text-crimson">INTEL</span>
+                STRATEGIC <span className="text-fusion">INTEL</span>
                 <br />
                 <span className="hero-subtitle">KNOWLEDGE_IS_POWER</span>
               </h1>
@@ -87,7 +87,7 @@ export default function Blog() {
 
         {/* Featured Intel */}
         <section className="featured-intel-section">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="featured-intel-card reveal">
               <div className="intel-image-node">
                 <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Featured Intel" />
@@ -95,7 +95,7 @@ export default function Blog() {
               </div>
               <div className="intel-content-node">
                 <div className="intel-meta">
-                  <span className="meta-tag crimson-glow">PRIORITY_ALPHA</span>
+                  <span className="meta-tag fusion-glow">PRIORITY_ALPHA</span>
                   <span className="meta-info">DEC_15_2024</span>
                   <span className="meta-info">CORE_COMMAND</span>
                 </div>
@@ -113,13 +113,13 @@ export default function Blog() {
 
         {/* Intel Grid */}
         <section className="intel-grid-section">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="systems-header reveal">
               <div className="systems-badge">
                 <span className="badge-bullet"></span>
                 <span>RECENT_TRANSMISSIONS</span>
               </div>
-              <h2 className="systems-title">DECRYPTED <span className="text-crimson">LOGS</span></h2>
+              <h2 className="systems-title">DECRYPTED <span className="text-fusion">LOGS</span></h2>
             </div>
 
             <div className="intel-matrix">
@@ -148,10 +148,10 @@ export default function Blog() {
 
         {/* Intel Sync (Newsletter) */}
         <section className="intel-sync-section reveal">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="sync-node">
               <div className="sync-content">
-                <h2>INTEL_SYNC <span className="text-crimson">ACTIVE</span></h2>
+                <h2>INTEL_SYNC <span className="text-fusion">ACTIVE</span></h2>
                 <p>Subscribe to receive encrypted training protocols directly to your terminal.</p>
                 <div className="sync-form">
                   <input type="email" placeholder="ENTER_EMAIL_ADDRESS" />

@@ -7,57 +7,57 @@ export default function Templates() {
   const [templates] = useState([
     {
       id: 1,
-      name: 'Beginner Full Body',
-      desc: 'Great for starters - Total Body workout targeting all major muscle groups.',
+      name: 'FULL_SYSTEM_BOOT',
+      desc: 'Initial system initialization - Targets all primary biometric nodes for baseline calibration.',
       duration: 45,
       difficulty: 'Beginner',
       exercises: ['Push-ups', 'Squats', 'Plank', 'Running'],
-      icon: 'bi-brightness-low',
+      icon: 'bi-cpu-fill',
     },
     {
       id: 2,
-      name: 'Upper Body Strength',
-      desc: 'Focus on chest, shoulders, and arms to build definition and power.',
+      name: 'UPPER_CHASSIS_OVERLOAD',
+      desc: 'High-intensity calibration for chest, shoulders, and anterior kinetic chains.',
       duration: 60,
       difficulty: 'Intermediate',
       exercises: ['Bench Press', 'Push-ups', 'Barbell Squat'],
-      icon: 'bi-hammer',
+      icon: 'bi-shield-shaded',
     },
     {
       id: 3,
-      name: 'Cardio Blast',
-      desc: 'High intensity cardio sessions designed for maximum calorie burn.',
+      name: 'KINETIC_FLUX',
+      desc: 'Rapid energy expenditure protocol designed for maximum metabolic throughput.',
       duration: 30,
       difficulty: 'Intermediate',
       exercises: ['Running', 'Cycling', 'Swimming'],
-      icon: 'bi-fire',
+      icon: 'bi-activity',
     },
     {
       id: 4,
-      name: 'Yoga & Flexibility',
-      desc: 'Improve your range of motion and reduce stress with these flowing moves.',
+      name: 'NEURAL_EQUILIBRIUM',
+      desc: 'Structural integrity enhancement and stress-vector mitigation via controlled movement.',
       duration: 40,
       difficulty: 'Beginner',
       exercises: ['Yoga', 'Stretching'],
-      icon: 'bi-flower1',
+      icon: 'bi-infinity',
     },
     {
       id: 5,
-      name: 'HIIT Workout',
-      desc: 'Short bursts of intense exercise followed by quick recovery periods.',
+      name: 'BURST_SYNCHRONIZATION',
+      desc: 'Short-duration, high-frequency output bursts for rapid system adaptation.',
       duration: 30,
       difficulty: 'Advanced',
       exercises: ['Burpees', 'Jump Squats', 'Push-ups'],
-      icon: 'bi-lightning-charge',
+      icon: 'bi-lightning-charge-fill',
     },
     {
       id: 6,
-      name: 'Lower Body Power',
-      desc: 'Build explosive leg strength and lower body endurance.',
+      name: 'LOWER_STRUT_STABILITY',
+      desc: 'Power generation focus for posterior chain and locomotive support structures.',
       duration: 50,
       difficulty: 'Intermediate',
       exercises: ['Squats', 'Deadlift', 'Barbell Squat'],
-      icon: 'bi-person-walking',
+      icon: 'bi-gear-wide-connected',
     },
   ]);
 
@@ -67,68 +67,68 @@ export default function Templates() {
   };
 
   return (
-    <div className="templates-page">
+    <div className="templates-page fusion-theme">
       <div className="container">
         <div className="template-header">
-          <h1>Workout Templates</h1>
-          <p>Choose a pre-built workout plan to get started on your goals today</p>
+          <h1>PROTOCOL_TEMPLATES</h1>
+          <p>Select a pre-configured architecture to initiate your training sequence</p>
         </div>
 
         <div className="row g-4">
           {templates.map((template) => (
             <div key={template.id} className="col-md-6 col-lg-4">
-              <div className="template-card-modern">
+              <div className="template-card-modern fusion-card">
                 <div className="template-icon-wrapper">
                   <i className={`bi ${template.icon}`}></i>
                 </div>
-                <h3 className="template-title">{template.name}</h3>
+                <h3 className="template-title">{template.name.toUpperCase()}</h3>
                 <p className="template-desc">{template.desc}</p>
 
                 <div className="template-pills">
                   <span className="template-pill pill-duration">
                     <i className="bi bi-clock me-2"></i>
-                    {template.duration} min
+                    {template.duration} MIN
                   </span>
                   <span className={`template-pill pill-${template.difficulty.toLowerCase()}`}>
-                    {template.difficulty}
+                    {template.difficulty.toUpperCase()}
                   </span>
                 </div>
 
                 <div className="flex-grow-1">
-                  <span className="template-exercises-title">Included Exercises</span>
+                  <span className="template-exercises-title">ACTIVE_COMPONENTS</span>
                   <div className="template-exercise-tags">
                     {template.exercises.map((ex, idx) => (
-                      <span key={idx} className="exercise-tag">{ex}</span>
+                      <span key={idx} className="exercise-tag">{ex.toUpperCase()}</span>
                     ))}
                   </div>
                 </div>
 
                 <button className="btn-use-template" onClick={() => startTemplate(template)}>
-                  Use This Template <i className="bi bi-arrow-right ms-2"></i>
+                  USE_PROTOCOL <i className="bi bi-arrow-right ms-2"></i>
                 </button>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="how-to-card">
-          <h3><i className="bi bi-lightbulb-fill"></i> How to Use Templates</h3>
+        <div className="how-to-card fusion-card">
+          <h3><i className="bi bi-lightbulb-fill"></i> SYSTEM_OPERATIONS</h3>
           <div className="how-to-list">
             <div className="how-to-item">
-              <div className="how-to-number">1</div>
-              <div className="how-to-text">Choose a template that matches your current fitness level and goals.</div>
+              <div className="how-to-number">01</div>
+              <div className="how-to-text">SELECT: Choose a protocol that aligns with current system capacity and objectives.</div>
             </div>
             <div className="how-to-item">
-              <div className="how-to-number">2</div>
-              <div className="how-to-text">Click "Use This Template" to automatically load the exercises.</div>
+              <div className="how-to-number">02</div>
+              <div className="how-to-text">INITIALIZE: Execute "USE_PROTOCOL" to load the component sequence.</div>
             </div>
             <div className="how-to-item">
-              <div className="how-to-number">3</div>
-              <div className="how-to-text">Adjust sets, reps, and weights to customize the challenge for yourself.</div>
+              <div className="how-to-number">03</div>
+              <div className="how-to-text">CALIBRATE: Adjust intensity parameters to ensure optimal performance yield.</div>
             </div>
             <div className="how-to-item">
-              <div className="how-to-number">4</div>
-              <div className="how-to-text">Complete and log your workout to track your progress over time.</div>
+              <div className="how-to-number">04</div>
+              <div className="how-to-text">SYNC: Commit session data to the central archive for longitudinal analysis.</div>
             </div>
           </div>
         </div>

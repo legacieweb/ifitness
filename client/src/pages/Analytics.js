@@ -43,47 +43,47 @@ export default function Analytics() {
   return (
     <div className="analytics-page">
       <div className="analytics-header">
-        <h1>Analytics & Progress</h1>
+        <h1>FUSION INTELLIGENCE</h1>
         <div className="filter-group">
           <button
             className={`filter-btn ${timeRange === 'week' ? 'active' : ''}`}
             onClick={() => setTimeRange('week')}
           >
-            Week
+            CYCLE
           </button>
           <button
             className={`filter-btn ${timeRange === 'month' ? 'active' : ''}`}
             onClick={() => setTimeRange('month')}
           >
-            Month
+            PHASE
           </button>
           <button
             className={`filter-btn ${timeRange === 'all' ? 'active' : ''}`}
             onClick={() => setTimeRange('all')}
           >
-            All Time
+            HISTORICAL
           </button>
         </div>
       </div>
 
       <div className="analytics-grid">
         <div className="analytic-card primary">
-          <span className="analytic-label">Workouts</span>
+          <span className="analytic-label">SESSIONS</span>
           <h3 className="analytic-value">{filtered.length}</h3>
         </div>
         
         <div className="analytic-card success">
-          <span className="analytic-label">Duration</span>
+          <span className="analytic-label">UPTIME</span>
           <h3 className="analytic-value">{totalMin}m</h3>
         </div>
         
         <div className="analytic-card danger">
-          <span className="analytic-label">Calories</span>
+          <span className="analytic-label">ENERGY_EXPENDED</span>
           <h3 className="analytic-value">{Math.round(totalCal)}</h3>
         </div>
         
         <div className="analytic-card warning">
-          <span className="analytic-label">Avg/Workout</span>
+          <span className="analytic-label">EFFICIENCY_RATIO</span>
           <h3 className="analytic-value">
             {filtered.length > 0 ? Math.round(totalCal / filtered.length) : 0}
           </h3>

@@ -68,33 +68,40 @@ export default function Journey() {
 
   const levelEmojis = {
     'Beginner': '🌱',
-    'Intermediate': '💪',
-    'Advanced': '🏆',
-    'Elite': '👑'
+    'Intermediate': '⚙️',
+    'Advanced': '⚡',
+    'Elite': '💎'
+  };
+
+  const levelTitles = {
+    'Beginner': 'INITIATE',
+    'Intermediate': 'OPERATOR',
+    'Advanced': 'COMMANDER',
+    'Elite': 'OVERLORD'
   };
 
   return (
-    <div className="journey-container">
+    <div className="journey-container fusion-theme">
       <div className="journey-header">
-        <h1>Your Fitness Journey</h1>
+        <h1>OPERATIONAL_EVOLUTION</h1>
       </div>
 
-      <div className="level-card">
+      <div className="level-card fusion-card">
         <div className="level-info">
           <h3>
-            Current Level
-            <span className="level-badge">{journey.level}</span>
+            CURRENT_RANK
+            <span className="level-badge">{levelTitles[journey.level]}</span>
           </h3>
-          <p className="level-desc">Keep going! You're making great progress towards your goals.</p>
+          <p className="level-desc">System calibration in progress. Evolution of physical nodes proceeding at optimal parameters.</p>
           <div className="level-progress-wrapper">
             <div
               className="level-progress-fill"
               style={{ width: `${Math.min(journey.progress, 100)}%` }}
             >
-              {Math.round(journey.progress)}% Complete
+              {Math.round(journey.progress)}% SYNCHRONIZED
             </div>
           </div>
-          <p className="mt-3 text-muted fw-bold">Total Workouts: {stats?.totalWorkouts || 0}</p>
+          <p className="mt-3 text-muted fw-bold">TOTAL_SESSIONS: {stats?.totalWorkouts || 0}</p>
         </div>
         <div className="level-emoji-wrapper">
           {levelEmojis[journey.level]}
@@ -102,29 +109,29 @@ export default function Journey() {
       </div>
 
       <div className="milestones-section">
-        <h2>📍 Journey Milestones</h2>
+        <h2>📍 EVOLUTION_MARKERS</h2>
         <div className="milestones-grid">
           {journey.milestones.map((milestone) => (
-            <div key={milestone.id} className="milestone-card">
+            <div key={milestone.id} className="milestone-card fusion-card">
               <div className="milestone-header">
-                <h5 className="milestone-title">{milestone.icon} {milestone.name}</h5>
+                <h5 className="milestone-title">{milestone.icon} {milestone.name.toUpperCase()}</h5>
                 {milestone.current >= milestone.target && (
-                  <span className="done-badge">✓ COMPLETED</span>
+                  <span className="done-badge">✓ ARCHIVED</span>
                 )}
               </div>
               
               <div className="milestone-progress-bar">
                 <div
-                  className={`milestone-progress-fill bg-${getProgressColor(milestone.current, milestone.target)}`}
+                  className={`milestone-progress-fill milestone-fusion-fill`}
                   style={{ width: `${Math.min((milestone.current / milestone.target) * 100, 100)}%` }}
                 ></div>
               </div>
 
               <div className="milestone-stats">
                 {Math.round(milestone.current)} / {milestone.target}
-                {milestone.type === 'calories' && ' calories'}
-                {milestone.type === 'duration' && ' minutes'}
-                {!milestone.type && ' workouts'}
+                {milestone.type === 'calories' && ' KCAL'}
+                {milestone.type === 'duration' && ' MIN'}
+                {!milestone.type && ' SESSIONS'}
               </div>
             </div>
           ))}
@@ -132,33 +139,33 @@ export default function Journey() {
       </div>
 
       <div className="next-steps-section">
-        <h2>What's Next?</h2>
+        <h2>NEXT_OBJECTIVES</h2>
         <div className="next-steps-grid">
-          <Link to="/workouts/new" className="next-step-card">
+          <Link to="/workouts/new" className="next-step-card fusion-card">
             <div className="step-icon">📝</div>
-            <h5>Log Workout</h5>
-            <p>Start your next training session</p>
-            <div className="btn-step">Begin Now</div>
+            <h5>INITIATE_SESSION</h5>
+            <p>Begin next training protocol</p>
+            <div className="btn-step">START_NOW</div>
           </Link>
-          <Link to="/workouts" className="next-step-card">
+          <Link to="/workouts" className="next-step-card fusion-card">
             <div className="step-icon">📊</div>
-            <h5>View History</h5>
-            <p>Check your past workouts</p>
-            <div className="btn-step">View All</div>
+            <h5>SESSION_ARCHIVE</h5>
+            <p>Review historical data</p>
+            <div className="btn-step">OPEN_ARCHIVE</div>
           </Link>
-          <Link to="/profile" className="next-step-card">
+          <Link to="/profile" className="next-step-card fusion-card">
             <div className="step-icon">⚙️</div>
-            <h5>Update Profile</h5>
-            <p>Adjust your fitness goals</p>
-            <div className="btn-step">Edit Profile</div>
+            <h5>BIOMETRIC_SYNC</h5>
+            <p>Adjust core parameters</p>
+            <div className="btn-step">UPDATE_NODES</div>
           </Link>
         </div>
       </div>
 
       {journey.level === 'Elite' && (
-        <div className="elite-alert">
-          <h4>🎉 Congratulations! You've Reached Elite Level!</h4>
-          <p>You are a fitness champion! Keep pushing your limits and inspiring others!</p>
+        <div className="elite-alert fusion-card">
+          <h4>🎉 MAXIMUM SYNCHRONIZATION ACHIEVED!</h4>
+          <p>You have reached OVERLORD status. Physical and digital nodes are fully integrated.</p>
         </div>
       )}
     </div>

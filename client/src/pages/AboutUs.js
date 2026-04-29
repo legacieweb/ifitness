@@ -20,14 +20,14 @@ export default function AboutUs() {
 
   return (
     <PageTransition>
-      <div className="crimson-about">
+      <div className="fusion-about">
         <div className="hero-mesh-background"></div>
         <div className="hero-noise-overlay"></div>
         <div className="footer-scanner-line"></div>
 
         {/* Hero Section */}
         <section className="about-hero">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="hero-content-modern reveal">
               <div className="hero-badge">
                 <span className="badge-line"></span>
@@ -35,13 +35,13 @@ export default function AboutUs() {
               </div>
               
               <h1 className="hero-title">
-                THE <span className="text-crimson">MISSION</span>
+                THE <span className="text-fusion">MISSION</span>
                 <br />
                 <span className="hero-subtitle">REDEFINING LIMITS</span>
               </h1>
               
               <p className="hero-description">
-                Engineered in 2024, Crimson Protocol was built to bridge the gap between elite athletic performance and data-driven precision.
+                Engineered in 2024, Fusion Protocol was built to bridge the gap between elite athletic performance and data-driven precision.
               </p>
 
               <div className="hero-stats-row">
@@ -60,13 +60,13 @@ export default function AboutUs() {
 
         {/* Vision Section */}
         <section className="about-vision">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="systems-header reveal">
               <div className="systems-badge">
                 <span className="badge-bullet"></span>
                 <span>CORE VISION</span>
               </div>
-              <h2 className="systems-title">SYSTEM <span className="text-crimson">INTEGRITY</span></h2>
+              <h2 className="systems-title">SYSTEM <span className="text-fusion">INTEGRITY</span></h2>
             </div>
 
             <div className="vision-matrix">
@@ -103,13 +103,13 @@ export default function AboutUs() {
 
         {/* Team Intel */}
         <section className="about-intel">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="systems-header reveal">
               <div className="systems-badge">
                 <span className="badge-bullet"></span>
                 <span>COMMAND UNIT</span>
               </div>
-              <h2 className="systems-title">THE <span className="text-crimson">ARCHITECTS</span></h2>
+              <h2 className="systems-title">THE <span className="text-fusion">ARCHITECTS</span></h2>
             </div>
 
             <div className="team-matrix">
@@ -123,7 +123,7 @@ export default function AboutUs() {
                   <div className="member-id-box">{member.id}</div>
                   <div className="member-info">
                     <div className="member-name">{member.name}</div>
-                    <div className="member-role text-crimson">{member.role}</div>
+                    <div className="member-role text-fusion">{member.role}</div>
                   </div>
                 </div>
               ))}
@@ -133,10 +133,10 @@ export default function AboutUs() {
 
         {/* CTA */}
         <section className="about-cta reveal">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="cta-modern-box">
               <div className="cta-content">
-                <h2>READY TO <span className="text-crimson">EVOLVE?</span></h2>
+                <h2>READY TO <span className="text-fusion">EVOLVE?</span></h2>
                 <p>Initialize your training protocol and join the elite network.</p>
                 <div className="cta-actions">
                   <Link to="/register" className="btn-modern-primary">INITIALIZE_SYSTEM</Link>

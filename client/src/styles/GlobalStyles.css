@@ -1,33 +1,40 @@
 /* =====================================================
-   iFITNESS - CRIMSON PROTOCOL DESIGN SYSTEM
+   HIIT REVOLUTION - FUSION PROTOCOL DESIGN SYSTEM (RED & BLUE)
    ===================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* ─── Crimson Colors ──────────────────────────────────── */
-  --crimson-red: #ff0000;
-  --blood-red: #dc2626;
-  --dark-maroon: #7f1d1d;
-  --neon-orange: #ff4d00;
+  /* ─── Fusion Palette ──────────────────────────────────── */
+  --fusion-red: #ff3e3e;
+  --fusion-blue: #3e8bff;
+  --fusion-deep-blue: #1e40af;
+  --fusion-deep-red: #991b1b;
   
   --pure-black: #000000;
-  --deep-gray: #0a0a0a;
-  --dark-surface: #111111;
-  --dark-card: #181818;
-  --dark-hover: #222222;
+  --deep-gray: #050505;
+  --dark-surface: #0a0a0a;
+  --dark-card: #111111;
+  --dark-hover: #1a1a1a;
   
-  --text-primary: #ff0000;
-  --text-secondary: #ff3333;
-  --text-muted: #cc0000;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
   
-  --primary: var(--crimson-red);
-  --primary-gradient: linear-gradient(135deg, var(--crimson-red) 0%, #7f0000 100%);
-  --crimson-glow: 0 0 15px rgba(255, 0, 0, 0.4);
+  --primary: var(--fusion-blue);
+  --secondary: var(--fusion-red);
+  --primary-gradient: linear-gradient(135deg, var(--fusion-red) 0%, var(--fusion-blue) 100%);
+  --accent-gradient: linear-gradient(135deg, var(--fusion-blue) 0%, var(--fusion-red) 100%);
+  --fusion-glow: 0 0 15px rgba(62, 139, 255, 0.4);
+  --red-glow: 0 0 15px rgba(255, 62, 62, 0.4);
   
-  --glass: rgba(255, 255, 255, 0.02);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-hover: rgba(255, 255, 255, 0.05);
+  /* Compatibility with existing variables */
+  --crimson-red: var(--fusion-red);
+  --blood-red: var(--fusion-deep-red);
+  
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-hover: rgba(255, 255, 255, 0.07);
 
   /* ─── Status ──────────────────────────────────── */
   --success: #10b981;
@@ -36,7 +43,8 @@
   --info: #3b82f6;
 
   /* ─── Shadows ───────────────────────────────── */
-  --shadow-crimson: 0 0 20px rgba(255, 0, 0, 0.25);
+  --shadow-fusion: 0 0 20px rgba(62, 139, 255, 0.2);
+  --shadow-red: 0 0 20px rgba(255, 62, 62, 0.2);
   --shadow-strong: 0 10px 40px rgba(0, 0, 0, 0.9);
 
   /* ─── Typography ───────────────────────────── */
@@ -103,7 +111,7 @@ button {
   padding: 0 2rem;
 }
 
-.text-crimson {
+.text-fusion {
   background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -117,20 +125,20 @@ button {
   border: 1px solid var(--glass-border);
 }
 
-.crimson-card {
+.fusion-card {
   background: var(--dark-card);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   transition: var(--transition);
 }
 
-.crimson-card:hover {
-  border-color: var(--crimson-red);
-  box-shadow: var(--crimson-glow);
+.fusion-card:hover {
+  border-color: var(--fusion-blue);
+  box-shadow: var(--fusion-glow);
   transform: translateY(-5px);
 }
 
-.btn-crimson {
+.btn-fusion {
   padding: 14px 32px;
   background: var(--primary-gradient);
   color: #fff;
@@ -141,21 +149,21 @@ button {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+  box-shadow: 0 10px 20px rgba(62, 139, 255, 0.2);
   letter-spacing: 1.5px;
   transition: var(--transition);
 }
 
-.btn-crimson:hover {
+.btn-fusion:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 15px 30px rgba(62, 139, 255, 0.3);
 }
 
-.btn-crimson-outline {
+.btn-fusion-outline {
   padding: 14px 32px;
   background: transparent;
-  color: var(--crimson-red);
-  border: 1px solid var(--crimson-red);
+  color: var(--fusion-blue);
+  border: 1px solid var(--fusion-blue);
   border-radius: 12px;
   font-weight: 800;
   font-family: var(--font-display);
@@ -167,10 +175,32 @@ button {
   transition: var(--transition);
 }
 
-.btn-crimson-outline:hover {
-  background: rgba(255, 0, 0, 0.08);
+.btn-fusion-outline:hover {
+  background: rgba(62, 139, 255, 0.08);
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(255, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(62, 139, 255, 0.1);
+}
+
+/* Red variants */
+.btn-fusion-red {
+  padding: 14px 32px;
+  background: var(--accent-gradient);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 800;
+  font-family: var(--font-display);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 10px 20px rgba(255, 62, 62, 0.2);
+  letter-spacing: 1.5px;
+  transition: var(--transition);
+}
+
+.btn-fusion-red:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(255, 62, 62, 0.3);
 }
 
 /* Scrollbar */
@@ -188,5 +218,10 @@ button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--crimson-red);
+  background: var(--fusion-blue);
+}
+
+.fusion-theme {
+  --primary: var(--fusion-blue);
+  --secondary: var(--fusion-red);
 }

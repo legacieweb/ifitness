@@ -16,7 +16,7 @@ export default function Preloader({ text = 'INITIALIZING' }) {
   }, []);
 
   return (
-    <div className="crimson-preloader">
+    <div className="fusion-preloader">
       <div className="preloader-mesh"></div>
       <div className="preloader-scan"></div>
       
@@ -27,8 +27,8 @@ export default function Preloader({ text = 'INITIALIZING' }) {
         </div>
         
         <div className="core-content">
-          <div className="protocol-id">PROTOCOL_CRIMSON_v2.0</div>
-          <h1 className="system-title">My FITNESS</h1>
+          <div className="protocol-id">PROTOCOL_FUSION_v2.0</div>
+          <h1 className="system-title">FUSION_OS</h1>
           
           <div className="progress-container">
             <div className="progress-label">

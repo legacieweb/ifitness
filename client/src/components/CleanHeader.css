@@ -101,6 +101,11 @@
   background-clip: text;
 }
 
+.clean-logo-img {
+  height: 40px;
+  width: auto;
+}
+
 .clean-logo-link span {
   background: var(--primary-gradient);
   -webkit-background-clip: text;

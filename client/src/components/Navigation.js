@@ -33,22 +33,22 @@ export default function Navigation() {
   ];
 
   return (
-    <header className={`crimson-header ${isScrolled ? 'scrolled' : ''}`}>
-      <nav className="crimson-nav-container">
-        <Link to="/" className="crimson-brand" onClick={() => setIsMenuOpen(false)}>
-          <div className="brand-icon-crimson">
-            <i className="bi bi-shield-shaded"></i>
+    <header className={`fusion-header ${isScrolled ? 'scrolled' : ''}`}>
+      <nav className="fusion-nav-container">
+        <Link to="/" className="fusion-brand" onClick={() => setIsMenuOpen(false)}>
+          <div className="brand-icon-fusion">
+            <img src="/logo.png" alt="HIIT Revolution" className="nav-logo-img" />
           </div>
-          <span className="brand-text">MY<span className="text-crimson">.FITNESS</span></span>
+          <span className="brand-text">HIIT <span className="text-fusion">Revolution</span></span>
         </Link>
 
-        <div className={`crimson-menu ${isMenuOpen ? 'open' : ''}`}>
-          <ul className="crimson-nav-links">
+        <div className={`fusion-menu ${isMenuOpen ? 'open' : ''}`}>
+          <ul className="fusion-nav-links">
             {publicLinks.map((link) => (
               <li key={link.path}>
                 <Link
                   to={link.path}
-                  className={`crimson-nav-item ${isActive(link.path) ? 'active' : ''}`}
+                  className={`fusion-nav-item ${isActive(link.path) ? 'active' : ''}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.name}
@@ -59,7 +59,7 @@ export default function Navigation() {
               <li>
                 <Link
                   to="/dashboard"
-                  className={`crimson-nav-item dashboard-red-accent ${isActive('/dashboard') ? 'active' : ''}`}
+                  className={`fusion-nav-item dashboard-accent ${isActive('/dashboard') ? 'active' : ''}`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   TERMINAL
@@ -78,11 +78,11 @@ export default function Navigation() {
           )}
         </div>
 
-        <div className="crimson-nav-actions">
+        <div className="fusion-nav-actions">
           {!isAuthenticated ? (
-            <div className="auth-row-crimson">
-              <Link to="/login" className="login-link-crimson">LOGIN</Link>
-              <Link to="/register" className="btn-crimson">JOIN</Link>
+            <div className="auth-row-fusion">
+              <Link to="/login" className="login-link-fusion">LOGIN</Link>
+              <Link to="/register" className="btn-fusion">JOIN</Link>
             </div>
           ) : (
             <div className="operator-dropdown">
@@ -103,7 +103,7 @@ export default function Navigation() {
                   <i className="bi bi-terminal-fill"></i> TERMINAL
                 </Link>
                 <div className="op-drop-divider"></div>
-                <button onClick={handleLogout} className="op-drop-link logout-red">
+                <button onClick={handleLogout} className="op-drop-link logout-accent">
                   <i className="bi bi-power"></i> OFFLINE
                 </button>
               </div>
@@ -111,7 +111,7 @@ export default function Navigation() {
           )}
         </div>
 
-        <button className={`crimson-toggler ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
+        <button className={`fusion-toggler ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>
           <span></span>
           <span></span>
           <span></span>

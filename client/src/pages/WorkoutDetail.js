@@ -26,77 +26,77 @@ export default function WorkoutDetail() {
   }, [id]);
 
   if (loading) {
-    return <Preloader text="Loading workout details..." />;
+    return <Preloader text="RETRIEVING_PROTOCOL_DATA..." />;
   }
 
   if (!workout) {
     return (
       <div className="workout-detail-container mt-5">
-        <p className="text-center">Workout not found</p>
+        <p className="text-center text-primary">PROTOCOL_NOT_LOCATED</p>
         <button onClick={() => navigate('/workouts')} className="btn-detail-action btn-back mx-auto d-block">
-          Back to Workouts
+          RETURN_TO_ARCHIVE
         </button>
       </div>
     );
   }
 
   return (
-    <div className="workout-detail-container">
+    <div className="workout-detail-container fusion-theme">
       <div className="detail-header">
         <div>
-          <h1 className="detail-title">{workout.name}</h1>
-          <p className="m-0 text-muted">Protocol ID: #{workout._id?.substring(0, 8)}</p>
+          <h1 className="detail-title">{workout.name.toUpperCase()}</h1>
+          <p className="m-0 text-muted">OPERATIONAL_ID: #{workout._id?.substring(0, 8).toUpperCase()}</p>
         </div>
         <div className="d-flex gap-2">
           <button onClick={() => navigate(-1)} className="btn-detail-action btn-back">
-            <i className="bi bi-arrow-left me-2"></i> Back
+            <i className="bi bi-arrow-left me-2"></i> RETURN
           </button>
           <button onClick={() => navigate(`/workouts/${id}/edit`)} className="btn-detail-action btn-edit-workout">
-            <i className="bi bi-pencil-square me-2"></i> Edit
+            <i className="bi bi-cpu-fill me-2"></i> CALIBRATE
           </button>
         </div>
       </div>
 
-      <div className="detail-card">
+      <div className="detail-card fusion-card">
         {workout.description && (
-          <p className="detail-description">{workout.description}</p>
+          <p className="detail-description">{workout.description.toUpperCase()}</p>
         )}
 
         <div className="detail-stats-grid">
           <div className="detail-stat-item">
-            <span className="detail-stat-label">Date Recorded</span>
-            <span className="detail-stat-value">{new Date(workout.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+            <span className="detail-stat-label">TIMESTAMP</span>
+            <span className="detail-stat-value">{new Date(workout.date).toLocaleDateString()}</span>
           </div>
           <div className="detail-stat-item">
-            <span className="detail-stat-label">Total Duration</span>
+            <span className="detail-stat-label">UPTIME</span>
             <span className="detail-stat-value">{workout.duration} MIN</span>
           </div>
           <div className="detail-stat-item">
-            <span className="detail-stat-label">Energy Burned</span>
+            <span className="detail-stat-label">ENERGY_YIELD</span>
             <span className="detail-stat-value">{workout.caloriesBurned || '0'} KCAL</span>
           </div>
         </div>
 
         {workout.exercises && workout.exercises.length > 0 && (
           <div className="exercises-section mt-5">
-            <h4>Training Exercises</h4>
+            <h4>INTEGRATED_COMPONENTS</h4>
             <div className="table-responsive">
               <table className="detail-table">
                 <thead>
                   <tr>
-                    <th>Exercise Name</th>
-                    <th>Sets</th>
-                    <th>Reps</th>
-                    <th>Weight</th>
+                    <th>COMPONENT_ID</th>
+                    <th>CYCLES</th>
+                    <th>REPETITIONS</th>
+                    <th>LOAD</th>
                   </tr>
                 </thead>
                 <tbody>
                   {workout.exercises.map((ex, idx) => (
                     <tr key={idx}>
-                      <td>{ex.exerciseId?.name || 'Unknown Exercise'}</td>
+                      <td>{ex.exerciseId?.name?.toUpperCase() || 'UNKNOWN_MODULE'}</td>
                       <td>{ex.sets}</td>
                       <td>{ex.reps}</td>
-                      <td>{ex.weight ? `${ex.weight} kg` : '--'}</td>
+                      <td>{ex.weight ? `${ex.weight} KG` : '--'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -107,7 +107,7 @@ export default function WorkoutDetail() {
 
         {workout.notes && (
           <div className="detail-notes">
-            <strong>Commander's Notes</strong>
+            <strong>OPERATIONAL_ANNOTATIONS</strong>
             <p>{workout.notes}</p>
           </div>
         )}

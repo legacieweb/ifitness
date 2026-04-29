@@ -1,95 +1,101 @@
 .analytics-page {
-  padding: 40px 0;
+  padding: 100px 2rem 80px;
   color: #fff;
-  animation: fadeIn 0.6s ease-out;
+  background: #000;
+  min-height: 100vh;
 }
 
 .analytics-header {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  border-left: 4px solid var(--fusion-blue);
+  padding-left: 30px;
 }
 
 .analytics-header h1 {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 900;
-  letter-spacing: -1.5px;
-  margin-bottom: 24px;
+  color: var(--fusion-blue);
+  letter-spacing: -2px;
 }
 
 .filter-group {
   display: flex;
   gap: 12px;
-  background: var(--dark-surface);
-  padding: 6px;
-  border-radius: 16px;
+  background: #050505;
+  padding: 8px;
+  border-radius: 12px;
   width: fit-content;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(62, 139, 255, 0.1);
+  margin-bottom: 40px;
 }
 
 .filter-btn {
-  padding: 10px 24px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  color: rgba(255, 255, 255, 0.5);
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  transition: var(--transition);
+  color: rgba(255, 255, 255, 0.4);
   text-transform: uppercase;
   letter-spacing: 1px;
+  border: none;
+  background: transparent;
 }
 
 .filter-btn:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(62, 139, 255, 0.05);
 }
 
 .filter-btn.active {
-  background: var(--neon-primary);
+  background: var(--fusion-blue);
   color: #000;
-  box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+  box-shadow: var(--fusion-glow);
 }
 
 .analytics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-bottom: 48px;
+  gap: 30px;
+  margin-bottom: 60px;
 }
 
 .analytic-card {
-  background: var(--dark-surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  padding: 32px;
+  background: #050505;
+  border: 1px solid #111;
+  border-radius: var(--radius-lg);
+  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  transition: all 0.3s ease;
+  gap: 15px;
+  transition: var(--transition);
 }
 
 .analytic-card:hover {
   transform: translateY(-8px);
-  border-color: var(--neon-primary);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  border-color: var(--fusion-blue);
+  box-shadow: 0 20px 40px rgba(62, 139, 255, 0.15);
 }
 
 .analytic-label {
   font-size: 0.8rem;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .analytic-value {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 900;
   line-height: 1;
 }
 
-.analytic-card.primary .analytic-value { color: var(--neon-primary); }
-.analytic-card.success .analytic-value { color: var(--neon-accent); }
-.analytic-card.danger .analytic-value { color: #ff4d4d; }
-.analytic-card.warning .analytic-value { color: var(--neon-secondary); }
+.analytic-card.primary .analytic-value { color: var(--fusion-blue); }
+.analytic-card.success .analytic-value { color: #10b981; }
+.analytic-card.danger .analytic-value { color: var(--fusion-red); }
+.analytic-card.warning .analytic-value { color: #f59e0b; }
 
 @media (max-width: 1200px) {
   .analytics-grid {

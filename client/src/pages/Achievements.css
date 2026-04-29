@@ -1,5 +1,5 @@
 /* =====================================================
-   CRIMSON PROTOCOL - ACHIEVEMENTS & BADGES STYLES
+   FUSION PROTOCOL - ACHIEVEMENTS & BADGES STYLES
    ===================================================== */
 
 .achievements-container {
@@ -8,24 +8,24 @@
   padding: 100px 2rem 80px;
   background: #000;
   min-height: 100vh;
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .achievements-header {
   margin-bottom: 60px;
-  border-left: 4px solid #ff0000;
+  border-left: 4px solid var(--fusion-blue);
   padding-left: 30px;
 }
 
 .achievements-header h1 {
   font-size: 3.5rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: -2px;
 }
 
 .achievements-header p {
-  color: #cc0000;
+  color: var(--text-secondary);
   font-size: 1.2rem;
 }
 
@@ -39,7 +39,7 @@
 
 .badge-card {
   background: #000;
-  border: 1px solid #ff0000;
+  border: 1px solid rgba(62, 139, 255, 0.2);
   border-radius: var(--radius-lg);
   padding: 40px;
   text-align: center;
@@ -48,39 +48,44 @@
   overflow: hidden;
 }
 
+.badge-card:hover {
+  border-color: var(--fusion-blue);
+  box-shadow: var(--fusion-glow);
+}
+
 .badge-card.locked {
   opacity: 0.6;
-  border-color: #440000;
+  border-color: #1a1a1a;
 }
 
 .badge-icon-wrapper {
   width: 100px;
   height: 100px;
   margin: 0 auto 25px;
-  background: rgba(255, 0, 0, 0.1);
-  border: 2px solid #ff0000;
+  background: rgba(62, 139, 255, 0.1);
+  border: 2px solid var(--fusion-blue);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+  box-shadow: 0 0 30px rgba(62, 139, 255, 0.2);
 }
 
 .badge-icon-wrapper i {
   font-size: 2.5rem;
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .badge-card h6 {
   font-size: 1.5rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   margin-bottom: 10px;
   text-transform: uppercase;
 }
 
 .badge-card p {
-  color: #cc0000;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 0.95rem;
   line-height: 1.5;
   margin-bottom: 20px;
@@ -97,27 +102,27 @@
 }
 
 .badge-status.unlocked {
-  background: #ff0000;
+  background: var(--fusion-blue);
   color: #000 !important;
 }
 
 .badge-status.locked {
-  background: #110000;
-  color: #880000 !important;
-  border: 1px solid #440000;
+  background: #111;
+  color: #444 !important;
+  border: 1px solid #222;
 }
 
 /* Gallery Section */
 .achievements-gallery-section {
   margin-top: 80px;
-  border-top: 1px solid #330000;
+  border-top: 1px solid #111;
   padding-top: 60px;
 }
 
 .achievements-gallery-section h2 {
   font-size: 2.5rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   margin-bottom: 40px;
   text-transform: uppercase;
 }
@@ -130,7 +135,7 @@
 
 .gallery-card {
   background: #000;
-  border: 1px solid #ff0000;
+  border: 1px solid rgba(62, 139, 255, 0.1);
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: var(--transition);
@@ -138,7 +143,8 @@
 
 .gallery-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+  border-color: var(--fusion-blue);
+  box-shadow: 0 10px 30px rgba(62, 139, 255, 0.2);
 }
 
 .gallery-image-wrapper {
@@ -157,7 +163,7 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background: #ff0000;
+  background: var(--fusion-blue);
   color: #000;
   padding: 5px 12px;
   font-size: 10px;
@@ -173,12 +179,12 @@
 .gallery-body h5 {
   font-size: 1.2rem;
   font-weight: 800;
-  color: #ff0000;
+  color: var(--fusion-blue);
   margin-bottom: 10px;
 }
 
 .gallery-date {
-  color: #cc0000;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.85rem;
   font-weight: 600;
   display: flex;
@@ -189,30 +195,38 @@
 .gallery-empty {
   text-align: center;
   padding: 80px 40px;
-  border: 2px dashed #330000;
+  border: 2px dashed #222;
   border-radius: var(--radius-lg);
 }
 
 .gallery-empty i {
   font-size: 4rem;
-  color: #330000;
+  color: #222;
   margin-bottom: 20px;
   display: block;
 }
 
 .gallery-empty p {
   font-size: 1.2rem;
-  color: #ff0000;
+  color: var(--fusion-blue);
   font-weight: 700;
 }
 
 .gallery-empty small {
-  color: #660000;
+  color: #444;
 }
 
 /* Global dashboard text override */
 .achievements-container * {
-  color: #ff0000;
+  color: #fff;
+}
+
+.achievements-container h1, 
+.achievements-container h2, 
+.achievements-container h5, 
+.achievements-container h6,
+.achievements-container .badge-icon-wrapper i {
+  color: var(--fusion-blue) !important;
 }
 
 .badge-status.unlocked, .badge-status.unlocked * {
@@ -221,14 +235,6 @@
 
 .gallery-tag, .gallery-tag * {
   color: #000 !important;
-}
-
-.badge-card.locked * {
-  color: #880000 !important;
-}
-
-.badge-icon-wrapper, .badge-icon-wrapper * {
-  color: #ff0000 !important;
 }
 
 @media (max-width: 768px) {

@@ -1,11 +1,9 @@
-/* =====================================================
-   CRIMSON PROTOCOL - WORKOUT DETAIL STYLES
-   ===================================================== */
+/* FUSION PROTOCOL - WORKOUT DETAIL STYLES */
 
 .workout-detail-container {
   max-width: 1000px;
   margin: 0 auto;
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .detail-header {
@@ -13,7 +11,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
-  border-bottom: 1px solid #330000;
+  border-bottom: 1px solid rgba(0, 102, 255, 0.2);
   padding-bottom: 20px;
 }
 
@@ -22,21 +20,52 @@
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -1px;
+  background: linear-gradient(90deg, var(--fusion-blue), var(--fusion-red));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 20px rgba(0, 102, 255, 0.2);
 }
 
 .detail-card {
-  background: #050505;
-  border: 1px solid #ff0000;
+  background: rgba(10, 10, 20, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 102, 255, 0.2);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.detail-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--fusion-red), transparent);
+  opacity: 0.3;
+}
+
+.detail-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--fusion-blue), transparent);
+  opacity: 0.3;
 }
 
 .detail-description {
   font-size: 1.2rem;
-  color: #cc0000;
+  color: #a0a0ff;
   margin-bottom: 30px;
   line-height: 1.6;
+  font-weight: 600;
 }
 
 .detail-stats-grid {
@@ -47,18 +76,24 @@
 }
 
 .detail-stat-item {
-  background: #000;
-  border: 1px solid #220000;
-  padding: 20px;
-  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 102, 255, 0.1);
+  padding: 25px;
+  border-radius: 16px;
   text-align: center;
+  transition: var(--transition);
+}
+
+.detail-stat-item:hover {
+  border-color: var(--fusion-blue);
+  background: rgba(0, 102, 255, 0.05);
 }
 
 .detail-stat-label {
   display: block;
   font-size: 10px;
   font-weight: 800;
-  color: #660000;
+  color: #8080ff;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 8px;
@@ -67,7 +102,8 @@
 .detail-stat-value {
   font-size: 1.5rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
+  text-shadow: 0 0 10px rgba(0, 102, 255, 0.4);
 }
 
 .exercises-section h4 {
@@ -75,7 +111,8 @@
   font-weight: 900;
   text-transform: uppercase;
   margin-bottom: 25px;
-  color: #ff0000;
+  color: #fff;
+  letter-spacing: 1px;
 }
 
 .detail-table {
@@ -86,66 +123,76 @@
 .detail-table th {
   text-align: left;
   padding: 15px;
-  border-bottom: 2px solid #ff0000;
-  color: #660000;
+  border-bottom: 2px solid rgba(0, 102, 255, 0.3);
+  color: var(--fusion-blue);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
+  font-weight: 800;
 }
 
 .detail-table td {
-  padding: 15px;
-  border-bottom: 1px solid #111;
-  color: #ff0000;
-  font-weight: 700;
+  padding: 18px 15px;
+  border-bottom: 1px solid rgba(0, 102, 255, 0.05);
+  color: #eee;
+  font-weight: 600;
 }
 
 .detail-notes {
   margin-top: 40px;
-  padding: 25px;
-  background: rgba(255, 0, 0, 0.02);
-  border-left: 4px solid #ff0000;
-  border-radius: 4px;
+  padding: 30px;
+  background: rgba(255, 0, 0, 0.03);
+  border-left: 4px solid var(--fusion-red);
+  border-radius: 12px;
 }
 
 .detail-notes strong {
   display: block;
   font-size: 11px;
   text-transform: uppercase;
-  color: #660000;
+  color: var(--fusion-red);
   margin-bottom: 10px;
+  letter-spacing: 1px;
+  font-weight: 900;
 }
 
 .detail-notes p {
   margin: 0;
-  color: #cc0000;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .btn-detail-action {
   padding: 12px 30px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: all 0.2s ease;
+  font-size: 0.9rem;
 }
 
 .btn-back {
   background: transparent;
-  border: 1px solid #330000;
-  color: #660000;
+  border: 1px solid rgba(0, 102, 255, 0.3);
+  color: var(--fusion-blue);
 }
 
 .btn-back:hover {
-  border-color: #ff0000;
-  color: #ff0000;
+  background: rgba(0, 102, 255, 0.1);
+  border-color: var(--fusion-blue);
 }
 
 .btn-edit-workout {
-  background: #ff0000;
-  color: #000 !important;
+  background: var(--fusion-blue);
+  color: #fff !important;
+  border: none;
+  box-shadow: 0 0 15px rgba(0, 102, 255, 0.3);
 }
 
 .btn-edit-workout:hover {
-  background: #cc0000;
+  background: #0077ff;
+  box-shadow: 0 0 25px rgba(0, 102, 255, 0.5);
+  transform: translateY(-2px);
 }

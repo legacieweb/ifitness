@@ -114,20 +114,20 @@ export default function EditWorkout() {
       <div className="container">
         <div className="form-header-modern">
           <button className="btn btn-link text-decoration-none p-0 mb-3 text-muted" onClick={() => navigate(-1)}>
-            <i className="bi bi-arrow-left me-2"></i> Back to Workout
+            <i className="bi bi-arrow-left me-2"></i> ABORT_MODIFICATION
           </button>
-          <h1>Edit Workout Details</h1>
-          <p>Update your session statistics and exercise progress</p>
+          <h1>MODIFY_PROTOCOL_PARAMETERS</h1>
+          <p>Adjust session parameters and biometric throughput nodes</p>
         </div>
 
         {error && <div className="alert alert-danger rounded-4 py-3 mb-4">{error}</div>}
 
         <div className="row g-4">
           <div className="col-lg-8">
-            <div className="workout-card-edit fade-in">
+            <div className="workout-card-edit fusion-card fade-in">
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label className="form-label-modern">Workout Name</label>
+                  <label className="form-label-modern">PROTOCOL_IDENTIFIER</label>
                   <input
                     type="text"
                     className="form-control-modern"
@@ -139,7 +139,7 @@ export default function EditWorkout() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="form-label-modern">Description</label>
+                  <label className="form-label-modern">OPERATIONAL_DESCRIPTION</label>
                   <textarea
                     className="form-control-modern"
                     name="description"
@@ -152,7 +152,7 @@ export default function EditWorkout() {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="mb-4">
-                      <label className="form-label-modern">Duration (min)</label>
+                      <label className="form-label-modern">SESSION_LENGTH (MIN)</label>
                       <input
                         type="number"
                         className="form-control-modern"
@@ -165,7 +165,7 @@ export default function EditWorkout() {
                   </div>
                   <div className="col-md-6">
                     <div className="mb-4">
-                      <label className="form-label-modern">Calories Burned</label>
+                      <label className="form-label-modern">ENERGY_YIELD (KCAL)</label>
                       <input
                         type="number"
                         className="form-control-modern"
@@ -178,7 +178,7 @@ export default function EditWorkout() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="form-label-modern">Notes</label>
+                  <label className="form-label-modern">SYSTEM_ANNOTATIONS</label>
                   <textarea
                     className="form-control-modern"
                     name="notes"
@@ -191,17 +191,17 @@ export default function EditWorkout() {
                 <div className="d-flex gap-3 pt-3">
                   <button
                     type="submit"
-                    className="btn-custom-main btn-custom-primary flex-grow-1"
+                    className="btn-custom-main btn-fusion flex-grow-1"
                     disabled={saving}
                   >
-                    {saving ? <><span className="spinner-border spinner-border-sm me-2"></span>Saving...</> : <><i className="bi bi-cloud-check-fill me-2"></i>Save Changes</>}
+                    {saving ? <><span className="spinner-border spinner-border-sm me-2"></span>SYNCING...</> : <><i className="bi bi-cloud-check-fill me-2"></i>COMMIT_CHANGES</>}
                   </button>
                   <button
                     type="button"
-                    className="btn-custom-main btn-custom-outline px-4"
+                    className="btn-custom-main btn-fusion-outline px-4"
                     onClick={() => navigate(-1)}
                   >
-                    Cancel
+                    ABORT
                   </button>
                 </div>
               </form>
@@ -209,20 +209,20 @@ export default function EditWorkout() {
           </div>
 
           <div className="col-lg-4">
-            <div className="exercise-manager-card fade-in">
-              <h5 className="fw-bold mb-4">Exercises</h5>
+            <div className="exercise-manager-card fusion-card fade-in">
+              <h5 className="fw-bold mb-4 text-primary">INTEGRATED_MODULES</h5>
               
               <div className="mb-4">
-                <label className="form-label-modern">Add Exercise</label>
+                <label className="form-label-modern">INJECT_MODULE</label>
                 <select
                   className="form-control-modern"
                   onChange={(e) => handleAddExercise(e.target.value)}
                   value=""
                 >
-                  <option value="">Select from library...</option>
+                  <option value="">SCAN_LIBRARY...</option>
                   {exercises.map((ex) => (
                     <option key={ex._id} value={ex._id}>
-                      {ex.name}
+                      {ex.name.toUpperCase()}
                     </option>
                   ))}
                 </select>
@@ -232,13 +232,13 @@ export default function EditWorkout() {
                 {selectedExercises.length === 0 ? (
                   <div className="text-center py-5 text-muted">
                     <i className="bi bi-list-task fs-1 d-block mb-2"></i>
-                    <p className="small">No exercises added yet</p>
+                    <p className="small">NO_MODULES_DETECTED</p>
                   </div>
                 ) : (
                   selectedExercises.map((ex) => (
                     <div key={ex.exerciseId?._id} className="exercise-item-edit">
                       <div className="exercise-header-edit">
-                        <span className="exercise-title-edit">{ex.exerciseId?.name}</span>
+                        <span className="exercise-title-edit">{ex.exerciseId?.name?.toUpperCase()}</span>
                         <button
                           type="button"
                           className="btn-remove-ex"
@@ -249,7 +249,7 @@ export default function EditWorkout() {
                       </div>
                       <div className="exercise-stats-edit">
                         <div className="ex-input-group">
-                          <label>Sets</label>
+                          <label>NODE_CYCLES</label>
                           <input
                             type="number"
                             className="ex-control-sm"
@@ -258,7 +258,7 @@ export default function EditWorkout() {
                           />
                         </div>
                         <div className="ex-input-group">
-                          <label>Reps</label>
+                          <label>REPETITIONS</label>
                           <input
                             type="number"
                             className="ex-control-sm"
@@ -267,7 +267,7 @@ export default function EditWorkout() {
                           />
                         </div>
                         <div className="ex-input-group">
-                          <label>Weight</label>
+                          <label>LOAD_FACTOR</label>
                           <input
                             type="number"
                             className="ex-control-sm"

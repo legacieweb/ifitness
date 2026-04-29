@@ -1,12 +1,12 @@
 /* =====================================================
-   CRIMSON PROTOCOL - CLEAN & ELEGANT WORKOUTS
+   FUSION PROTOCOL - WORKOUTS VISUAL INTERFACE
    ===================================================== */
 
 .workouts-page {
   min-height: 100vh;
   background: #000;
   padding: 40px 0 80px;
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .workouts-container {
@@ -24,28 +24,29 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-bottom: 1px solid #111;
+  border-bottom: 1px solid rgba(0, 102, 255, 0.2);
   padding-bottom: 30px;
 }
 
 .page-title {
   font-size: 2.5rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   margin-bottom: 8px;
   letter-spacing: -1px;
+  text-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
 }
 
 .page-subtitle {
-  color: #666;
+  color: #a0a0ff;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .btn-create-workout {
   padding: 12px 24px;
-  background: #ff0000;
-  color: #000 !important;
+  background: var(--fusion-blue);
+  color: #fff !important;
   border-radius: 8px;
   font-weight: 800;
   text-transform: uppercase;
@@ -54,6 +55,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  transition: var(--transition);
+  box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
+}
+
+.btn-create-workout:hover {
+  background: #0077ff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(0, 102, 255, 0.6);
 }
 
 /* Stats Overview */
@@ -65,32 +74,39 @@
 }
 
 .stat-item-bar {
-  background: #050505;
-  border: 1px solid #111;
+  background: rgba(10, 10, 30, 0.4);
+  border: 1px solid rgba(0, 102, 255, 0.2);
   border-radius: 12px;
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 15px;
+  transition: var(--transition);
+}
+
+.stat-item-bar:hover {
+  border-color: var(--fusion-blue);
+  background: rgba(0, 102, 255, 0.05);
 }
 
 .stat-icon {
   width: 45px;
   height: 45px;
-  background: rgba(255, 0, 0, 0.05);
-  color: #ff0000;
+  background: rgba(0, 102, 255, 0.1);
+  color: var(--fusion-blue);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
+  border: 1px solid rgba(0, 102, 255, 0.2);
 }
 
 .stat-label {
   display: block;
   font-size: 0.7rem;
   font-weight: 800;
-  color: #444;
+  color: #8080ff;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 2px;
@@ -99,7 +115,7 @@
 .stat-value {
   font-size: 1.4rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 /* Workouts Grid */
@@ -111,18 +127,38 @@
 }
 
 .workout-card-inner {
-  background: #050505;
-  border: 1px solid #111;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 102, 255, 0.2);
   border-radius: 16px;
   padding: 25px;
   display: flex;
   flex-direction: column;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.workout-card-inner:hover {
+  border-color: var(--fusion-blue);
+  box-shadow: 0 10px 30px rgba(0, 102, 255, 0.15);
+  transform: translateY(-5px);
+}
+
+.workout-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--fusion-blue), transparent);
+  opacity: 0.5;
 }
 
 .workout-name {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #ff0000;
+  color: #fff;
   margin-bottom: 20px;
 }
 
@@ -136,19 +172,20 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px;
-  background: #000;
+  padding: 12px;
+  background: rgba(0, 10, 30, 0.4);
   border-radius: 8px;
+  border: 1px solid rgba(0, 102, 255, 0.1);
 }
 
 .stat-icon-card {
-  color: #ff0000;
+  color: var(--fusion-blue);
   font-size: 1rem;
 }
 
 .stat-label-card {
   font-size: 0.7rem;
-  color: #444;
+  color: #8080ff;
   text-transform: uppercase;
   font-weight: 700;
   display: block;
@@ -157,7 +194,7 @@
 .stat-value-card {
   font-size: 0.95rem;
   font-weight: 800;
-  color: #ff0000;
+  color: #fff;
 }
 
 .card-actions {
@@ -169,40 +206,53 @@
 .action-btn {
   flex: 1;
   padding: 10px;
-  background: #000;
-  border: 1px solid #111;
-  color: #ff0000;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 102, 255, 0.2);
+  color: var(--fusion-blue);
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: var(--transition);
+}
+
+.action-btn:hover {
+  background: var(--fusion-blue);
+  color: #fff;
+  border-color: var(--fusion-blue);
+}
+
+.delete-btn:hover {
+  background: var(--fusion-red);
+  border-color: var(--fusion-red);
 }
 
 /* Empty State - Clean Design */
 .empty-state {
   text-align: center;
   padding: 80px 40px;
-  background: #000;
-  border: 1px solid #ff0000;
+  background: rgba(10, 10, 30, 0.4);
+  border: 1px dashed var(--fusion-blue);
   border-radius: 20px;
   margin-top: 40px;
 }
 
 .empty-illustration {
   font-size: 3rem;
-  color: #ff0000;
+  color: var(--fusion-blue);
   margin-bottom: 25px;
+  opacity: 0.5;
 }
 
 .empty-state h3 {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #ff0000;
+  color: var(--fusion-blue);
   margin-bottom: 12px;
 }
 
 .empty-state p {
-  color: #cc0000;
+  color: #a0a0ff;
   font-size: 1rem;
   margin-bottom: 30px;
 }
@@ -216,23 +266,23 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: #050505;
+  background: rgba(10, 10, 30, 0.6);
   padding: 8px 16px;
   border-radius: 10px;
-  border: 1px solid #111;
+  border: 1px solid rgba(0, 102, 255, 0.2);
 }
 
 .sort-controls label {
   font-size: 0.75rem;
   font-weight: 800;
-  color: #444;
+  color: #8080ff;
   text-transform: uppercase;
 }
 
 .sort-select {
   background: transparent;
   border: none;
-  color: #ff0000;
+  color: var(--fusion-blue);
   font-weight: 800;
   font-size: 0.85rem;
   outline: none;
@@ -241,33 +291,97 @@
 
 /* Active Workout Section Fixes */
 .active-workout-card {
-  background: #050505;
-  border: 1px solid #ff0000;
-  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--fusion-red);
+  border-radius: 24px;
   padding: 40px;
   margin-bottom: 60px;
   text-align: center;
+  box-shadow: 0 0 40px rgba(255, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.active-workout-card::after {
+  content: 'EXECUTING';
+  position: absolute;
+  top: 20px;
+  right: -30px;
+  background: var(--fusion-red);
+  color: #fff;
+  padding: 5px 40px;
+  transform: rotate(45deg);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 2px;
 }
 
 .timer-display {
   font-size: 6rem;
   font-weight: 900;
-  color: #ff0000;
-  font-family: monospace;
+  color: var(--fusion-red);
+  font-family: 'Courier New', Courier, monospace;
+  text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+  margin: 20px 0;
 }
 
 .btn-control {
   background: transparent;
-  border: 1px solid #ff0000;
-  color: #ff0000;
+  border: 1px solid var(--fusion-blue);
+  color: var(--fusion-blue);
   padding: 12px 30px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: 800;
   text-transform: uppercase;
   margin: 0 10px;
+  transition: var(--transition);
 }
 
 .btn-play {
-  background: #ff0000;
-  color: #000;
+  background: var(--fusion-blue);
+  color: #fff !important;
+  border: none;
+}
+
+.btn-play:hover {
+  background: #0077ff;
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+}
+
+.btn-pause:hover {
+  background: rgba(0, 102, 255, 0.1);
+}
+
+.btn-cancel:hover {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: var(--fusion-red);
+  color: var(--fusion-red);
+}
+
+.btn-complete {
+  background: var(--fusion-red);
+  color: #fff !important;
+  border: none;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+}
+
+.btn-complete:hover {
+  background: #ff3333;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+}
+
+.progress-bar-custom {
+  height: 10px;
+  background: rgba(255, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 30px 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.progress-fill-custom {
+  height: 100%;
+  background: linear-gradient(90deg, var(--fusion-red), #ff6666);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+  transition: width 1s ease-in-out;
 }

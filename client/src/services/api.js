@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // THE BACKEND URL - CHANGE THIS IF YOUR API IS ON A DIFFERENT HOST
-const PRODUCTION_URL = 'https://fitness-api.onrender.com/api'; 
+const PRODUCTION_URL = 'https://hiit-revolution-api.onrender.com/api'; 
 const DEVELOPMENT_URL = 'http://localhost:5000/api';
 
 // Use environment variable if provided, otherwise fallback to local/prod defaults

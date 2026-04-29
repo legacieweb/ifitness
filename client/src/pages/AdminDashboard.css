@@ -1,13 +1,13 @@
 /* =====================================================
-   CRIMSON PROTOCOL - ADMIN DASHBOARD STYLES
+   FUSION PROTOCOL - ADMIN DASHBOARD STYLES
    ===================================================== */
 
 :root {
-  --admin-primary: var(--crimson-red);
-  --admin-primary-dark: #7f0000;
-  --admin-primary-light: #ff3333;
+  --admin-primary: var(--fusion-blue);
+  --admin-primary-dark: #1e40af;
+  --admin-primary-light: #60a5fa;
   --admin-secondary: #000;
-  --admin-accent: #ff0000;
+  --admin-accent: var(--fusion-blue);
   --admin-success: #10b981;
   --admin-warning: #f59e0b;
   --admin-danger: #ef4444;
@@ -15,19 +15,19 @@
 
   --admin-dark: #000;
   --admin-dark-secondary: #080808;
-  --admin-gray: rgba(255, 0, 0, 0.5);
-  --admin-gray-light: rgba(255, 0, 0, 0.3);
-  --admin-border: rgba(255, 0, 0, 0.1);
-  --admin-border-light: rgba(255, 0, 0, 0.05);
+  --admin-gray: rgba(62, 139, 255, 0.5);
+  --admin-gray-light: rgba(62, 139, 255, 0.3);
+  --admin-border: rgba(62, 139, 255, 0.1);
+  --admin-border-light: rgba(62, 139, 255, 0.05);
 
   --admin-bg: #000;
   --admin-bg-card: #050505;
   --admin-sidebar-bg: #000;
   --admin-sidebar-hover: #080808;
 
-  --admin-gradient: linear-gradient(135deg, var(--crimson-red) 0%, #7f0000 100%);
-  --admin-shadow: 0 0 20px rgba(255, 0, 0, 0.1);
-  --admin-shadow-glow: 0 0 30px rgba(255, 0, 0, 0.2);
+  --admin-gradient: linear-gradient(135deg, var(--fusion-blue) 0%, var(--fusion-red) 100%);
+  --admin-shadow: 0 0 20px rgba(62, 139, 255, 0.1);
+  --admin-shadow-glow: 0 0 30px rgba(62, 139, 255, 0.2);
 
   --admin-radius: 12px;
   --admin-radius-lg: 20px;
@@ -50,7 +50,7 @@
   position: absolute;
   inset: 0;
   background: 
-    radial-gradient(circle at 2px 2px, rgba(255, 0, 0, 0.03) 1px, transparent 0);
+    radial-gradient(circle at 2px 2px, rgba(62, 139, 255, 0.03) 1px, transparent 0);
   background-size: 30px 30px;
   pointer-events: none;
   z-index: 0;
@@ -71,7 +71,7 @@
 /* Header Section */
 .admin-header-section {
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(62, 139, 255, 0.1);
   border-radius: var(--admin-radius-lg);
   padding: 30px;
   margin-bottom: 30px;
@@ -94,13 +94,13 @@
 }
 
 .admin-page-title span {
-  color: var(--crimson-red);
+  color: var(--fusion-blue);
 }
 
 .admin-status-badge {
-  background: rgba(255, 0, 0, 0.1);
-  border: 1px solid rgba(255, 0, 0, 0.2);
-  color: var(--crimson-red);
+  background: rgba(62, 139, 255, 0.1);
+  border: 1px solid rgba(62, 139, 255, 0.2);
+  color: var(--fusion-blue);
   padding: 6px 15px;
   border-radius: 20px;
   font-size: 11px;
@@ -129,8 +129,8 @@
 }
 
 .admin-stat-card:hover {
-  background: rgba(255, 0, 0, 0.03);
-  border-color: rgba(255, 0, 0, 0.2);
+  background: rgba(62, 139, 255, 0.03);
+  border-color: rgba(62, 139, 255, 0.2);
   transform: translateY(-5px);
 }
 
@@ -143,12 +143,12 @@
 .admin-stat-icon {
   width: 45px;
   height: 45px;
-  background: rgba(255, 0, 0, 0.1);
+  background: rgba(62, 139, 255, 0.1);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--crimson-red);
+  color: var(--fusion-blue);
   font-size: 20px;
 }
 
@@ -170,7 +170,7 @@
 /* Navigation Tabs */
 .admin-navigation {
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(62, 139, 255, 0.1);
   border-radius: var(--admin-radius-lg);
   padding: 10px;
   margin-bottom: 30px;
@@ -198,9 +198,9 @@
 }
 
 .admin-nav-tab.active {
-  background: var(--crimson-red);
+  background: var(--fusion-blue);
   color: #fff;
-  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(62, 139, 255, 0.3);
 }
 
 /* Content Area */
@@ -257,8 +257,8 @@
 }
 
 .admin-table tr:hover td {
-  background: rgba(255, 0, 0, 0.03);
-  border-color: rgba(255, 0, 0, 0.1);
+  background: rgba(62, 139, 255, 0.03);
+  border-color: rgba(62, 139, 255, 0.1);
 }
 
 /* Protocol Status Styling */
@@ -288,10 +288,10 @@
 }
 
 .status-badge.suspended {
-  background: rgba(255, 0, 0, 0.1);
-  color: var(--crimson-red);
-  border-color: rgba(255, 0, 0, 0.2);
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
+  background: rgba(255, 62, 62, 0.1);
+  color: var(--fusion-red);
+  border-color: rgba(255, 62, 62, 0.2);
+  box-shadow: 0 0 15px rgba(255, 62, 62, 0.1);
 }
 
 .scanning-text {
@@ -324,8 +324,8 @@
 }
 
 .status-dot.suspended {
-  background: var(--crimson-red);
-  box-shadow: 0 0 10px var(--crimson-red);
+  background: var(--fusion-red);
+  box-shadow: 0 0 10px var(--fusion-red);
 }
 
 @keyframes pulse-ring {
@@ -367,13 +367,13 @@
 
 @keyframes scanning-glow {
   from { box-shadow: 0 0 5px #fff; }
-  to { box-shadow: 0 0 20px #fff, 0 0 30px var(--crimson-red); }
+  to { box-shadow: 0 0 20px #fff, 0 0 30px var(--fusion-blue); }
 }
 
 /* Redesigned Admin Buttons */
 .admin-btn-secondary {
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 0, 0, 0.2);
+  border: 1px solid rgba(62, 139, 255, 0.2);
   color: #fff;
   font-weight: 800;
   padding: 10px 20px;
@@ -390,11 +390,11 @@
 }
 
 .admin-btn-secondary:hover {
-  background: rgba(255, 0, 0, 0.1);
-  border-color: var(--crimson-red);
+  background: rgba(62, 139, 255, 0.1);
+  border-color: var(--fusion-blue);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(62, 139, 255, 0.2);
 }
 
 .admin-btn-secondary::after {

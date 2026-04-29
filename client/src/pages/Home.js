@@ -25,13 +25,13 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="crimson-home">
+    <div className="fusion-home">
       {/* Hero Section */}
-      <section className="crimson-hero-creative">
+      <section className="fusion-hero-creative">
         <div className="ambient-particles"></div>
         <div className="hero-noise-overlay"></div>
         
-        <div className="crimson-container">
+        <div className="fusion-container">
           <div className="creative-layout">
             <div className="creative-content-left">
               <div className="protocol-status reveal">
@@ -114,15 +114,15 @@ export default function Home() {
       <OutdoorActivityBanner />
 
       {/* Core Systems Redesign */}
-      <section className="crimson-systems">
-        <div className="crimson-container">
+      <section className="fusion-systems">
+        <div className="fusion-container">
           <div className="systems-header reveal">
             <div className="systems-badge">
               <span className="badge-bullet"></span>
               <span>CORE ARCHITECTURE</span>
             </div>
             <h2 className="systems-title">
-              INTEGRATED <span className="text-crimson">PROTOCOLS</span>
+              INTEGRATED <span className="text-fusion">PROTOCOLS</span>
             </h2>
             <p className="systems-subtitle">
               A multi-layered ecosystem engineered for physical dominance and data-driven evolution.

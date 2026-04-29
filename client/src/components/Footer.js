@@ -37,13 +37,13 @@ export default function Footer() {
   return (
     <footer className="footer-modern-elite">
       <div className="footer-line-top"></div>
-      <div className="crimson-container">
+      <div className="fusion-container">
         <div className="footer-elite-grid">
           {/* Brand Info */}
           <div className="footer-elite-brand">
             <div className="elite-logo">
-              <span className="logo-icon-minimal"></span>
-              <span className="logo-name">MY<span className="text-crimson">.FITNESS</span></span>
+              <img src="/logo.png" alt="HIIT Revolution" className="footer-logo-img" />
+              <span className="logo-name">HIIT <span className="text-fusion">Revolution</span></span>
             </div>
             <p className="elite-tagline">
               Redefining the architecture of human performance through elite-level training protocols.
@@ -100,10 +100,10 @@ export default function Footer() {
 
         <div className="footer-elite-bottom">
           <div className="elite-copyright">
-            © {new Date().getFullYear()} MYFITNESS 
+            © {new Date().getFullYear()} HIIT Revolution
           </div>
           <div className="elite-utility">
-            <span className="text-crimson fw-bold">powered by iyonicorp</span>
+            <span className="text-fusion fw-bold">powered by iyonicorp</span>
           </div>
         </div>
       </div>

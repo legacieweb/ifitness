@@ -29,10 +29,10 @@ export default function TermsOfService() {
             <div className="hero-content-modern reveal">
               <div className="hero-badge">
                 <span className="badge-line"></span>
-                <span className="badge-text">OPERATIONAL_GUIDELINES</span>
+                <span className="badge-text">SYSTEM_OPERATING_AGREEMENT</span>
               </div>
               <h1 className="hero-title">TERMS OF <span className="text-crimson">SERVICE</span></h1>
-              <p className="legal-meta">LAST_MODIFIED: DEC_2024 // VERSION_1.8</p>
+              <p className="legal-meta">LAST_MODIFIED: DEC_2024 // VERSION_2.1</p>
             </div>
           </div>
         </section>
@@ -44,53 +44,42 @@ export default function TermsOfService() {
                 <div className="sidebar-id">SEC_00_INDEX</div>
                 <nav className="legal-nav">
                   <a href="#acceptance">01_ACCEPTANCE</a>
-                  <a href="#license">02_USAGE_LICENSE</a>
-                  <a href="#disclaimer">03_SYSTEM_DISCLAIMER</a>
-                  <a href="#limitations">04_LIABILITY_LIMITS</a>
-                  <a href="#conduct">05_OPERATOR_CONDUCT</a>
+                  <a href="#usage">02_SYSTEM_USAGE</a>
+                  <a href="#account">03_ACCOUNT_SECURITY</a>
+                  <a href="#liability">04_LIABILITY_WAIVER</a>
+                  <a href="#termination">05_TERMINATION</a>
                 </nav>
               </aside>
 
               <main className="legal-main">
                 <div id="acceptance" className="legal-block reveal">
-                  <h3>01_ACCEPTANCE_OF_TERMS</h3>
-                  <p>By initializing a connection with the Crimson Protocol ("My FITNESS"), you agree to be bound by these operational guidelines. Unauthorized access or deviation from these protocols is strictly prohibited.</p>
+                  <h3>01_ACCEPTANCE</h3>
+                  <p>By accessing the Crimson Protocol ("My FITNESS"), you agree to be bound by these operating terms. If you do not agree with any part of these protocols, you are prohibited from accessing the system.</p>
                 </div>
 
-                <div id="license" className="legal-block reveal">
-                  <h3>02_USAGE_LICENSE</h3>
-                  <p>Permission is granted to use the Crimson Protocol for personal physiological optimization only. This is a license to operate, not a transfer of intellectual property. Operators may not:</p>
+                <div id="usage" className="legal-block reveal">
+                  <h3>02_SYSTEM_USAGE</h3>
+                  <p>Operators are granted a limited, non-exclusive license to use the system for personal fitness tracking. Prohibited actions include:</p>
                   <ul className="legal-list">
-                    <li><span>DECOMPILE:</span> Attempt to reverse-engineer core system logic.</li>
-                    <li><span>MIRROR:</span> Replicate the protocol architecture on external nodes.</li>
-                    <li><span>EXPLOIT:</span> Use the system for unauthorized commercial operations.</li>
+                    <li><span>REVERSE_ENGINEERING:</span> Attempting to decompile system architecture.</li>
+                    <li><span>DATA_MINING:</span> Unauthorized extraction of network telemetry.</li>
+                    <li><span>MALICIOUS_INPUT:</span> Injecting code into the protocol stream.</li>
                   </ul>
                 </div>
 
-                <div id="disclaimer" className="legal-block reveal">
-                  <h3>03_SYSTEM_DISCLAIMER</h3>
-                  <p>The Crimson Protocol is provided "AS_IS" without explicit warranties. While we strive for 100% operational uptime, we do not guarantee constant synchronization under all network conditions.</p>
+                <div id="account" className="legal-block reveal">
+                  <h3>03_ACCOUNT_SECURITY</h3>
+                  <p>You are responsible for maintaining the encryption keys (passwords) to your node. Any breach resulting from compromised credentials is the sole responsibility of the operator.</p>
                 </div>
 
-                <div id="limitations" className="legal-block reveal">
-                  <h3>04_LIABILITY_LIMITATIONS</h3>
-                  <p>The Core Command ("My FITNESS") shall not be held liable for any data loss, system interruptions, or metabolic discrepancies arising from the use or inability to synchronize with our network.</p>
+                <div id="liability" className="legal-block reveal">
+                  <h3>04_LIABILITY_WAIVER</h3>
+                  <p>Physical training involves inherent risks. The system provides tactical data only. Always consult with a medical professional before engaging in high-intensity metabolic cycles. Crimson Protocol is not liable for physiological failures.</p>
                 </div>
 
-                <div id="conduct" className="legal-block reveal">
-                  <h3>05_OPERATOR_CONDUCT</h3>
-                  <p>All network participants must adhere to the following directives:</p>
-                  <ul className="legal-list">
-                    <li>Maintain secure access keys.</li>
-                    <li>Ensure biometric data integrity.</li>
-                    <li>Do not transmit malicious code into the network.</li>
-                    <li>Respect the hierarchy of the global operator network.</li>
-                  </ul>
-                </div>
-
-                <div className="legal-block reveal">
-                  <h3 className="text-crimson">HEALTH_WARNING_LEVEL_1</h3>
-                  <p>The Crimson Protocol is a high-intensity optimization system. Consult with medical technicians before initializing advanced training cycles. Proceeding with high-load protocols is done at the operator's own risk.</p>
+                <div id="termination" className="legal-block reveal">
+                  <h3>05_TERMINATION</h3>
+                  <p>We reserve the right to suspend any operator node that violates these protocols without prior warning. All data associated with the node may be purged upon termination.</p>
                 </div>
               </main>
             </div>

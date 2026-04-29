@@ -69,46 +69,46 @@ export default function Goals() {
   return (
     <div className="goals-container">
       <div className="goals-header">
-        <h1>Fitness Goals</h1>
-        <p>Set targets, track progress, and celebrate your achievements</p>
+        <h1>FUSION OBJECTIVES</h1>
+        <p>Architect your evolution, monitor progression, and synchronize achievements</p>
       </div>
 
       <div className="goals-grid">
         <div className="goals-card">
-          <h5><i className="bi bi-plus-circle-fill"></i> Set New Goal</h5>
+          <h5><i className="bi bi-plus-circle-fill"></i> INITIATE OBJECTIVE</h5>
           <div className="goal-form">
             <div className="form-group">
-              <label>Goal Name</label>
+              <label>PROTOCOL NAME</label>
               <input
                 type="text"
-                placeholder="e.g., Complete 30 Workouts"
+                placeholder="e.g., HYPERTROPHY_CYCLE"
                 value={newGoal.name}
                 onChange={(e) => setNewGoal({ ...newGoal, name: e.target.value })}
               />
             </div>
             <div className="form-group">
-              <label>Target Value</label>
+              <label>TARGET VALUE</label>
               <input
                 type="number"
-                placeholder="e.g., 50"
+                placeholder="0"
                 value={newGoal.target}
                 onChange={(e) => setNewGoal({ ...newGoal, target: e.target.value })}
               />
             </div>
             <div className="form-group">
-              <label>Metric</label>
+              <label>METRIC NODE</label>
               <select
                 value={newGoal.unit}
                 onChange={(e) => setNewGoal({ ...newGoal, unit: e.target.value })}
               >
-                <option value="">Select unit</option>
-                <option value="workouts">Workouts Completed</option>
-                <option value="calories">Calories Burned</option>
-                <option value="minutes">Minutes Exercised</option>
+                <option value="">SELECT PARAMETER</option>
+                <option value="workouts">SESSIONS</option>
+                <option value="calories">CALORIES_BURNED</option>
+                <option value="minutes">DURATION_MIN</option>
               </select>
             </div>
             <div className="form-group">
-              <label>Deadline (Optional)</label>
+              <label>TERMINATION DATE (OPTIONAL)</label>
               <input
                 type="date"
                 value={newGoal.deadline}
@@ -116,29 +116,29 @@ export default function Goals() {
               />
             </div>
             <button className="btn-add-goal" onClick={addGoal}>
-              Create Goal
+              ESTABLISH PROTOCOL
             </button>
           </div>
         </div>
 
         <div className="goals-card">
-          <h5><i className="bi bi-lightbulb-fill"></i> Goal Setting Tips</h5>
+          <h5><i className="bi bi-lightbulb-fill"></i> SYSTEM ADVISORY</h5>
           <ul className="tips-list">
-            <li><strong>Be Specific:</strong> Clear goals are easier to track and achieve.</li>
-            <li><strong>Be Realistic:</strong> Set targets that challenge you but remain attainable.</li>
-            <li><strong>Set Deadlines:</strong> Give yourself a timeframe to stay motivated.</li>
-            <li><strong>Track Regularly:</strong> Check your progress often to stay on course.</li>
-            <li><strong>Celebrate:</strong> Reward yourself when you hit a milestone! 🎉</li>
+            <li><strong>PRECISION:</strong> Define exact parameters for optimal tracking.</li>
+            <li><strong>FEASIBILITY:</strong> Calibrate targets to maintain system stability.</li>
+            <li><strong>TEMPORAL:</strong> Set deadlines to ensure operational momentum.</li>
+            <li><strong>MONITORING:</strong> Regularly sync data to prevent drift.</li>
+            <li><strong>SYNCHRONIZATION:</strong> Rewards await upon successful completion. 💾</li>
           </ul>
         </div>
       </div>
 
       <div className="your-goals-section">
-        <h3>Active Goals</h3>
+        <h3>ACTIVE PROTOCOLS</h3>
         {goals.length === 0 ? (
           <div className="goals-empty">
             <i className="bi bi-trophy"></i>
-            <p>You haven't set any goals yet. Start your journey today!</p>
+            <p>NO ACTIVE OBJECTIVES. INITIATE PROTOCOL TO START TRACKING.</p>
           </div>
         ) : (
           <div className="goals-list">
@@ -155,7 +155,7 @@ export default function Goals() {
                   <div className="goal-stats">
                     <i className="bi bi-calendar-event"></i>
                     <span>
-                      {goal.deadline ? `Target date: ${new Date(goal.deadline).toLocaleDateString()}` : 'No deadline set'}
+                      {goal.deadline ? `TERMINATION: ${new Date(goal.deadline).toLocaleDateString()}` : 'INDEFINITE LIFECYCLE'}
                     </span>
                   </div>
 
@@ -167,13 +167,13 @@ export default function Goals() {
                   </div>
 
                   <div className="progress-info">
-                    <span>{current} / {goal.target} {goal.unit}</span>
+                    <span>{current} / {goal.target} {goal.unit.toUpperCase()}</span>
                     <span>{Math.round(percent)}%</span>
                   </div>
 
                   <button className="btn-delete-goal" onClick={() => deleteGoal(goal.id)}>
                     <i className="bi bi-trash3-fill me-2"></i>
-                    Remove
+                    TERMINATE
                   </button>
                 </div>
               );

@@ -106,11 +106,11 @@ export default function Profile() {
   };
 
   if (loading && !profile.name) {
-    return <Preloader text="Loading your profile..." />;
+    return <Preloader text="AUTHENTICATING OPERATOR..." />;
   }
 
   return (
-    <div className="profile-page crimson-theme">
+    <div className="profile-page fusion-theme">
       <div className="profile-container">
         {/* Profile Header */}
         <header className="profile-header-modern">
@@ -137,8 +137,8 @@ export default function Profile() {
             </div>
             
             <div className="profile-identity">
-              <h1 className="profile-name-main">{profile.name}</h1>
-              <p className="profile-email-main">{profile.email}</p>
+              <h1 className="profile-name-main">{profile.name.toUpperCase()}</h1>
+              <p className="profile-email-main">UID: {user?.id?.substring(0, 8).toUpperCase()}</p>
               <div className="profile-pills">
                 <span className="profile-pill"><i className="bi bi-shield-check"></i> VERIFIED OPERATOR</span>
                 <span className="profile-pill-alt"><i className="bi bi-lightning-charge-fill"></i> ACTIVE STATUS</span>
@@ -146,12 +146,12 @@ export default function Profile() {
             </div>
 
             <div className="profile-header-actions">
-              <button onClick={() => setFile(null)} className="btn-outline-crimson" style={{display: file ? 'block' : 'none'}}>
-                CANCEL
+              <button onClick={() => setFile(null)} className="btn-outline-fusion" style={{display: file ? 'block' : 'none'}}>
+                ABORT
               </button>
               {file && (
-                <button onClick={handleUpload} className="btn-crimson-main" disabled={loading}>
-                  {loading ? 'UPLOADING...' : 'CONFIRM PHOTO'}
+                <button onClick={handleUpload} className="btn-fusion-main" disabled={loading}>
+                  {loading ? 'UPLOADING...' : 'CONFIRM_DATA'}
                 </button>
               )}
             </div>
@@ -163,19 +163,19 @@ export default function Profile() {
           <div className="profile-left-col">
             <div className="glass-panel profile-form-panel">
               <div className="panel-header">
-                <h3><i className="bi bi-person-gear"></i> BIOMETRIC DATA</h3>
+                <h3><i className="bi bi-person-gear"></i> BIOMETRIC_PARAMETERS</h3>
               </div>
               
-              <form onSubmit={handleSubmit} className="crimson-form">
+              <form onSubmit={handleSubmit} className="fusion-form">
                 <div className="form-row">
                   <div className="form-group">
-                    <label>NAME</label>
+                    <label>CODENAME</label>
                     <input
                       type="text"
                       name="name"
                       value={profile.name || ''}
                       onChange={handleInputChange}
-                      placeholder="ENTER NAME"
+                      placeholder="ENTER OPERATOR NAME"
                       required
                     />
                   </div>
@@ -183,7 +183,7 @@ export default function Profile() {
 
                 <div className="form-metrics-row">
                   <div className="form-group">
-                    <label>AGE</label>
+                    <label>AGE_CYCLES</label>
                     <input
                       type="number"
                       name="age"
@@ -193,7 +193,7 @@ export default function Profile() {
                     />
                   </div>
                   <div className="form-group">
-                    <label>WEIGHT (KG)</label>
+                    <label>MASS (KG)</label>
                     <input
                       type="number"
                       name="weight"
@@ -215,18 +215,18 @@ export default function Profile() {
                 </div>
 
                 <div className="form-group">
-                  <label>PRIMARY OBJECTIVE</label>
+                  <label>PRIMARY_OBJECTIVE</label>
                   <textarea
                     name="goal"
                     value={profile.goal || ''}
                     onChange={handleInputChange}
                     rows="3"
-                    placeholder="DEFINE YOUR MISSION..."
+                    placeholder="DEFINE MISSION PARAMETERS..."
                   />
                 </div>
 
-                <button type="submit" className="btn-crimson-submit" disabled={loading}>
-                  {loading ? 'SYNCING...' : 'UPDATE PROFILE'}
+                <button type="submit" className="btn-fusion-submit" disabled={loading}>
+                  {loading ? 'SYNCING...' : 'UPDATE_PROFILE'}
                 </button>
               </form>
             </div>
@@ -238,7 +238,7 @@ export default function Profile() {
               </div>
               <div className="stat-mini-card">
                 <span className="stat-mini-label">RANK</span>
-                <span className="stat-mini-value">PRO</span>
+                <span className="stat-mini-value">COMMANDER</span>
               </div>
             </div>
           </div>
@@ -247,13 +247,13 @@ export default function Profile() {
           <div className="profile-right-col">
             <div className="glass-panel gallery-panel">
               <div className="panel-header">
-                <h3><i className="bi bi-images"></i> TRANSFORMATION GALLERY</h3>
-                <p>VISUAL PROGRESS LOG</p>
+                <h3><i className="bi bi-images"></i> VISUAL_DATA_LOG</h3>
+                <p>TRANSFORMATION_GALLERY</p>
               </div>
 
               {galleryLoading ? (
                 <div className="gallery-spinner">
-                  <div className="spinner-border text-danger"></div>
+                  <div className="spinner-border text-primary"></div>
                 </div>
               ) : gallery.length > 0 ? (
                 <div className="transformation-grid">
@@ -272,8 +272,8 @@ export default function Profile() {
               ) : (
                 <div className="gallery-empty-state">
                   <i className="bi bi-camera-video"></i>
-                  <p>NO VISUAL DATA RECORDED</p>
-                  <small>UPLOAD VIA DASHBOARD</small>
+                  <p>NO VISUAL DATA ARCHIVED</p>
+                  <small>UPLOAD VIA INTERFACE</small>
                 </div>
               )}
             </div>
@@ -283,8 +283,8 @@ export default function Profile() {
 
       {/* Alerts */}
       <div className="profile-alerts">
-        {error && <div className="crimson-alert error">{error}</div>}
-        {success && <div className="crimson-alert success">{success}</div>}
+        {error && <div className="fusion-alert error">{error}</div>}
+        {success && <div className="fusion-alert success">{success}</div>}
       </div>
     </div>
   );

@@ -111,7 +111,7 @@ export default function MyRoutines() {
   const completionPercentage = totalDays > 0 ? Math.round((completedDays / totalDays) * 100) : 0;
 
   if (authLoading || loading) {
-    return <Preloader text="Loading your routines..." />;
+    return <Preloader text="SYNCING OPERATIONAL_ROUTINES..." />;
   }
 
   if (!isAuthenticated) {
@@ -119,48 +119,48 @@ export default function MyRoutines() {
   }
 
   return (
-    <div className="myroutines-container">
+    <div className="myroutines-container fusion-theme">
       <div className="myroutines-header">
-        <h1><i className="bi bi-calendar-week"></i> My Weekly Routines</h1>
-        <p>View and track your weekly workout schedule assigned by your trainer</p>
+        <h1><i className="bi bi-calendar-week"></i> OPERATIONAL_SCHEDULE</h1>
+        <p>Monitor and track your weekly workout sequence assigned by command</p>
       </div>
 
       {/* Progress Overview */}
       <div className="routines-overview">
-        <div className="overview-card">
+        <div className="overview-card fusion-card">
           <div className="overview-icon completed">
             <i className="bi bi-check-circle-fill"></i>
           </div>
           <div className="overview-info">
             <span className="overview-value">{completedDays}</span>
-            <span className="overview-label">Days Completed</span>
+            <span className="overview-label">UNITS_ARCHIVED</span>
           </div>
         </div>
-        <div className="overview-card">
+        <div className="overview-card fusion-card">
           <div className="overview-icon remaining">
             <i className="bi bi-clock-fill"></i>
           </div>
           <div className="overview-info">
             <span className="overview-value">{totalDays - completedDays}</span>
-            <span className="overview-label">Days Remaining</span>
+            <span className="overview-label">PENDING_CYCLES</span>
           </div>
         </div>
-        <div className="overview-card">
+        <div className="overview-card fusion-card">
           <div className="overview-icon progress">
             <i className="bi bi-graph-up"></i>
           </div>
           <div className="overview-info">
             <span className="overview-value">{completionPercentage}%</span>
-            <span className="overview-label">Weekly Progress</span>
+            <span className="overview-label">PHASE_SYNC</span>
           </div>
         </div>
       </div>
 
       {/* Progress Bar */}
-      <div className="progress-overview-card">
+      <div className="progress-overview-card fusion-card">
         <div className="progress-header">
-          <h3>Weekly Progress</h3>
-          <span className="progress-text">{completedDays} of {totalDays} days completed</span>
+          <h3>PHASE_PROGRESS</h3>
+          <span className="progress-text">{completedDays} OF {totalDays} CYCLES SYNCHRONIZED</span>
         </div>
         <div className="progress-bar-container">
           <div className="progress-bar" style={{ width: `${completionPercentage}%` }}></div>
@@ -173,14 +173,14 @@ export default function MyRoutines() {
           {routine.map((day, index) => (
             <div
               key={day.day}
-              className={`routine-card ${day.completed ? 'completed' : ''} ${day.day.toLowerCase() === getTodayName().toLowerCase() ? 'today' : ''}`}
+              className={`routine-card fusion-card ${day.completed ? 'completed' : ''} ${day.day.toLowerCase() === getTodayName().toLowerCase() ? 'today' : ''}`}
               onClick={() => handleToggleRoutineDay(index)}
             >
               <div className="routine-card-header">
                 <div className="day-info">
-                  <span className="day-name">{day.day}</span>
+                  <span className="day-name">{day.day.toUpperCase()}</span>
                   {day.day.toLowerCase() === getTodayName().toLowerCase() && (
-                    <span className="today-badge">Today</span>
+                    <span className="today-badge">ACTIVE_NODE</span>
                   )}
                 </div>
                 <div className={`completion-indicator ${day.completed ? 'completed' : ''}`}>
@@ -192,21 +192,21 @@ export default function MyRoutines() {
                 {day.workout ? (
                   <div className="workout-name">
                     <i className="bi bi-dumbbell"></i>
-                    <span>{day.workout}</span>
+                    <span>{day.workout.toUpperCase()}</span>
                   </div>
                 ) : (
                   <div className="rest-day">
                     <i className="bi bi-cup-hot"></i>
-                    <span>Rest Day</span>
+                    <span>SYSTEM_RECOVERY</span>
                   </div>
                 )}
 
                 {day.exercises && day.exercises.length > 0 && (
                   <div className="exercises-list">
-                    <h4>Exercises:</h4>
+                    <h4>COMPONENTS:</h4>
                     {day.exercises.map((ex, i) => (
                       <div key={i} className="exercise-item">
-                        <span className="exercise-name">{ex.name}</span>
+                        <span className="exercise-name">{ex.name.toUpperCase()}</span>
                         {ex.sets && ex.reps && (
                           <span className="exercise-sets-reps">{ex.sets} × {ex.reps}</span>
                         )}
@@ -220,11 +220,11 @@ export default function MyRoutines() {
                 <span className={`status-badge ${day.completed ? 'completed' : 'pending'}`}>
                   {day.completed ? (
                     <>
-                      <i className="bi bi-check-lg"></i> Completed
+                      <i className="bi bi-check-lg"></i> ARCHIVED
                     </>
                   ) : (
                     <>
-                      <i className="bi bi-circle"></i> Pending
+                      <i className="bi bi-circle"></i> PENDING
                     </>
                   )}
                 </span>
@@ -233,13 +233,13 @@ export default function MyRoutines() {
           ))}
         </div>
       ) : (
-        <div className="empty-routines">
+        <div className="empty-routines fusion-card">
           <div className="empty-icon">
             <i className="bi bi-calendar-x"></i>
           </div>
-          <h3>No Routines Assigned</h3>
-          <p>Your trainer hasn't assigned any weekly routines yet.</p>
-          <p>Check back later or contact your trainer for your workout schedule.</p>
+          <h3>NO_ROUTINES_ASSIGNED</h3>
+          <p>Command hasn't established your weekly operational sequence yet.</p>
+          <p>Await further transmission or contact command center for deployment.</p>
         </div>
       )}
     </div>

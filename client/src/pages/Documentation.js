@@ -27,7 +27,7 @@ export default function Documentation() {
         <div className="protocol-body">
           <div className="doc-section reveal">
             <h3>SYSTEM_INITIALIZATION</h3>
-            <p>Welcome to the Crimson Protocol. This manual outlines the necessary steps to synchronize your physical architecture with our core network.</p>
+            <p>Welcome to the Fusion Protocol. This manual outlines the necessary steps to synchronize your physical architecture with our core network.</p>
           </div>
 
           <div className="doc-section reveal">
@@ -119,14 +119,14 @@ export default function Documentation() {
 
   return (
     <PageTransition>
-      <div className="crimson-doc">
+      <div className="fusion-doc">
         <div className="hero-mesh-background"></div>
         <div className="hero-noise-overlay"></div>
         <div className="footer-scanner-line"></div>
 
         {/* Doc Hero */}
         <section className="doc-hero">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="hero-content-modern reveal">
               <div className="hero-badge">
                 <span className="badge-line"></span>
@@ -134,9 +134,9 @@ export default function Documentation() {
               </div>
               
               <h1 className="hero-title">
-                OPERATOR <span className="text-crimson">MANUAL</span>
+                OPERATOR <span className="text-fusion">MANUAL</span>
                 <br />
-                <span className="hero-subtitle">CRIMSON_CORE_V2.0</span>
+                <span className="hero-subtitle">FUSION_CORE_V2.0</span>
               </h1>
               
               <p className="hero-description">
@@ -148,7 +148,7 @@ export default function Documentation() {
 
         {/* Doc Main */}
         <section className="doc-main-section">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="doc-layout">
               <aside className="doc-sidebar">
                 <div className="sidebar-label">PROTOCOL_TREE</div>
@@ -182,7 +182,7 @@ export default function Documentation() {
 
         {/* Support Node */}
         <section className="support-section reveal">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="support-card">
               <div className="card-content">
                 <h2>NEED_ASSISTANCE?</h2>

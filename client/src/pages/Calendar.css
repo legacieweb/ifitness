@@ -5,39 +5,36 @@
 .calendar-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 0;
-  animation: fadeIn 0.6s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  padding: 100px 2rem 80px;
+  background: #000;
+  min-height: 100vh;
 }
 
 .calendar-header {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  border-left: 4px solid var(--fusion-blue);
+  padding-left: 30px;
 }
 
 .calendar-header h1 {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 900;
-  color: #fff;
-  letter-spacing: -1.5px;
-  margin-bottom: 8px;
+  color: var(--fusion-blue);
+  letter-spacing: -2px;
 }
 
 .calendar-card {
-  background: var(--dark-surface);
-  border-radius: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #050505;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(62, 139, 255, 0.1);
   overflow: hidden;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
 .calendar-nav {
-  padding: 32px;
+  padding: 40px;
   background: rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid #111;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,10 +65,11 @@
 }
 
 .btn-nav:hover {
-  background: var(--neon-primary);
+  background: var(--fusion-blue);
   color: #000;
   transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+  box-shadow: var(--fusion-glow);
+  border-color: var(--fusion-blue);
 }
 
 .calendar-grid-wrapper {
@@ -110,13 +108,13 @@
 }
 
 .calendar-day.has-workouts {
-  background: rgba(0, 242, 255, 0.05);
-  border-color: rgba(0, 242, 255, 0.2);
+  background: rgba(62, 139, 255, 0.05);
+  border-color: rgba(62, 139, 255, 0.2);
 }
 
 .calendar-day:hover {
   transform: translateY(-5px) scale(1.02);
-  border-color: var(--neon-primary);
+  border-color: var(--fusion-blue);
   background: rgba(255, 255, 255, 0.08);
   z-index: 2;
 }
@@ -142,8 +140,8 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--neon-primary);
-  box-shadow: 0 0 10px var(--neon-primary);
+  background: var(--fusion-blue);
+  box-shadow: 0 0 10px var(--fusion-blue);
 }
 
 .workout-count {
@@ -152,11 +150,11 @@
   right: 16px;
   font-size: 0.8rem;
   font-weight: 900;
-  color: var(--neon-primary);
-  background: rgba(0, 242, 255, 0.1);
+  color: var(--fusion-blue);
+  background: rgba(62, 139, 255, 0.1);
   padding: 4px 10px;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 242, 255, 0.2);
+  border-radius: 4px;
+  border: 1px solid rgba(62, 139, 255, 0.2);
 }
 
 .calendar-legend {
@@ -193,8 +191,8 @@
 }
 
 .legend-color.workout { 
-  background: var(--neon-primary); 
-  box-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+  background: var(--fusion-blue); 
+  box-shadow: 0 0 10px rgba(62, 139, 255, 0.5);
 }
 
 .legend-color.empty { 
@@ -209,7 +207,7 @@
 }
 
 .total-stats strong {
-  color: var(--neon-primary);
+  color: var(--fusion-blue);
   font-size: 1.4rem;
   margin: 0 4px;
 }

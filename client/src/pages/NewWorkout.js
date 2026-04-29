@@ -7,67 +7,43 @@ import './WorkoutForm.css';
 const WORKOUT_TEMPLATES = [
   {
     id: 1,
-    name: 'Beginner Full Body',
-    desc: 'Total body workout perfect for starters',
+    name: 'BEGINNER_FULL_BODY',
+    desc: 'Total body protocol for initial calibration',
     duration: 45,
-    difficulty: 'Beginner',
+    difficulty: 'BEGINNER',
     icon: 'bi-brightness-low',
   },
   {
     id: 2,
-    name: 'Upper Body Strength',
-    desc: 'Focus on chest, shoulders, and arms',
+    name: 'FORCE_STRENGTH',
+    desc: 'Focus on primary force production nodes',
     duration: 60,
-    difficulty: 'Intermediate',
+    difficulty: 'INTERMEDIATE',
     icon: 'bi-hammer',
   },
   {
     id: 3,
-    name: 'Cardio Blast',
-    desc: 'High intensity cardio for max calorie burn',
+    name: 'ENERGY_BURN_HIIT',
+    desc: 'High intensity metabolic conditioning',
     duration: 30,
-    difficulty: 'Intermediate',
+    difficulty: 'INTERMEDIATE',
     icon: 'bi-fire',
   },
   {
     id: 4,
-    name: 'Yoga & Flexibility',
-    desc: 'Improve flexibility and reduce stress',
+    name: 'FLEX_SYNCHRONIZATION',
+    desc: 'Improve range of motion and stress reduction',
     duration: 40,
-    difficulty: 'Beginner',
+    difficulty: 'BEGINNER',
     icon: 'bi-flower1',
   },
   {
     id: 5,
-    name: 'HIIT Workout',
-    desc: 'High Intensity Interval Training',
+    name: 'ELITE_HIIT_PROTOCOL',
+    desc: 'Maximum intensity interval training',
     duration: 30,
-    difficulty: 'Advanced',
+    difficulty: 'ADVANCED',
     icon: 'bi-lightning-charge',
-  },
-  {
-    id: 6,
-    name: 'Lower Body Power',
-    desc: 'Build leg strength and endurance',
-    duration: 50,
-    difficulty: 'Intermediate',
-    icon: 'bi-person-walking',
-  },
-  {
-    id: 7,
-    name: 'Core & Abs',
-    desc: 'Strengthen your core with targeted moves',
-    duration: 35,
-    difficulty: 'Beginner',
-    icon: 'bi-bullseye',
-  },
-  {
-    id: 8,
-    name: 'Full Body HIIT',
-    desc: 'Total body high intensity training',
-    duration: 40,
-    difficulty: 'Advanced',
-    icon: 'bi-rocket-takeoff',
   },
 ];
 
@@ -86,26 +62,26 @@ export default function NewWorkout() {
 
   const handleCustomWorkout = () => {
     startWorkout({
-      name: 'Custom Workout',
-      description: '',
-      duration: 30, // Default to 30 mins
+      name: 'CUSTOM_PROTOCOL',
+      description: 'USER_DEFINED_SEQUENCE',
+      duration: 30,
     });
     navigate('/workouts');
   };
 
   return (
-    <div className="workout-form-page">
+    <div className="workout-form-page fusion-theme">
       <div className="container">
         <div className="form-header-modern">
-          <h1>Choose Your Workout</h1>
-          <p>Pick a template or design your own custom training session</p>
+          <h1>SELECT_PROTOCOL</h1>
+          <p>Initialize a pre-configured template or architect a custom training sequence</p>
         </div>
 
         <div className="mb-5">
-          <h5 className="fw-bold mb-4 text-uppercase small tracking-wider text-muted">Recommended Sessions</h5>
+          <h5 className="fw-bold mb-4 text-uppercase small tracking-wider text-muted">RECOMMENDED_SESSIONS</h5>
           <div className="template-grid-modern">
             {WORKOUT_TEMPLATES.map((template) => (
-              <div key={template.id} className="template-card-small" onClick={() => handleSelectTemplate(template)}>
+              <div key={template.id} className="template-card-small fusion-card" onClick={() => handleSelectTemplate(template)}>
                 <div className="icon-box">
                   <i className={`bi ${template.icon}`}></i>
                 </div>
@@ -113,12 +89,12 @@ export default function NewWorkout() {
                 <p>{template.desc}</p>
                 <div className="template-meta-pills">
                   <span className="meta-pill-sm">
-                    <i className="bi bi-clock me-1"></i> {template.duration}m
+                    <i className="bi bi-clock me-1"></i> {template.duration}M
                   </span>
                   <span className="meta-pill-sm">{template.difficulty}</span>
                 </div>
                 <button className="btn-start-now mt-auto">
-                  Start Workout
+                  INITIATE_SESSION
                 </button>
               </div>
             ))}
@@ -126,11 +102,11 @@ export default function NewWorkout() {
         </div>
 
         <div className="custom-actions-modern">
-          <button className="btn-custom-main btn-custom-primary" onClick={handleCustomWorkout}>
-            <i className="bi bi-plus-circle-fill"></i> Create Custom Workout
+          <button className="btn-custom-main btn-fusion" onClick={handleCustomWorkout}>
+            <i className="bi bi-plus-circle-fill"></i> ARCHITECT_CUSTOM
           </button>
-          <button className="btn-custom-main btn-custom-outline" onClick={() => navigate('/templates')}>
-            <i className="bi bi-grid-3x3-gap-fill"></i> Explore All Templates
+          <button className="btn-custom-main btn-fusion-outline" onClick={() => navigate('/templates')}>
+            <i className="bi bi-grid-3x3-gap-fill"></i> ARCHIVE_TEMPLATES
           </button>
         </div>
       </div>

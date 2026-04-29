@@ -1,56 +1,89 @@
 /* =====================================================
-   CRIMSON PROTOCOL - WORKOUT TEMPLATES STYLES
+   FUSION PROTOCOL - WORKOUT TEMPLATES STYLES
    ===================================================== */
 
 .templates-page {
   padding: 100px 0 80px;
   background: #000;
   min-height: 100vh;
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .template-header {
   margin-bottom: 60px;
   text-align: center;
-  border-bottom: 1px solid #ff0000;
+  border-bottom: 1px solid rgba(0, 102, 255, 0.2);
   padding-bottom: 30px;
+  position: relative;
+}
+
+.template-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 2px;
+  background: var(--fusion-red);
 }
 
 .template-header h1 {
   font-weight: 900;
   font-size: 3.5rem;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: -2px;
+  text-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
 }
 
 .template-header p {
   font-size: 1.25rem;
-  color: #cc0000;
+  color: #a0a0ff;
+  font-weight: 600;
 }
 
 .template-card-modern {
-  background: #000;
-  border: 1px solid #ff0000;
+  background: rgba(10, 10, 30, 0.4);
+  border: 1px solid rgba(0, 102, 255, 0.2);
   border-radius: var(--radius-lg);
   padding: 40px;
   height: 100%;
   display: flex;
   flex-direction: column;
   transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.template-card-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--fusion-blue);
+  opacity: 0;
+  transition: var(--transition);
 }
 
 .template-card-modern:hover {
   transform: translateY(-12px);
-  background: rgba(255, 0, 0, 0.05);
-  box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
+  background: rgba(0, 102, 255, 0.05);
+  box-shadow: 0 0 30px rgba(0, 102, 255, 0.2);
+  border-color: var(--fusion-blue);
+}
+
+.template-card-modern:hover::before {
+  opacity: 1;
 }
 
 .template-icon-wrapper {
   width: 65px;
   height: 65px;
-  background: rgba(255, 0, 0, 0.1);
-  color: #ff0000;
-  border: 1px solid #ff0000;
+  background: rgba(0, 102, 255, 0.1);
+  color: var(--fusion-blue);
+  border: 1px solid var(--fusion-blue);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -61,21 +94,22 @@
 }
 
 .template-card-modern:hover .template-icon-wrapper {
-  background: #ff0000;
-  color: #000;
+  background: var(--fusion-blue);
+  color: #fff;
   transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
 }
 
 .template-title {
   font-weight: 900;
   font-size: 1.6rem;
-  color: #ff0000;
+  color: #fff;
   letter-spacing: -0.5px;
   margin-bottom: 15px;
 }
 
 .template-desc {
-  color: #cc0000;
+  color: #a0a0ff;
   font-size: 1rem;
   line-height: 1.7;
   margin-bottom: 25px;
@@ -87,63 +121,78 @@
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 1px;
-  border: 1px solid #ff0000;
+  border: 1px solid rgba(0, 102, 255, 0.4);
 }
 
-.pill-duration { background: #000; color: #ff0000; }
+.pill-duration { background: rgba(0, 102, 255, 0.05); color: var(--fusion-blue); }
 .pill-beginner { background: rgba(0, 255, 0, 0.1); color: #00ff00; border-color: #00ff00; }
 .pill-intermediate { background: rgba(255, 255, 0, 0.1); color: #ffff00; border-color: #ffff00; }
-.pill-advanced { background: rgba(255, 0, 0, 0.1); color: #ff0000; border-color: #ff0000; }
+.pill-advanced { background: rgba(255, 0, 0, 0.1); color: var(--fusion-red); border-color: var(--fusion-red); }
 
 .template-exercises-title {
   font-size: 10px;
   font-weight: 800;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: 2px;
   margin-bottom: 15px;
   text-transform: uppercase;
 }
 
 .exercise-tag {
-  background: #000;
-  border: 1px solid #ff0000;
+  background: rgba(0, 102, 255, 0.05);
+  border: 1px solid rgba(0, 102, 255, 0.2);
   padding: 6px 14px;
   border-radius: 8px;
   font-size: 12px;
   font-weight: 700;
-  color: #ff0000;
+  color: #fff;
   margin: 0 5px 5px 0;
   display: inline-block;
+  transition: var(--transition);
+}
+
+.exercise-tag:hover {
+  border-color: var(--fusion-blue);
+  background: rgba(0, 102, 255, 0.1);
 }
 
 .btn-use-template {
-  background: #ff0000;
-  color: #000 !important;
+  background: var(--fusion-blue);
+  color: #fff !important;
   padding: 16px;
   border-radius: 12px;
   font-weight: 900;
   letter-spacing: 1px;
   border: none;
   margin-top: 25px;
+  transition: var(--transition);
+}
+
+.btn-use-template:hover {
+  background: #0077ff;
+  box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
+  transform: translateY(-2px);
 }
 
 .how-to-card {
-  background: #000;
-  border: 1px solid #ff0000;
+  background: rgba(10, 10, 30, 0.6);
+  border: 1px solid var(--fusion-blue);
   border-radius: var(--radius-lg);
   padding: 50px;
   margin-top: 80px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
 .how-to-card h3 {
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: 1px;
+  margin-bottom: 30px;
 }
 
 .how-to-number {
-  background: #ff0000;
-  color: #000 !important;
+  background: var(--fusion-red);
+  color: #fff !important;
   font-weight: 900;
   border-radius: 10px;
   width: 30px;
@@ -151,25 +200,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
 }
 
 .how-to-text {
-  color: #ff0000;
+  color: #fff;
   font-weight: 600;
 }
 
 /* Global dashboard text override */
 .templates-page * {
-  color: #ff0000;
+  color: inherit;
 }
 
 .btn-use-template, .btn-use-template * {
-  color: #000 !important;
+  color: #fff !important;
 }
 
 .how-to-number, .how-to-number * {
-  color: #000 !important;
+  color: #fff !important;
 }
 
 .pill-beginner * { color: #00ff00 !important; }
 .pill-intermediate * { color: #ffff00 !important; }
+.pill-advanced * { color: var(--fusion-red) !important; }

@@ -107,27 +107,27 @@ export default function Dashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="crimson-dashboard-locked">
+      <div className="fusion-dashboard-locked">
         <div className="lock-box glass-morphism">
           <i className="bi bi-shield-fill-exclamation"></i>
           <h2>SYSTEM LOCKED</h2>
           <p>Authentication required for protocol access.</p>
-          <Link to="/login" className="btn-crimson">LOGIN</Link>
+          <Link to="/login" className="btn-fusion">LOGIN</Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="crimson-dashboard">
+    <div className="fusion-dashboard">
       <div className="hero-mesh-background"></div>
       <div className="hero-noise-overlay"></div>
       <div className="footer-scanner-line"></div>
-      <div className="crimson-container">
+      <div className="fusion-container">
         <BootcampAlert />
         
         {/* Terminal Header */}
-        <header className="crimson-terminal-header">
+        <header className="fusion-terminal-header">
           <div className="node-info-group">
             <div className="node-frame">
               {user?.profilePicture ? (
@@ -142,7 +142,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="header-actions">
-            <Link to="/workouts/new" className="btn-crimson">
+            <Link to="/workouts/new" className="btn-fusion">
               <i className="bi bi-plus-lg"></i> NEW SESSION
             </Link>
           </div>
@@ -156,7 +156,7 @@ export default function Dashboard() {
             { label: 'MINUTES', value: stats.totalDuration, icon: 'bi-clock-history' },
             { label: 'STREAK', value: stats.streak, icon: 'bi-lightning-fill' }
           ].map((stat, i) => (
-            <div key={i} className="vital-card crimson-card">
+            <div key={i} className="vital-card fusion-card">
               <div className="vital-icon"><i className={`bi ${stat.icon}`}></i></div>
               <div className="vital-data">
                 <span className="vital-label">{stat.label}</span>
@@ -169,7 +169,7 @@ export default function Dashboard() {
         {/* Module Grid */}
         <div className="modules-grid">
           <div className="module-main">
-            <div className="crimson-card module-box">
+            <div className="fusion-card module-box">
               <div className="module-head">
                 <h3><i className="bi bi-graph-up"></i> PERFORMANCE TIMELINE</h3>
                 <Link to="/analytics" className="module-action">DETAILS</Link>
@@ -181,7 +181,7 @@ export default function Dashboard() {
                       className="performance-bar" 
                       style={{ height: `${(day.calories / maxCalories) * 100}%` }}
                     >
-                      <div className="bar-crimson-glow"></div>
+                      <div className="bar-fusion-glow"></div>
                     </div>
                     <span className="performance-day">{day.day}</span>
                   </div>
@@ -189,7 +189,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="crimson-card module-box">
+            <div className="fusion-card module-box">
               <div className="module-head">
                 <h3><i className="bi bi-list-task"></i> RECENT PROTOCOLS</h3>
                 <Link to="/workouts" className="module-action">ARCHIVE</Link>
@@ -213,7 +213,7 @@ export default function Dashboard() {
           </div>
 
           <div className="module-side">
-            <div className="crimson-card module-box">
+            <div className="fusion-card module-box">
               <div className="module-head">
                 <h3><i className="bi bi-bullseye"></i> OBJECTIVES</h3>
               </div>
@@ -235,15 +235,15 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="crimson-card module-box">
+            <div className="fusion-card module-box">
               <div className="module-head">
                 <h3><i className="bi bi-trophy"></i> COMMANDER BADGES</h3>
               </div>
               <div className="badges-flex">
-                {stats.totalWorkouts >= 1 && <div className="crimson-badge-item"><i className="bi bi-star-fill"></i></div>}
-                {stats.totalWorkouts >= 5 && <div className="crimson-badge-item"><i className="bi bi-shield-fill-check"></i></div>}
-                {stats.totalWorkouts >= 10 && <div className="crimson-badge-item"><i className="bi bi-lightning-fill"></i></div>}
-                {stats.totalWorkouts >= 20 && <div className="crimson-badge-item"><i className="bi bi-gem"></i></div>}
+                {stats.totalWorkouts >= 1 && <div className="fusion-badge-item"><i className="bi bi-star-fill"></i></div>}
+                {stats.totalWorkouts >= 5 && <div className="fusion-badge-item"><i className="bi bi-shield-fill-check"></i></div>}
+                {stats.totalWorkouts >= 10 && <div className="fusion-badge-item"><i className="bi bi-lightning-fill"></i></div>}
+                {stats.totalWorkouts >= 20 && <div className="fusion-badge-item"><i className="bi bi-gem"></i></div>}
               </div>
             </div>
           </div>

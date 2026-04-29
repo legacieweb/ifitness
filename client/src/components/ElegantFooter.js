@@ -47,7 +47,7 @@ export default function ElegantFooter() {
                   <i className="bi bi-activity"></i>
                 </div>
                 <div className="logo-text">
-                  <span className="logo-name">iFitness</span>
+                    <span className="logo-name">HIIT Revolution</span>
                   <span className="logo-tagline">Elevate Your Game</span>
                 </div>
               </div>
@@ -148,10 +148,10 @@ export default function ElegantFooter() {
           <div className="footer-divider"></div>
           <div className="footer-meta">
             <div className="copyright">
-              © {new Date().getFullYear()} iFitness. All rights reserved.
+              © {new Date().getFullYear()} HIIT Revolution. All rights reserved.
             </div>
             <div className="footer-credits">
-              Crafted with <i className="bi bi-heart-fill"></i> by iFitness Team
+              Crafted with <i className="bi bi-heart-fill"></i> by HIIT Revolution Team
             </div>
           </div>
         </div>

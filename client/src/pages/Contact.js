@@ -47,14 +47,14 @@ export default function Contact() {
 
   return (
     <PageTransition>
-      <div className="crimson-contact">
+      <div className="fusion-contact">
         <div className="hero-mesh-background"></div>
         <div className="hero-noise-overlay"></div>
         <div className="footer-scanner-line"></div>
 
         {/* Hero Section */}
         <section className="contact-hero">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="hero-content-modern reveal">
               <div className="hero-badge">
                 <span className="badge-line"></span>
@@ -62,13 +62,13 @@ export default function Contact() {
               </div>
               
               <h1 className="hero-title">
-                CONTACT <span className="text-crimson">CORE</span>
+                CONTACT <span className="text-fusion">CORE</span>
                 <br />
                 <span className="hero-subtitle">DIRECT COMMAND LINK</span>
               </h1>
               
               <p className="hero-description">
-                Establish a direct connection with the Crimson architecture. Our support units are on standby for protocol optimization.
+                Establish a direct connection with the Fusion architecture. Our support units are on standby for protocol optimization.
               </p>
             </div>
           </div>
@@ -76,7 +76,7 @@ export default function Contact() {
 
         {/* Contact Grid */}
         <section className="contact-grid-section">
-          <div className="crimson-container">
+          <div className="fusion-container">
             <div className="contact-main-layout">
               {/* Form Side */}
               <div className="contact-form-node reveal">
@@ -119,7 +119,7 @@ export default function Contact() {
                   <div className="info-icon"><i className="bi bi-terminal"></i></div>
                   <div className="info-content">
                     <h4>SYSTEM_SUPPORT</h4>
-                    <p>support@ifitness.red</p>
+                    <p>support@hiitrevolution.com</p>
                   </div>
                 </div>
                 <div className="info-node reveal">

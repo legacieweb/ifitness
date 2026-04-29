@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { getProfilePictureUrl } from '../services/api';
 import './CleanHeader.css';
 
-export default function CleanHeader({ title = 'iFitness', showLogo = true }) {
+export default function CleanHeader({ title = 'HIIT Revolution', showLogo = true }) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,7 +35,7 @@ export default function CleanHeader({ title = 'iFitness', showLogo = true }) {
           {showLogo && (
             <div className="clean-logo">
               <Link to="/dashboard" className="clean-logo-link">
-                <i className="bi bi-activity"></i>
+                <img src="/logo.png" alt="HIIT Revolution" className="clean-logo-img" />
                 <span>{title}</span>
               </Link>
             </div>

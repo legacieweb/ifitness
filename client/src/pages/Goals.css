@@ -1,5 +1,5 @@
 /* =====================================================
-   CRIMSON PROTOCOL - FITNESS GOALS STYLES
+   FUSION PROTOCOL - FITNESS GOALS STYLES
    ===================================================== */
 
 .goals-container {
@@ -8,24 +8,24 @@
   padding: 100px 2rem 80px;
   background: #000;
   min-height: 100vh;
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .goals-header {
   margin-bottom: 60px;
-  border-left: 4px solid #ff0000;
+  border-left: 4px solid var(--fusion-blue);
   padding-left: 30px;
 }
 
 .goals-header h1 {
   font-size: 3.5rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: -2px;
 }
 
 .goals-header p {
-  color: #cc0000;
+  color: var(--text-secondary);
   font-size: 1.2rem;
 }
 
@@ -38,110 +38,160 @@
 
 .goals-card {
   background: #000;
-  border: 1px solid #ff0000;
+  border: 1px solid rgba(62, 139, 255, 0.2);
   border-radius: var(--radius-lg);
   padding: 45px;
   transition: var(--transition);
 }
 
+.goals-card:hover {
+  border-color: var(--fusion-blue);
+  box-shadow: var(--fusion-glow);
+}
+
 .goals-card h5 {
   font-size: 1.3rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   letter-spacing: 1px;
 }
 
 .goals-card h5 i {
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .tips-list li {
-  color: #ff0000;
-  border-bottom: 1px solid #330000;
+  color: #fff;
+  border-bottom: 1px solid #111;
+  padding: 15px 0;
 }
 
 .tips-list li strong {
-  color: #ff0000;
+  color: var(--fusion-blue);
 }
 
 .goal-form label {
-  color: #ff0000;
+  color: rgba(255, 255, 255, 0.4);
   font-size: 11px;
   letter-spacing: 2px;
   font-weight: 900;
+  text-transform: uppercase;
 }
 
 .goal-form input, .goal-form select {
   background: #000;
-  border: 1px solid #ff0000;
-  color: #ff0000;
+  border: 1px solid #222;
+  color: #fff;
   border-radius: 12px;
+  padding: 12px 18px;
+}
+
+.goal-form input:focus, .goal-form select:focus {
+  outline: none;
+  border-color: var(--fusion-blue);
+  box-shadow: 0 0 15px rgba(62, 139, 255, 0.15);
 }
 
 .btn-add-goal {
-  background: #ff0000;
+  background: var(--fusion-blue);
   color: #000 !important;
+  border: none;
   border-radius: 12px;
   font-weight: 900;
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  padding: 15px;
+  box-shadow: var(--fusion-glow);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-add-goal:hover {
+  background: #fff;
+  transform: translateY(-2px);
 }
 
 /* Active Goals */
 .your-goals-section h3 {
   font-size: 2.2rem;
   font-weight: 900;
-  color: #ff0000;
+  color: var(--fusion-blue);
   margin-bottom: 40px;
 }
 
 .goal-item {
   background: #000;
-  border: 1px solid #ff0000;
+  border: 1px solid rgba(62, 139, 255, 0.1);
   border-radius: var(--radius-lg);
   padding: 35px;
   transition: var(--transition);
 }
 
+.goal-item:hover {
+  border-color: var(--fusion-blue);
+  transform: translateX(10px);
+}
+
 .goal-item.completed {
-  border-color: #00ff00;
+  border-color: #10b981;
 }
 
 .progress-container {
   height: 8px;
-  background: #330000;
+  background: #111;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .progress-bar {
-  background: #ff0000;
+  background: var(--fusion-blue);
+  box-shadow: 0 0 10px var(--fusion-blue);
 }
 
 .goal-item.completed .progress-bar {
-  background: #00ff00;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
 }
 
 .btn-delete-goal {
-  background: rgba(255, 0, 0, 0.1);
-  color: #ff0000;
-  border: 1px solid #ff0000;
+  background: rgba(255, 62, 62, 0.1);
+  color: var(--fusion-red);
+  border: 1px solid var(--fusion-red);
   border-radius: 10px;
   font-weight: 800;
+  padding: 8px 20px;
+  transition: var(--transition);
 }
 
 .btn-delete-goal:hover {
-  background: #ff0000;
+  background: var(--fusion-red);
   color: #000 !important;
 }
 
 /* Global dashboard text override */
 .goals-container * {
-  color: #ff0000;
+  color: #fff;
+}
+
+.goals-container h1, 
+.goals-container h3, 
+.goals-container h5, 
+.goals-container h5 i,
+.goals-container .tips-list li strong {
+  color: var(--fusion-blue) !important;
 }
 
 .btn-add-goal, .btn-add-goal * {
   color: #000 !important;
 }
 
-.goal-item.completed * {
-  color: #00ff00 !important;
+.goal-item.completed, .goal-item.completed * {
+  border-color: #10b981 !important;
+  color: #10b981 !important;
+}
+
+.btn-delete-goal, .btn-delete-goal * {
+  color: var(--fusion-red) !important;
+}
+
+.btn-delete-goal:hover, .btn-delete-goal:hover * {
+  color: #000 !important;
 }
