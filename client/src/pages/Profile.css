@@ -351,7 +351,12 @@
 .gallery-empty-state {
   padding: 60px 0;
   text-align: center;
-  color: #222;
+  color: #fff;
+}
+
+.gallery-empty-state p,
+.gallery-empty-state small {
+  color: #fff;
 }
 
 .gallery-empty-state i {

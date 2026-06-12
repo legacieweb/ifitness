@@ -42,8 +42,8 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="footer-elite-brand">
             <div className="elite-logo">
-              <img src="/logo.png" alt="HIIT Revolution" className="footer-logo-img" />
-              <span className="logo-name">HIIT <span className="text-fusion">Revolution</span></span>
+              <img src="https://i.imgur.com/2vryV0j.png" alt="Hit Republic" className="footer-logo-img" />
+              <span className="logo-name">HIT <span className="text-fusion">Republic</span></span>
             </div>
             <p className="elite-tagline">
               Redefining the architecture of human performance through elite-level training protocols.
@@ -100,7 +100,7 @@ export default function Footer() {
 
         <div className="footer-elite-bottom">
           <div className="elite-copyright">
-            © {new Date().getFullYear()} HIIT Revolution
+            © {new Date().getFullYear()} Hit Republic
           </div>
           <div className="elite-utility">
             <span className="text-fusion fw-bold">powered by iyonicorp</span>

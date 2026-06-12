@@ -3,7 +3,7 @@
 ## Deployment Configuration
 
 ### Backend Service
-- **Service Name**: hiit-revolution-api
+- **Service Name**: hit-republic-api
 - **Environment**: Node.js
 - **Plan**: Free
 
@@ -22,10 +22,10 @@ cd server && npm start
 - `PORT`: 10000
 - `MONGODB_URI`: (auto-configured from Render database)
 - `JWT_SECRET`: (auto-generated)
-- `REACT_APP_API_URL`: https://hiit-revolution-api.onrender.com
+- `REACT_APP_API_URL`: https://hit-republic-api.onrender.com
 
 ### Frontend Service
-- **Service Name**: hiit-revolution-frontend
+- **Service Name**: hit-republic-frontend
 - **Type**: Static Site
 - **Build Command:**
 ```bash
@@ -33,7 +33,7 @@ cd client && npm ci && npm run build
 ```
 
 **Environment Variables:**
-- `REACT_APP_API_URL`: https://hiitrevolution.onrender.com
+- `REACT_APP_API_URL`: https://hitrepublic.onrender.com
 
 
 ### Database

@@ -46,7 +46,7 @@ export default function CleanFooter() {
                 <i className="bi bi-activity"></i>
               </div>
               <div className="logo-text">
-                  <span className="logo-main">HIIT Revolution</span>
+                  <span className="logo-main">Hit Republic</span>
                 <span className="logo-subtitle">Elevate Your Game</span>
               </div>
             </div>
@@ -150,20 +150,19 @@ export default function CleanFooter() {
         <div className="footer-bottom">
           <div className="footer-divider"></div>
           <div className="footer-meta">
-            <div className="copyright">
-              © {new Date().getFullYear()} HIIT Revolution. All rights reserved.
+<div className="copyright">
+              © {new Date().getFullYear()} Hit Republic. All rights reserved.
             </div>
-            <div className="legal-links">
+            <div className="credits">
+              Crafted with <i className="bi bi-heart-fill"></i> by Hit Republic Team
+            </div>
+<div className="legal-links">
               <Link to="/privacy-policy">Privacy Policy</Link>
               <Link to="/terms-of-service">Terms of Service</Link>
               <Link to="/cookies">Cookie Policy</Link>
             </div>
-            <div className="credits">
-              Crafted with <i className="bi bi-heart-fill"></i> by HIIT Revolution Team
-            </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
   );
 }

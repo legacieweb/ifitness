@@ -1,7 +1,7 @@
 {
   "name": "hiit-revolution",
   "version": "1.0.0",
-  "description": "HIIT Revolution - Modern fitness tracking application",
+  "description": "Hit Republic - Modern fitness tracking application",
   "main": "server/server.js",
   "scripts": {
     "install-all": "npm install --prefix server && npm install --prefix client",
@@ -17,9 +17,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "bootstrap-icons": "^1.13.1",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
-    "multer": "^2.0.2"
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.1",
+    "multer": "^2.0.2",
+    "resend": "^6.12.2"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"

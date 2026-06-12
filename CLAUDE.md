@@ -1,4 +1,4 @@
-# Fitness Tracker - Development Notes
+# Hit Republic - Development Notes
 
 ## Quick Start
 

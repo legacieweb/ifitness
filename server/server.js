@@ -20,7 +20,7 @@ app.use('/api/bootcamps', require('./routes/bootcamps'));
 app.use('/api/outdoor-activities', require('./routes/outdoorActivities'));
 
 app.get('/api', (req, res) => {
-  res.json({ message: 'Welcome to HIIT Revolution API' });
+  res.json({ message: 'Welcome to Hit Republic API' });
 });
 
 const buildPath = path.join(__dirname, '../client/build');

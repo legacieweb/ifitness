@@ -119,7 +119,7 @@ export default function Contact() {
                   <div className="info-icon"><i className="bi bi-terminal"></i></div>
                   <div className="info-content">
                     <h4>SYSTEM_SUPPORT</h4>
-                    <p>support@hiitrevolution.com</p>
+                    <p>support@hitrepublic.com</p>
                   </div>
                 </div>
                 <div className="info-node reveal">

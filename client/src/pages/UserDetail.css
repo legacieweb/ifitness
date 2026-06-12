@@ -17,6 +17,14 @@
   position: relative;
 }
 
+.text-muted {
+  color: #fff !important;
+}
+
+.detail-card .h5 {
+  color: #fff;
+}
+
 .user-detail-wrapper::before {
   content: '';
   position: absolute;

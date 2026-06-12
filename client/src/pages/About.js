@@ -9,7 +9,7 @@ export default function About() {
           <div className="row justify-content-center text-center">
             <div className="col-lg-8">
               <div className="hero-badge">
-                <span>About FitTracker</span>
+                <span>About Hit Republic</span>
               </div>
               <h1 className="page-title">
                 Transforming Lives Through
@@ -33,9 +33,9 @@ export default function About() {
                 <div className="section-badge">
                   <span>Our Mission</span>
                 </div>
-                <h2 className="section-title">Empowering Your Fitness Journey</h2>
+                <h2 className="section-title">Empowering Your Fitness Journey at Hit Republic</h2>
                 <p className="section-description">
-                  At FitTracker, we believe that everyone deserves access to personalized fitness guidance.
+                  At Hit Republic, we believe that everyone deserves access to personalized fitness guidance.
                   Our platform uses advanced AI algorithms to create customized workout plans, track your progress,
                   and provide real-time motivation to help you achieve your goals.
                 </p>
@@ -153,8 +153,8 @@ export default function About() {
             <div className="section-badge">
               <span>Our Team</span>
             </div>
-            <h2 className="section-title">Meet the People Behind FitTracker</h2>
-            <p className="section-subtitle">A diverse team of fitness enthusiasts, developers, and designers working together</p>
+<h2 className="section-title">Meet the People Behind Hit Republic</h2>
+              <p className="section-subtitle">A diverse team of fitness enthusiasts, developers, and designers working together</p>
           </div>
           
           <div className="team-grid">
@@ -209,7 +209,7 @@ export default function About() {
               </div>
               <h4>Alex Foster</h4>
               <p className="member-role">Customer Success</p>
-              <p className="member-bio">Customer advocate ensuring every user has an amazing experience with FitTracker.</p>
+              <p className="member-bio">Customer advocate ensuring every user has an amazing experience with Hit Republic.</p>
             </div>
           </div>
         </div>
@@ -222,7 +222,7 @@ export default function About() {
             <div className="section-badge">
               <span>Our Journey</span>
             </div>
-            <h2 className="section-title">The FitTracker Story</h2>
+            <h2 className="section-title">The Hit Republic Story</h2>
             <p className="section-subtitle">From idea to the leading fitness platform</p>
           </div>
           
@@ -233,7 +233,7 @@ export default function About() {
               </div>
               <div className="timeline-content">
                 <h3>The Beginning</h3>
-                <p>FitTracker was born from a simple idea: make personalized fitness accessible to everyone through technology.</p>
+                <p>Hit Republic was born from a simple idea: make personalized fitness accessible to everyone through technology.</p>
               </div>
             </div>
             
@@ -287,7 +287,7 @@ export default function About() {
             <div className="cta-content">
               <h2 className="cta-title">Ready to Join Our Community?</h2>
               <p className="cta-description">
-                Start your fitness journey with FitTracker today and experience the power of personalized fitness technology.
+                Start your fitness journey with Hit Republic today and experience the power of personalized fitness technology.
               </p>
               <div className="cta-buttons">
                 <a href="/register" className="btn-primary-modern">

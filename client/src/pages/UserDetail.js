@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { suspendUser, unsuspendUser, updateUserRoutine, sendRoutineReminder } from '../services/api';
@@ -245,20 +245,20 @@ export default function UserDetail() {
                   <h3>BIOMETRIC DATA</h3>
                   <div className="row g-3">
                     <div className="col-6">
-                      <label className="text-muted small d-block">WEIGHT</label>
+                      <label className="text-white small d-block">WEIGHT</label>
                       <span className="h5">{user.weight || '--'} KG</span>
                     </div>
                     <div className="col-6">
-                      <label className="text-muted small d-block">HEIGHT</label>
+                      <label className="text-white small d-block">HEIGHT</label>
                       <span className="h5">{user.height || '--'} CM</span>
                     </div>
                     <div className="col-6">
-                      <label className="text-muted small d-block">AGE</label>
+                      <label className="text-white small d-block">AGE</label>
                       <span className="h5">{user.age || '--'} YRS</span>
                     </div>
                     <div className="col-6">
-                      <label className="text-muted small d-block">GOAL</label>
-                      <span className="h5 text-crimson">{user.goal || 'NOT SET'}</span>
+                      <label className="text-white small d-block">GOAL</label>
+                      <span className="h5 text-white">{user.goal || 'NOT SET'}</span>
                     </div>
                   </div>
                 </div>
@@ -295,16 +295,16 @@ export default function UserDetail() {
                   <div key={w._id} className="workout-item">
                     <div>
                       <span className="fw-bold d-block">{w.name.toUpperCase()}</span>
-                      <span className="text-muted small">{new Date(w.date).toLocaleDateString()}</span>
+                      <span className="text-white small">{new Date(w.date).toLocaleDateString()}</span>
                     </div>
                     <div className="text-end">
                       <span className="text-crimson fw-bold">{w.caloriesBurned} KCAL</span>
-                      <span className="d-block text-muted small">{w.duration} MIN</span>
+                      <span className="d-block text-white small">{w.duration} MIN</span>
                     </div>
                   </div>
                 ))
               ) : (
-                <div className="text-center py-4 text-muted">NO MISSIONS LOGGED</div>
+                <div className="text-center py-4 text-white">NO MISSIONS LOGGED</div>
               )}
             </div>
           )}
@@ -378,7 +378,7 @@ export default function UserDetail() {
 
                       <div className="routine-exercises-section">
                         <div className="d-flex justify-content-between align-items-center mb-3">
-                          <h4 className="m-0 small text-muted">EXERCISE PROTOCOLS</h4>
+                          <h4 className="m-0 small text-white">EXERCISE PROTOCOLS</h4>
                           <button className="text-btn" onClick={() => handleAddExercise(dIdx)}>
                             <i className="bi bi-plus"></i> ATTACH PROTOCOL
                           </button>
@@ -429,9 +429,9 @@ export default function UserDetail() {
                             ))}
                           </div>
                         ) : (
-                          <div className="text-center py-2 text-muted small border border-dashed rounded">
-                            NO EXERCISE PROTOCOLS DEFINED
-                          </div>
+<div className="text-center py-2 text-white small border border-dashed rounded">
+                             NO EXERCISE PROTOCOLS DEFINED
+                           </div>
                         )}
                       </div>
                     </div>
@@ -439,8 +439,8 @@ export default function UserDetail() {
                 </div>
               ) : (
                 <div className="detail-card text-center py-5">
-                  <i className="bi bi-calendar-x h1 text-muted d-block mb-3"></i>
-                  <p className="text-muted">NO MISSION PARAMETERS DEFINED FOR THIS OPERATOR</p>
+                  <i className="bi bi-calendar-x h1 text-white d-block mb-3"></i>
+                  <p className="text-white">NO MISSION PARAMETERS DEFINED FOR THIS OPERATOR</p>
                   <button className="admin-btn-primary mt-3" onClick={handleAddRoutineDay}>
                     INITIALIZE WEEKLY ROUTINE
                   </button>

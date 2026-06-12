@@ -57,7 +57,7 @@ export default function Home() {
 
             <div className="creative-center-media reveal">
               <div className="main-portal">
-                <img src="https://i.imgur.com/Z8jmkqi.png" alt="Elite Athlete" className="portal-image" />
+                <img src="https://i.imgur.com/vQmZsZ2.png" alt="Elite Athlete" className="portal-image" />
                 <div className="portal-ring"></div>
                 <div className="portal-scanner"></div>
               </div>

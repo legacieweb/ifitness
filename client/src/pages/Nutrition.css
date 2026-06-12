@@ -308,5 +308,19 @@
 .empty-meals {
   text-align: center;
   padding: 40px;
-  color: rgba(0, 102, 255, 0.4);
+  color: #fff;
+}
+
+.empty-meals p {
+  color: #fff;
+}
+
+.btn-fusion {
+  background: var(--fusion-blue) !important;
+  color: #000 !important;
+}
+
+.btn-fusion:hover {
+  transform: none;
+  box-shadow: none;
 }

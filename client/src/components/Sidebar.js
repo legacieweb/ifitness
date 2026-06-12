@@ -35,8 +35,8 @@ export default function Sidebar({ isOpen, onClose }) {
     <div className={`fusion-sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-brand-accent">
         <NavLink to="/" className="sidebar-logo-accent" onClick={handleLinkClick}>
-          <img src="/logo.png" alt="HIIT Revolution" className="sidebar-logo-img" />
-          <span>HIIT <span className="text-fusion">Revolution</span></span>
+          <img src="https://i.imgur.com/2vryV0j.png" alt="HIT Republic" className="sidebar-logo-img" />
+          <span>HIT <span className="text-fusion">Republic</span></span>
         </NavLink>
       </div>
 

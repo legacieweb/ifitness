@@ -37,9 +37,9 @@ export default function Navigation() {
       <nav className="fusion-nav-container">
         <Link to="/" className="fusion-brand" onClick={() => setIsMenuOpen(false)}>
           <div className="brand-icon-fusion">
-            <img src="/logo.png" alt="HIIT Revolution" className="nav-logo-img" />
+            <img src="https://i.imgur.com/2vryV0j.png" alt="Hit Republic" className="nav-logo-img" />
           </div>
-          <span className="brand-text">HIIT <span className="text-fusion">Revolution</span></span>
+          <span className="brand-text">Hit <span className="text-fusion">Republic</span></span>
         </Link>
 
         <div className={`fusion-menu ${isMenuOpen ? 'open' : ''}`}>
