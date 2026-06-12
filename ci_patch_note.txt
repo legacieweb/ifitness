@@ -1,0 +1,6 @@
+Render build fix summary:
+- Updated render.yaml to use `npm install` for both client and server build steps (avoid `npm ci` which fails if package-lock.json is missing).
+- Commands now include `--no-audit --no-fund` to reduce noisy output and speed up builds.
+
+If Render is still running `npm ci`, the actual build command is coming from a different Render configuration (e.g., a different render.yaml, a manual service override, or another repo subfolder). Check the Render service settings/logs for the exact buildCommand being executed.
+
